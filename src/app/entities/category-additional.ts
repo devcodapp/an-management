@@ -1,5 +1,4 @@
 import { Replace } from '@helpers/Replace';
-import { randomUUID } from 'node:crypto';
 import { BaseEntity } from './base-entity';
 
 export interface CategoryAdditionalProps {

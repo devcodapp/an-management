@@ -6,7 +6,7 @@ export interface AdditionalProps {
   name: string;
   price: number;
   imageUrl: string;
-  categories: CategoryAdditional[];
+  category: CategoryAdditional;
 }
 
 export class Additional extends BaseEntity {
@@ -40,11 +40,11 @@ export class Additional extends BaseEntity {
   public get imageUrl(): string {
     return this.props.imageUrl;
   }
-  public set categories(categories: CategoryAdditional[]) {
-    this.props.categories = categories;
+  public set category(category: CategoryAdditional) {
+    this.props.category = category;
   }
 
-  public get categories(): CategoryAdditional[] {
-    return this.props.categories;
+  public get category(): CategoryAdditional {
+    return this.props.category;
   }
 }
