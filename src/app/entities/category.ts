@@ -1,30 +1,21 @@
 import { Replace } from '@helpers/Replace';
-import { randomUUID } from 'node:crypto';
+import { BaseEntity } from './base-entity';
 
 export interface CategoryProps {
   name: string;
   order: number;
   imageUrl: string;
-  createdAt: Date;
 }
 
-export class Category {
-  private _id: string;
+export class Category extends BaseEntity {
   private props: CategoryProps;
 
   constructor(
     props: Replace<CategoryProps, { createdAt?: Date }>,
     id?: string,
   ) {
-    this._id = id ?? randomUUID();
-    this.props = {
-      ...props,
-      createdAt: props.createdAt ?? new Date(),
-    };
-  }
-
-  public get id(): string {
-    return this._id;
+    super({ id, createdAt: props.createdAt });
+    this.props = props;
   }
 
   public set name(name: string) {
@@ -47,9 +38,5 @@ export class Category {
 
   public get imageUrl(): string {
     return this.props.imageUrl;
-  }
-
-  public get createdAt(): Date {
-    return this.props.createdAt;
   }
 }
