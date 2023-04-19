@@ -5,7 +5,6 @@ import { AdditionalsRepository } from '../repositories/additional-repository';
 interface CreateAdditionalRequest {
   name: string;
   categoryId: string;
-  imageUrl: string;
   price: number;
 }
 interface CreateAdditionalResponse {
@@ -19,13 +18,13 @@ export class CreateAdditional {
   async execute(
     request: CreateAdditionalRequest,
   ): Promise<CreateAdditionalResponse> {
-    const { categoryId, imageUrl, name, price } = request;
+    const { categoryId, name, price } = request;
 
     const additional = new Additional(
       {
         name,
         categoryId,
-        imageUrl,
+        imageUrl: 'url/additional',
         price,
       },
       { createdUser: '123' },
