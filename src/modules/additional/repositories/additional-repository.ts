@@ -1,4 +1,4 @@
-import { Additional } from '@app/entities/additional';
+import { Additional } from '../entities/additional';
 import { AdditionalFilterInput } from '../interfaces/additional-filter.input';
 
 export abstract class AdditionalsRepository {

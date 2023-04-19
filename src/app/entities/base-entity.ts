@@ -3,7 +3,7 @@ import { randomUUID } from 'node:crypto';
 export interface BaseEntityProps {
   id?: string;
   createdAt?: Date;
-  createdUser: string;
+  createdUser?: string;
   deletedAt?: Date | null;
   deletedUser?: string | null;
 }
@@ -18,7 +18,7 @@ export class BaseEntity {
   constructor(props: BaseEntityProps) {
     this._id = props.id ?? randomUUID();
     this._createdAt = props.createdAt ?? new Date();
-    this._createdUser = props.createdUser;
+    this._createdUser = props.createdUser!;
     this._deletedAt = props.deletedAt ?? null;
     this._deletedUser = props.deletedUser ?? null;
   }

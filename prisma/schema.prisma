@@ -11,12 +11,31 @@ datasource db {
 }
 
 model CategoryAdditional {
-  id          String    @id
-  name String
-  order       Int
-  companyId   String
+  id        String @id
+  name      String
+  order     Int
+  companyId String
+
   createdUser String
   createdAt   DateTime  @default(now())
   deletedUser String?
   deletedAt   DateTime?
+
+  Additional Additional[]
+}
+
+model Additional {
+  id       String @id
+  name     String
+  price    Float
+  imageUrl String
+
+  categoryId String
+
+  createdUser String
+  createdAt   DateTime  @default(now())
+  deletedUser String?
+  deletedAt   DateTime?
+
+  category CategoryAdditional @relation(fields: [categoryId], references: [id])
 }

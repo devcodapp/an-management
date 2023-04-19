@@ -9,14 +9,12 @@ interface CreateAdditionalRequest {
   price: number;
 }
 interface CreateAdditionalResponse {
-  categoryAdditional: Additional;
+  additional: Additional;
 }
 
 @Injectable()
 export class CreateAdditional {
-  constructor(
-    private additionalsRepository: AdditionalsRepository,
-  ) {}
+  constructor(private additionalsRepository: AdditionalsRepository) {}
 
   async execute(
     request: CreateAdditionalRequest,
@@ -36,7 +34,7 @@ export class CreateAdditional {
     await this.additionalsRepository.create(additional);
 
     return {
-        additional,
+      additional,
     };
   }
 }
