@@ -1,0 +1,22 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model CategoryAdditional {
+  id          String    @id
+  name String
+  order       Int
+  companyId   String
+  createdUser String
+  createdAt   DateTime  @default(now())
+  deletedUser String?
+  deletedAt   DateTime?
+}
