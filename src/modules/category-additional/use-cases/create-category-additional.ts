@@ -1,6 +1,7 @@
 import { CategoryAdditional } from '../entities/category-additional';
 import { Injectable } from '@nestjs/common';
 import { CategoryAdditionalsRepository } from '../repositories/category-additional-repository';
+import { Order } from '@shared/entities/order';
 
 interface CreateCategoryAdditionalRequest {
   name: string;
@@ -25,7 +26,7 @@ export class CreateCategoryAdditional {
     const categoryAdditional = new CategoryAdditional(
       {
         name,
-        order,
+        order: new Order(order),
         companyId,
       },
       { createdUser: '123' },

@@ -24,7 +24,8 @@
       "@app/*": ["./src/app/*"],
       "@helpers/*": ["./src/helpers/*"],
       "@modules/*": ["./src/modules/*"],
-      "@test/*": ["./test/*"]
+      "@test/*": ["./test/*"],
+      "@shared/*": ["./src/shared/*"]
     }
   }
 }

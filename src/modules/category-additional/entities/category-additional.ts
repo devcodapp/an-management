@@ -1,9 +1,9 @@
 import { BaseEntity, BaseEntityProps } from '@app/entities/base-entity';
-import { Replace } from '@helpers/Replace';
+import { Order } from '@shared/entities/order';
 
 export interface CategoryAdditionalProps {
   name: string;
-  order: number;
+  order: Order;
   companyId: string;
 }
 
@@ -16,18 +16,18 @@ export class CategoryAdditional extends BaseEntity {
   }
 
   public set name(name: string) {
-    this.props.name = name;
+    this.props.name = name.toUpperCase();
   }
 
   public get name(): string {
     return this.props.name;
   }
 
-  public set order(order: number) {
+  public set order(order: Order) {
     this.props.order = order;
   }
 
-  public get order(): number {
+  public get order(): Order {
     return this.props.order;
   }
 

@@ -2,6 +2,7 @@ import { CategoryAdditional } from '../entities/category-additional';
 import { Injectable } from '@nestjs/common';
 import { CategoryAdditionalsRepository } from '../repositories/category-additional-repository';
 import { CategoryAdditionalNotFound } from './errors/category-additional-not-found';
+import { Order } from '@shared/entities/order';
 
 interface SaveCategoryAdditionalRequest {
   categoryAdditionalId: string;
@@ -33,7 +34,7 @@ export class SaveCategoryAdditional {
     }
 
     name ? (categoryAdditional.name = name) : null;
-    order ? (categoryAdditional.order = order) : null;
+    order ? (categoryAdditional.order = new Order(order)) : null;
 
     await this.categoryAdditionalRepository.save(categoryAdditional);
 

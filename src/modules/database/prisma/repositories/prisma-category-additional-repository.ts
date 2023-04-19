@@ -15,7 +15,7 @@ export class PrismaCategoryAdditionalRepository
     const raw = PrismaCategoryAdditionalMapper.toPrisma(categoryAdditional);
 
     await this.prisma.categoryAdditional.create({
-      data: raw,
+      data: { ...raw, order: raw.order.value },
     });
   }
   async categoryAdditional(
@@ -46,7 +46,7 @@ export class PrismaCategoryAdditionalRepository
     const { id, ...raw } =
       PrismaCategoryAdditionalMapper.toPrisma(categoryAdditional);
     await this.prisma.categoryAdditional.update({
-      data: raw,
+      data: { ...raw, order: raw.order.value },
       where: { id },
     });
   }
