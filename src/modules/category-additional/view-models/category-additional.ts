@@ -5,7 +5,8 @@ export class CategoryAdditionalViewModel {
     return {
       id: categoryAdditional.id,
       name: categoryAdditional.name,
-      order: categoryAdditional.order,
+      order: categoryAdditional.order.value,
+      companyId: categoryAdditional.companyId,
     };
   }
 }

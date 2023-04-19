@@ -10,7 +10,5 @@ export abstract class AdditionalsRepository {
     filters: AdditionalFilterInput,
   ): Promise<Additional[] | null>;
 
-  abstract save(Additional: Additional): Promise<void>;
-
-  abstract delete(AdditionalId: string): Promise<void>;
+  abstract save(additional: Additional): Promise<void>;
 }
