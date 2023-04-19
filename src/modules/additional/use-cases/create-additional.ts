@@ -28,7 +28,7 @@ export class CreateAdditional {
         imageUrl,
         price,
       },
-      {},
+      { createdUser: '123' },
     );
 
     await this.additionalsRepository.create(additional);
