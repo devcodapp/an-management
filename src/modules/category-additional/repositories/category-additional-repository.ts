@@ -13,6 +13,4 @@ export abstract class CategoryAdditionalsRepository {
   ): Promise<CategoryAdditional[] | null>;
 
   abstract save(categoryAdditional: CategoryAdditional): Promise<void>;
-
-  abstract delete(categoryAdditionalId: string): Promise<void>;
 }

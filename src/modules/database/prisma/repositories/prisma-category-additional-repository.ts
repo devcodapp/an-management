@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { CategoryAdditional } from '@modules/category-additional/entities/category-additional';
 import { PrismaCategoryAdditionalMapper } from '../mappers/prisma-category-additional-mapper';
+import { CategoryAdditionalFilterInput } from '@modules/category-additional/interfaces/category-additional-filter.input';
 
 @Injectable()
 export class PrismaCategoryAdditionalRepository
@@ -17,18 +18,34 @@ export class PrismaCategoryAdditionalRepository
       data: raw,
     });
   }
-  categoryAdditional(
+  async categoryAdditional(
     categoryAdditionalId: string,
   ): Promise<CategoryAdditional | null> {
-    throw new Error('Method not implemented.');
+    const categoryAdditional = await this.prisma.categoryAdditional.findUnique({
+      where: { id: categoryAdditionalId },
+    });
+
+    if (!categoryAdditional) {
+      return null;
+    }
+
+    return PrismaCategoryAdditionalMapper.toDomain(categoryAdditional);
   }
-  categoryAdditionals(filters: any): Promise<CategoryAdditional[] | null> {
-    throw new Error('Method not implemented.');
+
+  async categoryAdditionals(
+    filters: CategoryAdditionalFilterInput,
+  ): Promise<CategoryAdditional[] | null> {
+    const categoryAdditionals = await this.prisma.categoryAdditional.findMany({
+      where: { ...filters },
+      orderBy: { name: 'asc' },
+    });
+    return categoryAdditionals.map(PrismaCategoryAdditionalMapper.toDomain);
   }
-  save(categoryAdditional: CategoryAdditional): Promise<void> {
-    throw new Error('Method not implemented.');
-  }
-  delete(categoryAdditionalId: string): Promise<void> {
-    throw new Error('Method not implemented.');
+
+  async save(categoryAdditional: CategoryAdditional): Promise<void> {
+    await this.prisma.categoryAdditional.update({
+      data: categoryAdditional,
+      where: { id: categoryAdditional.id },
+    });
   }
 }
