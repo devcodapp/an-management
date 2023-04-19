@@ -42,11 +42,9 @@ export class CategoryAdditionalController {
   async categoryAdditionals(
     @Query() query: FilterCategoryAdditionalBody,
   ): Promise<any> {
-    console.log(query);
     const { categoryAdditionals } = await this.filterCategoryAdditional.execute(
       query,
     );
-    console.log(categoryAdditionals);
     return {
       categoryAdditionals: categoryAdditionals?.map(
         CategoryAdditionalViewModel.toHTTP,
