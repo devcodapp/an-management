@@ -27,6 +27,7 @@ export class PrismaCategoryAdditionalMapper {
         createdUser: raw.createdUser,
         deletedAt: raw.deletedAt,
         deletedUser: raw.deletedUser,
+        id: raw.id,
       },
     );
   }
