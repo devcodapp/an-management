@@ -1,6 +1,4 @@
-import { Replace } from '@helpers/Replace';
-import { BaseEntity } from './base-entity';
-// import { CategoryAdditional } from './category-additional';
+import { BaseEntity, BaseEntityProps } from '@app/entities/base-entity';
 
 export interface AdditionalProps {
   name: string;
@@ -12,11 +10,8 @@ export interface AdditionalProps {
 export class Additional extends BaseEntity {
   private props: AdditionalProps;
 
-  constructor(
-    props: Replace<AdditionalProps, { createAt?: Date }>,
-    id?: string,
-  ) {
-    super({ id, createdAt: props.createAt });
+  constructor(props: AdditionalProps, baseProps: BaseEntityProps) {
+    super(baseProps);
   }
 
   public set name(name: string) {

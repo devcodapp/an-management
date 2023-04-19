@@ -23,7 +23,7 @@
     "paths": {
       "@app/*": ["./src/app/*"],
       "@helpers/*": ["./src/helpers/*"],
-      "@infra/*": ["./src/infra/*"],
+      "@modules/*": ["./src/modules/*"],
       "@test/*": ["./test/*"]
     }
   }
