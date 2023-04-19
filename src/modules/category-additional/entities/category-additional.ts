@@ -1,4 +1,4 @@
-import { BaseEntity, BaseEntityProps } from '@app/entities/base-entity';
+import { BaseEntity, BaseEntityProps } from '@shared/entities/base-entity';
 import { Order } from '@shared/entities/order';
 
 export interface CategoryAdditionalProps {

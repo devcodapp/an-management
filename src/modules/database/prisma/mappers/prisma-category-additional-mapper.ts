@@ -1,5 +1,6 @@
 import { CategoryAdditional } from '@modules/category-additional/entities/category-additional';
 import { CategoryAdditional as RawCategoryAdditional } from '@prisma/client';
+import { Order } from '@shared/entities/order';
 
 export class PrismaCategoryAdditionalMapper {
   static toPrisma(categoryAdditional: CategoryAdditional) {
@@ -20,7 +21,7 @@ export class PrismaCategoryAdditionalMapper {
       {
         companyId: raw.companyId,
         name: raw.name,
-        order: raw.order,
+        order: new Order(raw.order),
       },
       {
         createdAt: raw.createdAt,
