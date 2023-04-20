@@ -3,6 +3,7 @@ import { Company } from '../entities/company';
 import { CompaniesRepository } from '../repositories/company-repository';
 import { CompanyNotFound } from './errors/company-not-found';
 import { CloudinaryService } from '@shared/modules/cloudinary/cloudinary.service';
+import { Address } from '../entities/address';
 
 interface SaveCompanyRequest {
   companyId: string;
@@ -11,6 +12,9 @@ interface SaveCompanyRequest {
   tags?: string[];
   type?: string;
   image?: Express.Multer.File;
+  address?: Address;
+  openAt: string;
+  closeAt: string;
 }
 
 interface SaveCompanyResponse {
@@ -25,7 +29,17 @@ export class SaveCompany {
   ) {}
 
   async execute(request: SaveCompanyRequest): Promise<SaveCompanyResponse> {
-    const { companyId, image, description, name, tags, type } = request;
+    const {
+      companyId,
+      image,
+      description,
+      name,
+      tags,
+      type,
+      closeAt,
+      openAt,
+      address,
+    } = request;
 
     const company = await this.companiesRepository.company(companyId);
 
@@ -45,6 +59,9 @@ export class SaveCompany {
     description ? (company.description = description) : null;
     tags ? (company.tags = tags) : null;
     type ? (company.type = type) : null;
+    openAt ? (company.openAt = openAt) : null;
+    closeAt ? (company.closeAt = closeAt) : null;
+    address ? (company.address = new Address(address)) : null;
 
     await this.companiesRepository.save(company);
 

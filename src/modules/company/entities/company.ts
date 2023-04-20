@@ -1,4 +1,5 @@
 import { randomUUID } from 'crypto';
+import { Address } from './address';
 
 interface CompanyProps {
   id?: string;
@@ -6,8 +7,16 @@ interface CompanyProps {
   description: string;
   tags: string[];
   type: string;
+
+  address?: Address;
+
+  isOpened?: boolean;
+  openAt?: string;
+  closeAt?: string;
+
   imageId?: string;
   imageUrl?: string;
+
   createdAt?: Date;
   disableAt?: Date;
 }
@@ -20,6 +29,7 @@ export class Company {
       ...props,
       id: props.id ?? randomUUID(),
       createdAt: props.createdAt ?? new Date(),
+      isOpened: props.isOpened ?? false,
     };
   }
 
@@ -78,11 +88,44 @@ export class Company {
   public set imageUrl(imageUrl: string | undefined) {
     this.props.imageUrl = imageUrl;
   }
+
   public get imageId(): string | undefined {
     return this.props.imageId;
   }
 
   public set imageId(imageId: string | undefined) {
     this.props.imageId = imageId;
+  }
+
+  public get address(): Address | undefined {
+    return this.props.address;
+  }
+
+  public set address(address: Address | undefined) {
+    this.props.address = address;
+  }
+
+  public get openAt(): string | undefined {
+    return this.props.openAt;
+  }
+
+  public set openAt(openAt: string | undefined) {
+    this.props.openAt = openAt;
+  }
+
+  public get isOpened(): boolean | undefined {
+    return this.props.isOpened;
+  }
+
+  public set isOpened(isOpened: boolean | undefined) {
+    this.props.isOpened = isOpened;
+  }
+
+  public get closeAt(): string | undefined {
+    return this.props.closeAt;
+  }
+
+  public set closeAt(closeAt: string | undefined) {
+    this.props.closeAt = closeAt;
   }
 }
