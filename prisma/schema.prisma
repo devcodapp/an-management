@@ -29,6 +29,7 @@ model Additional {
   name     String
   price    Float
   imageUrl String
+  imageId  String
 
   categoryId String
 

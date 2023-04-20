@@ -27,4 +27,11 @@ export class CreateAdditionalBody {
   @IsNotEmpty()
   @IsUUID()
   categoryId: string;
+
+  @ApiProperty({
+    description: 'A imagem do adicional',
+    type: String,
+    format: 'binary',
+  })
+  image: Express.Multer.File;
 }

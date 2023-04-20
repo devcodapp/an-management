@@ -6,6 +6,7 @@ import { DeleteAdditional } from './use-cases/delete-additional';
 import { GetAdditional } from './use-cases/get-additional';
 import { FilterAdditional } from './use-cases/filter-additional';
 import { DatabaseModule } from '@modules/database/database.module';
+import { CloudinaryService } from '@shared/modules/cloudinary/cloudinary.service';
 
 @Module({
   controllers: [AdditionalController],
@@ -15,6 +16,7 @@ import { DatabaseModule } from '@modules/database/database.module';
     DeleteAdditional,
     GetAdditional,
     FilterAdditional,
+    CloudinaryService,
   ],
   imports: [DatabaseModule],
 })

@@ -7,6 +7,7 @@ export class AdditionalViewModel {
       name: additional.name,
       price: additional.price,
       categoryId: additional.categoryId,
+      imageUrl: additional.imageUrl,
       category: {
         id: additional.Category?.id,
         name: additional.Category?.name,

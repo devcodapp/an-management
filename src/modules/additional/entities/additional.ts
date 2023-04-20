@@ -5,6 +5,7 @@ export interface AdditionalProps {
   name: string;
   price: number;
   imageUrl: string;
+  imageId: string;
   categoryId: string;
   Category?: CategoryAdditional;
 }
@@ -39,6 +40,13 @@ export class Additional extends BaseEntity {
 
   public get imageUrl(): string {
     return this.props.imageUrl;
+  }
+  public set imageId(imageId: string) {
+    this.props.imageId = imageId;
+  }
+
+  public get imageId(): string {
+    return this.props.imageId;
   }
   public set categoryId(categoryId: string) {
     this.props.categoryId = categoryId;
