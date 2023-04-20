@@ -35,4 +35,12 @@ export class SaveAdditionalBody {
     required: false,
   })
   categoryId?: string;
+
+  @ApiProperty({
+    description: 'A imagem do adicional',
+    type: String,
+    format: 'binary',
+    required: false,
+  })
+  image?: Express.Multer.File;
 }

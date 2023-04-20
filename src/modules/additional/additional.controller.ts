@@ -7,8 +7,10 @@ import {
   Param,
   Put,
   Patch,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
-import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiConsumes, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateAdditional } from './use-cases/create-additional';
 import { SaveAdditional } from './use-cases/save-additional';
 import { GetAdditional } from './use-cases/get-additional';
@@ -25,6 +27,7 @@ import { FilterAdditional } from './use-cases/filter-additional';
 import { AdditionalViewModel } from './view-models/additional';
 import { CreateAdditionalBody } from './dtos/create-additional-body';
 import { SaveAdditionalBody } from './dtos/save-additional-body';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @ApiTags('Additional')
 @Controller('additional')
@@ -64,10 +67,18 @@ export class AdditionalController {
   }
 
   @Post()
+  @ApiConsumes('multipart/form-data')
   @ApiOperation(CreateAdditionalSwagger)
   @ApiBody({ type: CreateAdditionalBody })
-  async create(@Body() body: CreateAdditionalBody): Promise<any> {
-    const { additional } = await this.createAdditional.execute(body);
+  @UseInterceptors(FileInterceptor('image'))
+  async create(
+    @Body() body: CreateAdditionalBody,
+    @UploadedFile() image: Express.Multer.File,
+  ): Promise<any> {
+    const { additional } = await this.createAdditional.execute({
+      ...body,
+      image,
+    });
 
     return {
       additional: AdditionalViewModel.toHTTP(additional),
@@ -75,10 +86,18 @@ export class AdditionalController {
   }
 
   @Put()
+  @ApiConsumes('multipart/form-data')
   @ApiBody({ type: SaveAdditionalBody })
   @ApiOperation(UpdateAdditionalSwagger)
-  async update(@Body() body: SaveAdditionalBody) {
-    const { additional } = await this.saveAdditional.execute(body);
+  @UseInterceptors(FileInterceptor('image'))
+  async update(
+    @Body() body: SaveAdditionalBody,
+    @UploadedFile() image: Express.Multer.File,
+  ) {
+    const { additional } = await this.saveAdditional.execute({
+      ...body,
+      image,
+    });
 
     return {
       additional: AdditionalViewModel.toHTTP(additional),
