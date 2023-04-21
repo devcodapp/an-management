@@ -1,0 +1,24 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Company {
+  id          String   @id @map("_id")
+  name        String
+  description String
+  tags        String[]
+  type        String
+
+  address Json?
+
+  isOpened Boolean @default(false)
+  openAt   String?
+  closeAt  String?
+
+  imageId  String?
+  imageUrl String?
+
+  createdAt  DateTime  @default(now())
+  disabledAt DateTime?
+}
