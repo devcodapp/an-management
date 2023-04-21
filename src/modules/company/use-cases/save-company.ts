@@ -12,7 +12,7 @@ interface SaveCompanyRequest {
   tags?: string[];
   type?: string;
   image?: Express.Multer.File;
-  address?: Address;
+  address?: any;
   openAt: string;
   closeAt: string;
 }
@@ -38,7 +38,7 @@ export class SaveCompany {
       type,
       closeAt,
       openAt,
-      address,
+      address: addressRaw,
     } = request;
 
     const company = await this.companiesRepository.company(companyId);
@@ -55,14 +55,23 @@ export class SaveCompany {
       company.imageUrl = url;
     }
 
+    if (addressRaw) {
+      const address = JSON.parse(addressRaw);
+      company.address = new Address({
+        city: address.city,
+        district: address.district,
+        state: address.state,
+        street: address.street,
+        zip: address.zip,
+      });
+    }
+
     name ? (company.name = name) : null;
     description ? (company.description = description) : null;
     tags ? (company.tags = tags) : null;
     type ? (company.type = type) : null;
     openAt ? (company.openAt = openAt) : null;
     closeAt ? (company.closeAt = closeAt) : null;
-    address ? (company.address = new Address(address)) : null;
-
     await this.companiesRepository.save(company);
 
     return { company };

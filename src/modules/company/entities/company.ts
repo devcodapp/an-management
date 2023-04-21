@@ -18,7 +18,7 @@ interface CompanyProps {
   imageUrl?: string;
 
   createdAt?: Date;
-  disableAt?: Date;
+  disabledAt?: Date;
 }
 
 export class Company {
@@ -33,20 +33,20 @@ export class Company {
     };
   }
 
-  public get id(): string | undefined {
-    return this.props.id;
+  public get id(): string {
+    return this.props.id ?? randomUUID();
   }
 
   public get createdAt(): Date | undefined {
     return this.props.createdAt;
   }
 
-  public get disableAt(): Date | undefined {
-    return this.props.disableAt;
+  public get disabledAt(): Date | undefined {
+    return this.props.disabledAt;
   }
 
-  public set disableAt(disableAt: Date | undefined) {
-    this.props.disableAt = disableAt;
+  public set disabledAt(disabledAt: Date | undefined) {
+    this.props.disabledAt = disabledAt;
   }
 
   public get name(): string {

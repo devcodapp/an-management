@@ -25,7 +25,7 @@ export class DisableCompany {
       throw new CompanyNotFound();
     }
 
-    company.disableAt = new Date();
+    company.disabledAt = new Date();
 
     await this.companiesRepository.save(company);
 
