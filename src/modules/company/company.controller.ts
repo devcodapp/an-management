@@ -24,7 +24,7 @@ import {
   UpdateCompanySwagger,
 } from './swagger/company.swagger';
 import { FilterCompanyBody } from './dtos/filter-company-body';
-import { CompanyViewModel } from './view-models/company';
+import { CompanyViewModel, ICompanyView } from './view-models/company';
 import { CreateCompanyBody } from './dtos/create-company-body';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { SaveCompanyBody } from './dtos/save-company-body';
@@ -42,19 +42,27 @@ export class CompanyController {
 
   @Get()
   @ApiOperation(FilterCompanySwagger)
-  async companies(@Query() query: FilterCompanyBody): Promise<any> {
+  async companies(
+    @Query() query: FilterCompanyBody,
+  ): Promise<{ companies: ICompanyView[] } | null> {
     const { companies } = await this.filterCompany.execute(query);
+
+    if (!companies) {
+      return null;
+    }
 
     return { companies: companies?.map(CompanyViewModel.toHTTP) };
   }
 
   @Get(':id')
   @ApiOperation(GetCompanySwagger)
-  async company(@Param('id') id: string): Promise<any> {
+  async company(
+    @Param('id') id: string,
+  ): Promise<{ company: ICompanyView } | null> {
     const { company } = await this.getCompany.execute({ id });
 
     if (!company) {
-      return {};
+      return null;
     }
 
     return {
@@ -65,7 +73,9 @@ export class CompanyController {
   @Post()
   @ApiOperation(CreateCompanySwagger)
   @ApiBody({ type: CreateCompanyBody })
-  async create(@Body() body: CreateCompanyBody): Promise<any> {
+  async create(
+    @Body() body: CreateCompanyBody,
+  ): Promise<{ company: ICompanyView }> {
     const { company } = await this.createCompany.execute(body);
 
     return {
@@ -81,7 +91,7 @@ export class CompanyController {
   async update(
     @Body() body: SaveCompanyBody,
     @UploadedFile() image: Express.Multer.File,
-  ) {
+  ): Promise<{ company: ICompanyView }> {
     const { company } = await this.saveCompany.execute({
       ...body,
       image,
@@ -94,7 +104,9 @@ export class CompanyController {
 
   @Patch('disable/:companyId')
   @ApiOperation(DisableCompanySwagger)
-  async disable(@Param('companyId') companyId: string) {
+  async disable(
+    @Param('companyId') companyId: string,
+  ): Promise<{ company: ICompanyView }> {
     const { company } = await this.disableCompany.execute({
       companyId,
     });

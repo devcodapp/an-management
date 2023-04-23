@@ -1,7 +1,7 @@
 import { Company } from '../entities/company';
 
 export class CompanyViewModel {
-  static toHTTP(company: Company) {
+  static toHTTP(company: Company): ICompanyView {
     return {
       id: company.id,
       name: company.name,
@@ -22,4 +22,26 @@ export class CompanyViewModel {
       disabledAt: company.disabledAt,
     };
   }
+}
+
+export interface ICompanyView {
+  id: string;
+  name: string;
+  description: string;
+  tags: string[];
+  type: string;
+  address: IAddress;
+  isOpened?: boolean;
+  openAt?: string;
+  closeAt?: string;
+  imageUrl?: string;
+  disabledAt?: Date;
+}
+
+interface IAddress {
+  street?: string;
+  city?: string;
+  state?: string;
+  zip?: string;
+  district?: string;
 }
