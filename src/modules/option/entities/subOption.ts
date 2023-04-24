@@ -1,14 +1,17 @@
+import { BaseEntity, BaseEntityProps } from '@shared/entities/base-entity';
 interface SubOptionProps {
   name: string;
-  price: number;
+  price?: number;
   imageUrl: string;
   imageId: string;
+  desabledAt?: Date;
 }
 
-export class SubOption {
+export class SubOption extends BaseEntity {
   private props: SubOptionProps;
 
-  constructor(props: SubOptionProps) {
+  constructor(props: SubOptionProps, baseProps: BaseEntityProps) {
+    super(baseProps);
     this.props = props;
   }
 
@@ -20,11 +23,11 @@ export class SubOption {
     return this.props.name;
   }
 
-  public set price(price: number) {
+  public set price(price: number | undefined) {
     this.props.price = price;
   }
 
-  public get price(): number {
+  public get price(): number | undefined {
     return this.props.price;
   }
 
@@ -41,5 +44,12 @@ export class SubOption {
 
   public get imageId(): string {
     return this.props.imageId;
+  }
+  public set desabledAt(desabledAt: Date | undefined) {
+    this.props.desabledAt = desabledAt;
+  }
+
+  public get desabledAt(): Date | undefined {
+    return this.props.desabledAt;
   }
 }

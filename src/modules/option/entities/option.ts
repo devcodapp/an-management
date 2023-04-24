@@ -6,6 +6,7 @@ interface OptionProps {
   description: string;
   suboptions?: SubOption[];
   companyId?: string;
+  desabledAt: Date;
 }
 
 export class Option extends BaseEntity {
@@ -19,7 +20,6 @@ export class Option extends BaseEntity {
   public set name(name: string) {
     this.props.name = name.toUpperCase();
   }
-
   public get name(): string {
     return this.props.name;
   }
@@ -27,7 +27,6 @@ export class Option extends BaseEntity {
   public set description(description: string) {
     this.props.description = description.toUpperCase();
   }
-
   public get description(): string {
     return this.props.description;
   }
@@ -35,8 +34,14 @@ export class Option extends BaseEntity {
   public set suboptions(suboptions: SubOption[] | undefined) {
     this.props.suboptions = suboptions;
   }
-
   public get suboptions(): SubOption[] | undefined {
     return this.props.suboptions;
+  }
+
+  public set desabledAt(desabledAt: Date) {
+    this.props.desabledAt = desabledAt;
+  }
+  public get desabledAt(): Date {
+    return this.props.desabledAt;
   }
 }
