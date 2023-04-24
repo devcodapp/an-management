@@ -5,6 +5,7 @@ import { CloudinaryModule } from '@shared/modules/cloudinary/cloudinary.module';
 import { ConfigModule } from '@nestjs/config';
 import { CompanyModule } from './modules/company/company.module';
 import { DatabaseModule } from '@shared/modules/database/database.module';
+import { OptionModule } from './modules/option/option.module';
 @Module({
   imports: [
     CategoryAdditionalModule,
@@ -14,7 +15,8 @@ import { DatabaseModule } from '@shared/modules/database/database.module';
     ConfigModule.forRoot({
       envFilePath: '.env',
     }),
+    OptionModule,
     CompanyModule,
   ],
 })
-export class AppModule {}
+export class AppModule { }
