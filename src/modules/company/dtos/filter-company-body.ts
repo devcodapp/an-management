@@ -40,4 +40,12 @@ export class FilterCompanyBody {
     example: true,
   })
   isOpened: boolean;
+
+  @ApiProperty({
+    description: 'Busca empresas que foram desativadas',
+    type: Boolean,
+    required: false,
+    example: true,
+  })
+  disabledAt: boolean;
 }

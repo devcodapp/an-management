@@ -16,6 +16,14 @@ export const UpdateCompanySwagger: Partial<ApiOperationOptions> = {
   summary: 'Atualiza uma empresa',
   description: 'Atualiza uma empresa e salva no banco de dados',
 };
+export const OpenCompanySwagger: Partial<ApiOperationOptions> = {
+  summary: 'Define uma empresa como aberta',
+  description: 'Desativa uma empresa',
+};
+export const CloseCompanySwagger: Partial<ApiOperationOptions> = {
+  summary: 'Define uma empresa como fechada',
+  description: 'Define uma empresa como fechada',
+};
 export const DisableCompanySwagger: Partial<ApiOperationOptions> = {
   summary: 'Desativa uma empresa',
   description: 'Desativa uma empresa',

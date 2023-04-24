@@ -17,10 +17,12 @@ import { GetCompany } from './use-cases/get-company';
 import { FilterCompany } from './use-cases/filter-company';
 import { DisableCompany } from './use-cases/disable-company';
 import {
+  CloseCompanySwagger,
   CreateCompanySwagger,
   DisableCompanySwagger,
   FilterCompanySwagger,
   GetCompanySwagger,
+  OpenCompanySwagger,
   UpdateCompanySwagger,
 } from './swagger/company.swagger';
 import { FilterCompanyBody } from './dtos/filter-company-body';
@@ -28,9 +30,14 @@ import { CompanyViewModel, ICompanyView } from './view-models/company';
 import { CreateCompanyBody } from './dtos/create-company-body';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { SaveCompanyBody } from './dtos/save-company-body';
+import { OpenCompany } from './use-cases/open-company';
+import { CloseCompany } from './use-cases/close-company';
+import { BooleanInterceptor } from 'src/interceptors/boolean/boolean.interceptor';
+import { ArrayInterceptor } from 'src/interceptors/array/array.interceptor';
 
 @ApiTags('Company')
 @Controller('company')
+@UseInterceptors(BooleanInterceptor, ArrayInterceptor)
 export class CompanyController {
   constructor(
     private createCompany: CreateCompany,
@@ -38,6 +45,8 @@ export class CompanyController {
     private getCompany: GetCompany,
     private filterCompany: FilterCompany,
     private disableCompany: DisableCompany,
+    private openCompany: OpenCompany,
+    private closeCompany: CloseCompany,
   ) {}
 
   @Get()
@@ -45,6 +54,7 @@ export class CompanyController {
   async companies(
     @Query() query: FilterCompanyBody,
   ): Promise<{ companies: ICompanyView[] } | null> {
+    console.log(query);
     const { companies } = await this.filterCompany.execute(query);
 
     if (!companies) {
@@ -84,22 +94,32 @@ export class CompanyController {
   }
 
   @Put()
-  @ApiConsumes('multipart/form-data')
   @ApiBody({ type: SaveCompanyBody })
   @ApiOperation(UpdateCompanySwagger)
-  @UseInterceptors(FileInterceptor('image'))
   async update(
     @Body() body: SaveCompanyBody,
-    @UploadedFile() image: Express.Multer.File,
   ): Promise<{ company: ICompanyView }> {
-    const { company } = await this.saveCompany.execute({
-      ...body,
-      image,
-    });
+    const { company } = await this.saveCompany.execute(body);
 
     return {
       company: CompanyViewModel.toHTTP(company),
     };
+  }
+
+  @Patch('open/:companyId')
+  @ApiOperation(OpenCompanySwagger)
+  async open(@Param('companyId') companyId: string): Promise<void> {
+    await this.openCompany.execute({
+      companyId,
+    });
+  }
+
+  @Patch('close/:companyId')
+  @ApiOperation(CloseCompanySwagger)
+  async close(@Param('companyId') companyId: string): Promise<void> {
+    await this.closeCompany.execute({
+      companyId,
+    });
   }
 
   @Patch('disable/:companyId')

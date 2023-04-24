@@ -74,12 +74,4 @@ export class SaveCompanyBody {
     example: '23:00',
   })
   closeAt: string;
-
-  @ApiProperty({
-    description: 'Imagem da empresa',
-    type: String,
-    format: 'binary',
-    required: false,
-  })
-  image: Express.Multer.File;
 }

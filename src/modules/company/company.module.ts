@@ -7,6 +7,8 @@ import { GetCompany } from './use-cases/get-company';
 import { FilterCompany } from './use-cases/filter-company';
 import { DisableCompany } from './use-cases/disable-company';
 import { CloudinaryService } from '@shared/modules/cloudinary/cloudinary.service';
+import { OpenCompany } from './use-cases/open-company';
+import { CloseCompany } from './use-cases/close-company';
 
 @Module({
   controllers: [CompanyController],
@@ -17,6 +19,8 @@ import { CloudinaryService } from '@shared/modules/cloudinary/cloudinary.service
     GetCompany,
     FilterCompany,
     DisableCompany,
+    OpenCompany,
+    CloseCompany,
     CloudinaryService,
   ],
 })

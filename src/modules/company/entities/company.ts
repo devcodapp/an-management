@@ -33,6 +33,14 @@ export class Company {
     };
   }
 
+  public open() {
+    this.props.isOpened = true;
+  }
+
+  public close() {
+    this.props.isOpened = false;
+  }
+
   public get id(): string {
     return this.props.id ?? randomUUID();
   }

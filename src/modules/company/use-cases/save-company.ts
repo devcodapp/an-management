@@ -11,7 +11,6 @@ interface SaveCompanyRequest {
   description?: string;
   tags?: string[];
   type?: string;
-  image?: Express.Multer.File;
   address?: any;
   openAt: string;
   closeAt: string;
@@ -31,7 +30,6 @@ export class SaveCompany {
   async execute(request: SaveCompanyRequest): Promise<SaveCompanyResponse> {
     const {
       companyId,
-      image,
       description,
       name,
       tags,
@@ -47,13 +45,13 @@ export class SaveCompany {
       throw new CompanyNotFound();
     }
 
-    if (image) {
-      if (company.imageId) await this.cloudinary.deleteImage(company.imageId);
+    // if (image) {
+    //   if (company.imageId) await this.cloudinary.deleteImage(company.imageId);
 
-      const { public_id, url } = await this.cloudinary.uploadImage(image);
-      company.imageId = public_id;
-      company.imageUrl = url;
-    }
+    //   const { public_id, url } = await this.cloudinary.uploadImage(image);
+    //   company.imageId = public_id;
+    //   company.imageUrl = url;
+    // }
 
     if (addressRaw) {
       const address = JSON.parse(addressRaw);
