@@ -5,8 +5,8 @@ import { SaveAdditional } from './use-cases/save-additional';
 import { DeleteAdditional } from './use-cases/delete-additional';
 import { GetAdditional } from './use-cases/get-additional';
 import { FilterAdditional } from './use-cases/filter-additional';
-import { DatabaseModule } from '@modules/database/database.module';
 import { CloudinaryService } from '@shared/modules/cloudinary/cloudinary.service';
+import { DatabaseModule } from '@shared/modules/database/database.module';
 
 @Module({
   controllers: [AdditionalController],

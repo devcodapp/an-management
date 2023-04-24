@@ -24,7 +24,7 @@ import {
 import { FilterAdditionalBody } from './dtos/filter-additional-body';
 import { DeleteAdditional } from './use-cases/delete-additional';
 import { FilterAdditional } from './use-cases/filter-additional';
-import { AdditionalViewModel } from './view-models/additional';
+import { AdditionalViewModel, IAdditionalView } from './view-models/additional';
 import { CreateAdditionalBody } from './dtos/create-additional-body';
 import { SaveAdditionalBody } from './dtos/save-additional-body';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -42,8 +42,14 @@ export class AdditionalController {
 
   @Get()
   @ApiOperation(FilterAdditionalSwagger)
-  async additionals(@Query() query: FilterAdditionalBody): Promise<any> {
+  async additionals(
+    @Query() query: FilterAdditionalBody,
+  ): Promise<{ additionals: IAdditionalView[] } | null> {
     const { additionals } = await this.filterAdditional.execute(query);
+
+    if (!additionals) {
+      return null;
+    }
 
     return {
       additionals: additionals?.map(AdditionalViewModel.toHTTP),
@@ -52,13 +58,15 @@ export class AdditionalController {
 
   @Get(':id')
   @ApiOperation(GetAdditionalSwagger)
-  async adittional(@Param('id') id: string): Promise<any> {
+  async adittional(
+    @Param('id') id: string,
+  ): Promise<{ additional: IAdditionalView } | null> {
     const { additional } = await this.getAdditional.execute({
       id,
     });
 
     if (!additional) {
-      return {};
+      return null;
     }
 
     return {
@@ -74,7 +82,7 @@ export class AdditionalController {
   async create(
     @Body() body: CreateAdditionalBody,
     @UploadedFile() image: Express.Multer.File,
-  ): Promise<any> {
+  ): Promise<{ additional: IAdditionalView }> {
     const { additional } = await this.createAdditional.execute({
       ...body,
       image,
@@ -93,7 +101,7 @@ export class AdditionalController {
   async update(
     @Body() body: SaveAdditionalBody,
     @UploadedFile() image: Express.Multer.File,
-  ) {
+  ): Promise<{ additional: IAdditionalView }> {
     const { additional } = await this.saveAdditional.execute({
       ...body,
       image,
@@ -106,7 +114,9 @@ export class AdditionalController {
 
   @Patch(':additionalId')
   @ApiOperation(DeleteAdditionalSwagger)
-  async delete(@Param('additionalId') additionalId: string) {
+  async delete(
+    @Param('additionalId') additionalId: string,
+  ): Promise<{ additional: IAdditionalView }> {
     const { additional } = await this.deleteAdditional.execute({
       additionalId,
     });

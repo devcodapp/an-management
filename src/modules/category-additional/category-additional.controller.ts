@@ -10,7 +10,10 @@ import {
 } from '@nestjs/common';
 import { CreateCategoryAdditional } from './use-cases/create-category-additional';
 import { CreateCategoryAdditionalBody } from './dtos/create-category-additional-body';
-import { CategoryAdditionalViewModel } from './view-models/category-additional';
+import {
+  CategoryAdditionalViewModel,
+  ICategoryAdditionalView,
+} from './view-models/category-additional';
 import { ApiTags, ApiOperation, ApiBody } from '@nestjs/swagger';
 import {
   CreateCategoryAdditionalSwagger,
@@ -41,10 +44,15 @@ export class CategoryAdditionalController {
   @ApiOperation(FilterCategoryAdditionalSwagger)
   async categoryAdditionals(
     @Query() query: FilterCategoryAdditionalBody,
-  ): Promise<any> {
+  ): Promise<{ categoryAdditionals: ICategoryAdditionalView[] } | null> {
     const { categoryAdditionals } = await this.filterCategoryAdditional.execute(
       query,
     );
+
+    if (!categoryAdditionals) {
+      return null;
+    }
+
     return {
       categoryAdditionals: categoryAdditionals?.map(
         CategoryAdditionalViewModel.toHTTP,
@@ -54,13 +62,15 @@ export class CategoryAdditionalController {
 
   @Get(':id')
   @ApiOperation(GetCategoryAdditionalSwagger)
-  async categoryAdittional(@Param('id') id: string): Promise<any> {
+  async categoryAdittional(
+    @Param('id') id: string,
+  ): Promise<{ categoryAdditional: ICategoryAdditionalView } | null> {
     const { categoryAdditional } = await this.getCategoryAdditional.execute({
       id,
     });
 
     if (!categoryAdditional) {
-      return {};
+      return null;
     }
 
     return {
@@ -72,7 +82,9 @@ export class CategoryAdditionalController {
   @Post()
   @ApiOperation(CreateCategoryAdditionalSwagger)
   @ApiBody({ type: CreateCategoryAdditionalBody })
-  async create(@Body() body: CreateCategoryAdditionalBody): Promise<any> {
+  async create(
+    @Body() body: CreateCategoryAdditionalBody,
+  ): Promise<{ categoryAdditional: ICategoryAdditionalView }> {
     const { categoryAdditional } = await this.createCategoryAdditional.execute(
       body,
     );
@@ -85,7 +97,9 @@ export class CategoryAdditionalController {
   @Put()
   @ApiBody({ type: SaveCategoryAdditionalBody })
   @ApiOperation(UpdateCategoryAdditionalSwagger)
-  async update(@Body() body: SaveCategoryAdditionalBody) {
+  async update(
+    @Body() body: SaveCategoryAdditionalBody,
+  ): Promise<{ categoryAdditional: ICategoryAdditionalView }> {
     const { categoryAdditional } = await this.saveCategoryAdditional.execute(
       body,
     );
@@ -98,7 +112,9 @@ export class CategoryAdditionalController {
 
   @Patch(':categoryAdditionalId')
   @ApiOperation(DeleteCategoryAdditionalSwagger)
-  async delete(@Param('categoryAdditionalId') categoryAdditionalId: string) {
+  async delete(
+    @Param('categoryAdditionalId') categoryAdditionalId: string,
+  ): Promise<{ categoryAdditional: ICategoryAdditionalView }> {
     const { categoryAdditional } = await this.deleteCategoryAdditional.execute({
       categoryAdditionalId,
     });

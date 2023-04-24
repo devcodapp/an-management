@@ -4,6 +4,8 @@ import { CategoryAdditionalsRepository } from '@modules/category-additional/repo
 import { PrismaCategoryAdditionalRepository } from './prisma/repositories/prisma-category-additional-repository';
 import { AdditionalsRepository } from '@modules/additional/repositories/additional-repository';
 import { PrismaAdditionalRepository } from './prisma/repositories/prisma-additional-repository';
+import { CompaniesRepository } from '@modules/company/repositories/company-repository';
+import { PrismaCompanyRepository } from './prisma/repositories/prisma-company-repository';
 
 @Module({
   providers: [
@@ -16,7 +18,15 @@ import { PrismaAdditionalRepository } from './prisma/repositories/prisma-additio
       provide: AdditionalsRepository,
       useClass: PrismaAdditionalRepository,
     },
+    {
+      provide: CompaniesRepository,
+      useClass: PrismaCompanyRepository,
+    },
   ],
-  exports: [CategoryAdditionalsRepository, AdditionalsRepository],
+  exports: [
+    CategoryAdditionalsRepository,
+    AdditionalsRepository,
+    CompaniesRepository,
+  ],
 })
 export class DatabaseModule {}
