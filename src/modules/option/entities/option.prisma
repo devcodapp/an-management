@@ -1,0 +1,16 @@
+model Option {
+  id          String    @id @map("_id")
+  name        String
+  price       Float?
+  companyId   String
+  createdUser String
+  createdAt   DateTime  @default(now())
+  deletedUser String?
+  deletedAt   DateTime?
+  company     Company   @relation(fields: [companyId], references: [id])
+}
+
+model Company {
+  id      String   @id @map("_id")
+  options Option[] // One-to-many relationship with the Option model
+}

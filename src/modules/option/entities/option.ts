@@ -4,9 +4,10 @@ import { SubOption } from './suboption';
 interface OptionProps {
   name: string;
   description: string;
+  defaultPrice?: number;
   suboptions?: SubOption[];
   companyId?: string;
-  desabledAt: Date;
+  desabledAt?: Date;
 }
 
 export class Option extends BaseEntity {
@@ -31,6 +32,13 @@ export class Option extends BaseEntity {
     return this.props.description;
   }
 
+  public set defaultPrice(defaultPrice: number | undefined) {
+    this.props.defaultPrice = defaultPrice;
+  }
+  public get defaultPrice(): number | undefined {
+    return this.props.defaultPrice;
+  }
+
   public set suboptions(suboptions: SubOption[] | undefined) {
     this.props.suboptions = suboptions;
   }
@@ -38,10 +46,10 @@ export class Option extends BaseEntity {
     return this.props.suboptions;
   }
 
-  public set desabledAt(desabledAt: Date) {
+  public set desabledAt(desabledAt: Date | undefined) {
     this.props.desabledAt = desabledAt;
   }
-  public get desabledAt(): Date {
+  public get desabledAt(): Date | undefined {
     return this.props.desabledAt;
   }
 }

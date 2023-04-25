@@ -1,9 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { randomUUID } from 'crypto';
 
 export class FilterAdditionalBody {
   @ApiProperty({
-    description: 'O nome do adicional',
+    description: 'O nome da opção',
     type: String,
     example: 'Batata',
     required: false,
@@ -11,18 +10,10 @@ export class FilterAdditionalBody {
   name: string;
 
   @ApiProperty({
-    description: 'O preço do adicional',
+    description: 'O preço da opção',
     type: Number,
     example: 2.99,
     required: false,
   })
   price: number;
-
-  @ApiProperty({
-    description: 'O id da categoria',
-    type: String,
-    example: randomUUID(),
-    required: false,
-  })
-  categoryId: string;
 }

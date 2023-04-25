@@ -1,7 +1,17 @@
 import { IsNotEmpty, IsUUID } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { randomUUID } from 'crypto';
 
 export class CreateAdditionalBody {
+  @ApiProperty({
+    description: 'O id da opção',
+    type: String,
+    example: randomUUID(),
+    required: true,
+  })
+  @IsUUID()
+  optionId: string;
+
   @ApiProperty({
     description: 'O nome da opção',
     type: String,
@@ -19,6 +29,14 @@ export class CreateAdditionalBody {
   description: string;
 
   @ApiProperty({
+    description: 'Preço padrão de cada opção',
+    type: Number,
+    example: 4.39,
+    required: false,
+  })
+  price: number;
+
+  @ApiProperty({
     description: 'O id da categoria',
     type: Array,
     example: [
@@ -31,14 +49,11 @@ export class CreateAdditionalBody {
       },
     ],
   })
-  @IsNotEmpty()
-  @IsUUID()
-  companyId: string;
-
-  @ApiProperty({
-    description: 'A imagem do adicional',
-    type: String,
-    format: 'binary',
-  })
-  image: Express.Multer.File;
+  suboptions?: Array<{
+    name: string;
+    price: number;
+    imageUrl: string;
+    imageId: string;
+    desabledAt: Date;
+  }>;
 }
