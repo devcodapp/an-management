@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class FilterAdditionalBody {
+export class FilterOptionBody {
   @ApiProperty({
     description: 'O nome da opção',
     type: String,

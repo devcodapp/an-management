@@ -3,7 +3,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { randomUUID } from 'crypto';
 import { SubOption } from '../entities/suboption';
 
-export class SaveAdditionalBody {
+export class SaveOptionBody {
   @ApiProperty({
     description: 'O id da opção',
     type: String,

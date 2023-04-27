@@ -2,7 +2,7 @@ import { IsNotEmpty, IsUUID } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { randomUUID } from 'crypto';
 
-export class CreateAdditionalBody {
+export class CreateOptionBody {
   @ApiProperty({
     description: 'O id da opção',
     type: String,

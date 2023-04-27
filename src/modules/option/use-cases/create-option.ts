@@ -2,12 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { Option } from '../entities/option';
 import { OptionRepository } from '../repositories/option-repository';
 import { SubOption } from '../entities/suboption';
+import { CloudinaryService } from '@shared/modules/cloudinary/cloudinary.service';
 
 interface CreateOptionRequest {
   name: string;
   description: string;
   defaultPrice?: number;
-  suboptions: SubOption[];
+  suboptions: { item: SubOption; image: Express.Multer.File }[];
   companyId: string;
 }
 interface CreateOptionResponse {
@@ -16,10 +17,30 @@ interface CreateOptionResponse {
 
 @Injectable()
 export class CreateOption {
-  constructor(private optionRepository: OptionRepository) { }
+  constructor(
+    private optionRepository: OptionRepository,
+    private cloudinary: CloudinaryService,
+  ) {}
 
   async execute(request: CreateOptionRequest): Promise<CreateOptionResponse> {
-    const { name, suboptions, defaultPrice, description, companyId } = request;
+    const {
+      name,
+      suboptions: suboptionsRaw,
+      defaultPrice,
+      description,
+      companyId,
+    } = request;
+
+    const suboptionsPromises = suboptionsRaw.map(async (suboption) => {
+      const { image, item } = suboption;
+      const uploadedImage = await this.cloudinary.uploadImage(image);
+      item.imageId = uploadedImage.public_id;
+      item.imageUrl = uploadedImage.url;
+      return item;
+    });
+
+    const suboptions = await Promise.all(suboptionsPromises);
+
     const option = new Option(
       {
         name,
@@ -27,7 +48,7 @@ export class CreateOption {
         defaultPrice,
         suboptions,
         companyId,
-        desabledAt: undefined,
+        disabledAt: undefined,
       },
       { createdUser: '123' },
     );

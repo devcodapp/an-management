@@ -7,7 +7,7 @@ interface OptionProps {
   defaultPrice?: number;
   suboptions?: SubOption[];
   companyId?: string;
-  desabledAt?: Date;
+  disabledAt?: Date;
 }
 
 export class Option extends BaseEntity {
@@ -46,10 +46,10 @@ export class Option extends BaseEntity {
     return this.props.suboptions;
   }
 
-  public set desabledAt(desabledAt: Date | undefined) {
-    this.props.desabledAt = desabledAt;
+  public set disabledAt(disabledAt: Date | undefined) {
+    this.props.disabledAt = disabledAt;
   }
-  public get desabledAt(): Date | undefined {
-    return this.props.desabledAt;
+  public get disabledAt(): Date | undefined {
+    return this.props.disabledAt;
   }
 }

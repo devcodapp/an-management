@@ -4,7 +4,7 @@ interface SubOptionProps {
   price?: number;
   imageUrl: string;
   imageId: string;
-  desabledAt?: Date;
+  disabledAt?: Date;
 }
 
 export class SubOption extends BaseEntity {
@@ -45,11 +45,11 @@ export class SubOption extends BaseEntity {
   public get imageId(): string {
     return this.props.imageId;
   }
-  public set desabledAt(desabledAt: Date | undefined) {
-    this.props.desabledAt = desabledAt;
+  public set disabledAt(disabledAt: Date | undefined) {
+    this.props.disabledAt = disabledAt;
   }
 
-  public get desabledAt(): Date | undefined {
-    return this.props.desabledAt;
+  public get disabledAt(): Date | undefined {
+    return this.props.disabledAt;
   }
 }

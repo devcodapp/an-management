@@ -11,7 +11,7 @@ interface DeleteAdditionalResponse {
 
 @Injectable()
 export class DeleteOption {
-  constructor(private optionRepository: OptionRepository) { }
+  constructor(private optionRepository: OptionRepository) {}
 
   async execute(
     request: DeleteAdditionalRequest,

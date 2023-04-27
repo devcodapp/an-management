@@ -9,16 +9,16 @@ interface FilterOptionRequest {
 }
 
 interface FilterOptionResponse {
-  option: Option[] | null;
+  options: Option[] | null;
 }
 
 @Injectable()
-export class FilterOptios {
-  constructor(private optionRepository: OptionRepository) { }
+export class FilterOptions {
+  constructor(private optionRepository: OptionRepository) {}
 
   async execute(request: FilterOptionRequest): Promise<FilterOptionResponse> {
-    const option = await this.optionRepository.options(request);
+    const options = await this.optionRepository.options(request);
 
-    return { option };
+    return { options };
   }
 }
