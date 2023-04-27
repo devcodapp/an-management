@@ -38,6 +38,7 @@ model CategoryAdditional {
 model Company {
   id                 String               @id @map("_id")
   CategoryAdditional CategoryAdditional[] @relation(name: "CategoryAdditionalToCompany")
+  CategoryProduct    CategoryProduct[]    @relation(name: "CategoryProductToCompany")
   name               String
   description        String
   tags               String[]
@@ -50,4 +51,19 @@ model Company {
   imageUrl           String?
   createdAt          DateTime             @default(now())
   disabledAt         DateTime?
+}
+
+model CategoryProduct {
+  id          String    @id @map("_id")
+  name        String
+  description String
+  order       Int
+  imageId     String
+  imageUrl    String
+  createdUser String
+  createdAt   DateTime  @default(now())
+  deletedUser String?
+  deletedAt   DateTime?
+  Company     Company   @relation(name: "CategoryProductToCompany", fields: [companyId], references: [id])
+  companyId   String
 }
