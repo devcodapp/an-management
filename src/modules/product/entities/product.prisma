@@ -1,0 +1,41 @@
+model Product {
+  id          String             @id @map("_id")
+  name        String
+  description String
+  price       Float
+  images   ProductImages[]
+  additionals   Additionals[]
+  options   Options[]
+  createdUser String
+  createdAt   DateTime           @default(now())
+  deletedUser String?
+  deletedAt   DateTime?
+  disabledAt DateTime?
+  categoryId  String
+  category    ProductCategory @relation(fields: [categoryId], references: [id])
+}
+
+model ProductCategory {
+  id         String       @id @map("_id")
+  Product Product[]
+}
+
+model ProductImages {
+  id          String             @id @map("_id")
+  product_id  String
+  product     Product            @relation(fields: [product_id], references: [id])
+  productId   String
+  imageUrl    String
+}
+
+model Additionals {
+  id          String             @id @map("_id")
+  product_id  String
+  product     Product            @relation(fields: [product_id], references: [id])
+}
+
+model Options {
+  id          String             @id @map("_id")
+  product_id  String
+  product     Product            @relation(fields: [product_id], references: [id])
+}
