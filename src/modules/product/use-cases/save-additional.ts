@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ProductsRepository } from '../repositories/product-repository';
-import { Product } from '../entities/product';
+import { Product, ProductProps } from '../entities/product';
 import { ProductNotFound } from './errors/product-not-found';
 import { CloudinaryService } from '@shared/modules/cloudinary/cloudinary.service';
 
@@ -13,6 +13,8 @@ interface SaveProductRequest {
     oldImageId: string;
     newImage: Express.Multer.File;
   }[];
+  inventory: ProductProps['inventory'];
+  variants?: ProductProps['variants'];
 }
 interface SaveProductResponse {
   product: Product;
@@ -26,7 +28,15 @@ export class SaveProduct {
   ) {}
 
   async execute(request: SaveProductRequest): Promise<SaveProductResponse> {
-    const { images: imagesRaw, productId, categoryId, price, name } = request;
+    const {
+      images: imagesRaw,
+      productId,
+      categoryId,
+      price,
+      name,
+      inventory,
+      variants,
+    } = request;
 
     const product = await this.productRepository.product(productId);
 
@@ -56,6 +66,8 @@ export class SaveProduct {
     name ? (product.name = name) : null;
     categoryId ? (product.categoryId = categoryId) : null;
     price ? (product.price = price) : null;
+    inventory ? (product.inventory = inventory) : null;
+    variants ? (product.variants = variants) : null;
 
     await this.productRepository.save(product);
 

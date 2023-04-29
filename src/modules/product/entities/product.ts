@@ -7,6 +7,25 @@ export interface ProductProps {
   price: number;
   additionals: Additional[];
   options: string;
+  inventory: {
+    inStoCk?: boolean;
+    amountInStock?: number;
+    SKU?: string;
+  };
+  variants?: {
+    type: string;
+    options: {
+      title: string;
+      imageId: string;
+      PriceDifference: number;
+      SKU?: string;
+      inventory: {
+        inStoCk?: boolean;
+        amountInStock?: number;
+        SKU?: string;
+      };
+    }[];
+  }[];
   images: {
     imageUrl: string;
     imageId: string;
@@ -60,10 +79,23 @@ export class Product extends BaseEntity {
   // public get imageId(): string {
   //   return this.props.imageId;
   // }
+  public set variants(variants: ProductProps['variants']) {
+    this.props.variants = variants;
+  }
+  public get variants(): ProductProps['variants'] {
+    return this.props.variants;
+  }
+
+  public set inventory(inventory: ProductProps['inventory']) {
+    this.props.inventory = inventory;
+  }
+  public get inventory(): ProductProps['inventory'] {
+    return this.props.inventory;
+  }
+
   public set categoryId(categoryId: string) {
     this.props.categoryId = categoryId;
   }
-
   public get categoryId(): string {
     return this.props.categoryId;
   }

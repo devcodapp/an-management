@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CloudinaryService } from '@shared/modules/cloudinary/cloudinary.service';
-import { Product } from '../entities/product';
+import { Product, ProductProps } from '../entities/product';
 import { ProductsRepository } from '../repositories/product-repository';
 import { Additional } from '@modules/additional/entities/additional';
 
@@ -10,10 +10,8 @@ interface CreateProductRequest {
   price: number;
   additionals: Additional[];
   options: string;
-  // images: {
-  //   imageUrl: string;
-  //   imageId: string;
-  // }[];
+  inventory: ProductProps['inventory'];
+  variants?: ProductProps['variants'];
   categoryId: string;
   category?: string;
   images: Array<Express.Multer.File>;
@@ -39,6 +37,8 @@ export class CreateProduct {
       images: imagesRaw,
       options,
       category,
+      inventory,
+      variants,
     } = request;
 
     const images: Product['images'] = [] as Product['images'];
@@ -60,6 +60,8 @@ export class CreateProduct {
         images,
         options,
         category,
+        inventory,
+        variants,
       },
       { createdUser: '123' },
     );
