@@ -46,13 +46,13 @@ export class Product extends BaseEntity {
     return this.props.price;
   }
 
-  // public set imageUrl(imageUrl: string) {
-  //   this.props.imageUrl = imageUrl;
-  // }
+  public set images(images: ProductProps['images']) {
+    this.props.images = images;
+  }
 
-  // public get imageUrl(): string {
-  //   return this.props.imageUrl;
-  // }
+  public get images(): ProductProps['images'] {
+    return this.props.images;
+  }
   // public set imageId(imageId: string) {
   //   this.props.imageId = imageId;
   // }

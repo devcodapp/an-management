@@ -9,7 +9,10 @@ interface SaveProductRequest {
   name?: string;
   price?: number;
   categoryId?: string;
-  // image?: Express.Multer.File;
+  images?: {
+    oldImageId: string;
+    newImage: Express.Multer.File;
+  }[];
 }
 interface SaveProductResponse {
   product: Product;
@@ -23,7 +26,7 @@ export class SaveProduct {
   ) {}
 
   async execute(request: SaveProductRequest): Promise<SaveProductResponse> {
-    const { productId, categoryId, price, name } = request;
+    const { images: imagesRaw, productId, categoryId, price, name } = request;
 
     const product = await this.productRepository.product(productId);
 
@@ -31,13 +34,24 @@ export class SaveProduct {
       throw new ProductNotFound();
     }
 
-    // if (image) {
-    //   await this.cloudinary.deleteImage(product.imageId);
+    if (imagesRaw) {
+      for (const imageRaw of imagesRaw) {
+        await this.cloudinary.deleteImage(imageRaw.oldImageId);
+        const uploadedImage = await this.cloudinary.uploadImage(
+          imageRaw.newImage,
+        );
 
-    //   const uploadedImage = await this.cloudinary.uploadImage(image);
-    //   product.imageId = uploadedImage.public_id;
-    //   product.imageUrl = uploadedImage.url;
-    // }
+        product.images = product.images.map((item) => {
+          if (item.imageId === imageRaw.oldImageId) {
+            return {
+              imageId: uploadedImage.public_id,
+              imageUrl: uploadedImage.url,
+            };
+          }
+          return item;
+        });
+      }
+    }
 
     name ? (product.name = name) : null;
     categoryId ? (product.categoryId = categoryId) : null;

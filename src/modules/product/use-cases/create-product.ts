@@ -10,13 +10,13 @@ interface CreateProductRequest {
   price: number;
   additionals: Additional[];
   options: string;
-  images: {
-    imageUrl: string;
-    imageId: string;
-  }[];
+  // images: {
+  //   imageUrl: string;
+  //   imageId: string;
+  // }[];
   categoryId: string;
   category?: string;
-  // image: Express.Multer.File;
+  images: Array<Express.Multer.File>;
 }
 interface CreateProductResponse {
   product: Product;
@@ -36,11 +36,20 @@ export class CreateProduct {
       price,
       additionals,
       description,
-      images,
+      images: imagesRaw,
       options,
       category,
     } = request;
-    // const uploadedImage = await this.cloudinary.uploadImage(image);
+
+    const images: Product['images'] = [] as Product['images'];
+    for (let i = 0; i < imagesRaw.length; i++) {
+      const uploadedImage = await this.cloudinary.uploadImage(imagesRaw[i]);
+      images.push({
+        imageId: uploadedImage.public_id,
+        imageUrl: uploadedImage.url,
+      });
+    }
+
     const product = new Product(
       {
         name,
