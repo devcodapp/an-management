@@ -21,7 +21,6 @@ export class GetCategoryProduct {
 
     const categoryProduct =
       await this.categoryProductRepository.categoryProduct(id);
-
     return { categoryProduct };
   }
 }

@@ -33,7 +33,7 @@ export class CreateCategoryProduct {
         description,
         imageId: uploadedImage.public_id,
         imageUrl: uploadedImage.url,
-        order: new Order(order),
+        order: new Order(Number(order)),
         companyId,
       },
       { createdUser: '123' },

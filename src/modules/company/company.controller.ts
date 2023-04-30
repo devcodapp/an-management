@@ -54,7 +54,6 @@ export class CompanyController {
   async companies(
     @Query() query: FilterCompanyBody,
   ): Promise<{ companies: ICompanyView[] } | null> {
-    console.log(query);
     const { companies } = await this.filterCompany.execute(query);
 
     if (!companies) {
