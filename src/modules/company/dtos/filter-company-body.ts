@@ -4,7 +4,6 @@ export class FilterCompanyBody {
   @ApiProperty({
     description: 'O nome da empresa',
     type: String,
-    example: 'WebForge',
     required: false,
   })
   name: string;
@@ -13,7 +12,6 @@ export class FilterCompanyBody {
     description: 'A descrição da Empresa',
     type: String,
     required: false,
-    example: 'Lorem Ipsum dolor sit amet, consectetur adipiscing elit',
   })
   description: string;
 
@@ -21,7 +19,6 @@ export class FilterCompanyBody {
     description: 'Tags da empresa',
     type: [String],
     required: false,
-    example: ['Comida', 'Bebidas'],
   })
   tags: string[];
 
@@ -29,7 +26,6 @@ export class FilterCompanyBody {
     description: 'Tipo da empresa',
     type: String,
     required: false,
-    example: 'Restaurante',
   })
   type: string;
 

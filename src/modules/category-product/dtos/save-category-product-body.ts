@@ -6,7 +6,6 @@ export class SaveCategoryProductBody {
   @ApiProperty({
     description: 'O id da categoria de adicional',
     type: String,
-    example: randomUUID(),
     required: true,
   })
   @IsUUID()
@@ -15,7 +14,6 @@ export class SaveCategoryProductBody {
   @ApiProperty({
     description: 'O nome da categoria de produto',
     type: String,
-    example: 'Bebidas',
     required: false,
   })
   name: string;
@@ -23,7 +21,6 @@ export class SaveCategoryProductBody {
   @ApiProperty({
     description: 'A descrição da categoria de produto',
     type: String,
-    example: 'Bebidas',
     required: false,
   })
   description: string;
@@ -31,7 +28,6 @@ export class SaveCategoryProductBody {
   @ApiProperty({
     description: 'A prioridade de amostra da categoria',
     type: Number,
-    example: 3,
     required: false,
   })
   order: number;
@@ -39,7 +35,6 @@ export class SaveCategoryProductBody {
   @ApiProperty({
     description: 'O id da empresa',
     type: String,
-    example: randomUUID(),
     required: false,
   })
   companyId?: string;

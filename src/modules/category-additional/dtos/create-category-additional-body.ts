@@ -6,7 +6,6 @@ export class CreateCategoryAdditionalBody {
   @ApiProperty({
     description: 'O nome da categoria de adicional',
     type: String,
-    example: 'Bebidas',
   })
   @IsNotEmpty()
   name: string;
@@ -14,7 +13,6 @@ export class CreateCategoryAdditionalBody {
   @ApiProperty({
     description: 'A prioridade de amostra da categoria',
     type: Number,
-    example: 3,
   })
   @IsNotEmpty()
   order: number;
@@ -22,7 +20,6 @@ export class CreateCategoryAdditionalBody {
   @ApiProperty({
     description: 'O id da empresa',
     type: String,
-    example: randomUUID(),
   })
   @IsNotEmpty()
   @IsUUID()
