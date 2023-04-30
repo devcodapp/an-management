@@ -9,17 +9,18 @@ generator client {
 }
 
 model Additional {
-  id          String             @id @map("_id")
+  id          String                  @id @map("_id")
   name        String
   price       Float
   imageUrl    String
   imageId     String
   categoryId  String
   createdUser String
-  createdAt   DateTime           @default(now())
+  createdAt   DateTime                @default(now())
   deletedUser String?
   deletedAt   DateTime?
-  category    CategoryAdditional @relation(name: "AdditionalToCategoryAdditional", fields: [categoryId], references: [id])
+  category    CategoryAdditional      @relation(name: "AdditionalToCategoryAdditional", fields: [categoryId], references: [id])
+  products    AdditionalsOnProducts[] @relation(name: "AdditionalToAdditionalsOnProducts")
 }
 
 model CategoryAdditional {
@@ -66,4 +67,29 @@ model CategoryProduct {
   deletedAt   DateTime?
   Company     Company   @relation(name: "CategoryProductToCompany", fields: [companyId], references: [id])
   companyId   String
+  Product     Product[] @relation(name: "CategoryProductToProduct")
+}
+
+model Product {
+  id          String                  @id @map("_id")
+  name        String
+  description String
+  price       Float
+  images      Json[]
+  additionals AdditionalsOnProducts[] @relation(name: "AdditionalsOnProductsToProduct")
+  createdUser String
+  createdAt   DateTime                @default(now())
+  deletedUser String?
+  deletedAt   DateTime?
+  disabledAt  DateTime?
+  categoryId  String
+  category    CategoryProduct         @relation(name: "CategoryProductToProduct", fields: [categoryId], references: [id])
+}
+
+model AdditionalsOnProducts {
+  id            String     @id @map("_id")
+  product_id    String
+  additional_id String
+  additional    Additional @relation(name: "AdditionalToAdditionalsOnProducts", fields: [additional_id], references: [id])
+  product       Product    @relation(name: "AdditionalsOnProductsToProduct", fields: [product_id], references: [id])
 }
