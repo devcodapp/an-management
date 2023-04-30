@@ -6,6 +6,7 @@ import { ConfigModule } from '@nestjs/config';
 import { CompanyModule } from './modules/company/company.module';
 import { DatabaseModule } from '@shared/modules/database/database.module';
 import { OptionModule } from './modules/option/option.module';
+import { CategoryProductModule } from './modules/category-product/category-product.module';
 @Module({
   imports: [
     CategoryAdditionalModule,
@@ -17,6 +18,7 @@ import { OptionModule } from './modules/option/option.module';
     }),
     OptionModule,
     CompanyModule,
+    CategoryProductModule,
   ],
 })
-export class AppModule { }
+export class AppModule {}
