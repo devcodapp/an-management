@@ -9,6 +9,7 @@ export interface CategoryProductProps {
   imageId: string;
   imageUrl: string;
   companyId: string;
+  enabled?: boolean;
 }
 
 export class CategoryProduct extends BaseEntity {
@@ -16,7 +17,18 @@ export class CategoryProduct extends BaseEntity {
 
   constructor(props: CategoryProductProps, baseProps: BaseEntityProps) {
     super(baseProps);
-    this.props = props;
+    this.props = {
+      ...props,
+      enabled: props.enabled ?? false,
+    };
+  }
+
+  public enable() {
+    this.props.enabled = true;
+  }
+
+  public disable() {
+    this.props.enabled = false;
   }
 
   public set name(name: string) {
@@ -49,6 +61,7 @@ export class CategoryProduct extends BaseEntity {
   public get imageId(): string {
     return this.props.imageId;
   }
+
   public set imageUrl(imageUrl: string) {
     this.props.imageUrl = imageUrl;
   }
@@ -56,11 +69,16 @@ export class CategoryProduct extends BaseEntity {
   public get imageUrl(): string {
     return this.props.imageUrl;
   }
+
   public set companyId(companyId: string) {
     this.props.companyId = companyId;
   }
 
   public get companyId(): string {
     return this.props.companyId;
+  }
+
+  public get enabled(): boolean | undefined {
+    return this.props.enabled;
   }
 }

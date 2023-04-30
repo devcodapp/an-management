@@ -8,6 +8,7 @@ export class CategoryProductViewModel {
       description: categoryProduct.description,
       imageUrl: categoryProduct.imageUrl,
       order: categoryProduct.order.value,
+      enabled: categoryProduct.enabled,
       companyId: categoryProduct.companyId,
     };
   }
@@ -19,5 +20,6 @@ export interface ICategoryProductView {
   description: string;
   imageUrl: string;
   order: number;
+  enabled?: boolean;
   companyId: string;
 }

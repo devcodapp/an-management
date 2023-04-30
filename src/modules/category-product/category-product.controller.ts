@@ -20,6 +20,8 @@ import { DeleteCategoryProduct } from './use-cases/delete-category-product';
 import {
   CreateCategoryProductSwagger,
   DeleteCategoryProductSwagger,
+  DisableCategoryProductSwagger,
+  EnableCategoryProductSwagger,
   FilterCategoryProductSwagger,
   GetCategoryProductSwagger,
   UpdateCategoryProductSwagger,
@@ -32,6 +34,8 @@ import {
 import { CreateCategoryProductBody } from './dtos/create-category-product-body';
 import { SaveCategoryProductBody } from './dtos/save-category-product-body';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { EnableCategoryProduct } from './use-cases/enable-category-product';
+import { DisableCategoryProduct } from './use-cases/disable-category-product';
 
 @ApiTags('CategoryProduct')
 @Controller('category-product')
@@ -42,6 +46,8 @@ export class CategoryProductController {
     private filterCategoryProduct: FilterCategoryProduct,
     private saveCategoryProduct: SaveCategoryProduct,
     private deleteCategoryProduct: DeleteCategoryProduct,
+    private enableCategoryProduct: EnableCategoryProduct,
+    private disableCategoryProduct: DisableCategoryProduct,
   ) {}
 
   @Get()
@@ -123,6 +129,33 @@ export class CategoryProductController {
     @Param('categoryProductId') categoryProductId: string,
   ): Promise<{ categoryProduct: ICategoryProductView }> {
     const { categoryProduct } = await this.deleteCategoryProduct.execute({
+      categoryProductId,
+    });
+
+    return {
+      categoryProduct: CategoryProductViewModel.toHTTP(categoryProduct),
+    };
+  }
+  @Patch('disable/:categoryProductId')
+  @ApiOperation(DisableCategoryProductSwagger)
+  async disable(
+    @Param('categoryProductId') categoryProductId: string,
+  ): Promise<{ categoryProduct: ICategoryProductView }> {
+    const { categoryProduct } = await this.disableCategoryProduct.execute({
+      categoryProductId,
+    });
+
+    return {
+      categoryProduct: CategoryProductViewModel.toHTTP(categoryProduct),
+    };
+  }
+
+  @Patch('enable/:categoryProductId')
+  @ApiOperation(EnableCategoryProductSwagger)
+  async enable(
+    @Param('categoryProductId') categoryProductId: string,
+  ): Promise<{ categoryProduct: ICategoryProductView }> {
+    const { categoryProduct } = await this.enableCategoryProduct.execute({
       categoryProductId,
     });
 

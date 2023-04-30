@@ -20,3 +20,11 @@ export const DeleteCategoryProductSwagger: Partial<ApiOperationOptions> = {
   summary: 'Exclui uma categoria de produto',
   description: 'Exclui uma categoria de produtos',
 };
+export const EnableCategoryProductSwagger: Partial<ApiOperationOptions> = {
+  summary: 'Ativa uma categoria de produto',
+  description: 'Ativa uma categoria de produtos',
+};
+export const DisableCategoryProductSwagger: Partial<ApiOperationOptions> = {
+  summary: 'Desativa uma categoria de produto',
+  description: 'Desativa uma categoria de produtos',
+};

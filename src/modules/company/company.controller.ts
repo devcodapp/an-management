@@ -28,7 +28,6 @@ import {
 import { FilterCompanyBody } from './dtos/filter-company-body';
 import { CompanyViewModel, ICompanyView } from './view-models/company';
 import { CreateCompanyBody } from './dtos/create-company-body';
-import { FileInterceptor } from '@nestjs/platform-express';
 import { SaveCompanyBody } from './dtos/save-company-body';
 import { OpenCompany } from './use-cases/open-company';
 import { CloseCompany } from './use-cases/close-company';

@@ -7,6 +7,8 @@ import { GetCategoryProduct } from './use-cases/get-category-product';
 import { CloudinaryService } from '@shared/modules/cloudinary/cloudinary.service';
 import { DatabaseModule } from '@shared/modules/database/database.module';
 import { FilterCategoryProduct } from './use-cases/filter-category-product';
+import { EnableCategoryProduct } from './use-cases/enable-category-product';
+import { DisableCategoryProduct } from './use-cases/disable-category-product';
 
 @Module({
   controllers: [CategoryProductController],
@@ -16,6 +18,8 @@ import { FilterCategoryProduct } from './use-cases/filter-category-product';
     DeleteCategoryProduct,
     GetCategoryProduct,
     FilterCategoryProduct,
+    EnableCategoryProduct,
+    DisableCategoryProduct,
     CloudinaryService,
   ],
   imports: [DatabaseModule],
