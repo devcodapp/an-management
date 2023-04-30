@@ -29,6 +29,8 @@ import { CreateOption } from './use-cases/create-option';
 import { SaveOption } from './use-cases/save-option';
 import { DeleteOption } from './use-cases/delete-option';
 import { SaveOptionBody } from './dtos/save-option-body';
+import { CreateOptionBody } from './dtos/create-option-body';
+import { FilterOptionBody } from './dtos/filter-option-body';
 
 @Controller('option')
 export class OptionController {
