@@ -1,0 +1,20 @@
+model CategoryProduct {
+  id          String    @id @map("_id")
+  name        String
+  description String
+  order       Int
+  imageId     String
+  imageUrl    String
+  createdUser String
+  createdAt   DateTime  @default(now())
+  deletedUser String?
+  deletedAt   DateTime?
+
+  Company   Company @relation(fields: [companyId], references: [id])
+  companyId String
+}
+
+model Company {
+  id              String            @id @map("_id")
+  CategoryProduct CategoryProduct[]
+}

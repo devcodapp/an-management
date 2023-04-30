@@ -8,7 +8,6 @@ export class SaveCompanyBody {
   @ApiProperty({
     description: 'O id da empresa',
     type: String,
-    example: randomUUID(),
     required: true,
   })
   companyId: string;
@@ -16,7 +15,6 @@ export class SaveCompanyBody {
   @ApiProperty({
     description: 'O nome da empresa',
     type: String,
-    example: 'WebForge',
     required: false,
   })
   name: string;
@@ -25,7 +23,6 @@ export class SaveCompanyBody {
     description: 'A descrição da Empresa',
     type: String,
     required: false,
-    example: 'Lorem Ipsum dolor sit amet, consectetur adipiscing elit',
   })
   description: string;
 
@@ -33,7 +30,6 @@ export class SaveCompanyBody {
     description: 'Tags da empresa',
     type: [String],
     required: false,
-    example: ['Comida', 'Bebidas'],
   })
   tags: string[];
 
@@ -41,7 +37,6 @@ export class SaveCompanyBody {
     description: 'Tipo da empresa',
     type: String,
     required: false,
-    example: 'Restaurante',
   })
   type: string;
 
