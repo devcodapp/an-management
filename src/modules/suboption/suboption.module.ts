@@ -1,4 +1,7 @@
 import { Module } from '@nestjs/common';
+import { SuboptionController } from './suboption.controller';
 
-@Module({})
+@Module({
+  controllers: [SuboptionController]
+})
 export class SuboptionModule {}
