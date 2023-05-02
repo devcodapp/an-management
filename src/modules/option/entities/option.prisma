@@ -1,14 +1,21 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
 model Option {
-  id          String    @id @map("_id")
-  name        String
-  price       Float?
-  companyId   String
-  createdUser String
-  createdAt   DateTime  @default(now())
-  deletedUser String?
-  deletedAt   DateTime?
-  disabledAt  DateTime?
-  company     Company   @relation(fields: [companyId], references: [id])
+  id           String    @id @map("_id")
+  name         String
+  description  String
+  defaultPrice Float?
+  suboptions   Json[]
+  companyId    String
+  createdUser  String
+  createdAt    DateTime  @default(now())
+  deletedUser  String?
+  deletedAt    DateTime?
+  disabledAt   DateTime?
+  company      Company   @relation(fields: [companyId], references: [id])
 }
 
 model Company {

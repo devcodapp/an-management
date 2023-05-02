@@ -3,29 +3,22 @@ import { Option } from '../entities/option';
 
 export class OptionViewModel {
   static toHTTP(option: Option): IOptionView {
-    const {
-      id,
-      name,
-      description,
-      defaultPrice,
-      suboptions,
-      createdUser,
-      deletedUser,
-      disabledAt,
-      deletedAt,
-      createdAt,
-    } = option;
+    const suboptions: any = [];
+    option.suboptions?.map((item) => {
+      const sub = {
+        imageUrl: item.imageUrl,
+        name: item.name,
+        price: item.price,
+        disabledAt: item.disabledAt,
+      };
+    });
     return {
-      id,
-      name,
-      description,
-      defaultPrice,
+      id: option.id,
+      name: option.name,
+      description: option.description,
+      defaultPrice: option.defaultPrice,
+      companyId: option.companyId,
       suboptions,
-      createdUser,
-      deletedUser,
-      disabledAt,
-      deletedAt,
-      createdAt,
     };
   }
 }
@@ -37,9 +30,4 @@ export interface IOptionView {
   defaultPrice?: number;
   suboptions?: SubOption[];
   companyId?: string;
-  disabledAt?: Date;
-  createdAt?: Date;
-  createdUser: string;
-  deletedAt?: Date | null;
-  deletedUser?: string | null;
 }

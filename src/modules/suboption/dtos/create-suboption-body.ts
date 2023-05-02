@@ -23,4 +23,11 @@ export class CreateSubOptionBody {
     required: false,
   })
   price: number;
+
+  @ApiProperty({
+    description: 'A imagem da opção',
+    type: String,
+    format: 'binary',
+  })
+  image: Express.Multer.File;
 }

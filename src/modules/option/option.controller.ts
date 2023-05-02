@@ -19,7 +19,7 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
-import { ApiOperation, ApiBody } from '@nestjs/swagger';
+import { ApiOperation, ApiBody, ApiTags } from '@nestjs/swagger';
 import { FilterOptions } from './use-cases/filter-option';
 import { GetOption } from './use-cases/get-option';
 import { CreateOption } from './use-cases/create-option';
@@ -29,6 +29,7 @@ import { SaveOptionBody } from './dtos/save-option-body';
 import { CreateOptionBody } from './dtos/create-option-body';
 import { FilterOptionBody } from './dtos/filter-option-body';
 
+@ApiTags('Option')
 @Controller('option')
 export class OptionController {
   constructor(
