@@ -12,7 +12,10 @@ export class CategoryAdditional extends BaseEntity {
 
   constructor(props: CategoryAdditionalProps, baseProps: BaseEntityProps) {
     super(baseProps);
-    this.props = props;
+    this.props = {
+      ...props,
+      name: props.name.toUpperCase(),
+    };
   }
 
   public set name(name: string) {

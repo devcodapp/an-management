@@ -10,7 +10,13 @@ export class Address {
   private props: AddressProps;
 
   constructor(props: AddressProps) {
-    this.props = props;
+    this.props = {
+      ...props,
+      city: props.city.toUpperCase(),
+      district: props.district.toUpperCase(),
+      state: props.state.toUpperCase(),
+      street: props.street.toUpperCase(),
+    };
   }
 
   public get street(): string {
@@ -18,7 +24,7 @@ export class Address {
   }
 
   public set street(street: string) {
-    this.props.street = street;
+    this.props.street = street.toUpperCase();
   }
 
   public get city(): string {
@@ -26,7 +32,7 @@ export class Address {
   }
 
   public set city(city: string) {
-    this.props.city = city;
+    this.props.city = city.toUpperCase();
   }
 
   public get state(): string {
@@ -34,7 +40,7 @@ export class Address {
   }
 
   public set state(state: string) {
-    this.props.state = state;
+    this.props.state = state.toUpperCase();
   }
 
   public get zip(): string {
@@ -50,6 +56,6 @@ export class Address {
   }
 
   public set district(district: string) {
-    this.props.district = district;
+    this.props.district = district.toUpperCase();
   }
 }
