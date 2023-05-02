@@ -7,6 +7,7 @@ import { CompanyModule } from './modules/company/company.module';
 import { DatabaseModule } from '@shared/modules/database/database.module';
 import { OptionModule } from './modules/option/option.module';
 import { CategoryProductModule } from './modules/category-product/category-product.module';
+import { SuboptionModule } from './modules/suboption/suboption.module';
 @Module({
   imports: [
     CategoryAdditionalModule,
@@ -19,6 +20,7 @@ import { CategoryProductModule } from './modules/category-product/category-produ
     OptionModule,
     CompanyModule,
     CategoryProductModule,
+    SuboptionModule,
   ],
 })
 export class AppModule {}

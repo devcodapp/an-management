@@ -1,5 +1,5 @@
+import { SubOption } from '@modules/suboption/entities/subOption';
 import { BaseEntity, BaseEntityProps } from '@shared/entities/base-entity';
-import { SubOption } from './suboption';
 
 interface OptionProps {
   name: string;
@@ -39,17 +39,37 @@ export class Option extends BaseEntity {
     return this.props.defaultPrice;
   }
 
-  public set suboptions(suboptions: SubOption[] | undefined) {
-    this.props.suboptions = suboptions;
-  }
   public get suboptions(): SubOption[] | undefined {
     return this.props.suboptions;
+  }
+
+  public suboption(name: string): SubOption | undefined {
+    return this.props.suboptions?.find((item) => item.name === name);
   }
 
   public set disabledAt(disabledAt: Date | undefined) {
     this.props.disabledAt = disabledAt;
   }
+
   public get disabledAt(): Date | undefined {
     return this.props.disabledAt;
+  }
+
+  public addSubOption(subOption: SubOption): void {
+    this.suboptions?.push(subOption);
+  }
+
+  public removeSubOption(name: string): void {
+    const index = this.suboptions?.findIndex((item) => item.name == name);
+
+    if (index) this.suboptions?.splice(index, 1);
+  }
+
+  public updateSubOption(oldName: string, subOption: SubOption) {
+    const index = this.suboptions?.findIndex((item) => item.name == oldName);
+
+    if (index == undefined || index < 0) throw new Error('SubOption not found');
+
+    this.suboptions?.splice(index, 1, subOption);
   }
 }

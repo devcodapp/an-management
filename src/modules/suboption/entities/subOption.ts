@@ -1,4 +1,3 @@
-import { BaseEntity, BaseEntityProps } from '@shared/entities/base-entity';
 interface SubOptionProps {
   name: string;
   price?: number;
@@ -7,11 +6,10 @@ interface SubOptionProps {
   disabledAt?: Date;
 }
 
-export class SubOption extends BaseEntity {
+export class SubOption {
   private props: SubOptionProps;
 
-  constructor(props: SubOptionProps, baseProps: BaseEntityProps) {
-    super(baseProps);
+  constructor(props: SubOptionProps) {
     this.props = props;
   }
 
@@ -51,5 +49,9 @@ export class SubOption extends BaseEntity {
 
   public get disabledAt(): Date | undefined {
     return this.props.disabledAt;
+  }
+
+  public disable() {
+    this.props.disabledAt = new Date();
   }
 }
