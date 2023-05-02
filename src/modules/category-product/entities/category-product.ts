@@ -20,6 +20,7 @@ export class CategoryProduct extends BaseEntity {
     this.props = {
       ...props,
       enabled: props.enabled ?? false,
+      name: props.name.toUpperCase(),
     };
   }
 

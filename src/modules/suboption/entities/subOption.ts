@@ -10,7 +10,10 @@ export class SubOption {
   private props: SubOptionProps;
 
   constructor(props: SubOptionProps) {
-    this.props = props;
+    this.props = {
+      ...props,
+      name: props.name.toUpperCase(),
+    };
   }
 
   public set name(name: string) {

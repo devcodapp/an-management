@@ -18,6 +18,7 @@ export class Option extends BaseEntity {
     this.props = {
       ...props,
       suboptions: props.suboptions || [],
+      name: props.name.toUpperCase(),
     };
   }
 
@@ -53,7 +54,9 @@ export class Option extends BaseEntity {
   }
 
   public suboption(name: string): SubOption | undefined {
-    return this.props.suboptions?.find((item) => item.name === name);
+    return this.props.suboptions?.find(
+      (item) => item.name.toUpperCase() === name.toUpperCase(),
+    );
   }
 
   public set disabledAt(disabledAt: Date | undefined) {
@@ -69,13 +72,17 @@ export class Option extends BaseEntity {
   }
 
   public removeSubOption(name: string): void {
-    const index = this.suboptions?.findIndex((item) => item.name == name);
+    const index = this.suboptions?.findIndex(
+      (item) => item.name.toUpperCase() == name.toUpperCase(),
+    );
     if (index == undefined || index < 0) throw new Error('SubOption not found');
-    if (index) this.suboptions?.splice(index, 1);
+    this.suboptions?.splice(index, 1);
   }
 
   public updateSubOption(oldName: string, subOption: SubOption) {
-    const index = this.suboptions?.findIndex((item) => item.name == oldName);
+    const index = this.suboptions?.findIndex(
+      (item) => item.name.toUpperCase() == oldName.toUpperCase(),
+    );
 
     if (index == undefined || index < 0) throw new Error('SubOption not found');
 
