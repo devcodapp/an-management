@@ -1,5 +1,5 @@
+import { SubOption } from '@modules/suboption/entities/subOption';
 import { Option } from '../entities/option';
-import { SubOption } from '../entities/suboption';
 
 export class OptionViewModel {
   static toHTTP(option: Option): IOptionView {

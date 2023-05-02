@@ -18,11 +18,8 @@ import {
   Post,
   Put,
   Query,
-  UploadedFile,
-  UseInterceptors,
 } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiOperation, ApiConsumes, ApiBody } from '@nestjs/swagger';
+import { ApiOperation, ApiBody } from '@nestjs/swagger';
 import { FilterOptions } from './use-cases/filter-option';
 import { GetOption } from './use-cases/get-option';
 import { CreateOption } from './use-cases/create-option';
@@ -77,17 +74,12 @@ export class OptionController {
   }
 
   @Post()
-  @ApiConsumes('multipart/form-data')
   @ApiOperation(CreateOptionSwagger)
   @ApiBody({ type: CreateOptionBody })
-  @UseInterceptors(FileInterceptor('image'))
   async create(
     @Body() body: CreateOptionBody,
-    @UploadedFile() image: Express.Multer.File,
   ): Promise<{ option: IOptionView }> {
-    const { option } = await this.createOption.execute({
-      ...body,
-    });
+    const { option } = await this.createOption.execute(body);
 
     return {
       option: OptionViewModel.toHTTP(option),
@@ -95,17 +87,10 @@ export class OptionController {
   }
 
   @Put()
-  @ApiConsumes('multipart/form-data')
   @ApiBody({ type: SaveOptionBody })
   @ApiOperation(UpdateOptionSwagger)
-  @UseInterceptors(FileInterceptor('image'))
-  async update(
-    @Body() body: SaveOptionBody,
-    @UploadedFile() image: Express.Multer.File,
-  ): Promise<{ option: IOptionView }> {
-    const { option } = await this.saveOption.execute({
-      ...body,
-    });
+  async update(@Body() body: SaveOptionBody): Promise<{ option: IOptionView }> {
+    const { option } = await this.saveOption.execute(body);
 
     return {
       option: OptionViewModel.toHTTP(option),

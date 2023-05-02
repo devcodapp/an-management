@@ -3,14 +3,6 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateOptionBody {
   @ApiProperty({
-    description: 'O id da opção',
-    type: String,
-    required: true,
-  })
-  @IsUUID()
-  optionId: string;
-
-  @ApiProperty({
     description: 'O nome da opção',
     type: String,
   })
@@ -32,23 +24,9 @@ export class CreateOptionBody {
   price: number;
 
   @ApiProperty({
-    description: 'O id da categoria',
-    type: Array,
-    example: [
-      {
-        name: 'Ao ponto',
-        price: undefined,
-        imageUrl: '',
-        imageId: '',
-        desabledAt: undefined,
-      },
-    ],
+    description: 'O id da empresa',
+    type: String,
+    required: true,
   })
-  suboptions?: Array<{
-    name: string;
-    price: number;
-    imageUrl: string;
-    imageId: string;
-    desabledAt: Date;
-  }>;
+  companyId: string;
 }
