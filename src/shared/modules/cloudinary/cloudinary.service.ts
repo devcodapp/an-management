@@ -19,8 +19,8 @@ export class CloudinaryService {
     });
   }
 
-  async deleteImage(imageUrl: string) {
-    const filename = imageUrl.split('.')[0];
+  async deleteImage(imageId: string) {
+    const filename = imageId.split('.')[0];
     return new Promise((resolve, reject) => {
       v2.uploader.destroy(filename, (error, result) => {
         if (error) return reject(error);
