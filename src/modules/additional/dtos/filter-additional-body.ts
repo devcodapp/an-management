@@ -6,7 +6,6 @@ export class FilterAdditionalBody {
   @ApiProperty({
     description: 'O nome do adicional',
     type: String,
-    example: 'Batata',
     required: false,
   })
   name: string;
@@ -14,7 +13,6 @@ export class FilterAdditionalBody {
   @ApiProperty({
     description: 'O preço do adicional',
     type: Number,
-    example: 2.99,
     required: false,
   })
   price: number;
@@ -22,7 +20,6 @@ export class FilterAdditionalBody {
   @ApiProperty({
     description: 'O id da categoria',
     type: String,
-    example: randomUUID(),
     required: false,
   })
   categoryId: string;
