@@ -1,4 +1,6 @@
 # compiled output
+.env
+schema.prisma
 /dist
 /node_modules
 
@@ -34,5 +36,4 @@ lerna-debug.log*
 !.vscode/launch.json
 !.vscode/extensions.json
 
-.env
-/prisma/schema.prisma
+
