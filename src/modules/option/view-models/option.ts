@@ -11,6 +11,7 @@ export class OptionViewModel {
         price: item.price,
         disabledAt: item.disabledAt,
       };
+      suboptions.push(sub);
     });
     return {
       id: option.id,

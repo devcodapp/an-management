@@ -78,7 +78,7 @@ export class SuboptionController {
   @Delete('option/:optionId/suboption/:name')
   @ApiOperation(DeleteSubOptionSwagger)
   async delete(
-    @Param('optionid') optionId: string,
+    @Param('optionId') optionId: string,
     @Param('name') name: string,
   ): Promise<{ option: IOptionView }> {
     const { option } = await this.deleteSubOption.execute({

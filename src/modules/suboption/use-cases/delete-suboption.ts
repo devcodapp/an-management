@@ -25,7 +25,6 @@ export class DeleteSubOption {
     request: DeleteSubOptionRequest,
   ): Promise<DeleteSubOptionResponse> {
     const { subOptionName, optionId } = request;
-
     const option = await this.optionRepository.option(optionId);
 
     if (!option) {

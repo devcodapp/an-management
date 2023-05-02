@@ -36,7 +36,7 @@ export class DisableSubOption {
 
     suboption.disable();
 
-    option.removeSubOption(subOptionName);
+    option.updateSubOption(subOptionName, suboption);
 
     await this.optionRepository.save(option);
 

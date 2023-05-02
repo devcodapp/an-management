@@ -4,6 +4,7 @@ import { OptionNotFound } from '@modules/option/use-cases/errors/option-not-foun
 import { Injectable } from '@nestjs/common';
 import { CloudinaryService } from '@shared/modules/cloudinary/cloudinary.service';
 import { SubOptionNotFound } from './errors/suboption-not-found';
+import { SubOptionAlreadExists } from './errors/suboption-already-exists';
 
 interface SaveSubOptionRequest {
   optionId: string;
@@ -34,6 +35,12 @@ export class SaveSubOption {
     }
 
     const sb = option.suboption(oldName);
+
+    if (name && oldName != name) {
+      const hasSubOptionWithSameName = option.suboption(name);
+
+      if (hasSubOptionWithSameName) throw new SubOptionAlreadExists();
+    }
 
     if (!sb) {
       throw new SubOptionNotFound();

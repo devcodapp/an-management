@@ -4,6 +4,7 @@ import { CloudinaryService } from '@shared/modules/cloudinary/cloudinary.service
 import { OptionRepository } from '@modules/option/repositories/option-repository';
 import { OptionNotFound } from '@modules/option/use-cases/errors/option-not-found';
 import { Option } from '@modules/option/entities/option';
+import { SubOptionAlreadExists } from './errors/suboption-already-exists';
 
 interface CreateSubOptionRequest {
   name: string;
@@ -33,6 +34,10 @@ export class CreateSubOption {
     if (!option) {
       throw new OptionNotFound();
     }
+
+    const hasSubOptionWithSameName = option.suboption(name);
+
+    if (hasSubOptionWithSameName) throw new SubOptionAlreadExists();
 
     const { public_id, url } = await this.cloudinary.uploadImage(image);
 

@@ -30,30 +30,23 @@ export class PrismaOptionMapper {
   }
 
   static toDomain(raw: RawOption) {
-    const suboptions = [] as SubOption[];
-    if (raw.suboptions) {
-      raw.suboptions.map((item) => {
-        if (typeof item === 'object' && item !== null && !Array.isArray(item)) {
-          const sub = new SubOption({
-            imageId: item.imageId?.toString() ?? '',
-            imageUrl: item.imageUrl?.toString() ?? '',
-            name: item.name?.toString() ?? '',
-            price: Number(item.price),
-            disabledAt: item.disabledAt
-              ? new Date(item.disabledAt?.toLocaleString())
-              : undefined,
-          });
-          suboptions.push(sub);
-        }
-      });
-    }
     return new Option(
       {
         companyId: raw.companyId,
         name: raw.name,
         defaultPrice: raw.defaultPrice ?? undefined,
         description: raw.description,
-        suboptions: suboptions,
+        suboptions: raw.suboptions.map((sb: any) => {
+          return new SubOption({
+            imageId: sb.imageId?.toString() ?? '',
+            imageUrl: sb.imageUrl?.toString() ?? '',
+            name: sb.name?.toString() ?? '',
+            price: Number(sb.price),
+            disabledAt: sb.disabledAt
+              ? new Date(sb.disabledAt?.toLocaleString())
+              : undefined,
+          });
+        }),
       },
       {
         createdAt: raw.createdAt,

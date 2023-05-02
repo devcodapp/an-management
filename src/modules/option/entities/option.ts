@@ -65,12 +65,12 @@ export class Option extends BaseEntity {
   }
 
   public addSubOption(subOption: SubOption): void {
-    this.suboptions?.push(subOption);
+    this.props.suboptions?.push(subOption);
   }
 
   public removeSubOption(name: string): void {
     const index = this.suboptions?.findIndex((item) => item.name == name);
-
+    if (index == undefined || index < 0) throw new Error('SubOption not found');
     if (index) this.suboptions?.splice(index, 1);
   }
 
