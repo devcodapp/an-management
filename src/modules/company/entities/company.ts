@@ -30,6 +30,7 @@ export class Company {
       id: props.id ?? randomUUID(),
       createdAt: props.createdAt ?? new Date(),
       isOpened: props.isOpened ?? false,
+      name: props.name.toUpperCase(),
     };
   }
 
@@ -86,7 +87,7 @@ export class Company {
   }
 
   public set description(description: string) {
-    this.props.description = description.toUpperCase();
+    this.props.description = description;
   }
 
   public get imageUrl(): string | undefined {

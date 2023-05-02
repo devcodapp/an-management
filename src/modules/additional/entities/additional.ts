@@ -15,11 +15,14 @@ export class Additional extends BaseEntity {
 
   constructor(props: AdditionalProps, baseProps: BaseEntityProps) {
     super(baseProps);
-    this.props = props;
+    this.props = {
+      ...props,
+      name: props.name.toUpperCase(),
+    };
   }
 
   public set name(name: string) {
-    this.props.name = name;
+    this.props.name = name.toUpperCase();
   }
 
   public get name(): string {
