@@ -15,7 +15,7 @@ interface SaveVariantProductResponse {
 }
 
 @Injectable()
-export class CreateProduct {
+export class SaveVariantProduct {
   constructor(private productsRepository: ProductsRepository) {}
 
   async execute(

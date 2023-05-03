@@ -1,5 +1,6 @@
 import { IsUUID } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { VariantTypes } from '../entities/product-variant';
 
 export class SaveVariantProductBody {
   @ApiProperty({
@@ -23,5 +24,5 @@ export class SaveVariantProductBody {
     type: String,
     required: false,
   })
-  type: string;
+  type: VariantTypes;
 }

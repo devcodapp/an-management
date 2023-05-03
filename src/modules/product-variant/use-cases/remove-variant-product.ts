@@ -14,7 +14,7 @@ interface RemoveVariantProductResponse {
 }
 
 @Injectable()
-export class CreateProduct {
+export class RemoveVariantProduct {
   constructor(
     private productsRepository: ProductsRepository,
     private cloudinary: CloudinaryService,

@@ -1,5 +1,6 @@
 import { IsNotEmpty, IsUUID } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { VariantTypes } from '../entities/product-variant';
 
 export class CreateVariantProductBody {
   @ApiProperty({
@@ -16,5 +17,5 @@ export class CreateVariantProductBody {
     required: true,
   })
   @IsNotEmpty()
-  type: string;
+  type: VariantTypes;
 }

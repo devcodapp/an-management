@@ -13,7 +13,7 @@ interface AddVariantProductResponse {
 }
 
 @Injectable()
-export class CreateProduct {
+export class AddVariantProduct {
   constructor(private productsRepository: ProductsRepository) {}
 
   async execute(
