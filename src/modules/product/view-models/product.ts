@@ -1,6 +1,6 @@
 import { Product, ProductImage } from '@modules/product/entities/product';
-import { ProductVariant } from '../entities/product-variant';
 import { ICategoryProductView } from '@modules/category-product/view-models/category-product';
+import { ProductVariant } from '@modules/product-variant/entities/product-variant';
 
 export class ProductViewModel {
   static toHTTP({

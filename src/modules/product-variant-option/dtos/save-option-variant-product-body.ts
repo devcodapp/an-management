@@ -34,8 +34,8 @@ export class SaveOptionVariantProductBody {
 
   @ApiProperty({
     description: 'O preço da opção',
-    type: String,
+    type: Number,
     required: false,
   })
-  price: string;
+  price: number;
 }

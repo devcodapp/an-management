@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsUUID } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreateOptionVariantProductBody {
+export class RemoveImageOptionVariantProductBody {
   @ApiProperty({
     description: 'O id do produto',
     type: String,
@@ -18,24 +18,18 @@ export class CreateOptionVariantProductBody {
   variantId: string;
 
   @ApiProperty({
-    description: 'O titulo da opção',
+    description: 'O sku da opção',
     type: String,
     required: true,
   })
   @IsNotEmpty()
-  title: string;
+  optionSKU: string;
 
   @ApiProperty({
-    description: 'O preço da opção',
+    description: 'A ordem da imagem da opção',
     type: Number,
-    required: false,
+    required: true,
   })
-  price: number;
-
-  @ApiProperty({
-    description: 'O sku da opção',
-    type: String,
-    required: false,
-  })
-  sku: string;
+  @IsNotEmpty()
+  order: number;
 }
