@@ -1,8 +1,8 @@
 import { Additional } from '@modules/additional/entities/additional';
-import { CategoryProduct } from '@prisma/client';
 import { BaseEntity, BaseEntityProps } from '@shared/entities/base-entity';
 import { ProductVariant } from './product-variant';
 import { generateSKU } from '@shared/services/generateSKU';
+import { CategoryProduct } from '@modules/category-product/entities/category-product';
 
 export interface ProductProps {
   name: string;

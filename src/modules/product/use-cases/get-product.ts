@@ -1,24 +1,24 @@
-import { Injectable } from '@nestjs/common';
-import { ProductsRepository } from '../repositories/product-repository';
-import { Product } from '../entities/product';
+// import { Injectable } from '@nestjs/common';
+// import { ProductsRepository } from '../repositories/product-repository';
+// import { Product } from '../entities/product';
 
-interface GetProductRequest {
-  productId: string;
-}
+// interface GetProductRequest {
+//   productId: string;
+// }
 
-interface GetProductResponse {
-  product: Product | null;
-}
+// interface GetProductResponse {
+//   product: Product | null;
+// }
 
-@Injectable()
-export class GetProduct {
-  constructor(private productRepository: ProductsRepository) {}
+// @Injectable()
+// export class GetProduct {
+//   constructor(private productRepository: ProductsRepository) {}
 
-  async execute(request: GetProductRequest): Promise<GetProductResponse> {
-    const { productId } = request;
+//   async execute(request: GetProductRequest): Promise<GetProductResponse> {
+//     const { productId } = request;
 
-    const product = await this.productRepository.product(productId);
+//     const product = await this.productRepository.product(productId);
 
-    return { product };
-  }
-}
+//     return { product };
+//   }
+// }

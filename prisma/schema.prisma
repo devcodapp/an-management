@@ -9,18 +9,18 @@ generator client {
 }
 
 model Additional {
-  id          String                  @id @map("_id")
-  name        String
-  price       Float
-  imageUrl    String
-  imageId     String
-  categoryId  String
-  createdUser String
-  createdAt   DateTime                @default(now())
-  deletedUser String?
-  deletedAt   DateTime?
-  category    CategoryAdditional      @relation(name: "AdditionalToCategoryAdditional", fields: [categoryId], references: [id])
-  products    AdditionalsOnProducts[] @relation(name: "AdditionalToAdditionalsOnProducts")
+  id                    String                  @id @map("_id")
+  name                  String
+  price                 Float
+  imageUrl              String
+  imageId               String
+  categoryId            String
+  createdUser           String
+  createdAt             DateTime                @default(now())
+  deletedUser           String?
+  deletedAt             DateTime?
+  category              CategoryAdditional      @relation(name: "AdditionalToCategoryAdditional", fields: [categoryId], references: [id])
+  AdditionalsOnProducts AdditionalsOnProducts[] @relation(name: "AdditionalToAdditionalsOnProducts")
 }
 
 model CategoryAdditional {
@@ -53,6 +53,7 @@ model Company {
   createdAt          DateTime             @default(now())
   disabledAt         DateTime?
   options            Option[]             @relation(name: "CompanyToOption")
+  table              Table[]              @relation(name: "CompanyToTable")
 }
 
 model CategoryProduct {
@@ -71,30 +72,6 @@ model CategoryProduct {
   Product     Product[] @relation(name: "CategoryProductToProduct")
 }
 
-model Product {
-  id          String                  @id @map("_id")
-  name        String
-  description String
-  price       Float
-  images      Json[]
-  additionals AdditionalsOnProducts[] @relation(name: "AdditionalsOnProductsToProduct")
-  createdUser String
-  createdAt   DateTime                @default(now())
-  deletedUser String?
-  deletedAt   DateTime?
-  disabledAt  DateTime?
-  categoryId  String
-  category    CategoryProduct         @relation(name: "CategoryProductToProduct", fields: [categoryId], references: [id])
-}
-
-model AdditionalsOnProducts {
-  id            String     @id @map("_id")
-  product_id    String
-  additional_id String
-  additional    Additional @relation(name: "AdditionalToAdditionalsOnProducts", fields: [additional_id], references: [id])
-  product       Product    @relation(name: "AdditionalsOnProductsToProduct", fields: [product_id], references: [id])
-}
-
 model Option {
   id           String    @id @map("_id")
   name         String
@@ -108,4 +85,42 @@ model Option {
   deletedAt    DateTime?
   disabledAt   DateTime?
   company      Company   @relation(name: "CompanyToOption", fields: [companyId], references: [id])
+}
+
+model Product {
+  id                    String                  @id @map("_id")
+  name                  String
+  description           String
+  price                 Float
+  sku                   String
+  variants              Json[]
+  images                Json[]
+  createdUser           String
+  createdAt             DateTime                @default(now())
+  deletedUser           String?
+  deletedAt             DateTime?
+  disabledAt            DateTime?
+  categoryId            String
+  AdditionalsOnProducts AdditionalsOnProducts[] @relation(name: "AdditionalsOnProductsToProduct")
+  CategoryProduct       CategoryProduct?        @relation(name: "CategoryProductToProduct", fields: [categoryId], references: [id])
+}
+
+model AdditionalsOnProducts {
+  id           String      @id @map("_id")
+  Additional   Additional? @relation(name: "AdditionalToAdditionalsOnProducts", fields: [additionalId], references: [id])
+  additionalId String?
+  Product      Product?    @relation(name: "AdditionalsOnProductsToProduct", fields: [productId], references: [id])
+  productId    String?
+}
+
+model Table {
+  id             String    @id @map("_id")
+  name           String
+  amountOfChairs Float
+  createdUser    String
+  createdAt      DateTime  @default(now())
+  deletedUser    String?
+  deletedAt      DateTime?
+  Company        Company   @relation(name: "CompanyToTable", fields: [companyId], references: [id])
+  companyId      String
 }
