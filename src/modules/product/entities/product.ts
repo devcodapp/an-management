@@ -86,6 +86,7 @@ export class Product extends BaseEntity {
   public get Additionals(): Additional[] | undefined {
     return this.props.Additionals;
   }
+
   public set Category(category: CategoryProduct | undefined) {
     this.props.Category = category;
   }
@@ -94,18 +95,16 @@ export class Product extends BaseEntity {
     return this.props.Category;
   }
 
-  public image(imageId: string): ProductImage | undefined {
-    return this.props.images?.find((item) => item.imageId === imageId);
+  public image(order: number): ProductImage | undefined {
+    return this.props.images?.find((item) => item.order === order);
   }
 
   public addImage(image: ProductImage): void {
     this.props.images?.push(image);
   }
 
-  public removeImage(imageId: string): void {
-    const index = this.props.images?.findIndex(
-      (item) => item.imageId === imageId,
-    );
+  public removeImage(order: number): void {
+    const index = this.props.images?.findIndex((item) => item.order === order);
     if (index == undefined || index < 0) throw new Error('Image not found');
 
     this.props.images?.splice(index, 1);
