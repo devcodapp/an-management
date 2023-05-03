@@ -7,7 +7,7 @@ import { ProductNotFound } from '@modules/product/use-cases/errors/product-not-f
 
 interface RemoveVariantProductRequest {
   productId: string;
-  id: string;
+  variantId: string;
 }
 interface RemoveVariantProductResponse {
   product: Product;
@@ -23,7 +23,7 @@ export class CreateProduct {
   async execute(
     request: RemoveVariantProductRequest,
   ): Promise<RemoveVariantProductResponse> {
-    const { id, productId } = request;
+    const { variantId, productId } = request;
 
     const product = await this.productsRepository.product(productId);
 
@@ -31,7 +31,7 @@ export class CreateProduct {
       throw new ProductNotFound();
     }
 
-    const variant = product.variant(id);
+    const variant = product.variant(variantId);
 
     if (!variant) {
       throw new ProductVariantNotFound();
@@ -43,7 +43,7 @@ export class CreateProduct {
 
     if (images) await this.cloudinary.deleteImages(images);
 
-    product.removeVariant(id);
+    product.removeVariant(variantId);
 
     await this.productsRepository.create(product);
 
