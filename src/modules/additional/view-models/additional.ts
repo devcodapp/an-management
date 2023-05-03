@@ -2,19 +2,26 @@ import { ICategoryAdditionalView } from '@modules/category-additional/view-model
 import { Additional } from '../entities/additional';
 
 export class AdditionalViewModel {
-  static toHTTP(additional: Additional): IAdditionalView {
+  static toHTTP({
+    id,
+    name,
+    price,
+    categoryId,
+    imageUrl,
+    Category,
+  }: Additional): IAdditionalView {
     return {
-      id: additional.id,
-      name: additional.name,
-      price: additional.price,
-      categoryId: additional.categoryId,
-      imageUrl: additional.imageUrl,
-      category: additional.Category
+      id,
+      name,
+      price,
+      categoryId,
+      imageUrl,
+      category: Category?.id
         ? {
-            id: additional.Category?.id,
-            name: additional.Category?.name,
-            companyId: additional.Category?.companyId,
-            order: additional.Category?.order.value,
+            id: Category?.id,
+            name: Category?.name,
+            companyId: Category?.companyId,
+            order: Category?.order.value,
           }
         : undefined,
     };

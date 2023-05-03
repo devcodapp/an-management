@@ -1,14 +1,17 @@
 import { CategoryAdditional } from '../entities/category-additional';
 
 export class CategoryAdditionalViewModel {
-  static toHTTP(
-    categoryAdditional: CategoryAdditional,
-  ): ICategoryAdditionalView {
+  static toHTTP({
+    id,
+    name,
+    order,
+    companyId,
+  }: CategoryAdditional): ICategoryAdditionalView {
     return {
-      id: categoryAdditional.id,
-      name: categoryAdditional.name,
-      order: categoryAdditional.order.value,
-      companyId: categoryAdditional.companyId,
+      id,
+      name,
+      order: order.value,
+      companyId,
     };
   }
 }
