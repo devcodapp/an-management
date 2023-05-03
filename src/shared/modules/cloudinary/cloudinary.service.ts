@@ -28,4 +28,15 @@ export class CloudinaryService {
       });
     });
   }
+  async deleteImages(imagesId: string[]) {
+    return imagesId.forEach((image) => {
+      return new Promise((resolve, reject) => {
+        const filename = image.split('.')[0];
+        v2.uploader.destroy(filename, (error, result) => {
+          if (error) return reject(error);
+          resolve(result!);
+        });
+      });
+    });
+  }
 }

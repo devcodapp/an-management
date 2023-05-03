@@ -7,7 +7,7 @@ export interface ProductVariantProps {
   options?: VariantOptions[];
 }
 
-type VariantTypes = 'color' | 'size' | 'material';
+export type VariantTypes = 'color' | 'size' | 'material';
 
 interface VariantOptions {
   title: string;
