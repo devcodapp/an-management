@@ -1,37 +1,24 @@
 import { Additional } from '@modules/additional/entities/additional';
+import { CategoryProduct } from '@prisma/client';
 import { BaseEntity, BaseEntityProps } from '@shared/entities/base-entity';
+import { ProductVariant } from './product-variant';
 
 export interface ProductProps {
   name: string;
   description: string;
   price: number;
-  additionals: Additional[];
-  options: string;
-  inventory: {
-    inStoCk?: boolean;
-    amountInStock?: number;
-    SKU?: string;
-  };
-  variants?: {
-    type: string;
-    options: {
-      title: string;
-      imageId: string;
-      PriceDifference: number;
-      SKU?: string;
-      inventory: {
-        inStoCk?: boolean;
-        amountInStock?: number;
-        SKU?: string;
-      };
-    }[];
-  }[];
-  images: {
-    imageUrl: string;
-    imageId: string;
-  }[];
+  sku?: string;
+  variants?: ProductVariant[];
+  images?: ProductImage[];
   categoryId: string;
-  category?: string;
+  Additionals?: Additional[];
+  Category?: CategoryProduct;
+}
+
+export interface ProductImage {
+  imageUrl: string;
+  imageId: string;
+  order: number;
 }
 
 export class Product extends BaseEntity {
@@ -39,7 +26,11 @@ export class Product extends BaseEntity {
 
   constructor(props: ProductProps, baseProps: BaseEntityProps) {
     super(baseProps);
-    this.props = props;
+    this.props = {
+      ...props,
+      name: props.name.toUpperCase(),
+      images: props.images || [],
+    };
   }
 
   public set name(name: string) {
@@ -53,6 +44,7 @@ export class Product extends BaseEntity {
   public set description(description: string) {
     this.props.description = description;
   }
+
   public get description(): string {
     return this.props.description;
   }
@@ -65,46 +57,77 @@ export class Product extends BaseEntity {
     return this.props.price;
   }
 
-  public set images(images: ProductProps['images']) {
-    this.props.images = images;
+  public get sku(): string | undefined {
+    return this.props.sku;
   }
 
-  public get images(): ProductProps['images'] {
+  public get images(): ProductImage[] | undefined {
     return this.props.images;
   }
-  // public set imageId(imageId: string) {
-  //   this.props.imageId = imageId;
-  // }
 
-  // public get imageId(): string {
-  //   return this.props.imageId;
-  // }
-  public set variants(variants: ProductProps['variants']) {
-    this.props.variants = variants;
-  }
-  public get variants(): ProductProps['variants'] {
+  public get variants(): ProductVariant[] | undefined {
     return this.props.variants;
-  }
-
-  public set inventory(inventory: ProductProps['inventory']) {
-    this.props.inventory = inventory;
-  }
-  public get inventory(): ProductProps['inventory'] {
-    return this.props.inventory;
   }
 
   public set categoryId(categoryId: string) {
     this.props.categoryId = categoryId;
   }
+
   public get categoryId(): string {
     return this.props.categoryId;
   }
 
-  // public set Category(category: CategoryAdditional | undefined) {
-  //   this.props.Category = category;
-  // }
+  public set Additionals(additionals: Additional[] | undefined) {
+    this.props.Additionals = additionals;
+  }
 
-  // public get Category(): CategoryAdditional | undefined {
-  //   return this.props.Category;
-  // }
+  public get Additionals(): Additional[] | undefined {
+    return this.props.Additionals;
+  }
+  public set Category(category: CategoryProduct | undefined) {
+    this.props.Category = category;
+  }
+
+  public get Category(): CategoryProduct | undefined {
+    return this.props.Category;
+  }
+
+  public image(imageId: string): ProductImage | undefined {
+    return this.props.images?.find((item) => item.imageId === imageId);
+  }
+
+  public addImage(image: ProductImage): void {
+    this.props.images?.push(image);
+  }
+
+  public removeImage(imageId: string): void {
+    const index = this.props.images?.findIndex(
+      (item) => item.imageId === imageId,
+    );
+    if (index == undefined || index < 0) throw new Error('Image not found');
+
+    this.props.images?.splice(index, 1);
+  }
+
+  public variant(id: string) {
+    return this.props.variants?.find((item) => item.id === id);
+  }
+
+  public addVariant(variant: ProductVariant): void {
+    this.props.variants?.push(variant);
+  }
+
+  public removeVariant(id: string): void {
+    const index = this.props.variants?.findIndex((item) => item.id == id);
+    if (index == undefined || index < 0) throw new Error('Variant not found');
+    this.props.variants?.splice(index, 1);
+  }
+
+  public updateVariant(id: string, variant: ProductVariant) {
+    const index = this.variants?.findIndex((item) => item.id == id);
+
+    if (index == undefined || index < 0) throw new Error('Variant not found');
+
+    this.variants?.splice(index, 1, variant);
+  }
 }

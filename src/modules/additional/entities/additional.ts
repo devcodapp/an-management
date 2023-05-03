@@ -44,6 +44,7 @@ export class Additional extends BaseEntity {
   public get imageUrl(): string {
     return this.props.imageUrl;
   }
+
   public set imageId(imageId: string) {
     this.props.imageId = imageId;
   }
