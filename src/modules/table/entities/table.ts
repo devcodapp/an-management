@@ -3,6 +3,7 @@ import { BaseEntity, BaseEntityProps } from '@shared/entities/base-entity';
 export interface TableProps {
   name: string;
   amountOfChairs: number;
+  disabledAt?: Date;
   companyId: string;
 }
 
@@ -12,6 +13,13 @@ export class Table extends BaseEntity {
   constructor(props: TableProps, baseProps: BaseEntityProps) {
     super(baseProps);
     this.props = props;
+  }
+
+  public disable() {
+    this.props.disabledAt = new Date();
+  }
+  public enable() {
+    this.props.disabledAt = undefined;
   }
 
   public set name(name: string) {
@@ -36,5 +44,13 @@ export class Table extends BaseEntity {
 
   public get companyId(): string {
     return this.props.companyId;
+  }
+
+  public set disabledAt(disabledAt: Date | undefined) {
+    this.props.disabledAt = disabledAt;
+  }
+
+  public get disabledAt(): Date | undefined {
+    return this.props.disabledAt;
   }
 }
