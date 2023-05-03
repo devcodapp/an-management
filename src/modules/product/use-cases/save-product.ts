@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ProductsRepository } from '../repositories/product-repository';
-import { Product, ProductProps } from '../entities/product';
+import { Product } from '../entities/product';
 import { ProductNotFound } from './errors/product-not-found';
-import { CloudinaryService } from '@shared/modules/cloudinary/cloudinary.service';
 
 interface SaveProductRequest {
   productId: string;
@@ -17,10 +16,7 @@ interface SaveProductResponse {
 
 @Injectable()
 export class SaveProduct {
-  constructor(
-    private productRepository: ProductsRepository,
-    private cloudinary: CloudinaryService,
-  ) {}
+  constructor(private productRepository: ProductsRepository) {}
 
   async execute(request: SaveProductRequest): Promise<SaveProductResponse> {
     const { productId, ...updateFields } = request;

@@ -55,4 +55,19 @@ export class OptionVariant {
   public enable(): void {
     this.props.disabledAt = undefined;
   }
+
+  public image(order: number): ProductImage | undefined {
+    return this.props.images?.find((item) => item.order === order);
+  }
+
+  public addImage(image: ProductImage): void {
+    this.props.images?.push(image);
+  }
+
+  public removeImage(order: number): void {
+    const index = this.props.images?.findIndex((item) => item.order === order);
+    if (index == undefined || index < 0) throw new Error('Image not found');
+
+    this.props.images?.splice(index, 1);
+  }
 }

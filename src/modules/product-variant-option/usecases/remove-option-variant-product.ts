@@ -5,26 +5,29 @@ import { ProductNotFound } from '@modules/product/use-cases/errors/product-not-f
 import { Injectable } from '@nestjs/common';
 import { OptionVariantAlreadExists } from './errors/option-variant-alread-exists';
 import { OptionVariant } from '../entities/product-variant-option';
+import { CloudinaryService } from '@shared/modules/cloudinary/cloudinary.service';
+import { OptionVariantNotFound } from './errors/option-variant-not-found';
 
-interface AddOptionVariantRequest {
+interface RemoveOptionVariantRequest {
   productId: string;
   variantId: string;
-  title: string;
-  sku?: string;
-  price?: number;
+  optionSKU: string;
 }
-interface AddOptionVariantResponse {
+interface RemoveOptionVariantResponse {
   product: Product;
 }
 
 @Injectable()
-export class AddOptionVariant {
-  constructor(private productsRepository: ProductsRepository) {}
+export class RemoveOptionVariant {
+  constructor(
+    private productsRepository: ProductsRepository,
+    private cloudinary: CloudinaryService,
+  ) {}
 
   async execute(
-    request: AddOptionVariantRequest,
-  ): Promise<AddOptionVariantResponse> {
-    const { title, variantId, sku, productId, price } = request;
+    request: RemoveOptionVariantRequest,
+  ): Promise<RemoveOptionVariantResponse> {
+    const { variantId, productId, optionSKU } = request;
 
     const product = await this.productsRepository.product(productId);
 
@@ -38,20 +41,17 @@ export class AddOptionVariant {
       throw new ProductVariantNotFound();
     }
 
-    if (sku) {
-      const hasOptionWithThisSKU = variant.option(sku);
-      if (hasOptionWithThisSKU) {
-        throw new OptionVariantAlreadExists();
-      }
+    const option = variant.option(optionSKU);
+
+    if (!option) {
+      throw new OptionVariantNotFound();
     }
 
-    const option = new OptionVariant({
-      title,
-      sku,
-      price,
-    });
+    const images = option?.images?.map((image) => image.imageId);
 
-    variant.addOption(option);
+    if (images) await this.cloudinary.deleteImages(images);
+
+    variant.removeOption(optionSKU);
 
     product.updateVariant(variantId, variant);
 
