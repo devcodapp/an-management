@@ -8,19 +8,32 @@ import { PrismaProductMapper } from '../mappers/prisma-product-mapper';
 @Injectable()
 export class PrismaProductRepository implements ProductsRepository {
   constructor(private prisma: PrismaService) {}
-  product(productId: string): Promise<Product | null> {
-    throw new Error('Method not implemented.');
+  async product(productId: string): Promise<Product | null> {
+    const product = await this.prisma.product.findUnique({
+      where: { id: productId },
+    });
+
+    if (!product) {
+      return null;
+    }
+
+    return PrismaProductMapper.toDomain(product);
   }
   products(filters: ProductFilterInput): Promise<Product[] | null> {
     throw new Error('Method not implemented.');
   }
-  save(product: Product): Promise<void> {
-    throw new Error('Method not implemented.');
+  async save(product: Product): Promise<void> {
+    const { id, ...raw } = PrismaProductMapper.toPrisma(product);
+
+    await this.prisma.product.update({
+      data: { ...raw },
+      where: { id },
+    });
   }
 
   async create(product: Product): Promise<void> {
     const raw = PrismaProductMapper.toPrisma(product);
-
+    console.log(raw);
     await this.prisma.product.create({
       data: { ...raw },
     });

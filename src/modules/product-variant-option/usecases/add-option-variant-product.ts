@@ -53,8 +53,6 @@ export class AddOptionVariant {
 
     variant.addOption(option);
 
-    product.updateVariant(variantId, variant);
-
     await this.productsRepository.save(product);
 
     return {

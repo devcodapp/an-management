@@ -14,7 +14,15 @@ export class ProductViewModel {
     sku,
   }: Product): IProductView {
     const mappedVariants: any =
-      variants?.map(({ id, type, options }) => ({ id, type, options })) ?? [];
+      variants?.map(({ id, type, options }) => ({
+        id,
+        type,
+        options: options?.map(({ sku, title, images }) => ({
+          sku,
+          title,
+          images,
+        })),
+      })) ?? [];
 
     const category = Category
       ? {

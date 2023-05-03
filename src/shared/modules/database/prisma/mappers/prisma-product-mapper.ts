@@ -1,22 +1,33 @@
+import { OptionVariant } from '@modules/product-variant-option/entities/product-variant-option';
+import { ProductVariant } from '@modules/product-variant/entities/product-variant';
 import { Product } from '@modules/product/entities/product';
 import { Product as RawProduct } from '@prisma/client';
 
 export class PrismaProductMapper {
-  static toPrisma(option: Product) {
+  static toPrisma(product: Product) {
+    const variants: any = product.variants?.map(({ id, options, type }) => ({
+      id,
+      options: options?.map(({ sku, title, images }) => ({
+        sku,
+        title,
+        images,
+      })),
+      type,
+    }));
     return {
-      id: option.id,
-      name: option.name,
-      description: option.description,
-      price: option.price,
-      images: [] as any,
-      variants: [] as any,
-      categoryId: option.categoryId,
-      sku: option.sku ?? '',
-      createdAt: option.createdAt,
-      createdUser: option.createdUser,
-      deletedAt: option.deletedAt,
-      deletedUser: option.deletedUser,
-    };
+      id: product.id,
+      name: product.name,
+      description: product.description,
+      price: product.price,
+      images: product.images,
+      variants: variants,
+      categoryId: product.categoryId,
+      sku: product.sku ?? '',
+      createdAt: product.createdAt,
+      createdUser: product.createdUser,
+      deletedAt: product.deletedAt,
+      deletedUser: product.deletedUser,
+    } as any;
   }
 
   static toDomain(raw: RawProduct) {
@@ -27,6 +38,15 @@ export class PrismaProductMapper {
         price: raw.price,
         categoryId: raw.categoryId,
         sku: raw.sku,
+        variants: raw.variants?.map((v: any) => {
+          return new ProductVariant({
+            type: v.type,
+            id: v.id,
+            options: v.options?.map((o: any) => {
+              return new OptionVariant(o);
+            }),
+          });
+        }),
         // suboptions: raw.suboptions.map((sb: any) => {
         //   return new SubOption({
         //     imageId: sb.imageId?.toString() ?? '',

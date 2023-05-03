@@ -44,10 +44,6 @@ export class EnableOptionVariant {
 
     option.enable();
 
-    variant.updateOption(optionSKU, option);
-
-    product.updateVariant(variantId, variant);
-
     await this.productRepository.save(product);
 
     return { product };

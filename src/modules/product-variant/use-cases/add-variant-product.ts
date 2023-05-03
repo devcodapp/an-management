@@ -31,7 +31,7 @@ export class AddVariantProduct {
 
     product.addVariant(variant);
 
-    await this.productsRepository.create(product);
+    await this.productsRepository.save(product);
 
     return {
       product,

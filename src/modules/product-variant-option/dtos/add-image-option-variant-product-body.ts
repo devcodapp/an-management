@@ -37,7 +37,7 @@ export class AddImageOptionVariantProductBody {
     description: 'A Imagem da opção',
     required: true,
     format: 'binary',
+    type: String,
   })
-  @IsNotEmpty()
   image: Express.Multer.File;
 }

@@ -48,8 +48,6 @@ export class SaveOptionVariant {
 
     variant.updateOption(optionSKU, option);
 
-    product.updateVariant(variantId, variant);
-
     await this.productRepository.save(product);
 
     return { product };

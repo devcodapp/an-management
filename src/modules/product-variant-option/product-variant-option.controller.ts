@@ -17,6 +17,7 @@ import { DisableOptionVariant } from './usecases/disable-option-variant-product'
 import { AddImageOptionVariant } from './usecases/images/add-image-option-variant-product';
 import { RemoveImageOptionVariant } from './usecases/images/remove-image-option-variant-product';
 import {
+  AddImageOptionProductVariantSwagger,
   CreateOptionProductVariantSwagger,
   DeleteOptionProductVariantSwagger,
   DisableOptionProductVariantSwagger,
@@ -129,7 +130,7 @@ export class ProductVariantOptionController {
 
   @Patch('upload')
   @ApiConsumes('multipart/form-data')
-  @ApiOperation(DisableOptionProductVariantSwagger)
+  @ApiOperation(AddImageOptionProductVariantSwagger)
   @ApiBody({ type: AddImageOptionVariantProductBody })
   @UseInterceptors(FileInterceptor('image'))
   async uploadImage(

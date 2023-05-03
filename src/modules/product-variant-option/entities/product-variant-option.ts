@@ -17,6 +17,7 @@ export class OptionVariant {
       ...props,
       sku: props.sku || generateSKU(5),
       title: props.title.toUpperCase(),
+      images: props.images || [],
     };
   }
 

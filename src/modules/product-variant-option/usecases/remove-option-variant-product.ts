@@ -53,8 +53,6 @@ export class RemoveOptionVariant {
 
     variant.removeOption(optionSKU);
 
-    product.updateVariant(variantId, variant);
-
     await this.productsRepository.save(product);
 
     return {

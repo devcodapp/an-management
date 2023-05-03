@@ -32,6 +32,7 @@ export class Product extends BaseEntity {
       sku: props.sku || generateSKU(5).toUpperCase(),
       name: props.name.toUpperCase(),
       images: props.images || [],
+      variants: props.variants || [],
     };
   }
 
