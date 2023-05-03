@@ -8,7 +8,7 @@ export class SaveVariantProductBody {
     required: true,
   })
   @IsUUID()
-  optionId: string;
+  productId: string;
 
   @ApiProperty({
     description: 'O id da variação',
