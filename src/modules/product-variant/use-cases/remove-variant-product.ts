@@ -1,9 +1,9 @@
 import { ProductsRepository } from '@modules/product/repositories/product-repository';
 import { Injectable } from '@nestjs/common';
 import { CloudinaryService } from '@shared/modules/cloudinary/cloudinary.service';
-import { ProductNotFound } from '../errors/product-not-found';
 import { Product } from '@modules/product/entities/product';
 import { ProductVariantNotFound } from './errors/product-variant-not-found';
+import { ProductNotFound } from '@modules/product/use-cases/errors/product-not-found';
 
 interface RemoveVariantProductRequest {
   productId: string;
@@ -37,9 +37,9 @@ export class CreateProduct {
       throw new ProductVariantNotFound();
     }
 
-    const images = variant.options?.flatMap((option) =>
-      option.images.map((image) => image.imageId),
-    );
+    const images = variant.options
+      ?.flatMap((option) => option.images?.map((image) => image.imageId))
+      ?.filter((imageId): imageId is string => !!imageId);
 
     if (images) await this.cloudinary.deleteImages(images);
 

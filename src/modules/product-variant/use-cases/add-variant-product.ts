@@ -1,12 +1,8 @@
 import { Product } from '@modules/product/entities/product';
 import { ProductsRepository } from '@modules/product/repositories/product-repository';
 import { Injectable } from '@nestjs/common';
-import { CloudinaryService } from '@shared/modules/cloudinary/cloudinary.service';
-import { ProductNotFound } from '../errors/product-not-found';
-import {
-  ProductVariant,
-  VariantTypes,
-} from '@modules/product/entities/product-variant';
+import { ProductVariant, VariantTypes } from '../entities/product-variant';
+import { ProductNotFound } from '@modules/product/use-cases/errors/product-not-found';
 
 interface AddVariantProductRequest {
   productId: string;
@@ -18,10 +14,7 @@ interface AddVariantProductResponse {
 
 @Injectable()
 export class CreateProduct {
-  constructor(
-    private productsRepository: ProductsRepository,
-    private cloudinary: CloudinaryService,
-  ) {}
+  constructor(private productsRepository: ProductsRepository) {}
 
   async execute(
     request: AddVariantProductRequest,
