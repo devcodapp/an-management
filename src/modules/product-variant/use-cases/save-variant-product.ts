@@ -39,7 +39,7 @@ export class SaveVariantProduct {
 
     product.updateVariant(variantId, variant);
 
-    await this.productsRepository.create(product);
+    await this.productsRepository.save(product);
 
     return {
       product,

@@ -45,7 +45,7 @@ export class RemoveVariantProduct {
 
     product.removeVariant(variantId);
 
-    await this.productsRepository.create(product);
+    await this.productsRepository.save(product);
 
     return {
       product,

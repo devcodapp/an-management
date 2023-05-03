@@ -7,10 +7,11 @@ export class PrismaProductMapper {
   static toPrisma(product: Product) {
     const variants: any = product.variants?.map(({ id, options, type }) => ({
       id,
-      options: options?.map(({ sku, title, images }) => ({
+      options: options?.map(({ sku, title, images, disabledAt }) => ({
         sku,
         title,
         images,
+        disabledAt,
       })),
       type,
     }));

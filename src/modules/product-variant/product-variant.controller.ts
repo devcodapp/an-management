@@ -1,4 +1,12 @@
-import { Body, Controller, Param, Patch, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Param,
+  Patch,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { AddVariantProduct } from './use-cases/add-variant-product';
 import { RemoveVariantProduct } from './use-cases/remove-variant-product';
 import { SaveVariantProduct } from './use-cases/save-variant-product';
@@ -50,7 +58,7 @@ export class ProductVariantController {
     };
   }
 
-  @Patch('p/:productId/v/:variantId')
+  @Delete('p/:productId/v/:variantId')
   @ApiOperation(DeleteProductVariantSwagger)
   async delete(
     @Param('productId') productId: string,

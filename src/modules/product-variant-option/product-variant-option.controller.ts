@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Param,
   Patch,
   Post,
@@ -74,7 +75,7 @@ export class ProductVariantOptionController {
     };
   }
 
-  @Patch('p/:productId/v/:variantId/:optionSKU')
+  @Delete('p/:productId/v/:variantId/:optionSKU')
   @ApiOperation(DeleteOptionProductVariantSwagger)
   async delete(
     @Param('productId') productId: string,
@@ -148,7 +149,7 @@ export class ProductVariantOptionController {
   }
 
   @Patch('removeImage')
-  @ApiConsumes('multipart/form-data')
+  @ApiConsumes('application/x-www-form-urlencoded')
   @ApiOperation(RemoveImageOptionProductVariantSwagger)
   @ApiBody({ type: RemoveImageOptionVariantProductBody })
   async removeImage(

@@ -33,7 +33,6 @@ export class PrismaProductRepository implements ProductsRepository {
 
   async create(product: Product): Promise<void> {
     const raw = PrismaProductMapper.toPrisma(product);
-    console.log(raw);
     await this.prisma.product.create({
       data: { ...raw },
     });
