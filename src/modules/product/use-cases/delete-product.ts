@@ -22,8 +22,8 @@ export class DeleteProduct {
       throw new ProductNotFound();
     }
 
-    product.deletedAt = new Date();
-    product.deletedUser = '123';
+    product.delete('123');
+
     await this.productRepository.save(product);
 
     return { product };

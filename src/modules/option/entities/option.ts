@@ -72,11 +72,11 @@ export class Option extends BaseEntity {
   }
 
   public removeSubOption(name: string): void {
-    const index = this.suboptions?.findIndex(
+    const index = this.props.suboptions?.findIndex(
       (item) => item.name.toUpperCase() == name.toUpperCase(),
     );
     if (index == undefined || index < 0) throw new Error('SubOption not found');
-    this.suboptions?.splice(index, 1);
+    this.props.suboptions?.splice(index, 1);
   }
 
   public updateSubOption(oldName: string, subOption: SubOption) {

@@ -25,23 +25,10 @@ export class CreateProductBody {
   description: string;
 
   @ApiProperty({
-    description: 'Os adicionais do produto',
-    type: Array<Additional>,
-  })
-  additionals: Array<Additional>;
-
-  @ApiProperty({
     description: 'O id da categoria',
     type: String,
   })
   @IsNotEmpty()
   @IsUUID()
   categoryId: string;
-
-  // @ApiProperty({
-  //   description: 'A imagem do produto',
-  //   type: String,
-  //   format: 'binary',
-  // })
-  // image: Express.Multer.File;
 }
