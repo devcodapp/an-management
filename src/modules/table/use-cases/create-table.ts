@@ -1,7 +1,6 @@
 import { Table } from '../entities/table';
 import { Injectable } from '@nestjs/common';
 import { TablesRepository } from '../repositories/table-repository';
-import { CloudinaryService } from '@shared/modules/cloudinary/cloudinary.service';
 
 interface CreateTableRequest {
   name: string;
@@ -14,10 +13,7 @@ interface CreateTableResponse {
 
 @Injectable()
 export class CreateTable {
-  constructor(
-    private tablesRepository: TablesRepository,
-    private cloudinary: CloudinaryService,
-  ) {}
+  constructor(private tablesRepository: TablesRepository) {}
 
   async execute(request: CreateTableRequest): Promise<CreateTableResponse> {
     const { companyId, name, amountOfChairs } = request;

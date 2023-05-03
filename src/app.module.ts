@@ -11,6 +11,7 @@ import { SuboptionModule } from './modules/suboption/suboption.module';
 import { ProductModule } from '@modules/product/product.module';
 import { ProductVariantModule } from './modules/product-variant/product-variant.module';
 import { ProductVariantOptionModule } from './modules/product-variant-option/product-variant-option.module';
+import { TableModule } from '@modules/table/table.module';
 @Module({
   imports: [
     CategoryAdditionalModule,
@@ -27,6 +28,7 @@ import { ProductVariantOptionModule } from './modules/product-variant-option/pro
     ProductModule,
     ProductVariantModule,
     ProductVariantOptionModule,
+    TableModule,
   ],
 })
 export class AppModule {}

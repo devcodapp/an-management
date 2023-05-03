@@ -44,7 +44,7 @@ export class TableController {
   ) {}
 
   @Post()
-  @ApiConsumes('multipart/form-data')
+  // @ApiConsumes('application/x-www-form-urlencoded')
   @ApiOperation(CreateTableSwagger)
   @ApiBody({ type: CreateTableBody })
   async create(@Body() body: CreateTableBody): Promise<{ table: ITableView }> {
