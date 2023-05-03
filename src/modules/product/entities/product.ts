@@ -2,6 +2,7 @@ import { Additional } from '@modules/additional/entities/additional';
 import { CategoryProduct } from '@prisma/client';
 import { BaseEntity, BaseEntityProps } from '@shared/entities/base-entity';
 import { ProductVariant } from './product-variant';
+import { generateSKU } from '@shared/services/generateSKU';
 
 export interface ProductProps {
   name: string;
@@ -28,6 +29,7 @@ export class Product extends BaseEntity {
     super(baseProps);
     this.props = {
       ...props,
+      sku: props.sku || generateSKU(5).toUpperCase(),
       name: props.name.toUpperCase(),
       images: props.images || [],
     };
