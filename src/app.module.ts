@@ -8,6 +8,8 @@ import { DatabaseModule } from '@shared/modules/database/database.module';
 import { OptionModule } from './modules/option/option.module';
 import { CategoryProductModule } from './modules/category-product/category-product.module';
 import { SuboptionModule } from './modules/suboption/suboption.module';
+import { AuthModule } from './shared/modules/auth/auth.module';
+import { UsersModule } from '@modules/users/users.module';
 @Module({
   imports: [
     CategoryAdditionalModule,
@@ -21,6 +23,8 @@ import { SuboptionModule } from './modules/suboption/suboption.module';
     CompanyModule,
     CategoryProductModule,
     SuboptionModule,
+    AuthModule,
+    UsersModule,
   ],
 })
 export class AppModule {}

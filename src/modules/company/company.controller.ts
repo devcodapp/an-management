@@ -8,6 +8,7 @@ import {
   Put,
   Query,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { ApiBody, ApiConsumes, ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -33,6 +34,7 @@ import { OpenCompany } from './use-cases/open-company';
 import { CloseCompany } from './use-cases/close-company';
 import { BooleanInterceptor } from 'src/interceptors/boolean/boolean.interceptor';
 import { ArrayInterceptor } from 'src/interceptors/array/array.interceptor';
+import { AuthGuard } from '@shared/modules/auth/auth.guard';
 
 @ApiTags('Company')
 @Controller('company')
@@ -48,6 +50,7 @@ export class CompanyController {
     private closeCompany: CloseCompany,
   ) {}
 
+  @UseGuards(AuthGuard)
   @Get()
   @ApiOperation(FilterCompanySwagger)
   async companies(
