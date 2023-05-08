@@ -52,6 +52,7 @@ model Company {
   createdAt          DateTime             @default(now())
   disabledAt         DateTime?
   options            Option[]             @relation(name: "CompanyToOption")
+  User               User[]               @relation(name: "CompanyToUser")
 }
 
 model CategoryProduct {
@@ -82,4 +83,20 @@ model Option {
   deletedAt    DateTime?
   disabledAt   DateTime?
   company      Company   @relation(name: "CompanyToOption", fields: [companyId], references: [id])
+}
+
+model User {
+  id          String    @id @map("_id")
+  name        String
+  email       String
+  password    String
+  role        String
+  imageId     String
+  imageUrl    String
+  createdUser String
+  createdAt   DateTime  @default(now())
+  deletedUser String?
+  deletedAt   DateTime?
+  Company     Company   @relation(name: "CompanyToUser", fields: [companyId], references: [id])
+  companyId   String
 }

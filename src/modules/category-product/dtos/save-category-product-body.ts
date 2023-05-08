@@ -4,7 +4,7 @@ import { randomUUID } from 'crypto';
 
 export class SaveCategoryProductBody {
   @ApiProperty({
-    description: 'O id da categoria de adicional',
+    description: 'O id da categoria do produto',
     type: String,
     required: true,
   })
@@ -12,14 +12,14 @@ export class SaveCategoryProductBody {
   categoryProductId: string;
 
   @ApiProperty({
-    description: 'O nome da categoria de produto',
+    description: 'O nome da categoria do produto',
     type: String,
     required: false,
   })
   name: string;
 
   @ApiProperty({
-    description: 'A descrição da categoria de produto',
+    description: 'A descrição da categoria do produto',
     type: String,
     required: false,
   })
@@ -40,7 +40,7 @@ export class SaveCategoryProductBody {
   companyId?: string;
 
   @ApiProperty({
-    description: 'A imagem da categoria de produto',
+    description: 'A imagem da categoria do produto',
     type: String,
     format: 'binary',
     required: false,
