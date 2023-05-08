@@ -12,6 +12,7 @@ export interface ProductProps {
   variants?: ProductVariant[];
   images?: ProductImage[];
   categoryId: string;
+  disabledAt?: Date;
   Additionals?: Additional[];
   Category?: CategoryProduct;
 }
@@ -79,6 +80,9 @@ export class Product extends BaseEntity {
   public get categoryId(): string {
     return this.props.categoryId;
   }
+  public get disabledAt(): Date | undefined {
+    return this.props.disabledAt;
+  }
 
   public set Additionals(additionals: Additional[] | undefined) {
     this.props.Additionals = additionals;
@@ -131,5 +135,13 @@ export class Product extends BaseEntity {
     if (index == undefined || index < 0) throw new Error('Variant not found');
 
     this.variants?.splice(index, 1, variant);
+  }
+
+  public disable() {
+    this.props.disabledAt = new Date();
+  }
+
+  public enable() {
+    this.props.disabledAt = undefined;
   }
 }
