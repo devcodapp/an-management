@@ -3,9 +3,9 @@ model CategoryAdditional {
   name        String
   order       Int
   companyId   String
-  createdUser String
+  createdWorker String
   createdAt   DateTime  @default(now())
-  deletedUser String?
+  deletedWorker String?
   deletedAt   DateTime?
 
   company Company @relation(fields: [companyId], references: [id])
