@@ -48,4 +48,9 @@ export class BaseEntity {
   public get deletedUser(): string | null {
     return this._deletedUser;
   }
+
+  public delete(userId: string): void {
+    this.deletedAt = new Date();
+    this.deletedUser = userId;
+  }
 }

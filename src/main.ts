@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 import * as swaggerUi from 'swagger-ui-express';
+import * as bodyParser from 'body-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -17,6 +18,7 @@ async function bootstrap() {
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(document));
 
   app.useGlobalPipes(new ValidationPipe());
+  app.use(bodyParser.urlencoded({ extended: true }));
 
   await app.listen(3000);
 }
