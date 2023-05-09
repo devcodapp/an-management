@@ -23,9 +23,9 @@ export class PrismaOptionMapper {
       defaultPrice: option.defaultPrice,
       companyId: option.companyId,
       createdAt: option.createdAt,
-      createdUser: option.createdUser,
+      createdWorker: option.createdWorker,
       deletedAt: option.deletedAt,
-      deletedUser: option.deletedUser,
+      deletedWorker: option.deletedWorker,
     };
   }
 
@@ -50,9 +50,9 @@ export class PrismaOptionMapper {
       },
       {
         createdAt: raw.createdAt,
-        createdUser: raw.createdUser,
+        createdWorker: raw.createdWorker,
         deletedAt: raw.deletedAt,
-        deletedUser: raw.deletedUser,
+        deletedWorker: raw.deletedWorker,
         id: raw.id,
       },
     );

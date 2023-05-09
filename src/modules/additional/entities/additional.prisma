@@ -5,9 +5,9 @@ model Additional {
   imageUrl    String
   imageId     String
   categoryId  String
-  createdUser String
+  createdWorker String
   createdAt   DateTime           @default(now())
-  deletedUser String?
+  deletedWorker String?
   deletedAt   DateTime?
   category    CategoryAdditional @relation(fields: [categoryId], references: [id])
 }

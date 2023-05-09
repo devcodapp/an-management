@@ -33,7 +33,7 @@ export class CreateAdditional {
         imageId: uploadedImage.public_id,
         price: Number(price),
       },
-      { createdUser: '123' },
+      { createdWorker: '123' },
     );
 
     await this.additionalsRepository.create(additional);

@@ -9,7 +9,7 @@ import { OptionModule } from './modules/option/option.module';
 import { CategoryProductModule } from './modules/category-product/category-product.module';
 import { SuboptionModule } from './modules/suboption/suboption.module';
 import { AuthModule } from './shared/modules/auth/auth.module';
-import { UsersModule } from '@modules/users/users.module';
+import { WorkerModule } from '@modules/worker/worker.module';
 @Module({
   imports: [
     CategoryAdditionalModule,
@@ -24,7 +24,7 @@ import { UsersModule } from '@modules/users/users.module';
     CategoryProductModule,
     SuboptionModule,
     AuthModule,
-    UsersModule,
+    WorkerModule,
   ],
 })
 export class AppModule {}

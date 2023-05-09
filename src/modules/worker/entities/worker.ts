@@ -1,20 +1,20 @@
 import { BaseEntityProps } from '@shared/entities/base-entity';
 import { BaseEntity } from '@shared/entities/base-entity';
 
-export interface UserProps {
+export interface WorkerProps {
   name: string;
   email: string;
   password: string;
-  role: 'admin' | 'colaborator';
+  role: any;
   imageId: string;
   imageUrl: string;
   companyId: string;
 }
 
-export class User extends BaseEntity {
-  private props: UserProps;
+export class Worker extends BaseEntity {
+  private props: WorkerProps;
 
-  constructor(props: UserProps, baseProps: BaseEntityProps) {
+  constructor(props: WorkerProps, baseProps: BaseEntityProps) {
     super(baseProps);
   }
 

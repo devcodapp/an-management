@@ -5,9 +5,9 @@ model CategoryProduct {
   order       Int
   imageId     String
   imageUrl    String
-  createdUser String
+  createdWorker String
   createdAt   DateTime  @default(now())
-  deletedUser String?
+  deletedWorker String?
   deletedAt   DateTime?
 
   Company   Company @relation(fields: [companyId], references: [id])

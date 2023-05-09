@@ -1,4 +1,4 @@
-model User {
+model Worker {
   id          String    @id @map("_id")
   name        String
   email String
@@ -6,9 +6,9 @@ model User {
   role String
   imageId     String
   imageUrl    String
-  createdUser String
+  createdWorker String
   createdAt   DateTime  @default(now())
-  deletedUser String?
+  deletedWorker String?
   deletedAt   DateTime?
 
   Company   Company @relation(fields: [companyId], references: [id])
@@ -17,5 +17,5 @@ model User {
 
 model Company {
   id              String            @id @map("_id")
-  User User[]
+  Worker Worker[]
 }

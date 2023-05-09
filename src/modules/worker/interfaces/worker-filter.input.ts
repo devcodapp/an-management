@@ -1,4 +1,4 @@
-export interface UserFilterInput {
+export interface WorkerFilterInput {
   name?: string;
   email?: string;
   role?: 'admin' | 'colaborator';

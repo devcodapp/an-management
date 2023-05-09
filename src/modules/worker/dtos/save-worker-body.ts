@@ -1,14 +1,14 @@
 import { IsUUID } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class SaveUserBody {
+export class SaveWorkerBody {
   @ApiProperty({
     description: 'O id do usuário',
     type: String,
     required: true,
   })
   @IsUUID()
-  userId: string;
+  workerId: string;
 
   @ApiProperty({
     description: 'O nome do usuário',

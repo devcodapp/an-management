@@ -31,7 +31,7 @@ export class DeleteCategoryAdditional {
     }
 
     categoryAdditional.deletedAt = new Date();
-    categoryAdditional.deletedUser = '123';
+    categoryAdditional.deletedWorker = '123';
 
     await this.categoryAdditionalRepository.save(categoryAdditional);
 

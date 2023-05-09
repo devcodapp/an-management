@@ -3,11 +3,11 @@ import { jwtConstants } from './constants';
 import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { JwtModule } from '@nestjs/jwt';
-import { UsersModule } from '@modules/users/users.module';
+import { WorkerModule } from '@modules/worker/worker.module';
 
 @Module({
   imports: [
-    UsersModule,
+    WorkerModule,
     JwtModule.register({
       global: true,
       secret: jwtConstants.secret,
