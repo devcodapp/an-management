@@ -9,7 +9,6 @@ import {
   UploadedFile,
   Put,
   Patch,
-  UseFilters,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiTags, ApiOperation, ApiConsumes, ApiBody } from '@nestjs/swagger';

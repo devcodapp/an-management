@@ -9,7 +9,7 @@ export const GetWorkerSwagger: Partial<ApiOperationOptions> = {
   description: 'Busca um usuários no banco de dados pelo id',
 };
 export const FilterWorkerSwagger: Partial<ApiOperationOptions> = {
-  summary: 'Busca categorias de produto',
+  summary: 'Busca usuário',
   description: 'Busca categorias de produtos no banco de dados',
 };
 export const UpdateWorkerSwagger: Partial<ApiOperationOptions> = {

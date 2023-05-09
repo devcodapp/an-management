@@ -24,7 +24,7 @@ export class SaveWorker {
   ) {}
 
   async execute(request: SaveWorkerRequest): Promise<SaveWorkerResponse> {
-    const { workerId, name, email, password, role, image } = request;
+    const { workerId, image, ...updateFields } = request;
 
     const worker = await this.workerRepository.worker(workerId);
 
@@ -40,10 +40,7 @@ export class SaveWorker {
       worker.imageUrl = uploadedImage.url;
     }
 
-    name ? (worker.name = name) : null;
-    email ? (worker.email = email) : null;
-    password ? (worker.password = password) : null;
-    role ? (worker.role = role) : null;
+    Object.assign(worker, updateFields);
 
     await this.workerRepository.save(worker);
 

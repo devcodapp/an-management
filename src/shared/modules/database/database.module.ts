@@ -10,6 +10,8 @@ import { CategoryProductsRepository } from '@modules/category-product/repositori
 import { PrismaCategoryProductRepository } from './prisma/repositories/prisma-category-product-repository';
 import { OptionRepository } from '@modules/option/repositories/option-repository';
 import { PrismaOptionRepository } from './prisma/repositories/prisma-option-repository';
+import { WorkerRepository } from '@modules/worker/repositories/worker-repository';
+import { PrismaWorkerRepository } from './prisma/repositories/prisma-worker-repository';
 
 @Module({
   providers: [
@@ -34,6 +36,10 @@ import { PrismaOptionRepository } from './prisma/repositories/prisma-option-repo
       provide: OptionRepository,
       useClass: PrismaOptionRepository,
     },
+    {
+      provide: WorkerRepository,
+      useClass: PrismaWorkerRepository,
+    },
   ],
   exports: [
     CategoryAdditionalsRepository,
@@ -41,6 +47,7 @@ import { PrismaOptionRepository } from './prisma/repositories/prisma-option-repo
     CompaniesRepository,
     CategoryProductsRepository,
     OptionRepository,
+    WorkerRepository,
   ],
 })
 export class DatabaseModule {}

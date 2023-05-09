@@ -16,6 +16,10 @@ export class Worker extends BaseEntity {
 
   constructor(props: WorkerProps, baseProps: BaseEntityProps) {
     super(baseProps);
+    this.props = {
+      ...props,
+      name: props.name.toUpperCase(),
+    };
   }
 
   public set name(name: string) {
