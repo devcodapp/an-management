@@ -1,0 +1,46 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id                    String                  @id @map("_id")
+  name                  String
+  description           String
+  price                 Float
+  sku                   String
+  variants              Json[]
+  images                Json[]
+  createdUser           String
+  createdAt             DateTime                @default(now())
+  deletedUser           String?
+  deletedAt             DateTime?
+  disabledAt            DateTime?
+  categoryId            String
+  AdditionalsOnProducts AdditionalsOnProducts[]
+  CategoryProduct       CategoryProduct?        @relation(fields: [categoryId], references: [id])
+}
+
+model CategoryProduct {
+  id      String    @id @map("_id")
+  Product Product[]
+}
+
+model Additional {
+  id                    String                  @id @map("_id")
+  AdditionalsOnProducts AdditionalsOnProducts[]
+}
+
+model AdditionalsOnProducts {
+  id           String      @id @map("_id")
+  Additional   Additional? @relation(fields: [additionalId], references: [id])
+  additionalId String?
+  Product      Product?    @relation(fields: [productId], references: [id])
+  productId    String?
+}
+
+// model Option {
+//   id          String             @id @map("_id")
+//   product_id  String
+//   product     Product            @relation(fields: [product_id], references: [id])
+// }

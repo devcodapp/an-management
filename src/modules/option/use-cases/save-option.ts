@@ -18,7 +18,7 @@ export class SaveOption {
   constructor(private optionRepository: OptionRepository) {}
 
   async execute(request: SaveOptionRequest): Promise<SaveOptionResponse> {
-    const { optionId, name, defaultPrice, description } = request;
+    const { optionId, ...updateFields } = request;
 
     const option = await this.optionRepository.option(optionId);
 
@@ -26,9 +26,7 @@ export class SaveOption {
       throw new OptionNotFound();
     }
 
-    name ? (option.name = name) : null;
-    description ? (option.description = description) : null;
-    defaultPrice ? (option.defaultPrice = defaultPrice) : null;
+    Object.assign(option, updateFields);
 
     await this.optionRepository.save(option);
 
