@@ -5,6 +5,7 @@ import {
   Additional as RawAdditional,
 } from '@prisma/client';
 import { Order } from '@shared/entities/order';
+import { PrismaCategoryAdditionalMapper } from './prisma-category-additional-mapper';
 
 export class PrismaAdditionalMapper {
   static toPrisma(additional: Additional) {
@@ -23,25 +24,6 @@ export class PrismaAdditionalMapper {
   }
 
   static toDomain(raw: RawAdditional & { category?: RawCategoryAdditional }) {
-    const { category: rawCategory } = raw;
-
-    const category = rawCategory
-      ? new CategoryAdditional(
-          {
-            companyId: rawCategory?.companyId,
-            name: rawCategory?.name,
-            order: new Order(rawCategory?.order),
-          },
-          {
-            createdUser: rawCategory.createdUser,
-            createdAt: rawCategory.createdAt,
-            deletedAt: rawCategory.deletedAt,
-            deletedUser: rawCategory.deletedUser,
-            id: rawCategory.id,
-          },
-        )
-      : undefined;
-
     return new Additional(
       {
         categoryId: raw.categoryId,
@@ -49,7 +31,9 @@ export class PrismaAdditionalMapper {
         imageUrl: raw.imageUrl,
         imageId: raw.imageId,
         price: raw.price,
-        Category: category,
+        Category: raw.category
+          ? PrismaCategoryAdditionalMapper.toDomain(raw.category)
+          : undefined,
       },
       {
         createdAt: raw.createdAt,
