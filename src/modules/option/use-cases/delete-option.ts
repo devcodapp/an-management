@@ -25,7 +25,7 @@ export class DeleteOption {
     }
 
     option.deletedAt = new Date();
-    option.deletedUser = '123';
+    option.deletedWorker = '123';
     await this.optionRepository.save(option);
 
     return { option };

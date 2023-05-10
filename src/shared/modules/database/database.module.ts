@@ -10,6 +10,8 @@ import { CategoryProductsRepository } from '@modules/category-product/repositori
 import { PrismaCategoryProductRepository } from './prisma/repositories/prisma-category-product-repository';
 import { OptionRepository } from '@modules/option/repositories/option-repository';
 import { PrismaOptionRepository } from './prisma/repositories/prisma-option-repository';
+import { WorkerRepository } from '@modules/worker/repositories/worker-repository';
+import { PrismaWorkerRepository } from './prisma/repositories/prisma-worker-repository';
 import { ProductsRepository } from '@modules/product/repositories/product-repository';
 import { PrismaProductRepository } from './prisma/repositories/prisma-product-repository';
 import { TablesRepository } from '@modules/table/repositories/table-repository';
@@ -39,6 +41,10 @@ import { PrismaTableRepository } from './prisma/repositories/prisma-table-reposi
       useClass: PrismaOptionRepository,
     },
     {
+      provide: WorkerRepository,
+      useClass: PrismaWorkerRepository,
+    },
+    {
       provide: ProductsRepository,
       useClass: PrismaProductRepository,
     },
@@ -53,6 +59,7 @@ import { PrismaTableRepository } from './prisma/repositories/prisma-table-reposi
     CompaniesRepository,
     CategoryProductsRepository,
     OptionRepository,
+    WorkerRepository,
     ProductsRepository,
     TablesRepository,
   ],

@@ -8,6 +8,8 @@ import { DatabaseModule } from '@shared/modules/database/database.module';
 import { OptionModule } from './modules/option/option.module';
 import { CategoryProductModule } from './modules/category-product/category-product.module';
 import { SuboptionModule } from './modules/suboption/suboption.module';
+import { AuthModule } from './shared/modules/auth/auth.module';
+import { WorkerModule } from '@modules/worker/worker.module';
 import { ProductModule } from '@modules/product/product.module';
 import { ProductVariantModule } from './modules/product-variant/product-variant.module';
 import { ProductVariantOptionModule } from './modules/product-variant-option/product-variant-option.module';
@@ -25,6 +27,8 @@ import { TableModule } from '@modules/table/table.module';
     CompanyModule,
     CategoryProductModule,
     SuboptionModule,
+    AuthModule,
+    WorkerModule,
     ProductModule,
     ProductVariantModule,
     ProductVariantOptionModule,

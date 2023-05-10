@@ -1,8 +1,9 @@
-model CategoryProduct {
+model Worker {
   id          String    @id @map("_id")
   name        String
-  description String
-  order       Int
+  email String
+  password       String
+  role String
   imageId     String
   imageUrl    String
   createdWorker String
@@ -16,5 +17,5 @@ model CategoryProduct {
 
 model Company {
   id              String            @id @map("_id")
-  CategoryProduct CategoryProduct[]
+  Worker Worker[]
 }

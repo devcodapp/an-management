@@ -26,7 +26,7 @@ export class CreateOption {
         companyId,
         disabledAt: undefined,
       },
-      { createdUser: '123' },
+      { createdWorker: '123' },
     );
 
     await this.optionRepository.create(option);
