@@ -1,14 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
 export class FilterProductBody {
   @ApiProperty({
-    description: 'O nome do adicional',
+    description: 'O nome do produto',
     type: String,
     required: false,
   })
   name: string;
 
   @ApiProperty({
-    description: 'O preço do adicional',
+    description: 'O preço do produto',
     type: Number,
     required: false,
   })
