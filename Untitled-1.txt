@@ -1,0 +1,29 @@
+
+orders
+code
+date
+seenDate
+authorizedDate
+products
+subtotal
+total
+customer {
+   customerId
+   name
+   address
+}
+
+hasDelivery
+deliveryFee
+
+coupon
+
+payment{
+paymentMethod
+paymentOnline
+paymenntDelivery
+}
+
+invoiceId
+
+
