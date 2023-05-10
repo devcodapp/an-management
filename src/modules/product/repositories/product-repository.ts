@@ -1,5 +1,5 @@
 import { Product } from '../entities/product';
-import { ProductFilterInput } from '../interfaces/prodcut-filter.input';
+import { ProductFilterInput } from '../interfaces/product-filter.input';
 
 export abstract class ProductsRepository {
   abstract create(product: Product): Promise<void>;

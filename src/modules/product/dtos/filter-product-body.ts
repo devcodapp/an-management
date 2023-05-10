@@ -20,4 +20,20 @@ export class FilterProductBody {
     required: false,
   })
   categoryId: string;
+
+  @ApiProperty({
+    description: 'Retorno da categoria',
+    type: Boolean,
+    required: false,
+    default: false,
+  })
+  categoryReturn: boolean;
+
+  @ApiProperty({
+    description: 'Retorno de adicionais',
+    type: Boolean,
+    required: false,
+    default: false,
+  })
+  additionalsReturn: boolean;
 }

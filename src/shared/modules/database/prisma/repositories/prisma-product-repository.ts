@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { Product } from '@modules/product/entities/product';
 import { ProductsRepository } from '@modules/product/repositories/product-repository';
-import { ProductFilterInput } from '@modules/product/interfaces/prodcut-filter.input';
+import { ProductFilterInput } from '@modules/product/interfaces/product-filter.input';
 import { PrismaProductMapper } from '../mappers/prisma-product-mapper';
 
 @Injectable()
@@ -19,8 +19,21 @@ export class PrismaProductRepository implements ProductsRepository {
 
     return PrismaProductMapper.toDomain(product);
   }
-  products(filters: ProductFilterInput): Promise<Product[] | null> {
-    throw new Error('Method not implemented.');
+
+  async products(filters: ProductFilterInput): Promise<Product[] | null> {
+    const { categoryReturn, additionalsReturn, ...filtersQuery } = filters;
+    const products = await this.prisma.product.findMany({
+      where: {
+        ...(filtersQuery ? filtersQuery : {}),
+        ...(filtersQuery.name ? { name: { contains: filtersQuery.name } } : {}),
+      },
+      orderBy: { name: 'asc' },
+      include: {
+        category: categoryReturn,
+        additionals: { include: { additional: additionalsReturn } },
+      },
+    });
+    return products.map(PrismaProductMapper.toDomain);
   }
   async save(product: Product): Promise<void> {
     const { id, ...raw } = PrismaProductMapper.toPrisma(product);
