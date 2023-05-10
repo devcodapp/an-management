@@ -10,9 +10,9 @@ model Option {
   defaultPrice Float?
   suboptions   Json[]
   companyId    String
-  createdWorker  String
+  createdUser  String
   createdAt    DateTime  @default(now())
-  deletedWorker  String?
+  deletedUser  String?
   deletedAt    DateTime?
   disabledAt   DateTime?
   company      Company   @relation(fields: [companyId], references: [id])

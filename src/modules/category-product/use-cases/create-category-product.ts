@@ -36,7 +36,7 @@ export class CreateCategoryProduct {
         order: new Order(Number(order)),
         companyId,
       },
-      { createdWorker: '123' },
+      { createdUser: '123' },
     );
 
     await this.categoryProductRepository.create(categoryProduct);

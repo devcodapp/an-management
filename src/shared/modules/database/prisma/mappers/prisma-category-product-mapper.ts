@@ -11,9 +11,9 @@ export class PrismaCategoryProductMapper {
       order: categoryProduct.order.value,
       imageId: categoryProduct.imageId,
       imageUrl: categoryProduct.imageUrl,
-      createdWorker: categoryProduct.createdWorker,
+      createdUser: categoryProduct.createdUser,
       createdAt: categoryProduct.createdAt,
-      deletedWorker: categoryProduct.deletedWorker,
+      deletedUser: categoryProduct.deletedUser,
       deletedAt: categoryProduct.deletedAt,
       companyId: categoryProduct.companyId,
     };
@@ -31,9 +31,9 @@ export class PrismaCategoryProductMapper {
       },
       {
         createdAt: raw.createdAt,
-        createdWorker: raw.createdWorker,
+        createdUser: raw.createdUser,
         deletedAt: raw.deletedAt,
-        deletedWorker: raw.deletedWorker,
+        deletedUser: raw.deletedUser,
         id: raw.id,
       },
     );

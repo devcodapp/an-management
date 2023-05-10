@@ -16,9 +16,9 @@ export class PrismaAdditionalMapper {
       price: additional.price,
       categoryId: additional.categoryId,
       createdAt: additional.createdAt,
-      createdWorker: additional.createdWorker,
+      createdUser: additional.createdUser,
       deletedAt: additional.deletedAt,
-      deletedWorker: additional.deletedWorker,
+      deletedUser: additional.deletedUser,
     };
   }
 
@@ -33,10 +33,10 @@ export class PrismaAdditionalMapper {
             order: new Order(rawCategory?.order),
           },
           {
-            createdWorker: rawCategory.createdWorker,
+            createdUser: rawCategory.createdUser,
             createdAt: rawCategory.createdAt,
             deletedAt: rawCategory.deletedAt,
-            deletedWorker: rawCategory.deletedWorker,
+            deletedUser: rawCategory.deletedUser,
             id: rawCategory.id,
           },
         )
@@ -53,9 +53,9 @@ export class PrismaAdditionalMapper {
       },
       {
         createdAt: raw.createdAt,
-        createdWorker: raw.createdWorker,
+        createdUser: raw.createdUser,
         deletedAt: raw.deletedAt,
-        deletedWorker: raw.deletedWorker,
+        deletedUser: raw.deletedUser,
         id: raw.id,
       },
     );

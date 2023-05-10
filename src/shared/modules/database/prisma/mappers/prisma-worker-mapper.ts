@@ -11,9 +11,9 @@ export class PrismaWorkerMapper {
       role: worker.role,
       imageId: worker.imageId,
       imageUrl: worker.imageUrl,
-      createdWorker: worker.createdWorker,
+      createdUser: worker.createdUser,
       createdAt: worker.createdAt,
-      deletedWorker: worker.deletedWorker,
+      deletedUser: worker.deletedUser,
       deletedAt: worker.deletedAt,
       companyId: worker.companyId,
     };
@@ -32,9 +32,9 @@ export class PrismaWorkerMapper {
       },
       {
         createdAt: raw.createdAt,
-        createdWorker: raw.createdWorker,
+        createdUser: raw.createdUser,
         deletedAt: raw.deletedAt,
-        deletedWorker: raw.deletedWorker,
+        deletedUser: raw.deletedUser,
         id: raw.id,
       },
     );

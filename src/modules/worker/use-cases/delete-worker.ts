@@ -24,7 +24,7 @@ export class DeleteWorker {
     }
 
     worker.deletedAt = new Date();
-    worker.deletedWorker = '123';
+    worker.deletedUser = '123';
 
     await this.workerRepository.save(worker);
 
