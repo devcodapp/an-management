@@ -44,25 +44,23 @@ export class PrismaProductMapper {
       additionals?: RawAdditionals[] | null;
     },
   ) {
-    const { category: rawCategoryProduct, additionals: rawAdditionals } = raw;
-    console.log(rawAdditionals);
-    const category = rawCategoryProduct
+    const category = raw.category
       ? new CategoryProduct(
           {
-            companyId: rawCategoryProduct.companyId,
-            description: rawCategoryProduct.description,
-            name: rawCategoryProduct.name,
-            imageId: rawCategoryProduct.imageId,
-            imageUrl: rawCategoryProduct.imageUrl,
-            order: new Order(rawCategoryProduct?.order),
-            enabled: rawCategoryProduct.enabled,
+            companyId: raw.category.companyId,
+            description: raw.category.description,
+            name: raw.category.name,
+            imageId: raw.category.imageId,
+            imageUrl: raw.category.imageUrl,
+            order: new Order(raw.category?.order),
+            enabled: raw.category.enabled,
           },
           {
-            createdUser: rawCategoryProduct.createdUser,
-            createdAt: rawCategoryProduct.createdAt,
-            deletedAt: rawCategoryProduct.deletedAt,
-            deletedUser: rawCategoryProduct.deletedUser,
-            id: rawCategoryProduct.id,
+            createdUser: raw.category.createdUser,
+            createdAt: raw.category.createdAt,
+            deletedAt: raw.category.deletedAt,
+            deletedUser: raw.category.deletedUser,
+            id: raw.category.id,
           },
         )
       : undefined;
@@ -83,7 +81,7 @@ export class PrismaProductMapper {
           });
         }),
         category,
-        additionals: rawAdditionals?.map((add: any) => {
+        additionals: raw.additionals?.map((add: any) => {
           return PrismaAdditionalMapper.toDomain(add.additional);
         }),
         // suboptions: raw.suboptions.map((sb: any) => {

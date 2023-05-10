@@ -24,7 +24,7 @@ export class FilterProductBody {
   @ApiProperty({
     description: 'Retorno da categoria',
     type: Boolean,
-    required: false,
+    required: true,
     default: false,
   })
   categoryReturn: boolean;
@@ -32,7 +32,7 @@ export class FilterProductBody {
   @ApiProperty({
     description: 'Retorno de adicionais',
     type: Boolean,
-    required: false,
+    required: true,
     default: false,
   })
   additionalsReturn: boolean;

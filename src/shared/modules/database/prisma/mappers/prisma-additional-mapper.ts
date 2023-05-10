@@ -23,21 +23,19 @@ export class PrismaAdditionalMapper {
   }
 
   static toDomain(raw: RawAdditional & { category?: RawCategoryAdditional }) {
-    const { category: rawCategory } = raw;
-
-    const category = rawCategory
+    const category = raw.category
       ? new CategoryAdditional(
           {
-            companyId: rawCategory?.companyId,
-            name: rawCategory?.name,
-            order: new Order(rawCategory?.order),
+            companyId: raw.category?.companyId,
+            name: raw.category?.name,
+            order: new Order(raw.category?.order),
           },
           {
-            createdUser: rawCategory.createdUser,
-            createdAt: rawCategory.createdAt,
-            deletedAt: rawCategory.deletedAt,
-            deletedUser: rawCategory.deletedUser,
-            id: rawCategory.id,
+            createdUser: raw.category.createdUser,
+            createdAt: raw.category.createdAt,
+            deletedAt: raw.category.deletedAt,
+            deletedUser: raw.category.deletedUser,
+            id: raw.category.id,
           },
         )
       : undefined;

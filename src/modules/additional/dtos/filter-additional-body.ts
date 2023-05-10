@@ -26,7 +26,7 @@ export class FilterAdditionalBody {
   @ApiProperty({
     description: 'Retorno categoria',
     type: Boolean,
-    required: false,
+    required: true,
     default: false,
   })
   categoryReturn: boolean;

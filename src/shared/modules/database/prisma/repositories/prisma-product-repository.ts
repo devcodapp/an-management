@@ -30,7 +30,11 @@ export class PrismaProductRepository implements ProductsRepository {
       orderBy: { name: 'asc' },
       include: {
         category: categoryReturn,
-        additionals: { include: { additional: additionalsReturn } },
+        additionals: additionalsReturn
+          ? {
+              include: { additional: true },
+            }
+          : false,
       },
     });
     return products.map(PrismaProductMapper.toDomain);

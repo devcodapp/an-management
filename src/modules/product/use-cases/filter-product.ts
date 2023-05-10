@@ -8,7 +8,6 @@ interface FilterProductRequest {
   categoryId?: string;
   categoryReturn: boolean;
   additionalsReturn: boolean;
-  variantsReturn: boolean;
 }
 
 interface FilterProductResponse {
