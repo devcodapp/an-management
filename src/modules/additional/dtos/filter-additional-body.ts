@@ -29,5 +29,5 @@ export class FilterAdditionalBody {
     required: false,
     default: false,
   })
-  category: boolean;
+  categoryReturn: boolean;
 }
