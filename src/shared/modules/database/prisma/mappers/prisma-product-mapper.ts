@@ -9,6 +9,7 @@ import {
 } from '@prisma/client';
 import { Order } from '@shared/entities/order';
 import { PrismaAdditionalMapper } from './prisma-additional-mapper';
+import { PrismaCategoryProductMapper } from './prisma-category-product-mapper';
 
 export class PrismaProductMapper {
   static toPrisma(product: Product) {
@@ -44,26 +45,6 @@ export class PrismaProductMapper {
       additionals?: RawAdditionals[] | null;
     },
   ) {
-    const category = raw.category
-      ? new CategoryProduct(
-          {
-            companyId: raw.category.companyId,
-            description: raw.category.description,
-            name: raw.category.name,
-            imageId: raw.category.imageId,
-            imageUrl: raw.category.imageUrl,
-            order: new Order(raw.category?.order),
-            enabled: raw.category.enabled,
-          },
-          {
-            createdUser: raw.category.createdUser,
-            createdAt: raw.category.createdAt,
-            deletedAt: raw.category.deletedAt,
-            deletedUser: raw.category.deletedUser,
-            id: raw.category.id,
-          },
-        )
-      : undefined;
     return new Product(
       {
         name: raw.name,
@@ -80,21 +61,12 @@ export class PrismaProductMapper {
             }),
           });
         }),
-        category,
+        category: raw.category
+          ? PrismaCategoryProductMapper.toDomain(raw.category)
+          : undefined,
         additionals: raw.additionals?.map((add: any) => {
           return PrismaAdditionalMapper.toDomain(add.additional);
         }),
-        // suboptions: raw.suboptions.map((sb: any) => {
-        //   return new SubOption({
-        //     imageId: sb.imageId?.toString() ?? '',
-        //     imageUrl: sb.imageUrl?.toString() ?? '',
-        //     name: sb.name?.toString() ?? '',
-        //     price: Number(sb.price),
-        //     disabledAt: sb.disabledAt
-        //       ? new Date(sb.disabledAt?.toLocaleString())
-        //       : undefined,
-        //   });
-        // }),
       },
       {
         createdAt: raw.createdAt,
