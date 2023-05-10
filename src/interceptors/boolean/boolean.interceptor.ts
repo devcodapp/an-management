@@ -10,7 +10,7 @@ import { Observable, map } from 'rxjs';
 export class BooleanInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const request = context.switchToHttp().getRequest();
-    const booleanFields = ['isOpened', 'disabledAt'];
+    const booleanFields = ['isOpened', 'disabledAt', 'category'];
     booleanFields.forEach((field) => {
       if (request.body[field] == 'true') {
         request.body[field] = true;

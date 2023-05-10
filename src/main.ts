@@ -7,7 +7,7 @@ import * as bodyParser from 'body-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
-    logger: false,
+    logger: ['error', 'warn'],
   });
 
   const config = new DocumentBuilder()
