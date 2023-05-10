@@ -11,9 +11,9 @@ model Product {
   sku                   String
   variants              Json[]
   images                Json[]
-  createdUser           String
+  createdWorker           String
   createdAt             DateTime                @default(now())
-  deletedUser           String?
+  deletedWorker           String?
   deletedAt             DateTime?
   disabledAt            DateTime?
   categoryId            String

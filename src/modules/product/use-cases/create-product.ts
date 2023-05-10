@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { CloudinaryService } from '@shared/modules/cloudinary/cloudinary.service';
 import { Product } from '../entities/product';
 import { ProductsRepository } from '../repositories/product-repository';
 
@@ -27,7 +26,7 @@ export class CreateProduct {
         price: Number(price),
         description,
       },
-      { createdUser: '123' },
+      { createdWorker: '123' },
     );
 
     await this.productsRepository.create(product);

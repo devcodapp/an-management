@@ -10,9 +10,9 @@ export class PrismaTableMapper {
       amountOfChairs: table.amountOfChairs,
       companyId: table.companyId,
       createdAt: table.createdAt,
-      createdUser: table.createdUser,
+      createdWorker: table.createdWorker,
       deletedAt: table.deletedAt,
-      deletedUser: table.deletedUser,
+      deletedWorker: table.deletedWorker,
     };
   }
 
@@ -26,9 +26,9 @@ export class PrismaTableMapper {
       },
       {
         createdAt: raw.createdAt,
-        createdUser: raw.createdUser,
+        createdWorker: raw.createdWorker,
         deletedAt: raw.deletedAt,
-        deletedUser: raw.deletedUser,
+        deletedWorker: raw.deletedWorker,
         id: raw.id,
       },
     );

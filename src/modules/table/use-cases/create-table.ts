@@ -23,7 +23,7 @@ export class CreateTable {
         companyId,
         amountOfChairs,
       },
-      { createdUser: '123' },
+      { createdWorker: '123' },
     );
 
     await this.tablesRepository.create(table);

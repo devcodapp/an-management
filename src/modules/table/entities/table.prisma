@@ -3,9 +3,9 @@ model Table {
   name        String
   amountOfChairs       Float
 disabledAt DateTime?
-  createdUser String
+  createdWorker String
   createdAt   DateTime           @default(now())
-  deletedUser String?
+  deletedWorker String?
   deletedAt   DateTime?
   Company   Company @relation(fields: [companyId], references: [id])
   companyId String
