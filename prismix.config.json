@@ -2,8 +2,8 @@
   "mixers": [
     {
         "input": [
-            "base.prisma",
-            "src/modules/**/**/**.prisma"
+            "./base.prisma",
+            "./src/modules/**/**/**.prisma"
         ],
         "output": "prisma/schema.prisma"
     }

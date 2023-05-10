@@ -28,9 +28,12 @@ import { AdditionalViewModel, IAdditionalView } from './view-models/additional';
 import { CreateAdditionalBody } from './dtos/create-additional-body';
 import { SaveAdditionalBody } from './dtos/save-additional-body';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { BooleanInterceptor } from 'src/interceptors/boolean/boolean.interceptor';
+import { ArrayInterceptor } from 'src/interceptors/array/array.interceptor';
 
 @ApiTags('Additional')
 @Controller('additional')
+@UseInterceptors(BooleanInterceptor, ArrayInterceptor)
 export class AdditionalController {
   constructor(
     private createAdditional: CreateAdditional,
@@ -42,6 +45,7 @@ export class AdditionalController {
 
   @Get()
   @ApiOperation(FilterAdditionalSwagger)
+  @UseInterceptors(BooleanInterceptor, ArrayInterceptor)
   async additionals(
     @Query() query: FilterAdditionalBody,
   ): Promise<{ additionals: IAdditionalView[] } | null> {

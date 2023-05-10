@@ -29,7 +29,7 @@ export class CreateCategoryAdditional {
         order: new Order(order),
         companyId,
       },
-      { createdWorker: '123' },
+      { createdUser: '123' },
     );
 
     await this.categoryAdditionalRepository.create(categoryAdditional);

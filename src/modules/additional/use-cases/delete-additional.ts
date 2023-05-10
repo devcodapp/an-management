@@ -25,7 +25,7 @@ export class DeleteAdditional {
     }
 
     additional.deletedAt = new Date();
-    additional.deletedWorker = '123';
+    additional.deletedUser = '123';
     await this.additionalRepository.save(additional);
 
     return { additional };

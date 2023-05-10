@@ -10,7 +10,7 @@ describe('CategoryAdditional', () => {
         order: new Order(1),
         companyId: randomUUID(),
       },
-      { createdWorker: randomUUID() },
+      { createdUser: randomUUID() },
     );
 
     expect(categoryAdditional).toBeTruthy();

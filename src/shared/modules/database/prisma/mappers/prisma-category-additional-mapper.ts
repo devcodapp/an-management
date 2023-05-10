@@ -10,9 +10,9 @@ export class PrismaCategoryAdditionalMapper {
       order: categoryAdditional.order.value,
       companyId: categoryAdditional.companyId,
       createdAt: categoryAdditional.createdAt,
-      createdWorker: categoryAdditional.createdWorker,
+      createdUser: categoryAdditional.createdUser,
       deletedAt: categoryAdditional.deletedAt,
-      deletedWorker: categoryAdditional.deletedWorker,
+      deletedUser: categoryAdditional.deletedUser,
     };
   }
 
@@ -25,9 +25,9 @@ export class PrismaCategoryAdditionalMapper {
       },
       {
         createdAt: raw.createdAt,
-        createdWorker: raw.createdWorker,
+        createdUser: raw.createdUser,
         deletedAt: raw.deletedAt,
-        deletedWorker: raw.deletedWorker,
+        deletedUser: raw.deletedUser,
         id: raw.id,
       },
     );

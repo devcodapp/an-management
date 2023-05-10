@@ -5,6 +5,7 @@ import {
   Additional as RawAdditional,
 } from '@prisma/client';
 import { Order } from '@shared/entities/order';
+import { PrismaCategoryAdditionalMapper } from './prisma-category-additional-mapper';
 
 export class PrismaAdditionalMapper {
   static toPrisma(additional: Additional) {
@@ -16,32 +17,13 @@ export class PrismaAdditionalMapper {
       price: additional.price,
       categoryId: additional.categoryId,
       createdAt: additional.createdAt,
-      createdWorker: additional.createdWorker,
+      createdUser: additional.createdUser,
       deletedAt: additional.deletedAt,
-      deletedWorker: additional.deletedWorker,
+      deletedUser: additional.deletedUser,
     };
   }
 
   static toDomain(raw: RawAdditional & { category?: RawCategoryAdditional }) {
-    const { category: rawCategory } = raw;
-
-    const category = rawCategory
-      ? new CategoryAdditional(
-          {
-            companyId: rawCategory?.companyId,
-            name: rawCategory?.name,
-            order: new Order(rawCategory?.order),
-          },
-          {
-            createdWorker: rawCategory.createdWorker,
-            createdAt: rawCategory.createdAt,
-            deletedAt: rawCategory.deletedAt,
-            deletedWorker: rawCategory.deletedWorker,
-            id: rawCategory.id,
-          },
-        )
-      : undefined;
-
     return new Additional(
       {
         categoryId: raw.categoryId,
@@ -49,13 +31,15 @@ export class PrismaAdditionalMapper {
         imageUrl: raw.imageUrl,
         imageId: raw.imageId,
         price: raw.price,
-        Category: category,
+        Category: raw.category
+          ? PrismaCategoryAdditionalMapper.toDomain(raw.category)
+          : undefined,
       },
       {
         createdAt: raw.createdAt,
-        createdWorker: raw.createdWorker,
+        createdUser: raw.createdUser,
         deletedAt: raw.deletedAt,
-        deletedWorker: raw.deletedWorker,
+        deletedUser: raw.deletedUser,
         id: raw.id,
       },
     );

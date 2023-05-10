@@ -27,7 +27,7 @@ export class DeleteCategoryProduct {
     }
 
     categoryProduct.deletedAt = new Date();
-    categoryProduct.deletedWorker = '123';
+    categoryProduct.deletedUser = '123';
 
     await this.categoryProductRepository.save(categoryProduct);
 

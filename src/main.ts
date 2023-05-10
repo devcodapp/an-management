@@ -6,7 +6,9 @@ import * as swaggerUi from 'swagger-ui-express';
 import * as bodyParser from 'body-parser';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    logger: ['error', 'warn'],
+  });
 
   const config = new DocumentBuilder()
     .setTitle('WebForge')
@@ -20,7 +22,18 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   app.use(bodyParser.urlencoded({ extended: true }));
 
-  await app.listen(3000);
+  await app.listen(process.env.PORT || 3000);
+
+  console.log(
+    `\x1b[33m 🚀 💻 ::: Server running on port ${
+      process.env.PORT || 3000
+    }\x1b[0m \n`,
+  );
+  console.log(
+    `\x1b[33m 📝 💻 ::: Swagger http://localhost:${
+      process.env.PORT || 3000
+    }/api\x1b[0m`,
+  );
 }
 
 bootstrap();

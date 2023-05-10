@@ -36,7 +36,7 @@ export class CreateWorker {
         imageUrl: uploadedImage.url,
         companyId,
       },
-      { createdWorker: '123' },
+      { createdUser: '123' },
     );
 
     await this.workerRepository.create(worker);

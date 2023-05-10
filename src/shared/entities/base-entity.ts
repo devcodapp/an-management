@@ -3,24 +3,24 @@ import { randomUUID } from 'node:crypto';
 export interface BaseEntityProps {
   id?: string;
   createdAt?: Date;
-  createdWorker: string;
+  createdUser: string;
   deletedAt?: Date | null;
-  deletedWorker?: string | null;
+  deletedUser?: string | null;
 }
 
 export class BaseEntity {
   private _id: string;
   private _createdAt: Date;
-  private _createdWorker: string;
+  private _createdUser: string;
   private _deletedAt: Date | null;
-  private _deletedWorker: string | null;
+  private _deletedUser: string | null;
 
   constructor(props: BaseEntityProps) {
     this._id = props.id ?? randomUUID();
     this._createdAt = props.createdAt ?? new Date();
-    this._createdWorker = props.createdWorker;
+    this._createdUser = props.createdUser;
     this._deletedAt = props.deletedAt ?? null;
-    this._deletedWorker = props.deletedWorker ?? null;
+    this._deletedUser = props.deletedUser ?? null;
   }
 
   public get id(): string {
@@ -29,8 +29,8 @@ export class BaseEntity {
   public get createdAt(): Date {
     return this._createdAt;
   }
-  public get createdWorker(): string {
-    return this._createdWorker;
+  public get createdUser(): string {
+    return this._createdUser;
   }
 
   public set deletedAt(value: Date | null) {
@@ -41,12 +41,12 @@ export class BaseEntity {
     return this._deletedAt;
   }
 
-  public set deletedWorker(workerId: string | null) {
-    this._deletedWorker = workerId;
+  public set deletedUser(workerId: string | null) {
+    this._deletedUser = workerId;
   }
 
-  public get deletedWorker(): string | null {
-    return this._deletedWorker;
+  public get deletedUser(): string | null {
+    return this._deletedUser;
   }
 
   public delete(userId: string): void {
