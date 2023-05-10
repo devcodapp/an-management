@@ -6,6 +6,7 @@ interface FilterAdditionalRequest {
   name?: string;
   categoryId?: string;
   price?: number;
+  categoryReturn: boolean;
 }
 
 interface FilterAdditionalResponse {

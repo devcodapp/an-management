@@ -22,4 +22,12 @@ export class FilterAdditionalBody {
     required: false,
   })
   categoryId: string;
+
+  @ApiProperty({
+    description: 'Retorno categoria',
+    type: Boolean,
+    required: true,
+    default: false,
+  })
+  categoryReturn: boolean;
 }

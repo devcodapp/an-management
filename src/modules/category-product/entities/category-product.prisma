@@ -5,6 +5,7 @@ model CategoryProduct {
   order       Int
   imageId     String
   imageUrl    String
+  enabled     Boolean   @default(false)
   createdUser String
   createdAt   DateTime  @default(now())
   deletedUser String?

@@ -13,8 +13,8 @@ export interface ProductProps {
   images?: ProductImage[];
   categoryId: string;
   disabledAt?: Date;
-  Additionals?: Additional[];
-  Category?: CategoryProduct;
+  additionals?: Additional[];
+  category?: CategoryProduct;
 }
 
 export interface ProductImage {
@@ -84,20 +84,20 @@ export class Product extends BaseEntity {
     return this.props.disabledAt;
   }
 
-  public set Additionals(additionals: Additional[] | undefined) {
-    this.props.Additionals = additionals;
+  public set additionals(additionals: Additional[] | undefined) {
+    this.props.additionals = additionals;
   }
 
-  public get Additionals(): Additional[] | undefined {
-    return this.props.Additionals;
+  public get additionals(): Additional[] | undefined {
+    return this.props.additionals;
   }
 
-  public set Category(category: CategoryProduct | undefined) {
-    this.props.Category = category;
+  public set category(category: CategoryProduct | undefined) {
+    this.props.category = category;
   }
 
-  public get Category(): CategoryProduct | undefined {
-    return this.props.Category;
+  public get category(): CategoryProduct | undefined {
+    return this.props.category;
   }
 
   public image(order: number): ProductImage | undefined {

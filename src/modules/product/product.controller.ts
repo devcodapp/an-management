@@ -7,6 +7,7 @@ import {
   Post,
   Put,
   Query,
+  UseInterceptors,
 } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateProduct } from './use-cases/create-product';
@@ -28,9 +29,12 @@ import { GetProduct } from './use-cases/get-product';
 import { FilterProduct } from './use-cases/filter-product';
 import { FilterProductBody } from './dtos/filter-product-body';
 import { SaveProductBody } from './dtos/save-product-body';
+import { BooleanInterceptor } from 'src/interceptors/boolean/boolean.interceptor';
+import { ArrayInterceptor } from 'src/interceptors/array/array.interceptor';
 
 @ApiTags('Product')
 @Controller('product')
+@UseInterceptors(BooleanInterceptor, ArrayInterceptor)
 export class ProductController {
   constructor(
     private createProduct: CreateProduct,
