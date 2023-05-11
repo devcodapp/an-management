@@ -33,9 +33,9 @@ export class PrismaProductMapper {
       categoryId: product.categoryId,
       sku: product.sku ?? '',
       createdAt: product.createdAt,
-      createdWorker: product.createdWorker,
+      createdUser: product.createdUser,
       deletedAt: product.deletedAt,
-      deletedWorker: product.deletedWorker,
+      deletedUser: product.deletedUser,
     } as any;
   }
 
@@ -70,9 +70,9 @@ export class PrismaProductMapper {
       },
       {
         createdAt: raw.createdAt,
-        createdWorker: raw.createdWorker,
+        createdUser: raw.createdUser,
         deletedAt: raw.deletedAt,
-        deletedWorker: raw.deletedWorker,
+        deletedUser: raw.deletedUser,
         id: raw.id,
       },
     );
