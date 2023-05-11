@@ -23,7 +23,7 @@ export class DeleteTable {
     }
 
     table.deletedAt = new Date();
-    table.deletedWorker = '123';
+    table.deletedUser = '123';
     await this.tableRepository.save(table);
 
     return { table };

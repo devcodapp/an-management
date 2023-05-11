@@ -26,7 +26,7 @@ export class CreateProduct {
         price: Number(price),
         description,
       },
-      { createdWorker: '123' },
+      { createdUser: '123' },
     );
 
     await this.productsRepository.create(product);

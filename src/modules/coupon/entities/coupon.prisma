@@ -1,0 +1,22 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Coupon {
+  id          String @id @map("_id")
+  title       String
+  description String
+  code        String
+
+  discountValue      Float?
+  discountPercentage Float?
+  discountLimit      Float?
+
+  expiresIn DateTime
+
+  createdUser String
+  createdAt   DateTime  @default(now())
+  deletedUser String?
+  deletedAt   DateTime?
+}

@@ -1,17 +1,17 @@
 model Table {
-  id          String             @id @map("_id")
-  name        String
-  amountOfChairs       Float
-disabledAt DateTime?
-  createdWorker String
-  createdAt   DateTime           @default(now())
-  deletedWorker String?
-  deletedAt   DateTime?
-  Company   Company @relation(fields: [companyId], references: [id])
-  companyId String
+  id             String    @id @map("_id")
+  name           String
+  amountOfChairs Float
+  disabledAt     DateTime?
+  createdUser    String
+  createdAt      DateTime  @default(now())
+  deletedUser    String?
+  deletedAt      DateTime?
+  Company        Company   @relation(fields: [companyId], references: [id])
+  companyId      String
 }
 
 model Company {
-  id              String            @id @map("_id")
+  id    String  @id @map("_id")
   table Table[]
 }
