@@ -51,6 +51,6 @@ export class BaseEntity {
 
   public delete(userId: string): void {
     this.deletedAt = new Date();
-    this.deletedWorker = userId;
+    this.deletedUser = userId;
   }
 }
