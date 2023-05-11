@@ -30,7 +30,11 @@ export class PrismaOptionRepository implements OptionRepository {
 
   async options(filters: OptionFilterInput): Promise<Option[] | null> {
     const options = await this.prisma.option.findMany({
-      where: { ...filters, name: { contains: filters.name }, deletedAt: null },
+      where: {
+        ...(filters ? filters : {}),
+        ...(filters.name ? { name: { contains: filters.name } } : {}),
+        deletedAt: null,
+      },
       orderBy: { name: 'asc' },
     });
 
