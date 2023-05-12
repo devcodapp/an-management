@@ -1,0 +1,18 @@
+model User {
+  id       String @id @map("_id")
+  username String
+  email    String
+  password String
+
+  changePassword Boolean @default(true)
+
+  deletedAt DateTime?
+
+  company   Company @relation(fields: [companyId], references: [id])
+  companyId String
+}
+
+model Company {
+  id    String @id @map("_id")
+  users User[]
+}

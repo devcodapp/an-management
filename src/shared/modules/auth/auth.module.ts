@@ -4,6 +4,7 @@ import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { WorkerModule } from '@modules/worker/worker.module';
+import { GetUserEmail } from '../user/use-cases/get-user-email';
 
 @Module({
   imports: [
@@ -14,7 +15,7 @@ import { WorkerModule } from '@modules/worker/worker.module';
       signOptions: { expiresIn: '1d' },
     }),
   ],
-  providers: [AuthService],
+  providers: [AuthService, GetUserEmail],
   controllers: [AuthController],
   exports: [AuthService],
 })

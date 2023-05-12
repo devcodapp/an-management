@@ -15,6 +15,7 @@ import { ProductVariantModule } from './modules/product-variant/product-variant.
 import { ProductVariantOptionModule } from './modules/product-variant-option/product-variant-option.module';
 import { TableModule } from '@modules/table/table.module';
 import { CouponModule } from './modules/coupon/coupon.module';
+import { UserModule } from './shared/modules/user/user.module';
 @Module({
   imports: [
     CategoryAdditionalModule,
@@ -35,6 +36,7 @@ import { CouponModule } from './modules/coupon/coupon.module';
     ProductVariantOptionModule,
     TableModule,
     CouponModule,
+    UserModule,
   ],
 })
 export class AppModule {}
