@@ -1,15 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { Order } from '@shared/entities/order';
 import { CloudinaryService } from '@shared/modules/cloudinary/cloudinary.service';
 import { WorkerRepository } from '../repositories/worker-repository';
 import { Worker } from '../entities/worker';
 
 interface CreateWorkerRequest {
   name: string;
-  email: string;
-  password: string;
   role: 'admin' | 'colaborator';
-  companyId: string;
+  userId: string;
   image: Express.Multer.File;
 }
 interface CreateWorkerResponse {
@@ -24,17 +21,16 @@ export class CreateWorker {
   ) {}
 
   async execute(request: CreateWorkerRequest): Promise<CreateWorkerResponse> {
-    const { companyId, name, email, password, role, image } = request;
+    const { userId, name, role, image } = request;
     const uploadedImage = await this.cloudinary.uploadImage(image);
+
     const worker = new Worker(
       {
         name,
-        email,
-        password,
         role,
         imageId: uploadedImage.public_id,
         imageUrl: uploadedImage.url,
-        companyId,
+        userId,
       },
       { createdUser: '123' },
     );

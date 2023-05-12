@@ -6,8 +6,6 @@ export class PrismaWorkerMapper {
     return {
       id: worker.id,
       name: worker.name,
-      email: worker.email,
-      password: worker.password,
       role: worker.role,
       imageId: worker.imageId,
       imageUrl: worker.imageUrl,
@@ -15,19 +13,17 @@ export class PrismaWorkerMapper {
       createdAt: worker.createdAt,
       deletedUser: worker.deletedUser,
       deletedAt: worker.deletedAt,
-      companyId: worker.companyId,
+      userId: worker.userId,
     };
   }
 
   static toDomain(raw: RawWorker) {
     return new Worker(
       {
-        companyId: raw.companyId,
-        email: raw.email,
+        userId: raw.userId,
         imageId: raw.imageId,
         imageUrl: raw.imageUrl,
         name: raw.name,
-        password: raw.password,
         role: raw.role,
       },
       {

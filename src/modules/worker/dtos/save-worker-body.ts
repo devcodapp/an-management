@@ -18,20 +18,6 @@ export class SaveWorkerBody {
   name: string;
 
   @ApiProperty({
-    description: 'O email do usuário',
-    type: String,
-    required: false,
-  })
-  email: string;
-
-  @ApiProperty({
-    description: 'O senha do usuário',
-    type: String,
-    required: false,
-  })
-  password: string;
-
-  @ApiProperty({
     description: 'O cargo do usuário',
     type: String,
     required: false,
