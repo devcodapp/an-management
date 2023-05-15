@@ -30,7 +30,11 @@ export class PrismaWorkerRepository implements WorkerRepository {
 
   async workers(filters: WorkerFilterInput): Promise<Worker[] | null> {
     const workers = await this.prisma.worker.findMany({
-      where: { ...filters, name: { contains: filters.name }, deletedAt: null },
+      where: {
+        ...(filters ? filters : {}),
+        ...(filters.name ? { name: { contains: filters.name } } : {}),
+        deletedAt: null,
+      },
       orderBy: { name: 'asc' },
     });
     return workers.map(PrismaWorkerMapper.toDomain);

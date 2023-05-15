@@ -36,7 +36,11 @@ export class PrismaCategoryProductRepository
     filters: CategoryProductFilterInput,
   ): Promise<CategoryProduct[] | null> {
     const categoryProducts = await this.prisma.categoryProduct.findMany({
-      where: { ...filters, name: { contains: filters.name }, deletedAt: null },
+      where: {
+        ...(filters ? filters : {}),
+        ...(filters.name ? { name: { contains: filters.name } } : {}),
+        deletedAt: null,
+      },
       orderBy: { name: 'asc' },
     });
     return categoryProducts.map(PrismaCategoryProductMapper.toDomain);
