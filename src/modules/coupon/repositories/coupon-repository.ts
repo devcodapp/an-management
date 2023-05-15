@@ -8,7 +8,7 @@ export abstract class CouponsRepository {
 
   abstract couponCode(code: string, companyId: string): Promise<Coupon | null>;
 
-  abstract companies(filters: CouponFilterInput): Promise<Coupon[] | null>;
+  abstract coupons(filters: CouponFilterInput): Promise<Coupon[] | null>;
 
   abstract save(coupon: Coupon): Promise<void>;
 }
