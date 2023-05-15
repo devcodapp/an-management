@@ -29,4 +29,11 @@ export class FilterCouponBody {
     example: true,
   })
   expired: boolean;
+
+  @ApiProperty({
+    description: 'Id da empresa',
+    type: String,
+    required: true,
+  })
+  companyId: string;
 }

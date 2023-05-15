@@ -70,7 +70,7 @@ export class CategoryProductController {
 
   @Get(':id')
   @ApiOperation(GetCategoryProductSwagger)
-  async categoryAdittional(
+  async categoryProduct(
     @Param('id') id: string,
   ): Promise<{ categoryProduct: ICategoryProductView } | null> {
     const { categoryProduct } = await this.getCategoryProduct.execute({
