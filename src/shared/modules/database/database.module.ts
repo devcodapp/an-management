@@ -16,6 +16,8 @@ import { ProductsRepository } from '@modules/product/repositories/product-reposi
 import { PrismaProductRepository } from './prisma/repositories/prisma-product-repository';
 import { TablesRepository } from '@modules/table/repositories/table-repository';
 import { PrismaTableRepository } from './prisma/repositories/prisma-table-repository';
+import { CouponsRepository } from '@modules/coupon/repositories/coupon-repository';
+import { PrismaCouponRepository } from './prisma/repositories/prisma-coupon-repository';
 
 @Module({
   providers: [
@@ -52,6 +54,10 @@ import { PrismaTableRepository } from './prisma/repositories/prisma-table-reposi
       provide: TablesRepository,
       useClass: PrismaTableRepository,
     },
+    {
+      provide: CouponsRepository,
+      useClass: PrismaCouponRepository,
+    },
   ],
   exports: [
     CategoryAdditionalsRepository,
@@ -62,6 +68,7 @@ import { PrismaTableRepository } from './prisma/repositories/prisma-table-reposi
     WorkerRepository,
     ProductsRepository,
     TablesRepository,
+    CouponsRepository,
   ],
 })
 export class DatabaseModule {}

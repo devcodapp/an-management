@@ -19,4 +19,13 @@ model Coupon {
   createdAt   DateTime  @default(now())
   deletedUser String?
   deletedAt   DateTime?
+
+  companyId String
+  company   Company @relation(fields: [companyId], references: [id])
+}
+
+model Company {
+  id String @id @map("_id")
+
+  coupons Coupon[]
 }
