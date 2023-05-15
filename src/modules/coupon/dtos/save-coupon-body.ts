@@ -2,6 +2,12 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class SaveCouponBody {
   @ApiProperty({
+    description: 'O id do cupom',
+    type: String,
+    required: true,
+  })
+  couponId: string;
+  @ApiProperty({
     description: 'O titulo do cupom',
     type: String,
     required: false,
