@@ -37,6 +37,7 @@ import { UserModule } from './shared/modules/user/user.module';
     TableModule,
     CouponModule,
     UserModule,
+    AuthModule,
   ],
 })
 export class AppModule {}

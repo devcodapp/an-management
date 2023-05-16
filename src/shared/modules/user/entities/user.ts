@@ -12,17 +12,16 @@ interface UserProps {
 }
 
 export class User {
+  private _id: string;
   private props: UserProps;
 
   constructor(props: UserProps) {
-    this.props = {
-      ...props,
-      id: props.id || randomUUID(),
-    };
+    this.props = props;
+    this._id = props.id || randomUUID();
   }
 
-  public get id(): string | undefined {
-    return this.props.id;
+  public get id(): string {
+    return this._id;
   }
 
   public get username(): string {
