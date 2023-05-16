@@ -9,9 +9,16 @@ import {
   UploadedFile,
   Put,
   Patch,
+  UseGuards,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiTags, ApiOperation, ApiConsumes, ApiBody } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiConsumes,
+  ApiBody,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
 import { CreateWorkerBody } from './dtos/create-worker-body';
 import { FilterWorkerBody } from './dtos/filter-worker-body';
 import { SaveWorkerBody } from './dtos/save-worker-body';
@@ -28,7 +35,10 @@ import { FilterWorker } from './use-cases/filter-worker';
 import { GetWorker } from './use-cases/get-worker';
 import { SaveWorker } from './use-cases/save-worker';
 import { IWorkerView, WorkerViewModel } from './view-models/worker';
+import { AuthGuard } from '@shared/modules/auth/auth.guard';
 
+@UseGuards(AuthGuard)
+@ApiBearerAuth()
 @ApiTags('Worker')
 @Controller('worker')
 export class WorkerController {

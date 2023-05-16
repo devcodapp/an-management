@@ -9,8 +9,15 @@ import {
   Patch,
   UseInterceptors,
   UploadedFile,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiBody, ApiConsumes, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiConsumes,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
 import { CreateAdditional } from './use-cases/create-additional';
 import { SaveAdditional } from './use-cases/save-additional';
 import { GetAdditional } from './use-cases/get-additional';
@@ -30,7 +37,10 @@ import { SaveAdditionalBody } from './dtos/save-additional-body';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { BooleanInterceptor } from 'src/interceptors/boolean/boolean.interceptor';
 import { ArrayInterceptor } from 'src/interceptors/array/array.interceptor';
+import { AuthGuard } from '@shared/modules/auth/auth.guard';
 
+@UseGuards(AuthGuard)
+@ApiBearerAuth()
 @ApiTags('Additional')
 @Controller('additional')
 @UseInterceptors(BooleanInterceptor, ArrayInterceptor)

@@ -6,11 +6,12 @@ import {
   Patch,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { AddVariantProduct } from './use-cases/add-variant-product';
 import { RemoveVariantProduct } from './use-cases/remove-variant-product';
 import { SaveVariantProduct } from './use-cases/save-variant-product';
-import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 import {
   IProductView,
   ProductViewModel,
@@ -22,7 +23,10 @@ import {
 } from './swagger/variant-product.swagger';
 import { CreateVariantProductBody } from './dtos/create-variant-product-body';
 import { SaveVariantProductBody } from './dtos/save-variant-product-body';
+import { AuthGuard } from '@shared/modules/auth/auth.guard';
 
+@UseGuards(AuthGuard)
+@ApiBearerAuth()
 @ApiTags('Product Variation')
 @Controller('product-variant')
 export class ProductVariantController {
