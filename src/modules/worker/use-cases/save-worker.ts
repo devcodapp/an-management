@@ -7,8 +7,6 @@ import { WorkerRepository } from '../repositories/worker-repository';
 interface SaveWorkerRequest {
   workerId: string;
   name?: string;
-  email: string;
-  password: string;
   role: 'admin' | 'colaborator';
   image?: Express.Multer.File;
 }

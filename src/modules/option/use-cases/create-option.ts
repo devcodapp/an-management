@@ -1,6 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { Option } from '../entities/option';
 import { OptionRepository } from '../repositories/option-repository';
+import { REQUEST } from '@nestjs/core';
+import { Request } from 'express';
 interface CreateOptionRequest {
   name: string;
   description: string;
@@ -13,7 +15,10 @@ interface CreateOptionResponse {
 
 @Injectable()
 export class CreateOption {
-  constructor(private optionRepository: OptionRepository) {}
+  constructor(
+    private optionRepository: OptionRepository,
+    @Inject(REQUEST) private req: Request,
+  ) {}
 
   async execute(request: CreateOptionRequest): Promise<CreateOptionResponse> {
     const { name, defaultPrice, description, companyId } = request;
@@ -26,7 +31,7 @@ export class CreateOption {
         companyId,
         disabledAt: undefined,
       },
-      { createdUser: '123' },
+      { createdUser: this.req['user'].sub },
     );
 
     await this.optionRepository.create(option);

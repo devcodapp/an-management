@@ -1,7 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CategoryProductNotFound } from './errors/category-product-not-found';
 import { CategoryProduct } from '../entities/category-product';
 import { CategoryProductsRepository } from '../repositories/category-product-repository';
+import { REQUEST } from '@nestjs/core';
+import { Request } from 'express';
 
 interface DeleteCategoryProductRequest {
   categoryProductId: string;
@@ -12,7 +14,10 @@ interface DeleteCategoryProductResponse {
 
 @Injectable()
 export class DeleteCategoryProduct {
-  constructor(private categoryProductRepository: CategoryProductsRepository) {}
+  constructor(
+    private categoryProductRepository: CategoryProductsRepository,
+    @Inject(REQUEST) private req: Request,
+  ) {}
 
   async execute(
     request: DeleteCategoryProductRequest,
@@ -26,8 +31,7 @@ export class DeleteCategoryProduct {
       throw new CategoryProductNotFound();
     }
 
-    categoryProduct.deletedAt = new Date();
-    categoryProduct.deletedUser = '123';
+    categoryProduct.delete(this.req['user'].sub);
 
     await this.categoryProductRepository.save(categoryProduct);
 

@@ -1,8 +1,6 @@
 model Worker {
   id          String    @id @map("_id")
   name        String
-  email       String
-  password    String
   role        String
   imageId     String
   imageUrl    String
@@ -11,11 +9,13 @@ model Worker {
   deletedUser String?
   deletedAt   DateTime?
 
-  Company   Company @relation(fields: [companyId], references: [id])
-  companyId String
+  userId String
+
+  user User @relation(fields: [userId], references: [id])
 }
 
-model Company {
-  id     String   @id @map("_id")
-  Worker Worker[]
+model User {
+  id String @id @map("_id")
+
+  workers Worker[]
 }

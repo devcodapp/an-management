@@ -7,6 +7,7 @@ import {
   Query,
   Put,
   Patch,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateCategoryAdditional } from './use-cases/create-category-additional';
 import { CreateCategoryAdditionalBody } from './dtos/create-category-additional-body';
@@ -14,7 +15,7 @@ import {
   CategoryAdditionalViewModel,
   ICategoryAdditionalView,
 } from './view-models/category-additional';
-import { ApiTags, ApiOperation, ApiBody } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
 import {
   CreateCategoryAdditionalSwagger,
   DeleteCategoryAdditionalSwagger,
@@ -28,7 +29,10 @@ import { FilterCategoryAdditional } from './use-cases/filter-category-additional
 import { SaveCategoryAdditional } from './use-cases/save-category-additional';
 import { DeleteCategoryAdditional } from './use-cases/delete-category-additional';
 import { SaveCategoryAdditionalBody } from './dtos/save-category-additional-body';
+import { AuthGuard } from '@shared/modules/auth/auth.guard';
 
+@UseGuards(AuthGuard)
+@ApiBearerAuth()
 @ApiTags('CategoryAdditional')
 @Controller('category-additional')
 export class CategoryAdditionalController {

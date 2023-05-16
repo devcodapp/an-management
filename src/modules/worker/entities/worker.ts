@@ -3,12 +3,10 @@ import { BaseEntity } from '@shared/entities/base-entity';
 
 export interface WorkerProps {
   name: string;
-  email: string;
-  password: string;
   role: any;
   imageId: string;
   imageUrl: string;
-  companyId: string;
+  userId: string;
 }
 
 export class Worker extends BaseEntity {
@@ -28,22 +26,6 @@ export class Worker extends BaseEntity {
 
   public get name(): string {
     return this.props.name;
-  }
-
-  public set email(email: string) {
-    this.props.email = email;
-  }
-
-  public get email(): string {
-    return this.props.email;
-  }
-
-  public set password(password: string) {
-    this.props.password = password;
-  }
-
-  public get password(): string {
-    return this.props.password;
   }
 
   public set role(role: 'admin' | 'colaborator') {
@@ -74,11 +56,11 @@ export class Worker extends BaseEntity {
     return this.props.imageUrl;
   }
 
-  public set companyId(companyId: string) {
-    this.props.companyId = companyId;
+  public set userId(userId: string) {
+    this.props.userId = userId;
   }
 
-  public get companyId(): string {
-    return this.props.companyId;
+  public get userId(): string {
+    return this.props.userId;
   }
 }

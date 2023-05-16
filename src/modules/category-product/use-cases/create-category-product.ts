@@ -1,8 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { Order } from '@shared/entities/order';
 import { CategoryProduct } from '../entities/category-product';
 import { CategoryProductsRepository } from '../repositories/category-product-repository';
 import { CloudinaryService } from '@shared/modules/cloudinary/cloudinary.service';
+import { REQUEST } from '@nestjs/core';
+import { Request } from 'express';
 
 interface CreateCategoryProductRequest {
   name: string;
@@ -20,6 +22,7 @@ export class CreateCategoryProduct {
   constructor(
     private categoryProductRepository: CategoryProductsRepository,
     private cloudinary: CloudinaryService,
+    @Inject(REQUEST) private req: Request,
   ) {}
 
   async execute(
@@ -36,7 +39,7 @@ export class CreateCategoryProduct {
         order: new Order(Number(order)),
         companyId,
       },
-      { createdUser: '123' },
+      { createdUser: this.req['user'].sub },
     );
 
     await this.categoryProductRepository.create(categoryProduct);

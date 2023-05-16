@@ -7,9 +7,10 @@ import {
   Post,
   Put,
   Query,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateProduct } from './use-cases/create-product';
 import {
   CreateProductSwagger,
@@ -31,7 +32,10 @@ import { FilterProductBody } from './dtos/filter-product-body';
 import { SaveProductBody } from './dtos/save-product-body';
 import { BooleanInterceptor } from 'src/interceptors/boolean/boolean.interceptor';
 import { ArrayInterceptor } from 'src/interceptors/array/array.interceptor';
+import { AuthGuard } from '@shared/modules/auth/auth.guard';
 
+@UseGuards(AuthGuard)
+@ApiBearerAuth()
 @ApiTags('Product')
 @Controller('product')
 @UseInterceptors(BooleanInterceptor, ArrayInterceptor)

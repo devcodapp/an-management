@@ -65,6 +65,7 @@ export class CompanyController {
     return { companies: companies?.map(CompanyViewModel.toHTTP) };
   }
 
+  @UseGuards(AuthGuard)
   @Get(':id')
   @ApiOperation(GetCompanySwagger)
   async company(
@@ -94,6 +95,7 @@ export class CompanyController {
     };
   }
 
+  @UseGuards(AuthGuard)
   @Put()
   @ApiBody({ type: SaveCompanyBody })
   @ApiOperation(UpdateCompanySwagger)
@@ -107,6 +109,7 @@ export class CompanyController {
     };
   }
 
+  @UseGuards(AuthGuard)
   @Patch('open/:companyId')
   @ApiOperation(OpenCompanySwagger)
   async open(@Param('companyId') companyId: string): Promise<void> {
@@ -115,6 +118,7 @@ export class CompanyController {
     });
   }
 
+  @UseGuards(AuthGuard)
   @Patch('close/:companyId')
   @ApiOperation(CloseCompanySwagger)
   async close(@Param('companyId') companyId: string): Promise<void> {
@@ -123,6 +127,7 @@ export class CompanyController {
     });
   }
 
+  @UseGuards(AuthGuard)
   @Patch('disable/:companyId')
   @ApiOperation(DisableCompanySwagger)
   async disable(

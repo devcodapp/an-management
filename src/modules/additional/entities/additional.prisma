@@ -13,6 +13,6 @@ model Additional {
 }
 
 model CategoryAdditional {
-  id         String       @id @map("_id")
-  Additional Additional[]
+  id          String       @id @map("_id")
+  additionals Additional[]
 }
