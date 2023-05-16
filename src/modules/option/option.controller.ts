@@ -18,8 +18,9 @@ import {
   Post,
   Put,
   Query,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiOperation, ApiBody, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiBody, ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { FilterOptions } from './use-cases/filter-option';
 import { GetOption } from './use-cases/get-option';
 import { CreateOption } from './use-cases/create-option';
@@ -28,7 +29,10 @@ import { DeleteOption } from './use-cases/delete-option';
 import { SaveOptionBody } from './dtos/save-option-body';
 import { CreateOptionBody } from './dtos/create-option-body';
 import { FilterOptionBody } from './dtos/filter-option-body';
+import { AuthGuard } from '@shared/modules/auth/auth.guard';
 
+@UseGuards(AuthGuard)
+@ApiBearerAuth()
 @ApiTags('Option')
 @Controller('option')
 export class OptionController {

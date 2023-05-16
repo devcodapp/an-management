@@ -1,7 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { AdditionalsRepository } from '../repositories/additional-repository';
 import { Additional } from '../entities/additional';
 import { AdditionalNotFound } from './errors/additional-not-found';
+import { Request } from 'express';
+import { REQUEST } from '@nestjs/core';
 interface DeleteAdditionalRequest {
   additionalId: string;
 }
@@ -11,7 +13,10 @@ interface DeleteAdditionalResponse {
 
 @Injectable()
 export class DeleteAdditional {
-  constructor(private additionalRepository: AdditionalsRepository) {}
+  constructor(
+    private additionalRepository: AdditionalsRepository,
+    @Inject(REQUEST) private req: Request,
+  ) {}
 
   async execute(
     request: DeleteAdditionalRequest,
@@ -24,8 +29,8 @@ export class DeleteAdditional {
       throw new AdditionalNotFound();
     }
 
-    additional.deletedAt = new Date();
-    additional.deletedUser = '123';
+    additional.delete(this.req['user'].sub);
+
     await this.additionalRepository.save(additional);
 
     return { additional };

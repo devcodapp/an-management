@@ -1,20 +1,24 @@
-import { WorkerService } from '@modules/worker/worker.service';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { GetUserEmail } from '../user/use-cases/get-user-email';
+import * as bcrypt from 'bcrypt';
+import { encodePassword } from '@shared/services/encodePassword';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private workersService: WorkerService,
+    private getUserEmail: GetUserEmail,
     private jwtService: JwtService,
   ) {}
 
-  async signIn(name: string, pass: string) {
-    const worker = await this.workersService.findOne(name);
-    if (worker?.password !== pass) {
+  async signIn(email: string, pass: string, companyId: string) {
+    const { user } = await this.getUserEmail.execute({ companyId, email });
+    const isMatch = await bcrypt.compare(pass, user.password);
+
+    if (!isMatch) {
       throw new UnauthorizedException();
     }
-    const payload = { name: worker.name, sub: worker.id };
+    const payload = { email: user.email, sub: user.id };
     return {
       access_token: await this.jwtService.signAsync(payload),
     };

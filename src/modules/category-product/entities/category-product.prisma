@@ -11,11 +11,11 @@ model CategoryProduct {
   deletedUser String?
   deletedAt   DateTime?
 
-  Company   Company @relation(fields: [companyId], references: [id])
+  company   Company @relation(fields: [companyId], references: [id])
   companyId String
 }
 
 model Company {
-  id              String            @id @map("_id")
-  CategoryProduct CategoryProduct[]
+  id               String            @id @map("_id")
+  categoryProducts CategoryProduct[]
 }

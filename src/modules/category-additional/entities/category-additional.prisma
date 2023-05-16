@@ -12,6 +12,6 @@ model CategoryAdditional {
 }
 
 model Company {
-  id                 String               @id @map("_id")
-  CategoryAdditional CategoryAdditional[]
+  id                  String               @id @map("_id")
+  categoryAdditionals CategoryAdditional[]
 }

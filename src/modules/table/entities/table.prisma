@@ -7,11 +7,11 @@ model Table {
   createdAt      DateTime  @default(now())
   deletedUser    String?
   deletedAt      DateTime?
-  Company        Company   @relation(fields: [companyId], references: [id])
+  company        Company   @relation(fields: [companyId], references: [id])
   companyId      String
 }
 
 model Company {
-  id    String  @id @map("_id")
-  table Table[]
+  id     String  @id @map("_id")
+  tables Table[]
 }

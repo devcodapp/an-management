@@ -1,7 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { Coupon } from '../entities/coupon';
 import { CouponsRepository } from '../repositories/coupon-repository';
 import { CouponNotFound } from './errors/coupon-not-found';
+import { REQUEST } from '@nestjs/core';
+import { Request } from 'express';
 
 interface DeleteCouponRequest {
   couponId: string;
@@ -13,7 +15,10 @@ interface DeleteCouponResponse {
 
 @Injectable()
 export class DeleteCoupon {
-  constructor(private couponsRepository: CouponsRepository) {}
+  constructor(
+    private couponsRepository: CouponsRepository,
+    @Inject(REQUEST) private req: Request,
+  ) {}
   async execute(request: DeleteCouponRequest): Promise<DeleteCouponResponse> {
     const { couponId } = request;
 
@@ -23,7 +28,7 @@ export class DeleteCoupon {
       throw new CouponNotFound();
     }
 
-    coupon.delete('123');
+    coupon.delete(this.req['user'].sub);
 
     await this.couponsRepository.save(coupon);
 

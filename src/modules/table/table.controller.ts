@@ -7,8 +7,15 @@ import {
   Post,
   Put,
   Query,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiBody, ApiConsumes, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiConsumes,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
 import { CreateTable } from './use-cases/create-table';
 import { SaveTable } from './use-cases/save-table';
 import { FilterTable } from './use-cases/filter-table';
@@ -29,7 +36,10 @@ import { SaveTableBody } from './dtos/save-table-body';
 import { UpdateAdditionalSwagger } from '@modules/additional/swagger/additional.swagger';
 import { DisableTable } from './use-cases/disable-table';
 import { EnableTable } from './use-cases/enable-table';
+import { AuthGuard } from '@shared/modules/auth/auth.guard';
 
+@UseGuards(AuthGuard)
+@ApiBearerAuth()
 @ApiTags('Table')
 @Controller('table')
 export class TableController {

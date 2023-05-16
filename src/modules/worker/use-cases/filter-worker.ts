@@ -4,7 +4,6 @@ import { WorkerRepository } from '../repositories/worker-repository';
 
 interface FilterWorkerRequest {
   name?: string;
-  email?: string;
   role?: 'admin' | 'colaborator';
   companyId?: string;
 }

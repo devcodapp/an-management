@@ -7,6 +7,7 @@ import {
   Post,
   Put,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateCoupon } from './use-cases/create-coupon';
 import { SaveCoupon } from './use-cases/save-coupon';
@@ -14,7 +15,13 @@ import { GetCoupon } from './use-cases/get-coupon';
 import { GetCouponCode } from './use-cases/get-coupon-code';
 import { FilterCoupon } from './use-cases/filter-coupon';
 import { DeleteCoupon } from './use-cases/delete-coupon';
-import { ApiBody, ApiConsumes, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiConsumes,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
 import {
   CreateCouponSwagger,
   DeleteCouponSwagger,
@@ -26,7 +33,10 @@ import { FilterCouponBody } from './dtos/filter-coupon-body';
 import { CouponViewModel, ICouponView } from './view-models/coupon';
 import { CreateCouponBody } from './dtos/create-coupon-body';
 import { SaveCouponBody } from './dtos/save-coupon-body';
+import { AuthGuard } from '@shared/modules/auth/auth.guard';
 
+@UseGuards(AuthGuard)
+@ApiBearerAuth()
 @ApiTags('Coupon')
 @Controller('coupon')
 export class CouponController {

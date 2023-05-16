@@ -5,11 +5,9 @@ export class WorkerViewModel {
     return {
       id: Worker.id,
       name: Worker.name,
-      email: Worker.email,
       imageUrl: Worker.imageUrl,
-      password: Worker.password,
       role: Worker.role,
-      companyId: Worker.companyId,
+      userId: Worker.userId,
     };
   }
 }
@@ -17,9 +15,7 @@ export class WorkerViewModel {
 export interface IWorkerView {
   id: string;
   name: string;
-  email: string;
   imageUrl: string;
-  password: string;
   role: 'admin' | 'colaborator';
-  companyId: string;
+  userId: string;
 }

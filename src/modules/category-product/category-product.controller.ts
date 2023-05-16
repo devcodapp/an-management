@@ -9,9 +9,16 @@ import {
   Patch,
   UseInterceptors,
   UploadedFile,
+  UseGuards,
 } from '@nestjs/common';
 
-import { ApiTags, ApiOperation, ApiBody, ApiConsumes } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBody,
+  ApiConsumes,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
 import { CreateCategoryProduct } from './use-cases/create-category-product';
 import { GetCategoryProduct } from './use-cases/get-category-product';
 import { FilterCategoryProduct } from './use-cases/filter-category-product';
@@ -36,7 +43,10 @@ import { SaveCategoryProductBody } from './dtos/save-category-product-body';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { EnableCategoryProduct } from './use-cases/enable-category-product';
 import { DisableCategoryProduct } from './use-cases/disable-category-product';
+import { AuthGuard } from '@shared/modules/auth/auth.guard';
 
+@UseGuards(AuthGuard)
+@ApiBearerAuth()
 @ApiTags('CategoryProduct')
 @Controller('category-product')
 export class CategoryProductController {

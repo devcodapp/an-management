@@ -1,7 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { ProductsRepository } from '../repositories/product-repository';
 import { Product } from '../entities/product';
 import { ProductNotFound } from './errors/product-not-found';
+import { REQUEST } from '@nestjs/core';
+import { Request } from 'express';
 interface DeleteProductRequest {
   productId: string;
 }
@@ -11,7 +13,10 @@ interface DeleteProductResponse {
 
 @Injectable()
 export class DeleteProduct {
-  constructor(private productRepository: ProductsRepository) {}
+  constructor(
+    private productRepository: ProductsRepository,
+    @Inject(REQUEST) private req: Request,
+  ) {}
 
   async execute(request: DeleteProductRequest): Promise<DeleteProductResponse> {
     const { productId } = request;
@@ -22,7 +27,7 @@ export class DeleteProduct {
       throw new ProductNotFound();
     }
 
-    product.delete('123');
+    product.delete(this.req['user'].sub);
 
     await this.productRepository.save(product);
 

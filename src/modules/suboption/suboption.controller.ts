@@ -7,13 +7,20 @@ import {
   Post,
   Put,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { CreateSubOption } from './use-cases/create-suboption';
 import { SaveSubOption } from './use-cases/save-suboption';
 import { DeleteSubOption } from './use-cases/delete-suboption';
 import { DisableSubOption } from './use-cases/disable-suboption';
-import { ApiBody, ApiConsumes, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiConsumes,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
 import {
   CreateSubOptionSwagger,
   DeleteSubOptionSwagger,
@@ -27,7 +34,10 @@ import {
   OptionViewModel,
 } from '@modules/option/view-models/option';
 import { SaveSubOptionBody } from './dtos/save-suboption-body';
+import { AuthGuard } from '@shared/modules/auth/auth.guard';
 
+@UseGuards(AuthGuard)
+@ApiBearerAuth()
 @ApiTags('SubOption')
 @Controller('suboption')
 export class SuboptionController {

@@ -1,7 +1,9 @@
 import { Additional } from '../entities/additional';
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { AdditionalsRepository } from '../repositories/additional-repository';
 import { CloudinaryService } from '@shared/modules/cloudinary/cloudinary.service';
+import { REQUEST } from '@nestjs/core';
+import { Request } from 'express';
 
 interface CreateAdditionalRequest {
   name: string;
@@ -18,6 +20,7 @@ export class CreateAdditional {
   constructor(
     private additionalsRepository: AdditionalsRepository,
     private cloudinary: CloudinaryService,
+    @Inject(REQUEST) private req: Request,
   ) {}
 
   async execute(
@@ -33,7 +36,7 @@ export class CreateAdditional {
         imageId: uploadedImage.public_id,
         price: Number(price),
       },
-      { createdUser: '123' },
+      { createdUser: this.req['user'].sub },
     );
 
     await this.additionalsRepository.create(additional);

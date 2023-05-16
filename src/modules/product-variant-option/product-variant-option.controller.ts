@@ -7,9 +7,16 @@ import {
   Post,
   Put,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiBody, ApiConsumes, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiConsumes,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
 import { CreateOptionVariantProductBody } from './dtos/create-option-variant-product-body';
 import { SaveOptionVariantProductBody } from './dtos/save-option-variant-product-body';
 import { RemoveOptionVariant } from './usecases/remove-option-variant-product';
@@ -35,7 +42,10 @@ import { UpdateOptionProductVariantSwagger } from './swagger/option-variant-prod
 import { FileInterceptor } from '@nestjs/platform-express';
 import { AddImageOptionVariantProductBody } from './dtos/add-image-option-variant-product-body';
 import { RemoveImageOptionVariantProductBody } from './dtos/remove-image-option-variant-product-body';
+import { AuthGuard } from '@shared/modules/auth/auth.guard';
 
+@UseGuards(AuthGuard)
+@ApiBearerAuth()
 @ApiTags('Product Option')
 @Controller('product-option')
 export class ProductVariantOptionController {
