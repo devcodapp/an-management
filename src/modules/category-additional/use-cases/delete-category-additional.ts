@@ -1,7 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CategoryAdditional } from '../entities/category-additional';
 import { CategoryAdditionalsRepository } from '../repositories/category-additional-repository';
 import { CategoryAdditionalNotFound } from './errors/category-additional-not-found';
+import { REQUEST } from '@nestjs/core';
+import { Request } from 'express';
 
 interface DeleteCategoryAdditionalRequest {
   categoryAdditionalId: string;
@@ -14,6 +16,7 @@ interface DeleteCategoryAdditionalResponse {
 export class DeleteCategoryAdditional {
   constructor(
     private categoryAdditionalRepository: CategoryAdditionalsRepository,
+    @Inject(REQUEST) private req: Request,
   ) {}
 
   async execute(
@@ -30,8 +33,7 @@ export class DeleteCategoryAdditional {
       throw new CategoryAdditionalNotFound();
     }
 
-    categoryAdditional.deletedAt = new Date();
-    categoryAdditional.deletedUser = '123';
+    categoryAdditional.delete(this.req['user'].sub);
 
     await this.categoryAdditionalRepository.save(categoryAdditional);
 

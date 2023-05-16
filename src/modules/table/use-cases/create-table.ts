@@ -1,6 +1,8 @@
 import { Table } from '../entities/table';
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { TablesRepository } from '../repositories/table-repository';
+import { REQUEST } from '@nestjs/core';
+import { Request } from 'express';
 
 interface CreateTableRequest {
   name: string;
@@ -13,7 +15,10 @@ interface CreateTableResponse {
 
 @Injectable()
 export class CreateTable {
-  constructor(private tablesRepository: TablesRepository) {}
+  constructor(
+    private tablesRepository: TablesRepository,
+    @Inject(REQUEST) private req: Request,
+  ) {}
 
   async execute(request: CreateTableRequest): Promise<CreateTableResponse> {
     const { companyId, name, amountOfChairs } = request;
@@ -23,7 +28,7 @@ export class CreateTable {
         companyId,
         amountOfChairs,
       },
-      { createdUser: '123' },
+      { createdUser: this.req['user'].sub },
     );
 
     await this.tablesRepository.create(table);

@@ -33,16 +33,8 @@ export class BaseEntity {
     return this._createdUser;
   }
 
-  public set deletedAt(value: Date | null) {
-    this._deletedAt = value;
-  }
-
   public get deletedAt(): Date | null {
     return this._deletedAt;
-  }
-
-  public set deletedUser(workerId: string | null) {
-    this._deletedUser = workerId;
   }
 
   public get deletedUser(): string | null {
@@ -50,7 +42,7 @@ export class BaseEntity {
   }
 
   public delete(userId: string): void {
-    this.deletedAt = new Date();
-    this.deletedUser = userId;
+    this._deletedAt = new Date();
+    this._deletedUser = userId;
   }
 }

@@ -12,9 +12,7 @@ export class AuthService {
   ) {}
 
   async signIn(email: string, pass: string, companyId: string) {
-    console.log(email, pass, companyId);
     const { user } = await this.getUserEmail.execute({ companyId, email });
-    console.log(user);
     const isMatch = await bcrypt.compare(pass, user.password);
 
     if (!isMatch) {

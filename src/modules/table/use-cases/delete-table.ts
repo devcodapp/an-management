@@ -1,7 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { TablesRepository } from '../repositories/table-repository';
 import { Table } from '../entities/table';
 import { TableNotFound } from './errors/table-not-found';
+import { REQUEST } from '@nestjs/core';
+import { Request } from 'express';
 interface DeleteTableRequest {
   tableId: string;
 }
@@ -11,7 +13,10 @@ interface DeleteTableResponse {
 
 @Injectable()
 export class DeleteTable {
-  constructor(private tableRepository: TablesRepository) {}
+  constructor(
+    private tableRepository: TablesRepository,
+    @Inject(REQUEST) private req: Request,
+  ) {}
 
   async execute(request: DeleteTableRequest): Promise<DeleteTableResponse> {
     const { tableId } = request;
@@ -22,8 +27,8 @@ export class DeleteTable {
       throw new TableNotFound();
     }
 
-    table.deletedAt = new Date();
-    table.deletedUser = '123';
+    table.delete(this.req['user'].sub);
+
     await this.tableRepository.save(table);
 
     return { table };
