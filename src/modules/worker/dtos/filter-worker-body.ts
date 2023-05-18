@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { FilterBaseBody } from '@shared/dtos/filter-base-body';
 
-export class FilterWorkerBody {
+export class FilterWorkerBody extends FilterBaseBody {
   @ApiProperty({
     description: 'O email do usuário',
     type: String,

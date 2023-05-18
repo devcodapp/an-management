@@ -19,6 +19,7 @@ export class BooleanInterceptor implements NestInterceptor {
     const booleanFields = [
       'isOpened',
       'disabledAt',
+      'deleted',
       ...booleanFieldsReturningBody,
       ...booleanFieldsReturningQuery,
     ];

@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { FilterBaseBody } from '@shared/dtos/filter-base-body';
 
-export class FilterCouponBody {
+export class FilterCouponBody extends FilterBaseBody {
   @ApiProperty({
     description: 'O título do cupom',
     type: String,
