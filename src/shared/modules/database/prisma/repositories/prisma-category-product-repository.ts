@@ -32,14 +32,15 @@ export class PrismaCategoryProductRepository
     return PrismaCategoryProductMapper.toDomain(categoryProduct);
   }
 
-  async categoryProducts(
-    filters: CategoryProductFilterInput,
-  ): Promise<CategoryProduct[] | null> {
+  async categoryProducts({
+    deleted,
+    ...filters
+  }: CategoryProductFilterInput): Promise<CategoryProduct[] | null> {
     const categoryProducts = await this.prisma.categoryProduct.findMany({
       where: {
         ...(filters ? filters : {}),
         ...(filters.name ? { name: { contains: filters.name } } : {}),
-        deletedAt: null,
+        deleted: deleted || false,
       },
       orderBy: { name: 'asc' },
     });

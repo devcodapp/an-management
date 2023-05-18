@@ -28,12 +28,15 @@ export class PrismaOptionRepository implements OptionRepository {
     return PrismaOptionMapper.toDomain(option);
   }
 
-  async options(filters: OptionFilterInput): Promise<Option[] | null> {
+  async options({
+    deleted,
+    ...filters
+  }: OptionFilterInput): Promise<Option[] | null> {
     const options = await this.prisma.option.findMany({
       where: {
         ...(filters ? filters : {}),
         ...(filters.name ? { name: { contains: filters.name } } : {}),
-        deletedAt: null,
+        deleted: deleted || false,
       },
       orderBy: { name: 'asc' },
     });

@@ -6,6 +6,7 @@ interface FilterOptionRequest {
   name?: string;
   price?: number;
   companyId: string;
+  deleted?: boolean;
 }
 
 interface FilterOptionResponse {

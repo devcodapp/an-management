@@ -8,6 +8,7 @@ interface FilterCouponRequest {
   code?: string;
   expired?: boolean;
   companyId: string;
+  deleted?: boolean;
 }
 
 interface FilterCouponResponse {

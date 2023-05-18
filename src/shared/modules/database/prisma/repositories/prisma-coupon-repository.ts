@@ -39,13 +39,17 @@ export class PrismaCouponRepository implements CouponsRepository {
     return PrismaCouponMapper.toDomain(coupon);
   }
 
-  async coupons(filters: CouponFilterInput): Promise<Coupon[] | null> {
+  async coupons({
+    deleted,
+    ...filters
+  }: CouponFilterInput): Promise<Coupon[] | null> {
     const coupons = await this.prisma.coupon.findMany({
       where: {
         ...(filters ? filters : {}),
         ...(filters.title ? { title: filters.title } : {}),
         ...(filters.description ? { description: filters.description } : {}),
         ...(filters.code ? { code: filters.code } : {}),
+        deleted: deleted || false,
       },
     });
 

@@ -20,12 +20,17 @@ export class PrismaProductRepository implements ProductsRepository {
     return PrismaProductMapper.toDomain(product);
   }
 
-  async products(filters: ProductFilterInput): Promise<Product[] | null> {
-    const { categoryReturn, additionalsReturn, ...filtersQuery } = filters;
+  async products({
+    categoryReturn,
+    additionalsReturn,
+    deleted,
+    ...filters
+  }: ProductFilterInput): Promise<Product[] | null> {
     const products = await this.prisma.product.findMany({
       where: {
-        ...(filtersQuery ? filtersQuery : {}),
-        ...(filtersQuery.name ? { name: { contains: filtersQuery.name } } : {}),
+        ...(filters ? filters : {}),
+        ...(filters.name ? { name: { contains: filters.name } } : {}),
+        deleted: deleted || false,
       },
       orderBy: { name: 'asc' },
       include: {

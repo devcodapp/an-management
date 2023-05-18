@@ -4,4 +4,5 @@ export interface CouponFilterInput {
   code?: string;
   expired?: boolean;
   companyId: string;
+  deleted?: boolean;
 }

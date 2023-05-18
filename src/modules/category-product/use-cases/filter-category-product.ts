@@ -5,6 +5,7 @@ import { CategoryProductsRepository } from '../repositories/category-product-rep
 interface FilterCategoryProductRequest {
   name?: string;
   companyId?: string;
+  deleted?: boolean;
 }
 
 interface FilterCategoryProductResponse {
