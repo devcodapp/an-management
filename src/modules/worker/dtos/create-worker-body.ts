@@ -10,6 +10,13 @@ export class CreateWorkerBody {
   name: string;
 
   @ApiProperty({
+    description: 'O email do usuário',
+    type: String,
+  })
+  @IsNotEmpty()
+  email: string;
+
+  @ApiProperty({
     description: 'O cargo do usuário',
     type: String,
   })
@@ -17,17 +24,10 @@ export class CreateWorkerBody {
   role: 'admin' | 'colaborator';
 
   @ApiProperty({
-    description: 'A imagem do usuário',
-    type: String,
-    format: 'binary',
-  })
-  image: Express.Multer.File;
-
-  @ApiProperty({
-    description: 'O id do usuário',
+    description: 'O id da empresa',
     type: String,
   })
   @IsNotEmpty()
   @IsUUID()
-  userId: string;
+  companyId: string;
 }

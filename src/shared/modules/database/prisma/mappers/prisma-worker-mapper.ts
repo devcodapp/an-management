@@ -21,8 +21,8 @@ export class PrismaWorkerMapper {
     return new Worker(
       {
         userId: raw.userId,
-        imageId: raw.imageId,
-        imageUrl: raw.imageUrl,
+        imageId: raw.imageId || undefined,
+        imageUrl: raw.imageUrl || undefined,
         name: raw.name,
         role: raw.role,
       },

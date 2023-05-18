@@ -2,8 +2,8 @@ model Worker {
   id          String    @id @map("_id")
   name        String
   role        String
-  imageId     String
-  imageUrl    String
+  imageId     String?
+  imageUrl    String?
   createdUser String
   createdAt   DateTime  @default(now())
   deletedUser String?

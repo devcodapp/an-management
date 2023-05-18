@@ -4,8 +4,8 @@ import { BaseEntity } from '@shared/entities/base-entity';
 export interface WorkerProps {
   name: string;
   role: any;
-  imageId: string;
-  imageUrl: string;
+  imageId?: string;
+  imageUrl?: string;
   userId: string;
 }
 
@@ -40,19 +40,19 @@ export class Worker extends BaseEntity {
     return this.props.role;
   }
 
-  public set imageId(imageId: string) {
+  public set imageId(imageId: string | undefined) {
     this.props.imageId = imageId;
   }
 
-  public get imageId(): string {
+  public get imageId(): string | undefined {
     return this.props.imageId;
   }
 
-  public set imageUrl(imageUrl: string) {
+  public set imageUrl(imageUrl: string | undefined) {
     this.props.imageUrl = imageUrl;
   }
 
-  public get imageUrl(): string {
+  public get imageUrl(): string | undefined {
     return this.props.imageUrl;
   }
 
