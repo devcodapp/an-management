@@ -14,8 +14,12 @@ model Option {
   createdAt    DateTime  @default(now())
   deletedUser  String?
   deletedAt    DateTime?
-  disabledAt   DateTime?
-  company      Company   @relation(fields: [companyId], references: [id])
+  deleted      Boolean   @default(false)
+
+  disabledAt DateTime?
+  disabled   Boolean   @default(false)
+
+  company Company @relation(fields: [companyId], references: [id])
 }
 
 model Company {

@@ -16,6 +16,7 @@ export class PrismaCategoryProductMapper {
       deletedUser: categoryProduct.deletedUser,
       deletedAt: categoryProduct.deletedAt,
       companyId: categoryProduct.companyId,
+      deleted: categoryProduct.deleted,
     };
   }
 
@@ -35,6 +36,7 @@ export class PrismaCategoryProductMapper {
         deletedAt: raw.deletedAt,
         deletedUser: raw.deletedUser,
         id: raw.id,
+        deleted: raw.deleted,
       },
     );
   }

@@ -21,4 +21,5 @@ model Company {
 
   createdAt  DateTime  @default(now())
   disabledAt DateTime?
+  disabled   Boolean   @default(false)
 }

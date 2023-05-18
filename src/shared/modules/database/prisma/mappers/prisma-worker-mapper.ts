@@ -14,6 +14,7 @@ export class PrismaWorkerMapper {
       deletedUser: worker.deletedUser,
       deletedAt: worker.deletedAt,
       userId: worker.userId,
+      deleted: worker.deleted,
     };
   }
 
@@ -32,6 +33,7 @@ export class PrismaWorkerMapper {
         deletedAt: raw.deletedAt,
         deletedUser: raw.deletedUser,
         id: raw.id,
+        deleted: raw.deleted,
       },
     );
   }

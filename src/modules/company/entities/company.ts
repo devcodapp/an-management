@@ -19,6 +19,7 @@ interface CompanyProps {
 
   createdAt?: Date;
   disabledAt?: Date;
+  disabled?: boolean;
 }
 
 export class Company {
@@ -30,6 +31,7 @@ export class Company {
       id: props.id ?? randomUUID(),
       createdAt: props.createdAt ?? new Date(),
       isOpened: props.isOpened ?? false,
+      disabled: props.disabled ?? false,
       name: props.name.toUpperCase(),
     };
   }
@@ -58,6 +60,9 @@ export class Company {
     this.props.disabledAt = disabledAt;
   }
 
+  public get disabled(): boolean | undefined {
+    return this.props.disabled;
+  }
   public get name(): string {
     return this.props.name;
   }

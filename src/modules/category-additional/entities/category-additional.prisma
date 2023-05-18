@@ -7,6 +7,7 @@ model CategoryAdditional {
   createdAt   DateTime  @default(now())
   deletedUser String?
   deletedAt   DateTime?
+  deleted     Boolean   @default(false)
 
   company Company @relation(fields: [companyId], references: [id])
 }

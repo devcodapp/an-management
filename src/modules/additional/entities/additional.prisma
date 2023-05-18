@@ -1,15 +1,17 @@
 model Additional {
-  id          String             @id @map("_id")
+  id          String    @id @map("_id")
   name        String
   price       Float
   imageUrl    String
   imageId     String
   categoryId  String
   createdUser String
-  createdAt   DateTime           @default(now())
+  createdAt   DateTime  @default(now())
   deletedUser String?
   deletedAt   DateTime?
-  category    CategoryAdditional @relation(fields: [categoryId], references: [id])
+  deleted     Boolean   @default(false)
+
+  category CategoryAdditional @relation(fields: [categoryId], references: [id])
 }
 
 model CategoryAdditional {

@@ -1,7 +1,6 @@
 import { Address } from '@modules/company/entities/address';
 import { Company } from '@modules/company/entities/company';
 import { Company as RawCompany } from '@prisma/client';
-import { Order } from '@shared/entities/order';
 
 export class PrismaCompanyMapper {
   static toPrisma(company: Company) {
@@ -25,6 +24,7 @@ export class PrismaCompanyMapper {
       closeAt: company.closeAt,
       disabledAt: company.disabledAt,
       createdAt: company.createdAt,
+      disabled: company.disabled,
     };
   }
 
@@ -43,6 +43,7 @@ export class PrismaCompanyMapper {
       createdAt: raw.createdAt,
       disabledAt: raw.disabledAt ?? undefined,
       id: raw.id,
+      disabled: raw.disabled,
     });
   }
 }

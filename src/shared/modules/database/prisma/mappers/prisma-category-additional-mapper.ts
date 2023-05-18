@@ -13,6 +13,7 @@ export class PrismaCategoryAdditionalMapper {
       createdUser: categoryAdditional.createdUser,
       deletedAt: categoryAdditional.deletedAt,
       deletedUser: categoryAdditional.deletedUser,
+      deleted: categoryAdditional.deleted,
     };
   }
 
@@ -29,6 +30,7 @@ export class PrismaCategoryAdditionalMapper {
         deletedAt: raw.deletedAt,
         deletedUser: raw.deletedUser,
         id: raw.id,
+        deleted: raw.deleted,
       },
     );
   }
