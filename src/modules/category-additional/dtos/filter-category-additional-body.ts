@@ -1,5 +1,4 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { randomUUID } from 'crypto';
 
 export class FilterCategoryAdditionalBody {
   @ApiProperty({
@@ -15,4 +14,12 @@ export class FilterCategoryAdditionalBody {
     required: false,
   })
   companyId?: string;
+
+  @ApiProperty({
+    description: 'Buscar excluidos',
+    type: Boolean,
+    required: false,
+    default: false,
+  })
+  deleted?: boolean;
 }

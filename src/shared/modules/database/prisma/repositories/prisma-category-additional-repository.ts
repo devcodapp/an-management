@@ -35,11 +35,13 @@ export class PrismaCategoryAdditionalRepository
   async categoryAdditionals(
     filters: CategoryAdditionalFilterInput,
   ): Promise<CategoryAdditional[] | null> {
+    const { deleted, ...restFilters } = filters;
+    console.log(deleted);
     const categoryAdditionals = await this.prisma.categoryAdditional.findMany({
       where: {
-        ...(filters ? filters : {}),
-        ...(filters.name ? { name: { contains: filters.name } } : {}),
-        deletedAt: null,
+        ...(restFilters ? restFilters : {}),
+        ...(restFilters.name ? { name: { contains: restFilters.name } } : {}),
+        // deletedAt: null,
       },
       orderBy: { name: 'asc' },
     });
