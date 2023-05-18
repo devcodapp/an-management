@@ -36,7 +36,7 @@ export class PrismaCompanyMapper {
       description: raw.description,
       tags: raw.tags,
       type: raw.type,
-      address: new Address(raw.address as any),
+      address: raw.address ? new Address(raw.address as any) : undefined,
       isOpened: raw.isOpened,
       openAt: raw.openAt ?? undefined,
       closeAt: raw.closeAt ?? undefined,
