@@ -10,6 +10,8 @@ async function bootstrap() {
     logger: ['error', 'warn'],
   });
 
+  app.enableCors();
+
   const config = new DocumentBuilder()
     .setTitle('WebForge')
     .setDescription('WebForge API description')
