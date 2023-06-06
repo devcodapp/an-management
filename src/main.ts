@@ -23,16 +23,14 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   app.use(bodyParser.urlencoded({ extended: true }));
 
-  await app.listen(process.env.PORT || 3000);
+  await app.listen(process.env.PORT || 3333);
 
   console.log(
-    `\x1b[33m 🚀 💻 ::: Server running on port ${
-      process.env.PORT || 3000
+    `\x1b[33m 🚀 💻 ::: Server running on port ${process.env.PORT || 3333
     }\x1b[0m \n`,
   );
   console.log(
-    `\x1b[33m 📝 💻 ::: Swagger http://localhost:${
-      process.env.PORT || 3000
+    `\x1b[33m 📝 💻 ::: Swagger http://localhost:${process.env.PORT || 3333
     }/api\x1b[0m`,
   );
 }

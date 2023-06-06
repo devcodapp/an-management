@@ -19,6 +19,7 @@ import {
   Put,
   Query,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { ApiOperation, ApiBody, ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { FilterOptions } from './use-cases/filter-option';
@@ -30,8 +31,10 @@ import { SaveOptionBody } from './dtos/save-option-body';
 import { CreateOptionBody } from './dtos/create-option-body';
 import { FilterOptionBody } from './dtos/filter-option-body';
 import { AuthGuard } from '@shared/modules/auth/auth.guard';
+import { BooleanInterceptor } from 'src/interceptors/boolean/boolean.interceptor';
 
 @UseGuards(AuthGuard)
+@UseInterceptors(BooleanInterceptor)
 @ApiBearerAuth()
 @ApiTags('Option')
 @Controller('option')
@@ -42,7 +45,7 @@ export class OptionController {
     private createOption: CreateOption,
     private saveOption: SaveOption,
     private deleteOption: DeleteOption,
-  ) {}
+  ) { }
 
   @Get()
   @ApiOperation(FilterOptionSwagger)
