@@ -6,7 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "engines": {
-    "node": "18"
+    "node": "16.16.0"
   },
   "scripts": {
     "prismix": "npx prismix && prisma format && npx prisma generate",
