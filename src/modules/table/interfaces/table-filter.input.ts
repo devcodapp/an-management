@@ -3,4 +3,5 @@ export interface TableFilterInput {
   companyId?: string;
   disabled?: boolean;
   amountOfChairs?: number;
+  deleted?: boolean;
 }

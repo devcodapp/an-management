@@ -1,6 +1,5 @@
 import { Coupon } from '@modules/coupon/entities/coupon';
 import { Coupon as RawCoupon } from '@prisma/client';
-import { Order } from '@shared/entities/order';
 
 export class PrismaCouponMapper {
   static toPrisma(categoryProduct: Coupon) {
@@ -18,6 +17,7 @@ export class PrismaCouponMapper {
       deletedUser: categoryProduct.deletedUser,
       deletedAt: categoryProduct.deletedAt,
       companyId: categoryProduct.companyId,
+      deleted: categoryProduct.deleted,
     };
   }
 
@@ -39,6 +39,7 @@ export class PrismaCouponMapper {
         deletedAt: raw.deletedAt,
         deletedUser: raw.deletedUser,
         id: raw.id,
+        deleted: raw.deleted,
       },
     );
   }

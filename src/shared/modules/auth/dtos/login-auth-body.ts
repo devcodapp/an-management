@@ -1,14 +1,7 @@
 import { IsNotEmpty, IsUUID } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreateWorkerBody {
-  @ApiProperty({
-    description: 'O nome do usuário',
-    type: String,
-  })
-  @IsNotEmpty()
-  name: string;
-
+export class LoginAuthBody {
   @ApiProperty({
     description: 'O email do usuário',
     type: String,
@@ -17,11 +10,11 @@ export class CreateWorkerBody {
   email: string;
 
   @ApiProperty({
-    description: 'O cargo do usuário',
+    description: 'A senha do usuário',
     type: String,
   })
   @IsNotEmpty()
-  role: 'admin' | 'colaborator';
+  password: string;
 
   @ApiProperty({
     description: 'O id da empresa',

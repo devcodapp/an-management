@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { randomUUID } from 'crypto';
+import { FilterBaseBody } from '@shared/dtos/filter-base-body';
 
-export class FilterCategoryAdditionalBody {
+export class FilterCategoryAdditionalBody extends FilterBaseBody {
   @ApiProperty({
     description: 'O nome da categoria de adicional',
     type: String,

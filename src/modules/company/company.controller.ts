@@ -11,7 +11,13 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiBody, ApiConsumes, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiConsumes,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
 import { CreateCompany } from './use-cases/create-company';
 import { SaveCompany } from './use-cases/save-company';
 import { GetCompany } from './use-cases/get-company';
@@ -51,6 +57,7 @@ export class CompanyController {
   ) {}
 
   @UseGuards(AuthGuard)
+  @ApiBearerAuth()
   @Get()
   @ApiOperation(FilterCompanySwagger)
   async companies(
@@ -66,6 +73,7 @@ export class CompanyController {
   }
 
   @UseGuards(AuthGuard)
+  @ApiBearerAuth()
   @Get(':id')
   @ApiOperation(GetCompanySwagger)
   async company(
@@ -84,6 +92,7 @@ export class CompanyController {
 
   @Post()
   @ApiOperation(CreateCompanySwagger)
+  @ApiConsumes('application/x-www-form-urlencoded')
   @ApiBody({ type: CreateCompanyBody })
   async create(
     @Body() body: CreateCompanyBody,
@@ -96,7 +105,9 @@ export class CompanyController {
   }
 
   @UseGuards(AuthGuard)
+  @ApiBearerAuth()
   @Put()
+  @ApiConsumes('application/x-www-form-urlencoded')
   @ApiBody({ type: SaveCompanyBody })
   @ApiOperation(UpdateCompanySwagger)
   async update(
@@ -110,6 +121,7 @@ export class CompanyController {
   }
 
   @UseGuards(AuthGuard)
+  @ApiBearerAuth()
   @Patch('open/:companyId')
   @ApiOperation(OpenCompanySwagger)
   async open(@Param('companyId') companyId: string): Promise<void> {
@@ -119,6 +131,7 @@ export class CompanyController {
   }
 
   @UseGuards(AuthGuard)
+  @ApiBearerAuth()
   @Patch('close/:companyId')
   @ApiOperation(CloseCompanySwagger)
   async close(@Param('companyId') companyId: string): Promise<void> {
@@ -128,6 +141,7 @@ export class CompanyController {
   }
 
   @UseGuards(AuthGuard)
+  @ApiBearerAuth()
   @Patch('disable/:companyId')
   @ApiOperation(DisableCompanySwagger)
   async disable(

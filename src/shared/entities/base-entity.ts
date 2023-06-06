@@ -6,6 +6,7 @@ export interface BaseEntityProps {
   createdUser: string;
   deletedAt?: Date | null;
   deletedUser?: string | null;
+  deleted?: boolean;
 }
 
 export class BaseEntity {
@@ -14,6 +15,7 @@ export class BaseEntity {
   private _createdUser: string;
   private _deletedAt: Date | null;
   private _deletedUser: string | null;
+  private _deleted: boolean;
 
   constructor(props: BaseEntityProps) {
     this._id = props.id ?? randomUUID();
@@ -21,6 +23,7 @@ export class BaseEntity {
     this._createdUser = props.createdUser;
     this._deletedAt = props.deletedAt ?? null;
     this._deletedUser = props.deletedUser ?? null;
+    this._deleted = props.deleted ?? false;
   }
 
   public get id(): string {
@@ -41,8 +44,13 @@ export class BaseEntity {
     return this._deletedUser;
   }
 
+  public get deleted(): boolean {
+    return this._deleted;
+  }
+
   public delete(userId: string): void {
     this._deletedAt = new Date();
     this._deletedUser = userId;
+    this._deleted = true;
   }
 }

@@ -31,9 +31,10 @@ export class SaveWorker {
     }
 
     if (image) {
-      await this.cloudinary.deleteImage(worker.imageId);
+      if (worker.imageId) await this.cloudinary.deleteImage(worker.imageId);
 
       const uploadedImage = await this.cloudinary.uploadImage(image);
+
       worker.imageId = uploadedImage.public_id;
       worker.imageUrl = uploadedImage.url;
     }

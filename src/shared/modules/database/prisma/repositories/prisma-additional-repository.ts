@@ -29,14 +29,16 @@ export class PrismaAdditionalRepository implements AdditionalsRepository {
     return PrismaAdditionalMapper.toDomain(additional);
   }
 
-  async additionals(
-    filters: AdditionalFilterInput,
-  ): Promise<Additional[] | null> {
-    const { categoryReturn, ...filtersQuery } = filters;
+  async additionals({
+    categoryReturn,
+    deleted,
+    ...filters
+  }: AdditionalFilterInput): Promise<Additional[] | null> {
     const additionals = await this.prisma.additional.findMany({
       where: {
-        ...(filtersQuery ? filtersQuery : {}),
-        ...(filtersQuery.name ? { name: { contains: filtersQuery.name } } : {}),
+        ...(filters ? filters : {}),
+        ...(filters.name ? { name: { contains: filters.name } } : {}),
+        deleted: deleted || false,
       },
       orderBy: { name: 'asc' },
       include: { category: categoryReturn },

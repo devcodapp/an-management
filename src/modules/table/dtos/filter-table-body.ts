@@ -1,7 +1,8 @@
 import { IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { FilterBaseBody } from '@shared/dtos/filter-base-body';
 
-export class FilterTableBody {
+export class FilterTableBody extends FilterBaseBody {
   @ApiProperty({
     description: 'O nome do table',
     type: String,

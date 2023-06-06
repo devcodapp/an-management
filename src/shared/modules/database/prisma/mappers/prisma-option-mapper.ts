@@ -26,6 +26,7 @@ export class PrismaOptionMapper {
       createdUser: option.createdUser,
       deletedAt: option.deletedAt,
       deletedUser: option.deletedUser,
+      deleted: option.deleted,
     };
   }
 
@@ -54,6 +55,7 @@ export class PrismaOptionMapper {
         deletedAt: raw.deletedAt,
         deletedUser: raw.deletedUser,
         id: raw.id,
+        deleted: raw.deleted,
       },
     );
   }

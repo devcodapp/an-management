@@ -15,7 +15,9 @@ model Product {
   createdAt   DateTime                @default(now())
   deletedUser String?
   deletedAt   DateTime?
+  deleted     Boolean                 @default(false)
   disabledAt  DateTime?
+  disabled    Boolean                 @default(false)
   categoryId  String
   additionals AdditionalsOnProducts[]
   category    CategoryProduct?        @relation(fields: [categoryId], references: [id])

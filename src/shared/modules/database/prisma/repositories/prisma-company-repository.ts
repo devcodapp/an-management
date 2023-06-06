@@ -36,16 +36,25 @@ export class PrismaCompanyRepository implements CompaniesRepository {
   async companies(filters: CompanyFilterInput): Promise<Company[] | null> {
     const companies = await this.prisma.company.findMany({
       where: {
-        ...(filters.name && { name: { contains: filters.name } }),
-        ...(filters.description && {
-          description: { contains: filters.description },
-        }),
-        ...(filters.tags && { tags: { hasSome: filters.tags } }),
-        ...(filters.type && { type: filters.type }),
-        ...(filters.isOpened != undefined && { isOpened: filters.isOpened }),
+        ...(filters.name
+          ? { name: { contains: filters.name, mode: 'insensitive' } }
+          : {}),
+        ...(filters.description
+          ? {
+              description: {
+                contains: filters.description,
+                mode: 'insensitive',
+              },
+            }
+          : {}),
+        ...(filters.tags ? { tags: { hasSome: filters.tags } } : {}),
+        ...(filters.type ? { type: filters.type } : {}),
+        ...(filters.isOpened != undefined
+          ? { isOpened: filters.isOpened }
+          : {}),
         ...(filters.disabledAt
           ? { disabledAt: { not: null } }
-          : { disabledAt: null }),
+          : { disabledAt: undefined }),
       },
       orderBy: { name: 'asc' },
     });

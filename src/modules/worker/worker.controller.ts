@@ -85,18 +85,14 @@ export class WorkerController {
   }
 
   @Post()
-  @ApiConsumes('multipart/form-data')
+  @ApiConsumes('application/x-www-form-urlencoded')
   @ApiOperation(CreateWorkerSwagger)
   @ApiBody({ type: CreateWorkerBody })
   @UseInterceptors(FileInterceptor('image'))
   async create(
     @Body() body: CreateWorkerBody,
-    @UploadedFile() image: Express.Multer.File,
   ): Promise<{ worker: IWorkerView }> {
-    const { worker } = await this.createWorker.execute({
-      ...body,
-      image,
-    });
+    const { worker } = await this.createWorker.execute(body);
     return {
       worker: WorkerViewModel.toHTTP(worker),
     };

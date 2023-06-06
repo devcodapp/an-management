@@ -12,10 +12,10 @@ export class Address {
   constructor(props: AddressProps) {
     this.props = {
       ...props,
-      city: props.city.toUpperCase(),
-      district: props.district.toUpperCase(),
-      state: props.state.toUpperCase(),
-      street: props.street.toUpperCase(),
+      city: props.city ? props.city.toUpperCase() : '',
+      district: props.district ? props.district.toUpperCase() : '',
+      state: props.state ? props.state.toUpperCase() : '',
+      street: props.street ? props.street.toUpperCase() : '',
     };
   }
 

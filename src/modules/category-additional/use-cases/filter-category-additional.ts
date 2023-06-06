@@ -6,6 +6,7 @@ import { CategoryAdditionalsRepository } from '../repositories/category-addition
 interface FilterCategoryAdditionalRequest {
   name?: string;
   companyId?: string;
+  deleted?: boolean;
 }
 
 interface FilterCategoryAdditionalResponse {

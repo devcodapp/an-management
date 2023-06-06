@@ -8,6 +8,7 @@ interface OptionProps {
   suboptions?: SubOption[];
   companyId: string;
   disabledAt?: Date;
+  disabled?: boolean;
 }
 
 export class Option extends BaseEntity {
@@ -18,6 +19,7 @@ export class Option extends BaseEntity {
     this.props = {
       ...props,
       suboptions: props.suboptions || [],
+      disabled: props.disabled || false,
       name: props.name.toUpperCase(),
     };
   }

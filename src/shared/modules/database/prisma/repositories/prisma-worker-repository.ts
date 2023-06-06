@@ -28,12 +28,15 @@ export class PrismaWorkerRepository implements WorkerRepository {
     return PrismaWorkerMapper.toDomain(worker);
   }
 
-  async workers(filters: WorkerFilterInput): Promise<Worker[] | null> {
+  async workers({
+    deleted,
+    ...filters
+  }: WorkerFilterInput): Promise<Worker[] | null> {
     const workers = await this.prisma.worker.findMany({
       where: {
         ...(filters ? filters : {}),
         ...(filters.name ? { name: { contains: filters.name } } : {}),
-        deletedAt: null,
+        deleted: deleted || false,
       },
       orderBy: { name: 'asc' },
     });

@@ -13,6 +13,7 @@ export interface ProductProps {
   images?: ProductImage[];
   categoryId: string;
   disabledAt?: Date;
+  disabled?: boolean;
   additionals?: Additional[];
   category?: CategoryProduct;
 }
@@ -33,6 +34,7 @@ export class Product extends BaseEntity {
       sku: props.sku || generateSKU(5).toUpperCase(),
       name: props.name.toUpperCase(),
       images: props.images || [],
+      disabled: props.disabled || false,
       variants: props.variants || [],
     };
   }

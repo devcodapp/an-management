@@ -8,6 +8,7 @@ import {
   Put,
   Patch,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { CreateCategoryAdditional } from './use-cases/create-category-additional';
 import { CreateCategoryAdditionalBody } from './dtos/create-category-additional-body';
@@ -15,7 +16,13 @@ import {
   CategoryAdditionalViewModel,
   ICategoryAdditionalView,
 } from './view-models/category-additional';
-import { ApiTags, ApiOperation, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBody,
+  ApiBearerAuth,
+  ApiConsumes,
+} from '@nestjs/swagger';
 import {
   CreateCategoryAdditionalSwagger,
   DeleteCategoryAdditionalSwagger,
@@ -30,11 +37,15 @@ import { SaveCategoryAdditional } from './use-cases/save-category-additional';
 import { DeleteCategoryAdditional } from './use-cases/delete-category-additional';
 import { SaveCategoryAdditionalBody } from './dtos/save-category-additional-body';
 import { AuthGuard } from '@shared/modules/auth/auth.guard';
+import { BooleanInterceptor } from 'src/interceptors/boolean/boolean.interceptor';
+import { ArrayInterceptor } from 'src/interceptors/array/array.interceptor';
+import { NumberInterceptor } from 'src/interceptors/number/number.interceptor';
 
 @UseGuards(AuthGuard)
 @ApiBearerAuth()
 @ApiTags('CategoryAdditional')
 @Controller('category-additional')
+@UseInterceptors(BooleanInterceptor, ArrayInterceptor, NumberInterceptor)
 export class CategoryAdditionalController {
   constructor(
     private createCategoryAdditional: CreateCategoryAdditional,
@@ -85,6 +96,7 @@ export class CategoryAdditionalController {
 
   @Post()
   @ApiOperation(CreateCategoryAdditionalSwagger)
+  @ApiConsumes('application/x-www-form-urlencoded')
   @ApiBody({ type: CreateCategoryAdditionalBody })
   async create(
     @Body() body: CreateCategoryAdditionalBody,
@@ -100,6 +112,7 @@ export class CategoryAdditionalController {
 
   @Put()
   @ApiBody({ type: SaveCategoryAdditionalBody })
+  @ApiConsumes('application/x-www-form-urlencoded')
   @ApiOperation(UpdateCategoryAdditionalSwagger)
   async update(
     @Body() body: SaveCategoryAdditionalBody,

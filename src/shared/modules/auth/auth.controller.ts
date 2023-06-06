@@ -9,20 +9,24 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from './auth.guard';
+import { LoginAuthBody } from './dtos/login-auth-body';
 
 @Controller('auth')
 @ApiTags('Auth')
+@ApiBearerAuth()
 export class AuthController {
   constructor(private authService: AuthService) {}
 
   @HttpCode(HttpStatus.OK)
   @Post('login')
-  signIn(@Body() signInDto: Record<string, any>) {
-    return this.authService.signIn(
+  @ApiBody({ type: LoginAuthBody })
+  @ApiConsumes('application/x-www-form-urlencoded')
+  async signIn(@Body() signInDto: LoginAuthBody) {
+    return await this.authService.signIn(
       signInDto.email,
-      signInDto.pass,
+      signInDto.password,
       signInDto.companyId,
     );
   }
@@ -30,6 +34,6 @@ export class AuthController {
   @UseGuards(AuthGuard)
   @Get('profile')
   getProfile(@Request() req) {
-    return req.worker;
+    return req.user;
   }
 }

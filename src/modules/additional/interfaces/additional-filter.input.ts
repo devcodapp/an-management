@@ -3,4 +3,5 @@ export interface AdditionalFilterInput {
   categoryId?: string;
   price?: number;
   categoryReturn: boolean;
+  deleted?: boolean;
 }

@@ -36,6 +36,7 @@ export class PrismaProductMapper {
       createdUser: product.createdUser,
       deletedAt: product.deletedAt,
       deletedUser: product.deletedUser,
+      deleted: product.deleted,
     } as any;
   }
 
@@ -74,6 +75,7 @@ export class PrismaProductMapper {
         deletedAt: raw.deletedAt,
         deletedUser: raw.deletedUser,
         id: raw.id,
+        deleted: raw.deleted,
       },
     );
   }

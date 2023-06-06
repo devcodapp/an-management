@@ -13,6 +13,7 @@ export class PrismaTableMapper {
       createdUser: table.createdUser,
       deletedAt: table.deletedAt,
       deletedUser: table.deletedUser,
+      deleted: table.deleted,
     };
   }
 
@@ -30,6 +31,7 @@ export class PrismaTableMapper {
         deletedAt: raw.deletedAt,
         deletedUser: raw.deletedUser,
         id: raw.id,
+        deleted: raw.deleted,
       },
     );
   }

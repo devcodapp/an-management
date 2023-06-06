@@ -28,12 +28,15 @@ export class PrismaTableRepository implements TablesRepository {
     return PrismaTableMapper.toDomain(table);
   }
 
-  async tables(filters: TableFilterInput): Promise<Table[] | null> {
+  async tables({
+    deleted,
+    ...filters
+  }: TableFilterInput): Promise<Table[] | null> {
     const tables = await this.prisma.table.findMany({
       where: {
         ...(filters ? filters : {}),
         ...(filters.name ? { name: { contains: filters.name } } : {}),
-        deletedAt: null,
+        deleted: deleted || false,
       },
 
       orderBy: { name: 'asc' },

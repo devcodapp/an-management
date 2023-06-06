@@ -6,6 +6,7 @@ interface FilterTableRequest {
   name?: string;
   categoryId?: string;
   price?: number;
+  deleted?: boolean;
 }
 
 interface FilterTableResponse {

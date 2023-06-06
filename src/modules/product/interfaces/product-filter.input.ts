@@ -4,4 +4,5 @@ export interface ProductFilterInput {
   categoryId?: string;
   categoryReturn: boolean;
   additionalsReturn: boolean;
+  deleted?: boolean;
 }

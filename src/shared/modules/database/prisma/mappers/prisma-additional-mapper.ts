@@ -1,10 +1,8 @@
 import { Additional } from '@modules/additional/entities/additional';
-import { CategoryAdditional } from '@modules/category-additional/entities/category-additional';
 import {
   CategoryAdditional as RawCategoryAdditional,
   Additional as RawAdditional,
 } from '@prisma/client';
-import { Order } from '@shared/entities/order';
 import { PrismaCategoryAdditionalMapper } from './prisma-category-additional-mapper';
 
 export class PrismaAdditionalMapper {
@@ -20,6 +18,7 @@ export class PrismaAdditionalMapper {
       createdUser: additional.createdUser,
       deletedAt: additional.deletedAt,
       deletedUser: additional.deletedUser,
+      deleted: additional.deleted,
     };
   }
 
@@ -41,6 +40,7 @@ export class PrismaAdditionalMapper {
         deletedAt: raw.deletedAt,
         deletedUser: raw.deletedUser,
         id: raw.id,
+        deleted: raw.deleted,
       },
     );
   }
