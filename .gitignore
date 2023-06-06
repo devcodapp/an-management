@@ -1,6 +1,5 @@
 # compiled output
 .env
-schema.prisma
 /dist
 /node_modules
 
