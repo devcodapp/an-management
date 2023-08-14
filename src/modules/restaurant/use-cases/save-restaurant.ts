@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
+import { CloudinaryService } from '@shared/modules/cloudinary/cloudinary.service';
+import { Address } from '../entities/address';
+import { OpeningHours } from '../entities/openingHours';
 import { Restaurant } from '../entities/restaurant';
 import { RestaurantsRepository } from '../repositories/restaurant-repository';
 import { RestaurantNotFound } from './errors/restaurant-not-found';
-import { CloudinaryService } from '@shared/modules/cloudinary/cloudinary.service';
-import { Address } from '../entities/address';
 
 interface SaveRestaurantRequest {
   restaurantId: string;
@@ -12,8 +13,7 @@ interface SaveRestaurantRequest {
   tags?: string[];
   type?: string;
   address?: any;
-  openAt: string;
-  closeAt: string;
+  openingHours?: any;
 }
 
 interface SaveRestaurantResponse {
@@ -32,13 +32,9 @@ export class SaveRestaurant {
   ): Promise<SaveRestaurantResponse> {
     const {
       restaurantId,
-      description,
-      name,
-      tags,
-      type,
-      closeAt,
-      openAt,
       address: addressRaw,
+      openingHours: openningHoursRaw,
+      ...updatedFields
     } = request;
 
     const restaurant = await this.restaurantsRepository.restaurant(
@@ -59,21 +55,16 @@ export class SaveRestaurant {
 
     if (addressRaw) {
       const address = JSON.parse(addressRaw);
-      restaurant.address = new Address({
-        city: address.city,
-        district: address.district,
-        state: address.state,
-        street: address.street,
-        zip: address.zip,
-      });
+      restaurant.address = new Address(address);
     }
 
-    name ? (restaurant.name = name) : null;
-    description ? (restaurant.description = description) : null;
-    tags ? (restaurant.tags = tags) : null;
-    type ? (restaurant.type = type) : null;
-    openAt ? (restaurant.openAt = openAt) : null;
-    closeAt ? (restaurant.closeAt = closeAt) : null;
+    if (openningHoursRaw) {
+      const openingHours = JSON.parse(openningHoursRaw);
+      restaurant.openingHours = new OpeningHours(openingHours);
+    }
+
+    Object.assign(restaurant, updatedFields);
+
     await this.restaurantsRepository.save(restaurant);
 
     return { restaurant };

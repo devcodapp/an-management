@@ -25,62 +25,61 @@ model Additional {
 }
 
 model CategoryAdditional {
-  id          String       @id @map("_id")
-  additionals Additional[] @relation(name: "AdditionalToCategoryAdditional")
-  name        String
-  order       Int
-  restaurantId   String
-  createdUser String
-  createdAt   DateTime     @default(now())
-  deletedUser String?
-  deletedAt   DateTime?
-  deleted     Boolean      @default(false)
-  restaurant     Restaurant      @relation(name: "CategoryAdditionalToRestaurant", fields: [restaurantId], references: [id])
+  id           String       @id @map("_id")
+  additionals  Additional[] @relation(name: "AdditionalToCategoryAdditional")
+  name         String
+  order        Int
+  restaurantId String
+  createdUser  String
+  createdAt    DateTime     @default(now())
+  deletedUser  String?
+  deletedAt    DateTime?
+  deleted      Boolean      @default(false)
+  restaurant   Restaurant   @relation(name: "CategoryAdditionalToRestaurant", fields: [restaurantId], references: [id])
 }
 
 model Restaurant {
   id                  String               @id @map("_id")
   categoryAdditionals CategoryAdditional[] @relation(name: "CategoryAdditionalToRestaurant")
   categoryProducts    CategoryProduct[]    @relation(name: "CategoryProductToRestaurant")
+  coupons             Coupon[]             @relation(name: "CouponToRestaurant")
+  options             Option[]             @relation(name: "OptionToRestaurant")
   name                String
   description         String
   tags                String[]
   type                String
   address             Json?
   isOpened            Boolean              @default(false)
-  openAt              String?
-  closeAt             String?
+  openingHours        Json?
   imageId             String?
   imageUrl            String?
   createdAt           DateTime             @default(now())
   disabledAt          DateTime?
   disabled            Boolean              @default(false)
-  coupons             Coupon[]             @relation(name: "RestaurantToCoupon")
-  options             Option[]             @relation(name: "RestaurantToOption")
   tables              Table[]              @relation(name: "RestaurantToTable")
   users               User[]               @relation(name: "RestaurantToUser")
 }
 
 model CategoryProduct {
-  id          String    @id @map("_id")
-  name        String
-  description String
-  order       Int
-  imageId     String
-  imageUrl    String
-  enabled     Boolean   @default(false)
-  createdUser String
-  createdAt   DateTime  @default(now())
-  deletedUser String?
-  deletedAt   DateTime?
-  deleted     Boolean   @default(false)
-  restaurant     Restaurant   @relation(name: "CategoryProductToRestaurant", fields: [restaurantId], references: [id])
-  restaurantId   String
-  product     Product[] @relation(name: "CategoryProductToProduct")
+  id           String     @id @map("_id")
+  name         String
+  description  String
+  order        Int
+  imageId      String
+  imageUrl     String
+  enabled      Boolean    @default(false)
+  createdUser  String
+  createdAt    DateTime   @default(now())
+  deletedUser  String?
+  deletedAt    DateTime?
+  deleted      Boolean    @default(false)
+  Restaurant   Restaurant @relation(name: "CategoryProductToRestaurant", fields: [restaurantId], references: [id])
+  restaurantId String
+  product      Product[]  @relation(name: "CategoryProductToProduct")
 }
 
 model Coupon {
-  id                 String    @id @map("_id")
+  id                 String     @id @map("_id")
   title              String
   description        String
   code               String
@@ -89,29 +88,29 @@ model Coupon {
   discountLimit      Float?
   expiresIn          DateTime
   createdUser        String
-  createdAt          DateTime  @default(now())
+  createdAt          DateTime   @default(now())
   deletedUser        String?
   deletedAt          DateTime?
-  deleted            Boolean   @default(false)
-  restaurantId          String
-  restaurant            Restaurant   @relation(name: "RestaurantToCoupon", fields: [restaurantId], references: [id])
+  deleted            Boolean    @default(false)
+  restaurantId       String
+  restaurant         Restaurant @relation(name: "CouponToRestaurant", fields: [restaurantId], references: [id])
 }
 
 model Option {
-  id           String    @id @map("_id")
+  id           String     @id @map("_id")
   name         String
   description  String
   defaultPrice Float?
   suboptions   Json[]
-  restaurantId    String
+  restaurantId String
   createdUser  String
-  createdAt    DateTime  @default(now())
+  createdAt    DateTime   @default(now())
   deletedUser  String?
   deletedAt    DateTime?
-  deleted      Boolean   @default(false)
+  deleted      Boolean    @default(false)
   disabledAt   DateTime?
-  disabled     Boolean   @default(false)
-  restaurant      Restaurant   @relation(name: "RestaurantToOption", fields: [restaurantId], references: [id])
+  disabled     Boolean    @default(false)
+  restaurant   Restaurant @relation(name: "OptionToRestaurant", fields: [restaurantId], references: [id])
 }
 
 model Product {
@@ -143,17 +142,17 @@ model AdditionalsOnProducts {
 }
 
 model Table {
-  id             String    @id @map("_id")
+  id             String     @id @map("_id")
   name           String
   amountOfChairs Float
   disabledAt     DateTime?
   createdUser    String
-  createdAt      DateTime  @default(now())
+  createdAt      DateTime   @default(now())
   deletedUser    String?
   deletedAt      DateTime?
-  deleted        Boolean   @default(false)
-  restaurant        Restaurant   @relation(name: "RestaurantToTable", fields: [restaurantId], references: [id])
-  restaurantId      String
+  deleted        Boolean    @default(false)
+  restaurant     Restaurant @relation(name: "RestaurantToTable", fields: [restaurantId], references: [id])
+  restaurantId   String
 }
 
 model Worker {
@@ -172,13 +171,13 @@ model Worker {
 }
 
 model User {
-  id             String    @id @map("_id")
-  workers        Worker[]  @relation(name: "UserToWorker")
+  id             String     @id @map("_id")
+  workers        Worker[]   @relation(name: "UserToWorker")
   username       String
   email          String
   password       String
-  changePassword Boolean   @default(true)
+  changePassword Boolean    @default(true)
   deletedAt      DateTime?
-  restaurant        Restaurant   @relation(name: "RestaurantToUser", fields: [restaurantId], references: [id])
-  restaurantId      String
+  restaurant     Restaurant @relation(name: "RestaurantToUser", fields: [restaurantId], references: [id])
+  restaurantId   String
 }

@@ -12,9 +12,8 @@ model Restaurant {
 
   address Json?
 
-  isOpened Boolean @default(false)
-  openAt   String?
-  closeAt  String?
+  isOpened     Boolean @default(false)
+  openingHours Json?
 
   imageId  String?
   imageUrl String?

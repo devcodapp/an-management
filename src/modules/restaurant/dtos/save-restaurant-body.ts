@@ -3,6 +3,7 @@ import { Address } from '../entities/address';
 import { randomUUID } from 'crypto';
 import { IsArray, IsString } from 'class-validator';
 import { Type } from 'class-transformer';
+import { OpeningHours } from '../entities/openingHours';
 
 export class SaveRestaurantBody {
   @ApiProperty({
@@ -55,18 +56,23 @@ export class SaveRestaurantBody {
   address: Address;
 
   @ApiProperty({
-    description: 'Horário de abertura da restaurante',
-    type: String,
+    description: 'Endereço da restaurante',
+    type: Object,
     required: false,
-    example: '19:00',
+    example: {
+      friday: {
+        openAt: '19:00',
+        closeAt: '23:00',
+      },
+      saturday: {
+        openAt: '19:00',
+        closeAt: '23:00',
+      },
+      sunday: {
+        openAt: '19:00',
+        closeAt: '23:00',
+      },
+    },
   })
-  openAt: string;
-
-  @ApiProperty({
-    description: 'Horário de fechamento da restaurante',
-    type: String,
-    required: false,
-    example: '23:00',
-  })
-  closeAt: string;
+  openingHours: OpeningHours;
 }

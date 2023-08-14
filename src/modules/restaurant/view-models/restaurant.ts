@@ -1,3 +1,4 @@
+import { OpeningHoursProps } from '../entities/openingHours';
 import { Restaurant } from '../entities/restaurant';
 
 export class RestaurantViewModel {
@@ -9,8 +10,7 @@ export class RestaurantViewModel {
     type,
     address,
     isOpened,
-    openAt,
-    closeAt,
+    openingHours,
     imageUrl,
     disabledAt,
   }: Restaurant): IRestaurantView {
@@ -28,8 +28,7 @@ export class RestaurantViewModel {
         district: address?.district,
       },
       isOpened,
-      openAt,
-      closeAt,
+      openingHours,
       imageUrl,
       disabledAt,
     };
@@ -44,8 +43,7 @@ export interface IRestaurantView {
   type: string;
   address: IAddress;
   isOpened?: boolean;
-  openAt?: string;
-  closeAt?: string;
+  openingHours?: OpeningHoursProps;
   imageUrl?: string;
   disabledAt?: Date;
 }
