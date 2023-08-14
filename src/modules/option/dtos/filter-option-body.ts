@@ -17,7 +17,7 @@ export class FilterOptionBody extends FilterBaseBody {
   price?: number;
 
   @ApiProperty({
-    description: 'O id da empresa',
+    description: 'O id da restaurante',
     type: String,
     required: true,
   })

@@ -6,42 +6,42 @@ import { Type } from 'class-transformer';
 
 export class SaveRestaurantBody {
   @ApiProperty({
-    description: 'O id da empresa',
+    description: 'O id da restaurante',
     type: String,
     required: true,
   })
   restaurantId: string;
 
   @ApiProperty({
-    description: 'O nome da empresa',
+    description: 'O nome da restaurante',
     type: String,
     required: false,
   })
   name: string;
 
   @ApiProperty({
-    description: 'A descrição da Empresa',
+    description: 'A descrição da Restaurante',
     type: String,
     required: false,
   })
   description: string;
 
   @ApiProperty({
-    description: 'Tags da empresa',
+    description: 'Tags da restaurante',
     type: [String],
     required: false,
   })
   tags: string[];
 
   @ApiProperty({
-    description: 'Tipo da empresa',
+    description: 'Tipo da restaurante',
     type: String,
     required: false,
   })
   type: string;
 
   @ApiProperty({
-    description: 'Endereço da empresa',
+    description: 'Endereço da restaurante',
     type: Object,
     required: false,
     example: {
@@ -55,7 +55,7 @@ export class SaveRestaurantBody {
   address: Address;
 
   @ApiProperty({
-    description: 'Horário de abertura da empresa',
+    description: 'Horário de abertura da restaurante',
     type: String,
     required: false,
     example: '19:00',
@@ -63,7 +63,7 @@ export class SaveRestaurantBody {
   openAt: string;
 
   @ApiProperty({
-    description: 'Horário de fechamento da empresa',
+    description: 'Horário de fechamento da restaurante',
     type: String,
     required: false,
     example: '23:00',

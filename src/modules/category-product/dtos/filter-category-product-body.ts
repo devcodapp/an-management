@@ -10,7 +10,7 @@ export class FilterCategoryProductBody extends FilterBaseBody {
   name?: string;
 
   @ApiProperty({
-    description: 'O id da empresa',
+    description: 'O id da restaurante',
     type: String,
     required: false,
   })

@@ -32,7 +32,7 @@ export class FilterCouponBody extends FilterBaseBody {
   expired: boolean;
 
   @ApiProperty({
-    description: 'Id da empresa',
+    description: 'Id da restaurante',
     type: String,
     required: true,
   })

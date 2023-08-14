@@ -25,7 +25,7 @@ export class CreateCategoryProductBody {
   order: number;
 
   @ApiProperty({
-    description: 'O id da empresa',
+    description: 'O id da restaurante',
     type: String,
   })
   @IsNotEmpty()

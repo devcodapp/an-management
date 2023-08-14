@@ -33,7 +33,7 @@ export class SaveCategoryProductBody {
   order: number;
 
   @ApiProperty({
-    description: 'O id da empresa',
+    description: 'O id da restaurante',
     type: String,
     required: false,
   })
