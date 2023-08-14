@@ -5,13 +5,13 @@ export class CategoryAdditionalViewModel {
     id,
     name,
     order,
-    companyId,
+    restaurantId,
   }: CategoryAdditional): ICategoryAdditionalView {
     return {
       id,
       name,
       order: order.value,
-      companyId,
+      restaurantId,
     };
   }
 }
@@ -20,5 +20,5 @@ export interface ICategoryAdditionalView {
   id: string;
   name: string;
   order: number;
-  companyId: string;
+  restaurantId: string;
 }

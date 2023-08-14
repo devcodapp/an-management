@@ -22,5 +22,5 @@ export class LoginAuthBody {
   })
   @IsNotEmpty()
   @IsUUID()
-  companyId: string;
+  restaurantId: string;
 }

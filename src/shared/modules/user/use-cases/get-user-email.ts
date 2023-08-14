@@ -5,7 +5,7 @@ import { UserNotFound } from './errors/user-not-found';
 
 interface GetUserEmailRequest {
   email: string;
-  companyId: string;
+  restaurantId: string;
 }
 
 interface GetUserEmailResponse {
@@ -17,8 +17,8 @@ export class GetUserEmail {
   constructor(private userRepository: UsersRepository) {}
 
   async execute(request: GetUserEmailRequest): Promise<GetUserEmailResponse> {
-    const { email, companyId } = request;
-    const user = await this.userRepository.userByEmail(email, companyId);
+    const { email, restaurantId } = request;
+    const user = await this.userRepository.userByEmail(email, restaurantId);
 
     if (!user) {
       throw new UserNotFound();

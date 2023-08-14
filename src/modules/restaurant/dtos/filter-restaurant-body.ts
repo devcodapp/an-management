@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class FilterCompanyBody {
+export class FilterRestaurantBody {
   @ApiProperty({
     description: 'O nome da empresa',
     type: String,

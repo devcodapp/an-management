@@ -37,7 +37,7 @@ export class SaveCategoryProductBody {
     type: String,
     required: false,
   })
-  companyId?: string;
+  restaurantId?: string;
 
   @ApiProperty({
     description: 'A imagem da categoria do produto',

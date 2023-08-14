@@ -30,5 +30,5 @@ export class SaveCategoryAdditionalBody {
     type: String,
     required: false,
   })
-  companyId?: string;
+  restaurantId?: string;
 }

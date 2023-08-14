@@ -23,5 +23,5 @@ export class CreateCategoryAdditionalBody {
   })
   @IsNotEmpty()
   @IsUUID()
-  companyId: string;
+  restaurantId: string;
 }

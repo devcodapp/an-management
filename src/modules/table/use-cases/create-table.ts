@@ -6,7 +6,7 @@ import { Request } from 'express';
 
 interface CreateTableRequest {
   name: string;
-  companyId: string;
+  restaurantId: string;
   amountOfChairs: number;
 }
 interface CreateTableResponse {
@@ -21,11 +21,11 @@ export class CreateTable {
   ) {}
 
   async execute(request: CreateTableRequest): Promise<CreateTableResponse> {
-    const { companyId, name, amountOfChairs } = request;
+    const { restaurantId, name, amountOfChairs } = request;
     const table = new Table(
       {
         name,
-        companyId,
+        restaurantId,
         amountOfChairs,
       },
       { createdUser: this.req['user'].sub },

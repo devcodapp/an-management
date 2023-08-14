@@ -36,5 +36,5 @@ export class FilterCouponBody extends FilterBaseBody {
     type: String,
     required: true,
   })
-  companyId: string;
+  restaurantId: string;
 }

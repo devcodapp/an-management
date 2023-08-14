@@ -4,8 +4,8 @@ import { CategoryAdditionalsRepository } from '@modules/category-additional/repo
 import { PrismaCategoryAdditionalRepository } from './prisma/repositories/prisma-category-additional-repository';
 import { AdditionalsRepository } from '@modules/additional/repositories/additional-repository';
 import { PrismaAdditionalRepository } from './prisma/repositories/prisma-additional-repository';
-import { CompaniesRepository } from '@modules/company/repositories/company-repository';
-import { PrismaCompanyRepository } from './prisma/repositories/prisma-company-repository';
+import { RestaurantsRepository } from '@modules/restaurant/repositories/restaurant-repository';
+import { PrismaRestaurantRepository } from './prisma/repositories/prisma-restaurant-repository';
 import { CategoryProductsRepository } from '@modules/category-product/repositories/category-product-repository';
 import { PrismaCategoryProductRepository } from './prisma/repositories/prisma-category-product-repository';
 import { OptionRepository } from '@modules/option/repositories/option-repository';
@@ -33,8 +33,8 @@ import { PrismaUserRepository } from './prisma/repositories/prisma-user-reposito
       useClass: PrismaAdditionalRepository,
     },
     {
-      provide: CompaniesRepository,
-      useClass: PrismaCompanyRepository,
+      provide: RestaurantsRepository,
+      useClass: PrismaRestaurantRepository,
     },
     {
       provide: CategoryProductsRepository,
@@ -68,7 +68,7 @@ import { PrismaUserRepository } from './prisma/repositories/prisma-user-reposito
   exports: [
     CategoryAdditionalsRepository,
     AdditionalsRepository,
-    CompaniesRepository,
+    RestaurantsRepository,
     CategoryProductsRepository,
     OptionRepository,
     WorkerRepository,

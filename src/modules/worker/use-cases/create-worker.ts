@@ -12,7 +12,7 @@ interface CreateWorkerRequest {
   name: string;
   email: string;
   role: 'admin' | 'colaborator';
-  companyId: string;
+  restaurantId: string;
 }
 interface CreateWorkerResponse {
   worker: Worker & { password?: string };
@@ -28,12 +28,12 @@ export class CreateWorker {
   ) {}
 
   async execute(request: CreateWorkerRequest): Promise<CreateWorkerResponse> {
-    const { email, name, companyId, role } = request;
+    const { email, name, restaurantId, role } = request;
 
     const password = generateSKU(6).toLowerCase();
 
     const user = new User({
-      companyId,
+      restaurantId,
       email,
       username: name,
       password,

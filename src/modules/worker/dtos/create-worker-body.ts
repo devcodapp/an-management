@@ -29,5 +29,5 @@ export class CreateWorkerBody {
   })
   @IsNotEmpty()
   @IsUUID()
-  companyId: string;
+  restaurantId: string;
 }

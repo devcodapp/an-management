@@ -83,15 +83,15 @@ export class CouponController {
     };
   }
 
-  @Get('company/:companyId/code/:code')
+  @Get('restaurant/:restaurantId/code/:code')
   @ApiOperation(GetCouponSwagger)
   async couponCode(
     @Param('code') code: string,
-    @Param('companyId') companyId: string,
+    @Param('restaurantId') restaurantId: string,
   ): Promise<{ coupon: ICouponView } | null> {
     const { coupon } = await this.getCouponCode.execute({
       code,
-      companyId,
+      restaurantId,
     });
 
     if (!coupon) {

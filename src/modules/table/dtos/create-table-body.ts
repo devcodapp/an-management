@@ -22,5 +22,5 @@ export class CreateTableBody {
   })
   @IsNotEmpty()
   @IsUUID()
-  companyId: string;
+  restaurantId: string;
 }

@@ -29,19 +29,19 @@ model CategoryAdditional {
   additionals Additional[] @relation(name: "AdditionalToCategoryAdditional")
   name        String
   order       Int
-  companyId   String
+  restaurantId   String
   createdUser String
   createdAt   DateTime     @default(now())
   deletedUser String?
   deletedAt   DateTime?
   deleted     Boolean      @default(false)
-  company     Company      @relation(name: "CategoryAdditionalToCompany", fields: [companyId], references: [id])
+  restaurant     Restaurant      @relation(name: "CategoryAdditionalToRestaurant", fields: [restaurantId], references: [id])
 }
 
-model Company {
+model Restaurant {
   id                  String               @id @map("_id")
-  categoryAdditionals CategoryAdditional[] @relation(name: "CategoryAdditionalToCompany")
-  categoryProducts    CategoryProduct[]    @relation(name: "CategoryProductToCompany")
+  categoryAdditionals CategoryAdditional[] @relation(name: "CategoryAdditionalToRestaurant")
+  categoryProducts    CategoryProduct[]    @relation(name: "CategoryProductToRestaurant")
   name                String
   description         String
   tags                String[]
@@ -55,10 +55,10 @@ model Company {
   createdAt           DateTime             @default(now())
   disabledAt          DateTime?
   disabled            Boolean              @default(false)
-  coupons             Coupon[]             @relation(name: "CompanyToCoupon")
-  options             Option[]             @relation(name: "CompanyToOption")
-  tables              Table[]              @relation(name: "CompanyToTable")
-  users               User[]               @relation(name: "CompanyToUser")
+  coupons             Coupon[]             @relation(name: "RestaurantToCoupon")
+  options             Option[]             @relation(name: "RestaurantToOption")
+  tables              Table[]              @relation(name: "RestaurantToTable")
+  users               User[]               @relation(name: "RestaurantToUser")
 }
 
 model CategoryProduct {
@@ -74,8 +74,8 @@ model CategoryProduct {
   deletedUser String?
   deletedAt   DateTime?
   deleted     Boolean   @default(false)
-  company     Company   @relation(name: "CategoryProductToCompany", fields: [companyId], references: [id])
-  companyId   String
+  restaurant     Restaurant   @relation(name: "CategoryProductToRestaurant", fields: [restaurantId], references: [id])
+  restaurantId   String
   product     Product[] @relation(name: "CategoryProductToProduct")
 }
 
@@ -93,8 +93,8 @@ model Coupon {
   deletedUser        String?
   deletedAt          DateTime?
   deleted            Boolean   @default(false)
-  companyId          String
-  company            Company   @relation(name: "CompanyToCoupon", fields: [companyId], references: [id])
+  restaurantId          String
+  restaurant            Restaurant   @relation(name: "RestaurantToCoupon", fields: [restaurantId], references: [id])
 }
 
 model Option {
@@ -103,7 +103,7 @@ model Option {
   description  String
   defaultPrice Float?
   suboptions   Json[]
-  companyId    String
+  restaurantId    String
   createdUser  String
   createdAt    DateTime  @default(now())
   deletedUser  String?
@@ -111,7 +111,7 @@ model Option {
   deleted      Boolean   @default(false)
   disabledAt   DateTime?
   disabled     Boolean   @default(false)
-  company      Company   @relation(name: "CompanyToOption", fields: [companyId], references: [id])
+  restaurant      Restaurant   @relation(name: "RestaurantToOption", fields: [restaurantId], references: [id])
 }
 
 model Product {
@@ -152,8 +152,8 @@ model Table {
   deletedUser    String?
   deletedAt      DateTime?
   deleted        Boolean   @default(false)
-  company        Company   @relation(name: "CompanyToTable", fields: [companyId], references: [id])
-  companyId      String
+  restaurant        Restaurant   @relation(name: "RestaurantToTable", fields: [restaurantId], references: [id])
+  restaurantId      String
 }
 
 model Worker {
@@ -179,6 +179,6 @@ model User {
   password       String
   changePassword Boolean   @default(true)
   deletedAt      DateTime?
-  company        Company   @relation(name: "CompanyToUser", fields: [companyId], references: [id])
-  companyId      String
+  restaurant        Restaurant   @relation(name: "RestaurantToUser", fields: [restaurantId], references: [id])
+  restaurantId      String
 }

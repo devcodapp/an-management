@@ -3,7 +3,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Company {
+model Restaurant {
   id          String   @id @map("_id")
   name        String
   description String

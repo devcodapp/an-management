@@ -1,6 +1,6 @@
-import { Company } from '../entities/company';
+import { Restaurant } from '../entities/restaurant';
 
-export class CompanyViewModel {
+export class RestaurantViewModel {
   static toHTTP({
     id,
     name,
@@ -13,7 +13,7 @@ export class CompanyViewModel {
     closeAt,
     imageUrl,
     disabledAt,
-  }: Company): ICompanyView {
+  }: Restaurant): IRestaurantView {
     return {
       id,
       name,
@@ -36,7 +36,7 @@ export class CompanyViewModel {
   }
 }
 
-export interface ICompanyView {
+export interface IRestaurantView {
   id: string;
   name: string;
   description: string;

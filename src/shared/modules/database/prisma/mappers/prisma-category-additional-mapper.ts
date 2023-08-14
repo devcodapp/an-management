@@ -8,7 +8,7 @@ export class PrismaCategoryAdditionalMapper {
       id: categoryAdditional.id,
       name: categoryAdditional.name,
       order: categoryAdditional.order.value,
-      companyId: categoryAdditional.companyId,
+      restaurantId: categoryAdditional.restaurantId,
       createdAt: categoryAdditional.createdAt,
       createdUser: categoryAdditional.createdUser,
       deletedAt: categoryAdditional.deletedAt,
@@ -20,7 +20,7 @@ export class PrismaCategoryAdditionalMapper {
   static toDomain(raw: RawCategoryAdditional) {
     return new CategoryAdditional(
       {
-        companyId: raw.companyId,
+        restaurantId: raw.restaurantId,
         name: raw.name,
         order: new Order(raw.order),
       },

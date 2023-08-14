@@ -3,7 +3,7 @@ import { CategoryAdditionalModule } from './modules/category-additional/category
 import { AdditionalModule } from './modules/additional/additional.module';
 import { CloudinaryModule } from '@shared/modules/cloudinary/cloudinary.module';
 import { ConfigModule } from '@nestjs/config';
-import { CompanyModule } from './modules/company/company.module';
+import { RestaurantModule } from './modules/restaurant/restaurant.module';
 import { DatabaseModule } from '@shared/modules/database/database.module';
 import { OptionModule } from './modules/option/option.module';
 import { CategoryProductModule } from './modules/category-product/category-product.module';
@@ -26,7 +26,7 @@ import { UserModule } from './shared/modules/user/user.module';
       envFilePath: '.env',
     }),
     OptionModule,
-    CompanyModule,
+    RestaurantModule,
     CategoryProductModule,
     SuboptionModule,
     AuthModule,

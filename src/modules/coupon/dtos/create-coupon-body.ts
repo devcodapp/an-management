@@ -54,5 +54,5 @@ export class CreateCouponBody {
   })
   @IsNotEmpty()
   @IsUUID()
-  companyId: string;
+  restaurantId: string;
 }

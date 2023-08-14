@@ -4,13 +4,13 @@ import { randomUUID } from 'crypto';
 import { IsArray, IsString } from 'class-validator';
 import { Type } from 'class-transformer';
 
-export class SaveCompanyBody {
+export class SaveRestaurantBody {
   @ApiProperty({
     description: 'O id da empresa',
     type: String,
     required: true,
   })
-  companyId: string;
+  restaurantId: string;
 
   @ApiProperty({
     description: 'O nome da empresa',

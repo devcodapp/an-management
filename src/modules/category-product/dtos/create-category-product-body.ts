@@ -30,7 +30,7 @@ export class CreateCategoryProductBody {
   })
   @IsNotEmpty()
   @IsUUID()
-  companyId: string;
+  restaurantId: string;
 
   @ApiProperty({
     description: 'A imagem da categoria',

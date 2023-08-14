@@ -21,5 +21,5 @@ export class FilterOptionBody extends FilterBaseBody {
     type: String,
     required: true,
   })
-  companyId: string;
+  restaurantId: string;
 }

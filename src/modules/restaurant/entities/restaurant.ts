@@ -1,7 +1,7 @@
 import { randomUUID } from 'crypto';
 import { Address } from './address';
 
-interface CompanyProps {
+interface RestaurantProps {
   id?: string;
   name: string;
   description: string;
@@ -22,10 +22,10 @@ interface CompanyProps {
   disabled?: boolean;
 }
 
-export class Company {
-  private props: CompanyProps;
+export class Restaurant {
+  private props: RestaurantProps;
 
-  constructor(props: CompanyProps) {
+  constructor(props: RestaurantProps) {
     this.props = {
       ...props,
       id: props.id ?? randomUUID(),

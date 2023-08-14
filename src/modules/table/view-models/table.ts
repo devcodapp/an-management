@@ -7,7 +7,7 @@ export class TableViewModel {
       name: table.name,
       amountOfChairs: table.amountOfChairs,
       disabledAt: table.disabledAt,
-      companyId: table.companyId,
+      restaurantId: table.restaurantId,
     };
   }
 }
@@ -17,5 +17,5 @@ export interface ITableView {
   name: string;
   amountOfChairs: number;
   disabledAt?: Date;
-  companyId: string;
+  restaurantId: string;
 }

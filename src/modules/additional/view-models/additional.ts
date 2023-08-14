@@ -20,7 +20,7 @@ export class AdditionalViewModel {
         ? {
             id: Category?.id,
             name: Category?.name,
-            companyId: Category?.companyId,
+            restaurantId: Category?.restaurantId,
             order: Category?.order.value,
           }
         : undefined,

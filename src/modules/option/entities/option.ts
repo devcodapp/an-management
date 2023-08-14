@@ -6,7 +6,7 @@ interface OptionProps {
   description: string;
   defaultPrice?: number;
   suboptions?: SubOption[];
-  companyId: string;
+  restaurantId: string;
   disabledAt?: Date;
   disabled?: boolean;
 }
@@ -44,11 +44,11 @@ export class Option extends BaseEntity {
   public get defaultPrice(): number | undefined {
     return this.props.defaultPrice;
   }
-  public set companyId(companyId: string) {
-    this.props.companyId = companyId;
+  public set restaurantId(restaurantId: string) {
+    this.props.restaurantId = restaurantId;
   }
-  public get companyId(): string {
-    return this.props.companyId;
+  public get restaurantId(): string {
+    return this.props.restaurantId;
   }
 
   public get suboptions(): SubOption[] | undefined {

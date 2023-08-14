@@ -8,7 +8,7 @@ export interface CategoryProductProps {
   order: Order;
   imageId: string;
   imageUrl: string;
-  companyId: string;
+  restaurantId: string;
   enabled?: boolean;
 }
 
@@ -71,12 +71,12 @@ export class CategoryProduct extends BaseEntity {
     return this.props.imageUrl;
   }
 
-  public set companyId(companyId: string) {
-    this.props.companyId = companyId;
+  public set restaurantId(restaurantId: string) {
+    this.props.restaurantId = restaurantId;
   }
 
-  public get companyId(): string {
-    return this.props.companyId;
+  public get restaurantId(): string {
+    return this.props.restaurantId;
   }
 
   public get enabled(): boolean | undefined {

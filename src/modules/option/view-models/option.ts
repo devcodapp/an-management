@@ -7,7 +7,7 @@ export class OptionViewModel {
     name,
     description,
     defaultPrice,
-    companyId,
+    restaurantId,
     suboptions: rawSuboption,
   }: Option): IOptionView {
     const suboptions: any = rawSuboption?.map(
@@ -25,7 +25,7 @@ export class OptionViewModel {
       name,
       description,
       defaultPrice,
-      companyId,
+      restaurantId,
       suboptions,
     };
   }
@@ -37,5 +37,5 @@ export interface IOptionView {
   description: string;
   defaultPrice?: number;
   suboptions?: Partial<SubOption[]>;
-  companyId?: string;
+  restaurantId?: string;
 }

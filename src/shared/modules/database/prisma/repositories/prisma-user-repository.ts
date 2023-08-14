@@ -26,10 +26,10 @@ export class PrismaUserRepository implements UsersRepository {
 
   async userByEmail(
     email: string,
-    companyId?: string | undefined,
+    restaurantId?: string | undefined,
   ): Promise<User | null> {
     const user = await this.prisma.user.findFirst({
-      where: { email, companyId },
+      where: { email, restaurantId },
     });
 
     if (!user) {

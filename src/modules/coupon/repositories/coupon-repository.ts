@@ -6,7 +6,10 @@ export abstract class CouponsRepository {
 
   abstract coupon(couponId: string): Promise<Coupon | null>;
 
-  abstract couponCode(code: string, companyId: string): Promise<Coupon | null>;
+  abstract couponCode(
+    code: string,
+    restaurantId: string,
+  ): Promise<Coupon | null>;
 
   abstract coupons(filters: CouponFilterInput): Promise<Coupon[] | null>;
 

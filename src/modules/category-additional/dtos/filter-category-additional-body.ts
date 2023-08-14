@@ -14,5 +14,5 @@ export class FilterCategoryAdditionalBody extends FilterBaseBody {
     type: String,
     required: false,
   })
-  companyId?: string;
+  restaurantId?: string;
 }

@@ -1,7 +1,7 @@
 import { IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreateCompanyBody {
+export class CreateRestaurantBody {
   @ApiProperty({
     description: 'O nome da empresa',
     type: String,

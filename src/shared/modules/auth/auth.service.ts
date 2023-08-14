@@ -11,8 +11,8 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async signIn(email: string, pass: string, companyId: string) {
-    const { user } = await this.getUserEmail.execute({ companyId, email });
+  async signIn(email: string, pass: string, restaurantId: string) {
+    const { user } = await this.getUserEmail.execute({ restaurantId, email });
     const isMatch = await bcrypt.compare(pass, user.password);
 
     if (!isMatch) {

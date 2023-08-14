@@ -1,13 +1,11 @@
 {
-  "name": "api",
+  "name": "ne-api-main",
   "version": "0.0.1",
   "description": "",
   "author": "",
   "private": true,
   "license": "UNLICENSED",
-  "engines": {
-    "node": "16.16.0"
-  },
+ 
   "scripts": {
     "prismix": "npx prismix && prisma format && npx prisma generate",
     "build": "nest build",

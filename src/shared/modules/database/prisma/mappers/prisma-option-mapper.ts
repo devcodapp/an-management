@@ -21,7 +21,7 @@ export class PrismaOptionMapper {
       suboptions,
       description: option.description,
       defaultPrice: option.defaultPrice,
-      companyId: option.companyId,
+      restaurantId: option.restaurantId,
       createdAt: option.createdAt,
       createdUser: option.createdUser,
       deletedAt: option.deletedAt,
@@ -33,7 +33,7 @@ export class PrismaOptionMapper {
   static toDomain(raw: RawOption) {
     return new Option(
       {
-        companyId: raw.companyId,
+        restaurantId: raw.restaurantId,
         name: raw.name,
         defaultPrice: raw.defaultPrice ?? undefined,
         description: raw.description,
