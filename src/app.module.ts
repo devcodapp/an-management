@@ -16,6 +16,9 @@ import { ProductVariantOptionModule } from './modules/product-variant-option/pro
 import { TableModule } from '@modules/table/table.module';
 import { CouponModule } from './modules/coupon/coupon.module';
 import { UserModule } from './shared/modules/user/user.module';
+import { RestaurantTypeModule } from './modules/restaurant-type/restaurant-type.module';
+import { APP_FILTER } from '@nestjs/core';
+import InternalServerErrorExceptionFilter from './filters/InternalServerError.filter';
 @Module({
   imports: [
     CategoryAdditionalModule,
@@ -38,6 +41,10 @@ import { UserModule } from './shared/modules/user/user.module';
     CouponModule,
     UserModule,
     AuthModule,
+    RestaurantTypeModule,
+  ],
+  providers: [
+    { provide: APP_FILTER, useClass: InternalServerErrorExceptionFilter },
   ],
 })
 export class AppModule {}

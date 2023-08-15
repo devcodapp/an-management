@@ -40,7 +40,7 @@ export class Product extends BaseEntity {
   }
 
   public set name(name: string) {
-    this.props.name = name;
+    this.props.name = name.toUpperCase();
   }
 
   public get name(): string {

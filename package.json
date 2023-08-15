@@ -5,7 +5,6 @@
   "author": "",
   "private": true,
   "license": "UNLICENSED",
- 
   "scripts": {
     "prismix": "npx prismix && prisma format && npx prisma generate",
     "build": "nest build",
@@ -35,6 +34,8 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "cloudinary": "^1.36.1",
+    "ejs": "^3.1.9",
+    "prismix": "^1.0.22",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0",
     "swagger-ui-express": "^4.6.2",

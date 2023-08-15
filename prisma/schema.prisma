@@ -143,6 +143,18 @@ model AdditionalsOnProducts {
   productId    String?
 }
 
+model RestaurantType {
+  id          String    @id @map("_id")
+  name        String
+  createdUser String
+  createdAt   DateTime  @default(now())
+  deletedUser String?
+  deletedAt   DateTime?
+  deleted     Boolean   @default(false)
+  disabledAt  DateTime?
+  disabled    Boolean   @default(false)
+}
+
 model Table {
   id             String     @id @map("_id")
   name           String
