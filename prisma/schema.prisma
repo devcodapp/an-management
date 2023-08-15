@@ -53,11 +53,13 @@ model Restaurant {
   openingHours        Json?
   imageId             String?
   imageUrl            String?
+  ownerId             String
   createdAt           DateTime             @default(now())
   disabledAt          DateTime?
   disabled            Boolean              @default(false)
   tables              Table[]              @relation(name: "RestaurantToTable")
-  users               User[]               @relation(name: "RestaurantToUser")
+  owner               User                 @relation(name: "OWNER", fields: [ownerId], references: [id])
+  users               User[]               @relation(name: "USERS")
 }
 
 model CategoryProduct {
@@ -171,13 +173,14 @@ model Worker {
 }
 
 model User {
-  id             String     @id @map("_id")
-  workers        Worker[]   @relation(name: "UserToWorker")
+  id             String       @id @map("_id")
+  workers        Worker[]     @relation(name: "UserToWorker")
   username       String
   email          String
   password       String
-  changePassword Boolean    @default(true)
+  changePassword Boolean      @default(true)
   deletedAt      DateTime?
-  restaurant     Restaurant @relation(name: "RestaurantToUser", fields: [restaurantId], references: [id])
-  restaurantId   String
+  restaurant     Restaurant?  @relation(name: "USERS", fields: [restaurantId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  restaurantId   String?
+  Restaurant     Restaurant[] @relation(name: "OWNER")
 }

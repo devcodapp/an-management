@@ -11,7 +11,7 @@ interface CreateCategoryProductRequest {
   description: string;
   order: number;
   restaurantId: string;
-  image: Express.Multer.File;
+  // image: Express.Multer.File;
 }
 interface CreateCategoryProductResponse {
   categoryProduct: CategoryProduct;
@@ -28,14 +28,14 @@ export class CreateCategoryProduct {
   async execute(
     request: CreateCategoryProductRequest,
   ): Promise<CreateCategoryProductResponse> {
-    const { restaurantId, name, order, description, image } = request;
-    const uploadedImage = await this.cloudinary.uploadImage(image);
+    const { restaurantId, name, order, description } = request;
+    // const uploadedImage = await this.cloudinary.uploadImage(image);
     const categoryProduct = new CategoryProduct(
       {
         name,
         description,
-        imageId: uploadedImage.public_id,
-        imageUrl: uploadedImage.url,
+        imageId: 'uploadedImage.public_id',
+        imageUrl: 'uploadedImage.url',
         order: new Order(Number(order)),
         restaurantId,
       },

@@ -1,3 +1,4 @@
+import { Injectable } from '@nestjs/common';
 import { User } from '../entities/user';
 import { UsersRepository } from '../repositories/user-repository';
 import { UserAlreadExists } from './errors/user-alread-exists';
@@ -7,13 +8,14 @@ interface CreateUserRequest {
   email: string;
   password: string;
   username: string;
-  restaurantId: string;
+  restaurantId?: string;
 }
 
 interface CreateUserResponse {
   user: User;
 }
 
+@Injectable()
 export class CreateUser {
   constructor(private userRepository: UsersRepository) {}
 
@@ -36,7 +38,7 @@ export class CreateUser {
       restaurantId,
     });
 
-    await this.userRepository.save(user);
+    await this.userRepository.create(user);
 
     return { user };
   }

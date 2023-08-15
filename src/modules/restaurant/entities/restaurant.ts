@@ -6,7 +6,7 @@ interface RestaurantProps {
   id?: string;
   name: string;
   description: string;
-  tags: string[];
+  tags?: string[];
   type: string;
 
   address?: Address;
@@ -18,6 +18,8 @@ interface RestaurantProps {
   imageUrl?: string;
   bannerId?: string;
   bannerUrl?: string;
+
+  ownerId: string;
 
   createdAt?: Date;
   disabledAt?: Date;
@@ -73,11 +75,11 @@ export class Restaurant {
     this.props.name = name.toUpperCase();
   }
 
-  public get tags(): string[] {
+  public get tags(): string[] | undefined {
     return this.props.tags;
   }
 
-  public set tags(tags: string[]) {
+  public set tags(tags: string[] | undefined) {
     this.props.tags = tags;
   }
 

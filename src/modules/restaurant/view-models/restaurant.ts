@@ -18,7 +18,7 @@ export class RestaurantViewModel {
       id,
       name,
       description,
-      tags,
+      tags: tags || [],
       type,
       address: {
         street: address?.street,

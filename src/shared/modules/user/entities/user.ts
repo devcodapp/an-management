@@ -8,7 +8,7 @@ interface UserProps {
   changePassword?: boolean;
   deletedAt?: Date;
 
-  restaurantId: string;
+  restaurantId?: string;
 }
 
 export class User {
@@ -64,11 +64,11 @@ export class User {
     this.props.deletedAt = value;
   }
 
-  public get restaurantId(): string {
+  public get restaurantId(): string | undefined {
     return this.props.restaurantId;
   }
 
-  public set restaurantId(value: string) {
+  public set restaurantId(value: string | undefined) {
     this.props.restaurantId = value;
   }
 }

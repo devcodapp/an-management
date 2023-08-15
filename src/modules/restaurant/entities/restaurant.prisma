@@ -18,6 +18,8 @@ model Restaurant {
   imageId  String?
   imageUrl String?
 
+  ownerId String
+
   createdAt  DateTime  @default(now())
   disabledAt DateTime?
   disabled   Boolean   @default(false)

@@ -7,7 +7,6 @@ import {
   Post,
   Put,
   Query,
-  UploadedFile,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
@@ -18,11 +17,12 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
-import { CreateRestaurant } from './use-cases/create-restaurant';
-import { SaveRestaurant } from './use-cases/save-restaurant';
-import { GetRestaurant } from './use-cases/get-restaurant';
-import { FilterRestaurant } from './use-cases/filter-restaurant';
-import { DisableRestaurant } from './use-cases/disable-restaurant';
+import { AuthGuard } from '@shared/modules/auth/auth.guard';
+import { ArrayInterceptor } from 'src/interceptors/array/array.interceptor';
+import { BooleanInterceptor } from 'src/interceptors/boolean/boolean.interceptor';
+import { CreateRestaurantBody } from './dtos/create-restaurant-body';
+import { FilterRestaurantBody } from './dtos/filter-restaurant-body';
+import { SaveRestaurantBody } from './dtos/save-restaurant-body';
 import {
   CloseRestaurantSwagger,
   CreateRestaurantSwagger,
@@ -32,15 +32,14 @@ import {
   OpenRestaurantSwagger,
   UpdateRestaurantSwagger,
 } from './swagger/restaurant.swagger';
-import { FilterRestaurantBody } from './dtos/filter-restaurant-body';
-import { RestaurantViewModel, IRestaurantView } from './view-models/restaurant';
-import { CreateRestaurantBody } from './dtos/create-restaurant-body';
-import { SaveRestaurantBody } from './dtos/save-restaurant-body';
-import { OpenRestaurant } from './use-cases/open-restaurant';
 import { CloseRestaurant } from './use-cases/close-restaurant';
-import { BooleanInterceptor } from 'src/interceptors/boolean/boolean.interceptor';
-import { ArrayInterceptor } from 'src/interceptors/array/array.interceptor';
-import { AuthGuard } from '@shared/modules/auth/auth.guard';
+import { CreateRestaurant } from './use-cases/create-restaurant';
+import { DisableRestaurant } from './use-cases/disable-restaurant';
+import { FilterRestaurant } from './use-cases/filter-restaurant';
+import { GetRestaurant } from './use-cases/get-restaurant';
+import { OpenRestaurant } from './use-cases/open-restaurant';
+import { SaveRestaurant } from './use-cases/save-restaurant';
+import { IRestaurantView, RestaurantViewModel } from './view-models/restaurant';
 
 @ApiTags('Restaurant')
 @Controller('restaurant')

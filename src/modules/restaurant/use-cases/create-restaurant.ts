@@ -5,8 +5,9 @@ import { Restaurant } from '../entities/restaurant';
 interface CreateRestaurantRequest {
   name: string;
   description: string;
-  tags: string[];
+  tags?: string[];
   type: string;
+  ownerId: string;
 }
 
 interface CreateRestaurantResponse {
@@ -20,14 +21,7 @@ export class CreateRestaurant {
   async execute(
     request: CreateRestaurantRequest,
   ): Promise<CreateRestaurantResponse> {
-    const { description, name, tags, type } = request;
-
-    const restaurant = new Restaurant({
-      description,
-      name,
-      tags,
-      type,
-    });
+    const restaurant = new Restaurant(request);
 
     await this.restaurantsRepository.create(restaurant);
 

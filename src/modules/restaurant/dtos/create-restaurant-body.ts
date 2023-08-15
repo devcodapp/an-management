@@ -19,9 +19,10 @@ export class CreateRestaurantBody {
   @ApiProperty({
     description: 'Tags da restaurante',
     type: [String],
+    nullable: true,
+    required: false,
   })
-  @IsNotEmpty()
-  tags: string[];
+  tags?: string[];
 
   @ApiProperty({
     description: 'Tipo da restaurante',
@@ -29,4 +30,11 @@ export class CreateRestaurantBody {
   })
   @IsNotEmpty()
   type: string;
+
+  @ApiProperty({
+    description: 'Id do dono',
+    type: String,
+  })
+  @IsNotEmpty()
+  ownerId: string;
 }
