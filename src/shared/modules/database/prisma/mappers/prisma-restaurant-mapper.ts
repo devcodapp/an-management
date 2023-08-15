@@ -28,6 +28,7 @@ export class PrismaRestaurantMapper {
       disabledAt: raw.disabledAt ?? undefined,
       id: raw.id,
       disabled: raw.disabled,
+      ownerId: raw.ownerId,
     });
   }
 }

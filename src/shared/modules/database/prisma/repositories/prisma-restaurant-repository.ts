@@ -19,6 +19,7 @@ export class PrismaRestaurantRepository implements RestaurantsRepository {
         type: raw.type,
         tags: raw.tags,
         id: raw.id,
+        ownerId: raw.ownerId,
       },
     });
   }

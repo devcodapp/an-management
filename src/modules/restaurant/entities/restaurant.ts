@@ -138,4 +138,12 @@ export class Restaurant {
   public set isOpened(isOpened: boolean | undefined) {
     this.props.isOpened = isOpened;
   }
+
+  public get ownerId(): string {
+    return this.props.ownerId;
+  }
+
+  public set ownerId(ownerId: string) {
+    this.props.ownerId = ownerId;
+  }
 }
