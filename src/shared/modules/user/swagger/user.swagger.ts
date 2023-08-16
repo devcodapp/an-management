@@ -12,10 +12,10 @@ export const CreateUserSwagger: Partial<ApiOperationOptions> = {
 //   summary: 'Busca restaurantes',
 //   description: 'Busca restaurantes no banco de dados',
 // };
-// export const UpdateUserSwagger: Partial<ApiOperationOptions> = {
-//   summary: 'Atualiza um restaurante',
-//   description: 'Atualiza um restaurante e salva no banco de dados',
-// };
+export const UpdateUserSwagger: Partial<ApiOperationOptions> = {
+  summary: 'Atualiza um usuário',
+  description: 'Atualiza um usuário e salva no banco de dados',
+};
 // export const OpenUserSwagger: Partial<ApiOperationOptions> = {
 //   summary: 'Define um restaurante como aberta',
 //   description: 'Desativa um restaurante',

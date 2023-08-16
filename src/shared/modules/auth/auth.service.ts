@@ -22,6 +22,13 @@ export class AuthService {
       access_token: await this.jwtService.signAsync(payload, {
         expiresIn: '7d',
       }),
+      user: {
+        username: user.username,
+        email: user.email,
+
+        restaurantId: user.restaurantId,
+        id: user.id,
+      },
     };
   }
 }
