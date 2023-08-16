@@ -19,8 +19,8 @@ export class LoginAuthBody {
   @ApiProperty({
     description: 'O id da restaurante',
     type: String,
+    required: false,
   })
-  @IsNotEmpty()
   @IsUUID()
   restaurantId: string;
 }
