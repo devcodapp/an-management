@@ -1,5 +1,5 @@
-import { IsNotEmpty, IsUUID } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { IsNotEmpty } from 'class-validator';
 
 export class LoginAuthBody {
   @ApiProperty({
@@ -21,6 +21,6 @@ export class LoginAuthBody {
     type: String,
     required: false,
   })
-  @IsUUID()
-  restaurantId: string;
+  // @IsUUID()
+  restaurantId?: string;
 }
