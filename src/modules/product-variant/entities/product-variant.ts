@@ -1,4 +1,5 @@
 import { OptionVariant } from '@modules/product-variant-option/entities/product-variant-option';
+import { HttpException, HttpStatus } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 
 export interface ProductVariantProps {
@@ -50,7 +51,8 @@ export class ProductVariant {
     const index = this.props.options?.findIndex(
       (item) => item.sku?.toUpperCase() === sku.toUpperCase(),
     );
-    if (index == undefined || index < 0) throw new Error('Option not found');
+    if (index == undefined || index < 0)
+      throw new HttpException('Opção não encontrada', HttpStatus.NOT_FOUND);
     this.props.options?.splice(index, 1);
   }
 
@@ -59,7 +61,8 @@ export class ProductVariant {
       (item) => item.sku?.toUpperCase() === sku.toUpperCase(),
     );
 
-    if (index == undefined || index < 0) throw new Error('Option not found');
+    if (index == undefined || index < 0)
+      throw new HttpException('Opção não encontrada', HttpStatus.NOT_FOUND);
 
     this.props.options?.splice(index, 1, option);
   }

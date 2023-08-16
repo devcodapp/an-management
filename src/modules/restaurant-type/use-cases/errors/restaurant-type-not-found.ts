@@ -1,5 +1,7 @@
-export class RestaurantTypeNotFound extends Error {
+import { HttpException, HttpStatus } from '@nestjs/common';
+
+export class RestaurantTypeNotFound extends HttpException {
   constructor() {
-    super('Restaurant type not found');
+    super('Tipo de restaurante não encontrado', HttpStatus.NOT_FOUND);
   }
 }

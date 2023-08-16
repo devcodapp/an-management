@@ -1,5 +1,5 @@
 import { ProductsRepository } from '@modules/product/repositories/product-repository';
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CloudinaryService } from '@shared/modules/cloudinary/cloudinary.service';
 import { ProductNotFound } from '../errors/product-not-found';
 import { Product } from '@modules/product/entities/product';
@@ -33,7 +33,7 @@ export class CreateProduct {
     const image = product.image(order);
 
     if (!image) {
-      throw new Error('Image not found');
+      throw new HttpException('Imagem não encontrada', HttpStatus.NOT_FOUND);
     }
 
     await this.cloudinary.deleteImage(image.imageId);

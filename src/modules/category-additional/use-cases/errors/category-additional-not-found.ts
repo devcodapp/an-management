@@ -1,5 +1,7 @@
-export class CategoryAdditionalNotFound extends Error {
+import { HttpException, HttpStatus } from '@nestjs/common';
+
+export class CategoryAdditionalNotFound extends HttpException {
   constructor() {
-    super('Category Additional not found');
+    super('Categoria de adicional não encontrada', HttpStatus.NOT_FOUND);
   }
 }

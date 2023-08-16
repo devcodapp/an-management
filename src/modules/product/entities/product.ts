@@ -3,6 +3,7 @@ import { BaseEntity, BaseEntityProps } from '@shared/entities/base-entity';
 import { generateSKU } from '@shared/services/generateSKU';
 import { CategoryProduct } from '@modules/category-product/entities/category-product';
 import { ProductVariant } from '@modules/product-variant/entities/product-variant';
+import { HttpException, HttpStatus } from '@nestjs/common';
 
 export interface ProductProps {
   name: string;
@@ -112,7 +113,8 @@ export class Product extends BaseEntity {
 
   public removeImage(order: number): void {
     const index = this.props.images?.findIndex((item) => item.order === order);
-    if (index == undefined || index < 0) throw new Error('Image not found');
+    if (index == undefined || index < 0)
+      throw new HttpException('Imagem não encontrada', HttpStatus.NOT_FOUND);
 
     this.props.images?.splice(index, 1);
   }
@@ -127,14 +129,16 @@ export class Product extends BaseEntity {
 
   public removeVariant(id: string): void {
     const index = this.props.variants?.findIndex((item) => item.id == id);
-    if (index == undefined || index < 0) throw new Error('Variant not found');
+    if (index == undefined || index < 0)
+      throw new HttpException('Variação não encontrada', HttpStatus.NOT_FOUND);
     this.props.variants?.splice(index, 1);
   }
 
   public updateVariant(id: string, variant: ProductVariant) {
     const index = this.variants?.findIndex((item) => item.id == id);
 
-    if (index == undefined || index < 0) throw new Error('Variant not found');
+    if (index == undefined || index < 0)
+      throw new HttpException('Variação não encontrada', HttpStatus.NOT_FOUND);
 
     this.variants?.splice(index, 1, variant);
   }

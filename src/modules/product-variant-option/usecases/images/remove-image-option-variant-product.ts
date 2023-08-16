@@ -2,7 +2,7 @@ import { ProductVariantNotFound } from '@modules/product-variant/use-cases/error
 import { Product } from '@modules/product/entities/product';
 import { ProductsRepository } from '@modules/product/repositories/product-repository';
 import { ProductNotFound } from '@modules/product/use-cases/errors/product-not-found';
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { OptionVariantNotFound } from '../errors/option-variant-not-found';
 import { CloudinaryService } from '@shared/modules/cloudinary/cloudinary.service';
 
@@ -49,7 +49,7 @@ export class RemoveImageOptionVariant {
     const image = option.image(order);
 
     if (!image) {
-      throw new Error('Image not found');
+      throw new HttpException('Imagem não encontrada', HttpStatus.NOT_FOUND);
     }
 
     await this.cloudinary.deleteImage(image.imageId);

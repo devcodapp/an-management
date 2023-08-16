@@ -1,4 +1,5 @@
 import { SubOption } from '@modules/suboption/entities/subOption';
+import { HttpException, HttpStatus } from '@nestjs/common';
 import { BaseEntity, BaseEntityProps } from '@shared/entities/base-entity';
 
 interface OptionProps {
@@ -77,7 +78,8 @@ export class Option extends BaseEntity {
     const index = this.props.suboptions?.findIndex(
       (item) => item.name.toUpperCase() == name.toUpperCase(),
     );
-    if (index == undefined || index < 0) throw new Error('SubOption not found');
+    if (index == undefined || index < 0)
+      throw new HttpException('SubOpção não encontrada', HttpStatus.NOT_FOUND);
     this.props.suboptions?.splice(index, 1);
   }
 
@@ -86,7 +88,8 @@ export class Option extends BaseEntity {
       (item) => item.name.toUpperCase() == oldName.toUpperCase(),
     );
 
-    if (index == undefined || index < 0) throw new Error('SubOption not found');
+    if (index == undefined || index < 0)
+      throw new HttpException('SubOpção não encontrada', HttpStatus.NOT_FOUND);
 
     this.suboptions?.splice(index, 1, subOption);
   }

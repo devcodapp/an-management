@@ -1,3 +1,5 @@
+import { HttpException, HttpStatus } from '@nestjs/common';
+
 export class Order {
   private readonly order: number;
 
@@ -13,7 +15,7 @@ export class Order {
     const isOrderValid = this.validateOrder(order);
 
     if (!isOrderValid) {
-      throw new Error('Invalid order');
+      throw new HttpException('Ordem inválida', HttpStatus.BAD_REQUEST);
     }
 
     this.order = order;

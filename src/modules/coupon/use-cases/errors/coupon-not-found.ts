@@ -1,5 +1,7 @@
-export class CouponNotFound extends Error {
+import { HttpException, HttpStatus } from '@nestjs/common';
+
+export class CouponNotFound extends HttpException {
   constructor() {
-    super('Coupon not found');
+    super('Cupom não encontrado', HttpStatus.NOT_FOUND);
   }
 }

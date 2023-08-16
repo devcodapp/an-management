@@ -1,5 +1,7 @@
-export class OptionVariantNotFound extends Error {
+import { HttpException, HttpStatus } from '@nestjs/common';
+
+export class OptionVariantNotFound extends HttpException {
   constructor() {
-    super('Option variant not found');
+    super('Variação de opção não encontrada', HttpStatus.NOT_FOUND);
   }
 }
