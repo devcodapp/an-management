@@ -31,4 +31,25 @@ export class AuthService {
       },
     };
   }
+  async signInAdmin(email: string, pass: string) {
+    const { user } = await this.getUserEmail.execute({ email });
+    const isMatch = await bcrypt.compare(pass, user.password);
+
+    if (!isMatch) {
+      throw new UnauthorizedException();
+    }
+    const payload = { email: user.email, sub: user.id };
+    return {
+      access_token: await this.jwtService.signAsync(payload, {
+        expiresIn: '7d',
+      }),
+      user: {
+        username: user.username,
+        email: user.email,
+
+        restaurantId: user.restaurantId,
+        id: user.id,
+      },
+    };
+  }
 }

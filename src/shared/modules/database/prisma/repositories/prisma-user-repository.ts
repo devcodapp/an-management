@@ -29,7 +29,7 @@ export class PrismaUserRepository implements UsersRepository {
     restaurantId?: string | undefined,
   ): Promise<User | null> {
     const user = await this.prisma.user.findFirst({
-      where: { email, restaurantId },
+      where: { email, ...(restaurantId && { restaurantId }) },
     });
 
     if (!user) {

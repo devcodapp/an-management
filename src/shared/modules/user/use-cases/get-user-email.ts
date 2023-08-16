@@ -5,7 +5,7 @@ import { UserNotFound } from './errors/user-not-found';
 
 interface GetUserEmailRequest {
   email: string;
-  restaurantId: string;
+  restaurantId?: string;
 }
 
 interface GetUserEmailResponse {

@@ -36,10 +36,9 @@ export class AuthController {
   @ApiBody({ type: LoginAuthBody })
   @ApiConsumes('application/x-www-form-urlencoded')
   async signInAdmin(@Body() signInDto: LoginAuthBody) {
-    return await this.authService.signIn(
+    return await this.authService.signInAdmin(
       signInDto.email,
       signInDto.password,
-      signInDto.restaurantId,
     );
   }
 
