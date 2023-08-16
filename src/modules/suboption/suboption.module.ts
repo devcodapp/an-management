@@ -6,6 +6,7 @@ import { DeleteSubOption } from './use-cases/delete-suboption';
 import { SaveSubOption } from './use-cases/save-suboption';
 import { CreateSubOption } from './use-cases/create-suboption';
 import { CloudinaryService } from '@shared/modules/cloudinary/cloudinary.service';
+import { EnableSubOption } from './use-cases/enable-suboption';
 
 @Module({
   controllers: [SuboptionController],
@@ -14,6 +15,7 @@ import { CloudinaryService } from '@shared/modules/cloudinary/cloudinary.service
     SaveSubOption,
     DeleteSubOption,
     DisableSubOption,
+    EnableSubOption,
     CloudinaryService,
   ],
   imports: [DatabaseModule],

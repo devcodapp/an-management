@@ -7,7 +7,7 @@ export interface AdditionalProps {
   imageUrl: string;
   imageId: string;
   categoryId: string;
-  Category?: CategoryAdditional;
+  category?: CategoryAdditional;
 }
 
 export class Additional extends BaseEntity {
@@ -61,10 +61,10 @@ export class Additional extends BaseEntity {
   }
 
   public set Category(category: CategoryAdditional | undefined) {
-    this.props.Category = category;
+    this.props.category = category;
   }
 
   public get Category(): CategoryAdditional | undefined {
-    return this.props.Category;
+    return this.props.category;
   }
 }

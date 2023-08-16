@@ -30,7 +30,7 @@ export class PrismaAdditionalMapper {
         imageUrl: raw.imageUrl,
         imageId: raw.imageId,
         price: raw.price,
-        Category: raw.category
+        category: raw.category
           ? PrismaCategoryAdditionalMapper.toDomain(raw.category)
           : undefined,
       },

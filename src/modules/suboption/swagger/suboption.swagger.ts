@@ -20,3 +20,7 @@ export const DisableSubOptionSwagger: Partial<ApiOperationOptions> = {
   summary: 'Desativa uma opção',
   description: 'Desativa uma opção',
 };
+export const EnableSubOptionSwagger: Partial<ApiOperationOptions> = {
+  summary: 'Ativa uma opção',
+  description: 'Ativa uma opção',
+};

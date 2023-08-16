@@ -3,20 +3,20 @@ import { Option } from '../entities/option';
 import { OptionRepository } from '../repositories/option-repository';
 import { OptionNotFound } from './errors/option-not-found';
 
-interface DisableAdditionalRequest {
+interface EnableAdditionalRequest {
   id: string;
 }
-interface DisableOptionResponse {
+interface EnableOptionResponse {
   option: Option;
 }
 
 @Injectable()
-export class DisableOption {
+export class EnableOption {
   constructor(private optionRepository: OptionRepository) {}
 
   async execute(
-    request: DisableAdditionalRequest,
-  ): Promise<DisableOptionResponse> {
+    request: EnableAdditionalRequest,
+  ): Promise<EnableOptionResponse> {
     const { id } = request;
 
     const option = await this.optionRepository.option(id);
@@ -25,7 +25,7 @@ export class DisableOption {
       throw new OptionNotFound();
     }
 
-    option.disable();
+    option.enable();
 
     await this.optionRepository.save(option);
 

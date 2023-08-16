@@ -25,6 +25,7 @@ import {
   CreateSubOptionSwagger,
   DeleteSubOptionSwagger,
   DisableSubOptionSwagger,
+  EnableSubOptionSwagger,
   UpdateSubOptionSwagger,
 } from './swagger/suboption.swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -35,6 +36,7 @@ import {
 } from '@modules/option/view-models/option';
 import { SaveSubOptionBody } from './dtos/save-suboption-body';
 import { AuthGuard } from '@shared/modules/auth/auth.guard';
+import { EnableSubOption } from './use-cases/enable-suboption';
 
 @UseGuards(AuthGuard)
 @ApiBearerAuth()
@@ -46,6 +48,7 @@ export class SuboptionController {
     private saveSubOption: SaveSubOption,
     private deleteSubOption: DeleteSubOption,
     private disableSubOption: DisableSubOption,
+    private enableSubOption: EnableSubOption,
   ) {}
 
   @Post()
@@ -85,7 +88,7 @@ export class SuboptionController {
     };
   }
 
-  @Delete('option/:optionId/suboption/:name')
+  @Delete('option/:optionId/:name')
   @ApiOperation(DeleteSubOptionSwagger)
   async delete(
     @Param('optionId') optionId: string,
@@ -101,13 +104,28 @@ export class SuboptionController {
     };
   }
 
-  @Patch('option/:optionId/suboption/:name/disable')
+  @Patch('option/:optionId/:name/disable')
   @ApiOperation(DisableSubOptionSwagger)
   async disable(
     @Param('optionId') optionId: string,
     @Param('name') name: string,
   ): Promise<{ option: IOptionView }> {
     const { option } = await this.disableSubOption.execute({
+      optionId,
+      subOptionName: name,
+    });
+
+    return {
+      option: OptionViewModel.toHTTP(option),
+    };
+  }
+  @Patch('option/:optionId/:name/enable')
+  @ApiOperation(EnableSubOptionSwagger)
+  async enable(
+    @Param('optionId') optionId: string,
+    @Param('name') name: string,
+  ): Promise<{ option: IOptionView }> {
+    const { option } = await this.enableSubOption.execute({
       optionId,
       subOptionName: name,
     });

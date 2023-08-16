@@ -30,7 +30,6 @@ export class PrismaAdditionalRepository implements AdditionalsRepository {
   }
 
   async additionals({
-    categoryReturn,
     deleted,
     ...filters
   }: AdditionalFilterInput): Promise<Additional[] | null> {
@@ -41,7 +40,7 @@ export class PrismaAdditionalRepository implements AdditionalsRepository {
         deleted: deleted || false,
       },
       orderBy: { name: 'asc' },
-      include: { category: categoryReturn },
+      include: { category: true },
     });
 
     return additionals.map(PrismaAdditionalMapper.toDomain);

@@ -52,6 +52,16 @@ export class Option extends BaseEntity {
     return this.props.restaurantId;
   }
 
+  public disable() {
+    this.props.disabled = true;
+    this.props.disabledAt = new Date();
+  }
+
+  public enable() {
+    this.props.disabled = false;
+    this.props.disabledAt = undefined;
+  }
+
   public get suboptions(): SubOption[] | undefined {
     return this.props.suboptions;
   }
@@ -60,14 +70,6 @@ export class Option extends BaseEntity {
     return this.props.suboptions?.find(
       (item) => item.name.toUpperCase() === name.toUpperCase(),
     );
-  }
-
-  public set disabledAt(disabledAt: Date | undefined) {
-    this.props.disabledAt = disabledAt;
-  }
-
-  public get disabledAt(): Date | undefined {
-    return this.props.disabledAt;
   }
 
   public addSubOption(subOption: SubOption): void {
