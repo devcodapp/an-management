@@ -10,6 +10,7 @@ interface RestaurantProps {
   type: string;
 
   address?: Address;
+  phoneNumber?: string;
 
   isOpened?: boolean;
   openingHours?: OpeningHours;
@@ -121,6 +122,14 @@ export class Restaurant {
 
   public set address(address: Address | undefined) {
     this.props.address = address;
+  }
+
+  public get phoneNumber(): string | undefined {
+    return this.props.phoneNumber;
+  }
+
+  public set phoneNumber(phoneNumber: string | undefined) {
+    this.props.phoneNumber = phoneNumber;
   }
 
   public get openingHours(): OpeningHours | undefined {

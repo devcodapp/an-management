@@ -1,9 +1,11 @@
 interface AddressProps {
   street: string;
+  number: string;
   city: string;
   state: string;
   zip: string;
   district: string;
+  complement?: string;
 }
 
 export class Address {
@@ -57,5 +59,19 @@ export class Address {
 
   public set district(district: string) {
     this.props.district = district.toUpperCase();
+  }
+  public get number(): string {
+    return this.props.number;
+  }
+
+  public set number(number: string) {
+    this.props.number = number;
+  }
+  public get complement(): string | undefined {
+    return this.props.complement;
+  }
+
+  public set complement(complement: string | undefined) {
+    this.props.complement = complement?.toUpperCase();
   }
 }

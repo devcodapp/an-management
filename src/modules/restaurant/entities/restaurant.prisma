@@ -10,7 +10,8 @@ model Restaurant {
   tags        String[]
   type        String
 
-  address Json?
+  address     Json?
+  phoneNumber String?
 
   isOpened     Boolean @default(false)
   openingHours Json?

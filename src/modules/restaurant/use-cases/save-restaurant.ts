@@ -12,6 +12,7 @@ interface SaveRestaurantRequest {
   description?: string;
   tags?: string[];
   type?: string;
+  phoneNumber?: string;
   address?: any;
   openingHours?: any;
 }

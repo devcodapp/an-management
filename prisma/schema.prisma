@@ -49,6 +49,7 @@ model Restaurant {
   tags                String[]
   type                String
   address             Json?
+  phoneNumber         String?
   isOpened            Boolean              @default(false)
   openingHours        Json?
   imageId             String?

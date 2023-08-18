@@ -42,11 +42,20 @@ export class SaveRestaurantBody {
   type: string;
 
   @ApiProperty({
+    description: 'Número do restaurante',
+    type: String,
+    required: false,
+  })
+  phoneNumber: string;
+
+  @ApiProperty({
     description: 'Endereço da restaurante',
     type: Object,
     required: false,
     example: {
-      street: 'Rua Tal 2088',
+      street: 'Rua Tal',
+      number: '2048',
+      complement: '...',
       city: 'São Paulo',
       state: 'SP',
       zip: '00000-000',
