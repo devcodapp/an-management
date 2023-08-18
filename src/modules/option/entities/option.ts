@@ -1,4 +1,5 @@
 import { SubOption } from '@modules/suboption/entities/subOption';
+import { HttpException, HttpStatus } from '@nestjs/common';
 import { BaseEntity, BaseEntityProps } from '@shared/entities/base-entity';
 
 interface OptionProps {
@@ -6,7 +7,7 @@ interface OptionProps {
   description: string;
   defaultPrice?: number;
   suboptions?: SubOption[];
-  companyId: string;
+  restaurantId: string;
   disabledAt?: Date;
   disabled?: boolean;
 }
@@ -44,11 +45,21 @@ export class Option extends BaseEntity {
   public get defaultPrice(): number | undefined {
     return this.props.defaultPrice;
   }
-  public set companyId(companyId: string) {
-    this.props.companyId = companyId;
+  public set restaurantId(restaurantId: string) {
+    this.props.restaurantId = restaurantId;
   }
-  public get companyId(): string {
-    return this.props.companyId;
+  public get restaurantId(): string {
+    return this.props.restaurantId;
+  }
+
+  public disable() {
+    this.props.disabled = true;
+    this.props.disabledAt = new Date();
+  }
+
+  public enable() {
+    this.props.disabled = false;
+    this.props.disabledAt = undefined;
   }
 
   public get suboptions(): SubOption[] | undefined {
@@ -61,14 +72,6 @@ export class Option extends BaseEntity {
     );
   }
 
-  public set disabledAt(disabledAt: Date | undefined) {
-    this.props.disabledAt = disabledAt;
-  }
-
-  public get disabledAt(): Date | undefined {
-    return this.props.disabledAt;
-  }
-
   public addSubOption(subOption: SubOption): void {
     this.props.suboptions?.push(subOption);
   }
@@ -77,7 +80,8 @@ export class Option extends BaseEntity {
     const index = this.props.suboptions?.findIndex(
       (item) => item.name.toUpperCase() == name.toUpperCase(),
     );
-    if (index == undefined || index < 0) throw new Error('SubOption not found');
+    if (index == undefined || index < 0)
+      throw new HttpException('SubOpção não encontrada', HttpStatus.NOT_FOUND);
     this.props.suboptions?.splice(index, 1);
   }
 
@@ -86,7 +90,8 @@ export class Option extends BaseEntity {
       (item) => item.name.toUpperCase() == oldName.toUpperCase(),
     );
 
-    if (index == undefined || index < 0) throw new Error('SubOption not found');
+    if (index == undefined || index < 0)
+      throw new HttpException('SubOpção não encontrada', HttpStatus.NOT_FOUND);
 
     this.suboptions?.splice(index, 1, subOption);
   }

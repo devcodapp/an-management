@@ -30,7 +30,7 @@ export class ProductViewModel {
       ? {
           id: category.id,
           name: category.name,
-          companyId: category.companyId,
+          restaurantId: category.restaurantId,
           order: category.order?.value,
           description: category.description,
           imageUrl: category.imageUrl,

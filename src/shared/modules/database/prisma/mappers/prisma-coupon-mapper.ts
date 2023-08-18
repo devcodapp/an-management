@@ -16,7 +16,7 @@ export class PrismaCouponMapper {
       createdAt: categoryProduct.createdAt,
       deletedUser: categoryProduct.deletedUser,
       deletedAt: categoryProduct.deletedAt,
-      companyId: categoryProduct.companyId,
+      restaurantId: categoryProduct.restaurantId,
       deleted: categoryProduct.deleted,
     };
   }
@@ -24,7 +24,7 @@ export class PrismaCouponMapper {
   static toDomain(raw: RawCoupon) {
     return new Coupon(
       {
-        companyId: raw.companyId,
+        restaurantId: raw.restaurantId,
         description: raw.description,
         code: raw.code,
         discountValue: raw.discountValue ?? undefined,

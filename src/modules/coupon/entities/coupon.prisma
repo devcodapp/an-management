@@ -21,11 +21,11 @@ model Coupon {
   deletedAt   DateTime?
   deleted     Boolean   @default(false)
 
-  companyId String
-  company   Company @relation(fields: [companyId], references: [id])
+  restaurantId String
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
 }
 
-model Company {
+model Restaurant {
   id String @id @map("_id")
 
   coupons Coupon[]

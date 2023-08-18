@@ -5,7 +5,10 @@ export abstract class UsersRepository {
 
   abstract user(userId: string): Promise<User | null>;
 
-  abstract userByEmail(email: string, companyId?: string): Promise<User | null>;
+  abstract userByEmail(
+    email: string,
+    restaurantId?: string,
+  ): Promise<User | null>;
 
   abstract save(user: User): Promise<void>;
 }

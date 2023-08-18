@@ -1,5 +1,7 @@
-export class OptionNotFound extends Error {
+import { HttpException, HttpStatus } from '@nestjs/common';
+
+export class OptionNotFound extends HttpException {
   constructor() {
-    super('Option not found');
+    super('Opção não encontrada', HttpStatus.NOT_FOUND);
   }
 }

@@ -4,8 +4,8 @@ import { CategoryAdditionalsRepository } from '@modules/category-additional/repo
 import { PrismaCategoryAdditionalRepository } from './prisma/repositories/prisma-category-additional-repository';
 import { AdditionalsRepository } from '@modules/additional/repositories/additional-repository';
 import { PrismaAdditionalRepository } from './prisma/repositories/prisma-additional-repository';
-import { CompaniesRepository } from '@modules/company/repositories/company-repository';
-import { PrismaCompanyRepository } from './prisma/repositories/prisma-company-repository';
+import { RestaurantsRepository } from '@modules/restaurant/repositories/restaurant-repository';
+import { PrismaRestaurantRepository } from './prisma/repositories/prisma-restaurant-repository';
 import { CategoryProductsRepository } from '@modules/category-product/repositories/category-product-repository';
 import { PrismaCategoryProductRepository } from './prisma/repositories/prisma-category-product-repository';
 import { OptionRepository } from '@modules/option/repositories/option-repository';
@@ -20,6 +20,8 @@ import { CouponsRepository } from '@modules/coupon/repositories/coupon-repositor
 import { PrismaCouponRepository } from './prisma/repositories/prisma-coupon-repository';
 import { UsersRepository } from '../user/repositories/user-repository';
 import { PrismaUserRepository } from './prisma/repositories/prisma-user-repository';
+import { RestaurantTypesRepository } from '@modules/restaurant-type/repositories/restaurant-type-repository';
+import { PrismaRestaurantTypeRepository } from './prisma/repositories/prisma-restaurant-type-repository';
 
 @Module({
   providers: [
@@ -33,8 +35,8 @@ import { PrismaUserRepository } from './prisma/repositories/prisma-user-reposito
       useClass: PrismaAdditionalRepository,
     },
     {
-      provide: CompaniesRepository,
-      useClass: PrismaCompanyRepository,
+      provide: RestaurantsRepository,
+      useClass: PrismaRestaurantRepository,
     },
     {
       provide: CategoryProductsRepository,
@@ -64,11 +66,15 @@ import { PrismaUserRepository } from './prisma/repositories/prisma-user-reposito
       provide: UsersRepository,
       useClass: PrismaUserRepository,
     },
+    {
+      provide: RestaurantTypesRepository,
+      useClass: PrismaRestaurantTypeRepository,
+    },
   ],
   exports: [
     CategoryAdditionalsRepository,
     AdditionalsRepository,
-    CompaniesRepository,
+    RestaurantsRepository,
     CategoryProductsRepository,
     OptionRepository,
     WorkerRepository,
@@ -76,6 +82,7 @@ import { PrismaUserRepository } from './prisma/repositories/prisma-user-reposito
     TablesRepository,
     CouponsRepository,
     UsersRepository,
+    RestaurantTypesRepository,
   ],
 })
 export class DatabaseModule {}

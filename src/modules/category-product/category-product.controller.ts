@@ -103,11 +103,10 @@ export class CategoryProductController {
   @UseInterceptors(FileInterceptor('image'))
   async create(
     @Body() body: CreateCategoryProductBody,
-    @UploadedFile() image: Express.Multer.File,
+    // @UploadedFile() image: Express.Multer.File,
   ): Promise<{ categoryProduct: ICategoryProductView }> {
     const { categoryProduct } = await this.createCategoryProduct.execute({
       ...body,
-      image,
     });
     return {
       categoryProduct: CategoryProductViewModel.toHTTP(categoryProduct),

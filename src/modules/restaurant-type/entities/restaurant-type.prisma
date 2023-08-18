@@ -1,0 +1,18 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model RestaurantType {
+  id String @id @map("_id")
+
+  name String
+
+  createdUser String
+  createdAt   DateTime  @default(now())
+  deletedUser String?
+  deletedAt   DateTime?
+  deleted     Boolean   @default(false)
+  disabledAt  DateTime?
+  disabled    Boolean   @default(false)
+}

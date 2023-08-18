@@ -9,7 +9,7 @@ interface CouponProps {
   discountLimit?: number;
   expiresIn: Date;
 
-  companyId: string;
+  restaurantId: string;
 }
 
 export class Coupon extends BaseEntity {
@@ -75,11 +75,11 @@ export class Coupon extends BaseEntity {
     this.props.expiresIn = value;
   }
 
-  public get companyId(): string {
-    return this.props.companyId;
+  public get restaurantId(): string {
+    return this.props.restaurantId;
   }
 
-  public set companyId(value: string) {
-    this.props.companyId = value;
+  public set restaurantId(value: string) {
+    this.props.restaurantId = value;
   }
 }

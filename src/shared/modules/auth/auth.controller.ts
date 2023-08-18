@@ -27,7 +27,18 @@ export class AuthController {
     return await this.authService.signIn(
       signInDto.email,
       signInDto.password,
-      signInDto.companyId,
+      signInDto.restaurantId,
+    );
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @Post('login/admin')
+  @ApiBody({ type: LoginAuthBody })
+  @ApiConsumes('application/x-www-form-urlencoded')
+  async signInAdmin(@Body() signInDto: LoginAuthBody) {
+    return await this.authService.signInAdmin(
+      signInDto.email,
+      signInDto.password,
     );
   }
 

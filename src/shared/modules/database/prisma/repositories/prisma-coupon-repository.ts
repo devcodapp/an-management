@@ -27,9 +27,9 @@ export class PrismaCouponRepository implements CouponsRepository {
     return PrismaCouponMapper.toDomain(coupon);
   }
 
-  async couponCode(code: string, companyId: string): Promise<Coupon | null> {
+  async couponCode(code: string, restaurantId: string): Promise<Coupon | null> {
     const coupon = await this.prisma.coupon.findFirst({
-      where: { code, companyId },
+      where: { code, restaurantId },
     });
 
     if (!coupon) {

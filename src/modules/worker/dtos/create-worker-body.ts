@@ -24,10 +24,10 @@ export class CreateWorkerBody {
   role: 'admin' | 'colaborator';
 
   @ApiProperty({
-    description: 'O id da empresa',
+    description: 'O id da restaurante',
     type: String,
   })
   @IsNotEmpty()
   @IsUUID()
-  companyId: string;
+  restaurantId: string;
 }

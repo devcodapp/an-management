@@ -12,11 +12,11 @@ model CategoryProduct {
   deletedAt   DateTime?
   deleted     Boolean   @default(false)
 
-  company   Company @relation(fields: [companyId], references: [id])
-  companyId String
+  Restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+  restaurantId String
 }
 
-model Company {
+model Restaurant {
   id               String            @id @map("_id")
   categoryProducts CategoryProduct[]
 }

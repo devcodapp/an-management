@@ -1,6 +1,6 @@
 export interface TableFilterInput {
   name?: string;
-  companyId?: string;
+  restaurantId?: string;
   disabled?: boolean;
   amountOfChairs?: number;
   deleted?: boolean;

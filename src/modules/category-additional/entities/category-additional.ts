@@ -4,7 +4,7 @@ import { Order } from '@shared/entities/order';
 export interface CategoryAdditionalProps {
   name: string;
   order: Order;
-  companyId: string;
+  restaurantId: string;
 }
 
 export class CategoryAdditional extends BaseEntity {
@@ -34,11 +34,11 @@ export class CategoryAdditional extends BaseEntity {
     return this.props.order;
   }
 
-  public set companyId(companyId: string) {
-    this.props.companyId = companyId;
+  public set restaurantId(restaurantId: string) {
+    this.props.restaurantId = restaurantId;
   }
 
-  public get companyId(): string {
-    return this.props.companyId;
+  public get restaurantId(): string {
+    return this.props.restaurantId;
   }
 }

@@ -4,6 +4,8 @@ import {
   CreateOptionSwagger,
   UpdateOptionSwagger,
   DeleteOptionSwagger,
+  DisableOptionSwagger,
+  EnableOptionSwagger,
 } from '@modules/option/swagger/option.swagger';
 import {
   IOptionView,
@@ -32,6 +34,8 @@ import { CreateOptionBody } from './dtos/create-option-body';
 import { FilterOptionBody } from './dtos/filter-option-body';
 import { AuthGuard } from '@shared/modules/auth/auth.guard';
 import { BooleanInterceptor } from 'src/interceptors/boolean/boolean.interceptor';
+import { DisableOption } from './use-cases/disable-option';
+import { EnableOption } from './use-cases/enable-option';
 
 @UseGuards(AuthGuard)
 @UseInterceptors(BooleanInterceptor)
@@ -45,7 +49,9 @@ export class OptionController {
     private createOption: CreateOption,
     private saveOption: SaveOption,
     private deleteOption: DeleteOption,
-  ) { }
+    private disableOption: DisableOption,
+    private enableOption: EnableOption,
+  ) {}
 
   @Get()
   @ApiOperation(FilterOptionSwagger)
@@ -65,7 +71,7 @@ export class OptionController {
 
   @Get(':id')
   @ApiOperation(GetOptionSwagger)
-  async adittional(
+  async option(
     @Param('id') id: string,
   ): Promise<{ option: IOptionView } | null> {
     const { option } = await this.getOption.execute({
@@ -112,6 +118,34 @@ export class OptionController {
   ): Promise<{ option: IOptionView }> {
     const { option } = await this.deleteOption.execute({
       optionId,
+    });
+
+    return {
+      option: OptionViewModel.toHTTP(option),
+    };
+  }
+
+  @Patch('disable/:optionId')
+  @ApiOperation(DisableOptionSwagger)
+  async disable(
+    @Param('optionId') optionId: string,
+  ): Promise<{ option: IOptionView }> {
+    const { option } = await this.disableOption.execute({
+      id: optionId,
+    });
+
+    return {
+      option: OptionViewModel.toHTTP(option),
+    };
+  }
+
+  @Patch('enable/:optionId')
+  @ApiOperation(EnableOptionSwagger)
+  async enable(
+    @Param('optionId') optionId: string,
+  ): Promise<{ option: IOptionView }> {
+    const { option } = await this.enableOption.execute({
+      id: optionId,
     });
 
     return {

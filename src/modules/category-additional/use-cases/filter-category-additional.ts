@@ -5,7 +5,7 @@ import { CategoryAdditionalsRepository } from '../repositories/category-addition
 
 interface FilterCategoryAdditionalRequest {
   name?: string;
-  companyId?: string;
+  restaurantId?: string;
   deleted?: boolean;
 }
 

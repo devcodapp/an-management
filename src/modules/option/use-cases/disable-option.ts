@@ -25,7 +25,7 @@ export class DisableOption {
       throw new OptionNotFound();
     }
 
-    option.disabledAt = new Date();
+    option.disable();
 
     await this.optionRepository.save(option);
 

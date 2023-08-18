@@ -1,5 +1,7 @@
-export class OptionVariantAlreadExists extends Error {
+import { HttpException, HttpStatus } from '@nestjs/common';
+
+export class OptionVariantAlreadExists extends HttpException {
   constructor() {
-    super('Option variant alread exists');
+    super('Variação de opção já existe', HttpStatus.CONFLICT);
   }
 }

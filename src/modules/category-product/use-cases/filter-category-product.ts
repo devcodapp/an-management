@@ -4,7 +4,7 @@ import { CategoryProductsRepository } from '../repositories/category-product-rep
 
 interface FilterCategoryProductRequest {
   name?: string;
-  companyId?: string;
+  restaurantId?: string;
   deleted?: boolean;
 }
 

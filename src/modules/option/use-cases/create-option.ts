@@ -7,7 +7,7 @@ interface CreateOptionRequest {
   name: string;
   description: string;
   defaultPrice?: number;
-  companyId: string;
+  restaurantId: string;
 }
 interface CreateOptionResponse {
   option: Option;
@@ -21,14 +21,14 @@ export class CreateOption {
   ) {}
 
   async execute(request: CreateOptionRequest): Promise<CreateOptionResponse> {
-    const { name, defaultPrice, description, companyId } = request;
+    const { name, defaultPrice, description, restaurantId } = request;
 
     const option = new Option(
       {
         name,
         description,
         defaultPrice,
-        companyId,
+        restaurantId,
         disabledAt: undefined,
       },
       { createdUser: this.req['user'].sub },

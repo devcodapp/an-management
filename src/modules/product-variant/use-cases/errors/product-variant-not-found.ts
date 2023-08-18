@@ -1,5 +1,7 @@
-export class ProductVariantNotFound extends Error {
+import { HttpException, HttpStatus } from '@nestjs/common';
+
+export class ProductVariantNotFound extends HttpException {
   constructor() {
-    super('Product Variant not found');
+    super('Variação de produto não encontrada', HttpStatus.NOT_FOUND);
   }
 }

@@ -5,7 +5,7 @@ import { OptionRepository } from '../repositories/option-repository';
 interface FilterOptionRequest {
   name?: string;
   price?: number;
-  companyId: string;
+  restaurantId: string;
   deleted?: boolean;
 }
 

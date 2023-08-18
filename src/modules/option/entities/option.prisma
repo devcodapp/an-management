@@ -9,7 +9,7 @@ model Option {
   description  String
   defaultPrice Float?
   suboptions   Json[]
-  companyId    String
+  restaurantId    String
   createdUser  String
   createdAt    DateTime  @default(now())
   deletedUser  String?
@@ -19,10 +19,10 @@ model Option {
   disabledAt DateTime?
   disabled   Boolean   @default(false)
 
-  company Company @relation(fields: [companyId], references: [id])
+  restaurant Restaurant @relation(fields: [restaurantId], references: [id])
 }
 
-model Company {
+model Restaurant {
   id      String   @id @map("_id")
   options Option[] // One-to-many relationship with the Option model
 }

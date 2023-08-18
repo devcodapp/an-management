@@ -8,7 +8,7 @@ export class CategoryProductViewModel {
     imageUrl,
     order,
     enabled,
-    companyId,
+    restaurantId,
   }: CategoryProduct): ICategoryProductView {
     return {
       id,
@@ -17,7 +17,7 @@ export class CategoryProductViewModel {
       imageUrl,
       order: order.value,
       enabled,
-      companyId,
+      restaurantId,
     };
   }
 }
@@ -29,5 +29,5 @@ export interface ICategoryProductView {
   imageUrl: string;
   order: number;
   enabled?: boolean;
-  companyId: string;
+  restaurantId: string;
 }

@@ -49,10 +49,10 @@ export class CreateCouponBody {
   expiresIn: Date;
 
   @ApiProperty({
-    description: 'Id da empresa',
+    description: 'Id da restaurante',
     type: String,
   })
   @IsNotEmpty()
   @IsUUID()
-  companyId: string;
+  restaurantId: string;
 }

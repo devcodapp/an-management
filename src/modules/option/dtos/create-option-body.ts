@@ -24,9 +24,9 @@ export class CreateOptionBody {
   price: number;
 
   @ApiProperty({
-    description: 'O id da empresa',
+    description: 'O id da restaurante',
     type: String,
     required: true,
   })
-  companyId: string;
+  restaurantId: string;
 }

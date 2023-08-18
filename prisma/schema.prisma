@@ -25,62 +25,64 @@ model Additional {
 }
 
 model CategoryAdditional {
-  id          String       @id @map("_id")
-  additionals Additional[] @relation(name: "AdditionalToCategoryAdditional")
-  name        String
-  order       Int
-  companyId   String
-  createdUser String
-  createdAt   DateTime     @default(now())
-  deletedUser String?
-  deletedAt   DateTime?
-  deleted     Boolean      @default(false)
-  company     Company      @relation(name: "CategoryAdditionalToCompany", fields: [companyId], references: [id])
+  id           String       @id @map("_id")
+  additionals  Additional[] @relation(name: "AdditionalToCategoryAdditional")
+  name         String
+  order        Int
+  restaurantId String
+  createdUser  String
+  createdAt    DateTime     @default(now())
+  deletedUser  String?
+  deletedAt    DateTime?
+  deleted      Boolean      @default(false)
+  restaurant   Restaurant   @relation(name: "CategoryAdditionalToRestaurant", fields: [restaurantId], references: [id])
 }
 
-model Company {
+model Restaurant {
   id                  String               @id @map("_id")
-  categoryAdditionals CategoryAdditional[] @relation(name: "CategoryAdditionalToCompany")
-  categoryProducts    CategoryProduct[]    @relation(name: "CategoryProductToCompany")
+  categoryAdditionals CategoryAdditional[] @relation(name: "CategoryAdditionalToRestaurant")
+  categoryProducts    CategoryProduct[]    @relation(name: "CategoryProductToRestaurant")
+  coupons             Coupon[]             @relation(name: "CouponToRestaurant")
+  options             Option[]             @relation(name: "OptionToRestaurant")
   name                String
   description         String
   tags                String[]
   type                String
   address             Json?
+  phoneNumber         String?
   isOpened            Boolean              @default(false)
-  openAt              String?
-  closeAt             String?
+  openingHours        Json?
   imageId             String?
   imageUrl            String?
+  ownerId             String
   createdAt           DateTime             @default(now())
   disabledAt          DateTime?
   disabled            Boolean              @default(false)
-  coupons             Coupon[]             @relation(name: "CompanyToCoupon")
-  options             Option[]             @relation(name: "CompanyToOption")
-  tables              Table[]              @relation(name: "CompanyToTable")
-  users               User[]               @relation(name: "CompanyToUser")
+  tables              Table[]              @relation(name: "RestaurantToTable")
+  owner               User                 @relation(name: "OWNER", fields: [ownerId], references: [id])
+  users               User[]               @relation(name: "USERS")
 }
 
 model CategoryProduct {
-  id          String    @id @map("_id")
-  name        String
-  description String
-  order       Int
-  imageId     String
-  imageUrl    String
-  enabled     Boolean   @default(false)
-  createdUser String
-  createdAt   DateTime  @default(now())
-  deletedUser String?
-  deletedAt   DateTime?
-  deleted     Boolean   @default(false)
-  company     Company   @relation(name: "CategoryProductToCompany", fields: [companyId], references: [id])
-  companyId   String
-  product     Product[] @relation(name: "CategoryProductToProduct")
+  id           String     @id @map("_id")
+  name         String
+  description  String
+  order        Int
+  imageId      String
+  imageUrl     String
+  enabled      Boolean    @default(false)
+  createdUser  String
+  createdAt    DateTime   @default(now())
+  deletedUser  String?
+  deletedAt    DateTime?
+  deleted      Boolean    @default(false)
+  Restaurant   Restaurant @relation(name: "CategoryProductToRestaurant", fields: [restaurantId], references: [id])
+  restaurantId String
+  product      Product[]  @relation(name: "CategoryProductToProduct")
 }
 
 model Coupon {
-  id                 String    @id @map("_id")
+  id                 String     @id @map("_id")
   title              String
   description        String
   code               String
@@ -89,29 +91,29 @@ model Coupon {
   discountLimit      Float?
   expiresIn          DateTime
   createdUser        String
-  createdAt          DateTime  @default(now())
+  createdAt          DateTime   @default(now())
   deletedUser        String?
   deletedAt          DateTime?
-  deleted            Boolean   @default(false)
-  companyId          String
-  company            Company   @relation(name: "CompanyToCoupon", fields: [companyId], references: [id])
+  deleted            Boolean    @default(false)
+  restaurantId       String
+  restaurant         Restaurant @relation(name: "CouponToRestaurant", fields: [restaurantId], references: [id])
 }
 
 model Option {
-  id           String    @id @map("_id")
+  id           String     @id @map("_id")
   name         String
   description  String
   defaultPrice Float?
   suboptions   Json[]
-  companyId    String
+  restaurantId String
   createdUser  String
-  createdAt    DateTime  @default(now())
+  createdAt    DateTime   @default(now())
   deletedUser  String?
   deletedAt    DateTime?
-  deleted      Boolean   @default(false)
+  deleted      Boolean    @default(false)
   disabledAt   DateTime?
-  disabled     Boolean   @default(false)
-  company      Company   @relation(name: "CompanyToOption", fields: [companyId], references: [id])
+  disabled     Boolean    @default(false)
+  restaurant   Restaurant @relation(name: "OptionToRestaurant", fields: [restaurantId], references: [id])
 }
 
 model Product {
@@ -142,18 +144,30 @@ model AdditionalsOnProducts {
   productId    String?
 }
 
+model RestaurantType {
+  id          String    @id @map("_id")
+  name        String
+  createdUser String
+  createdAt   DateTime  @default(now())
+  deletedUser String?
+  deletedAt   DateTime?
+  deleted     Boolean   @default(false)
+  disabledAt  DateTime?
+  disabled    Boolean   @default(false)
+}
+
 model Table {
-  id             String    @id @map("_id")
+  id             String     @id @map("_id")
   name           String
   amountOfChairs Float
   disabledAt     DateTime?
   createdUser    String
-  createdAt      DateTime  @default(now())
+  createdAt      DateTime   @default(now())
   deletedUser    String?
   deletedAt      DateTime?
-  deleted        Boolean   @default(false)
-  company        Company   @relation(name: "CompanyToTable", fields: [companyId], references: [id])
-  companyId      String
+  deleted        Boolean    @default(false)
+  restaurant     Restaurant @relation(name: "RestaurantToTable", fields: [restaurantId], references: [id])
+  restaurantId   String
 }
 
 model Worker {
@@ -172,13 +186,14 @@ model Worker {
 }
 
 model User {
-  id             String    @id @map("_id")
-  workers        Worker[]  @relation(name: "UserToWorker")
+  id             String       @id @map("_id")
+  workers        Worker[]     @relation(name: "UserToWorker")
   username       String
   email          String
   password       String
-  changePassword Boolean   @default(true)
+  changePassword Boolean      @default(true)
   deletedAt      DateTime?
-  company        Company   @relation(name: "CompanyToUser", fields: [companyId], references: [id])
-  companyId      String
+  restaurant     Restaurant?  @relation(name: "USERS", fields: [restaurantId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  restaurantId   String?
+  Restaurant     Restaurant[] @relation(name: "OWNER")
 }

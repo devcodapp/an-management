@@ -8,7 +8,7 @@ describe('CategoryAdditional', () => {
       {
         name: 'Teste',
         order: new Order(1),
-        companyId: randomUUID(),
+        restaurantId: randomUUID(),
       },
       { createdUser: randomUUID() },
     );

@@ -8,11 +8,11 @@ model Table {
   deletedUser    String?
   deletedAt      DateTime?
   deleted        Boolean   @default(false)
-  company        Company   @relation(fields: [companyId], references: [id])
-  companyId      String
+  restaurant        Restaurant   @relation(fields: [restaurantId], references: [id])
+  restaurantId      String
 }
 
-model Company {
+model Restaurant {
   id     String  @id @map("_id")
   tables Table[]
 }

@@ -1,6 +1,6 @@
 export interface WorkerFilterInput {
   name?: string;
   role?: 'admin' | 'colaborator';
-  companyId?: string;
+  restaurantId?: string;
   deleted?: boolean;
 }

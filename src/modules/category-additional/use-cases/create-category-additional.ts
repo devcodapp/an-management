@@ -8,7 +8,7 @@ import { Request } from 'express';
 interface CreateCategoryAdditionalRequest {
   name: string;
   order: number;
-  companyId: string;
+  restaurantId: string;
 }
 interface CreateCategoryAdditionalResponse {
   categoryAdditional: CategoryAdditional;
@@ -24,13 +24,13 @@ export class CreateCategoryAdditional {
   async execute(
     request: CreateCategoryAdditionalRequest,
   ): Promise<CreateCategoryAdditionalResponse> {
-    const { companyId, name, order } = request;
+    const { restaurantId, name, order } = request;
 
     const categoryAdditional = new CategoryAdditional(
       {
         name,
         order: new Order(order),
-        companyId,
+        restaurantId,
       },
       { createdUser: this.req['user'].sub },
     );

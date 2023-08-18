@@ -2,6 +2,7 @@ import { encodePassword } from '@shared/services/encodePassword';
 import { User } from '../entities/user';
 import { UsersRepository } from '../repositories/user-repository';
 import { UserNotFound } from './errors/user-not-found';
+import { Injectable } from '@nestjs/common';
 
 interface SaveUserRequest {
   userId: string;
@@ -14,6 +15,7 @@ interface SaveUserResponse {
   user: User;
 }
 
+@Injectable()
 export class SaveUser {
   constructor(private userRepository: UsersRepository) {}
 

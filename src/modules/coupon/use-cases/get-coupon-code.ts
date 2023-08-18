@@ -5,7 +5,7 @@ import { CouponNotFound } from './errors/coupon-not-found';
 
 interface GetCouponCodeRequest {
   code: string;
-  companyId: string;
+  restaurantId: string;
 }
 
 interface GetCouponCodeResponse {
@@ -16,9 +16,9 @@ interface GetCouponCodeResponse {
 export class GetCouponCode {
   constructor(private couponsRepository: CouponsRepository) {}
   async execute(request: GetCouponCodeRequest): Promise<GetCouponCodeResponse> {
-    const { code, companyId } = request;
+    const { code, restaurantId } = request;
 
-    const coupon = await this.couponsRepository.couponCode(code, companyId);
+    const coupon = await this.couponsRepository.couponCode(code, restaurantId);
 
     if (!coupon) {
       throw new CouponNotFound();

@@ -5,7 +5,7 @@ import { WorkerRepository } from '../repositories/worker-repository';
 interface FilterWorkerRequest {
   name?: string;
   role?: 'admin' | 'colaborator';
-  companyId?: string;
+  restaurantId?: string;
   deleted?: boolean;
 }
 

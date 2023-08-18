@@ -29,5 +29,5 @@ export class SaveTableBody {
     type: String,
     required: false,
   })
-  companyId?: string;
+  restaurantId?: string;
 }

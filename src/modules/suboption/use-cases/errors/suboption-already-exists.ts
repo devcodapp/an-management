@@ -1,5 +1,7 @@
-export class SubOptionAlreadExists extends Error {
+import { HttpException, HttpStatus } from '@nestjs/common';
+
+export class SubOptionAlreadExists extends HttpException {
   constructor() {
-    super('SubOption alread exists');
+    super('Sub-opção já existe', HttpStatus.CONFLICT);
   }
 }

@@ -57,4 +57,8 @@ export class SubOption {
   public disable() {
     this.props.disabledAt = new Date();
   }
+
+  public enable() {
+    this.props.disabledAt = undefined;
+  }
 }

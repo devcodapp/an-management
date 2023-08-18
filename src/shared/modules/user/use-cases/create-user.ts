@@ -1,3 +1,4 @@
+import { Injectable } from '@nestjs/common';
 import { User } from '../entities/user';
 import { UsersRepository } from '../repositories/user-repository';
 import { UserAlreadExists } from './errors/user-alread-exists';
@@ -7,20 +8,24 @@ interface CreateUserRequest {
   email: string;
   password: string;
   username: string;
-  companyId: string;
+  restaurantId?: string;
 }
 
 interface CreateUserResponse {
   user: User;
 }
 
+@Injectable()
 export class CreateUser {
   constructor(private userRepository: UsersRepository) {}
 
   async execute(request: CreateUserRequest): Promise<CreateUserResponse> {
-    const { email, password, username, companyId } = request;
+    const { email, password, username, restaurantId } = request;
 
-    const userExists = await this.userRepository.userByEmail(email, companyId);
+    const userExists = await this.userRepository.userByEmail(
+      email,
+      restaurantId,
+    );
 
     if (userExists) {
       throw new UserAlreadExists();
@@ -30,10 +35,10 @@ export class CreateUser {
       email,
       password: encodePassword(password),
       username,
-      companyId,
+      restaurantId,
     });
 
-    await this.userRepository.save(user);
+    await this.userRepository.create(user);
 
     return { user };
   }

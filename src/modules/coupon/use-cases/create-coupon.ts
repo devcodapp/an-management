@@ -12,7 +12,7 @@ interface CreateCouponRequest {
   discountPercentage?: number;
   discountLimit?: number;
   expiresIn: Date;
-  companyId: string;
+  restaurantId: string;
 }
 
 interface CreateCouponResponse {

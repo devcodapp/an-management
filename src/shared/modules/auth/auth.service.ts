@@ -1,8 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { GetUserEmail } from '../user/use-cases/get-user-email';
 import * as bcrypt from 'bcrypt';
-import { encodePassword } from '@shared/services/encodePassword';
+import { GetUserEmail } from '../user/use-cases/get-user-email';
 
 @Injectable()
 export class AuthService {
@@ -11,8 +10,8 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async signIn(email: string, pass: string, companyId: string) {
-    const { user } = await this.getUserEmail.execute({ companyId, email });
+  async signIn(email: string, pass: string, restaurantId?: string) {
+    const { user } = await this.getUserEmail.execute({ restaurantId, email });
     const isMatch = await bcrypt.compare(pass, user.password);
 
     if (!isMatch) {
@@ -20,7 +19,37 @@ export class AuthService {
     }
     const payload = { email: user.email, sub: user.id };
     return {
-      access_token: await this.jwtService.signAsync(payload),
+      access_token: await this.jwtService.signAsync(payload, {
+        expiresIn: '7d',
+      }),
+      user: {
+        username: user.username,
+        email: user.email,
+
+        restaurantId: user.restaurantId,
+        id: user.id,
+      },
+    };
+  }
+  async signInAdmin(email: string, pass: string) {
+    const { user } = await this.getUserEmail.execute({ email });
+    const isMatch = await bcrypt.compare(pass, user.password);
+
+    if (!isMatch) {
+      throw new UnauthorizedException();
+    }
+    const payload = { email: user.email, sub: user.id };
+    return {
+      access_token: await this.jwtService.signAsync(payload, {
+        expiresIn: '7d',
+      }),
+      user: {
+        username: user.username,
+        email: user.email,
+
+        restaurantId: user.restaurantId,
+        id: user.id,
+      },
     };
   }
 }

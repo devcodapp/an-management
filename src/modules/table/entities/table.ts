@@ -4,7 +4,7 @@ export interface TableProps {
   name: string;
   amountOfChairs: number;
   disabledAt?: Date;
-  companyId: string;
+  restaurantId: string;
 }
 
 export class Table extends BaseEntity {
@@ -38,12 +38,12 @@ export class Table extends BaseEntity {
     return this.props.amountOfChairs;
   }
 
-  public set companyId(companyId: string) {
-    this.props.companyId = companyId;
+  public set restaurantId(restaurantId: string) {
+    this.props.restaurantId = restaurantId;
   }
 
-  public get companyId(): string {
-    return this.props.companyId;
+  public get restaurantId(): string {
+    return this.props.restaurantId;
   }
 
   public set disabledAt(disabledAt: Date | undefined) {

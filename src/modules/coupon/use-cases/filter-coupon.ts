@@ -7,7 +7,7 @@ interface FilterCouponRequest {
   description?: string;
   code?: string;
   expired?: boolean;
-  companyId: string;
+  restaurantId: string;
   deleted?: boolean;
 }
 

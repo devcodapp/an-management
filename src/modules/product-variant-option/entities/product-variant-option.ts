@@ -1,4 +1,5 @@
 import { ProductImage } from '@modules/product/entities/product';
+import { HttpException, HttpStatus } from '@nestjs/common';
 import { generateSKU } from '@shared/services/generateSKU';
 
 export interface OptionVariantProps {
@@ -67,7 +68,8 @@ export class OptionVariant {
 
   public removeImage(order: number): void {
     const index = this.props.images?.findIndex((item) => item.order === order);
-    if (index == undefined || index < 0) throw new Error('Image not found');
+    if (index == undefined || index < 0)
+      throw new HttpException('Imagem não encontrada', HttpStatus.NOT_FOUND);
 
     this.props.images?.splice(index, 1);
   }

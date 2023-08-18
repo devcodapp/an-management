@@ -23,5 +23,5 @@ export class FilterTableBody extends FilterBaseBody {
     required: false,
   })
   @IsNotEmpty()
-  companyId: string;
+  restaurantId: string;
 }

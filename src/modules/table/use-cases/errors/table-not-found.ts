@@ -1,5 +1,7 @@
-export class TableNotFound extends Error {
+import { HttpException, HttpStatus } from '@nestjs/common';
+
+export class TableNotFound extends HttpException {
   constructor() {
-    super('Table not found');
+    super('Mesa não encontrada', HttpStatus.NOT_FOUND);
   }
 }

@@ -15,7 +15,7 @@ export class PrismaCategoryProductMapper {
       createdAt: categoryProduct.createdAt,
       deletedUser: categoryProduct.deletedUser,
       deletedAt: categoryProduct.deletedAt,
-      companyId: categoryProduct.companyId,
+      restaurantId: categoryProduct.restaurantId,
       deleted: categoryProduct.deleted,
     };
   }
@@ -23,7 +23,7 @@ export class PrismaCategoryProductMapper {
   static toDomain(raw: RawCategoryProduct) {
     return new CategoryProduct(
       {
-        companyId: raw.companyId,
+        restaurantId: raw.restaurantId,
         description: raw.description,
         imageId: raw.imageId,
         imageUrl: raw.imageUrl,

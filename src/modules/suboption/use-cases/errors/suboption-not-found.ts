@@ -1,5 +1,7 @@
-export class SubOptionNotFound extends Error {
+import { HttpException, HttpStatus } from '@nestjs/common';
+
+export class SubOptionNotFound extends HttpException {
   constructor() {
-    super('SubOption not found');
+    super('Sub-opção não encontrada', HttpStatus.NOT_FOUND);
   }
 }

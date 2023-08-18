@@ -1,0 +1,27 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Restaurant {
+  id          String   @id @map("_id")
+  name        String
+  description String
+  tags        String[]
+  type        String
+
+  address     Json?
+  phoneNumber String?
+
+  isOpened     Boolean @default(false)
+  openingHours Json?
+
+  imageId  String?
+  imageUrl String?
+
+  ownerId String
+
+  createdAt  DateTime  @default(now())
+  disabledAt DateTime?
+  disabled   Boolean   @default(false)
+}

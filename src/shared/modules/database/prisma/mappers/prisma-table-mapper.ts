@@ -8,7 +8,7 @@ export class PrismaTableMapper {
       name: table.name,
       disabledAt: table.disabledAt,
       amountOfChairs: table.amountOfChairs,
-      companyId: table.companyId,
+      restaurantId: table.restaurantId,
       createdAt: table.createdAt,
       createdUser: table.createdUser,
       deletedAt: table.deletedAt,
@@ -23,7 +23,7 @@ export class PrismaTableMapper {
         amountOfChairs: raw.amountOfChairs,
         name: raw.name,
         disabledAt: raw.disabledAt || undefined,
-        companyId: raw.companyId,
+        restaurantId: raw.restaurantId,
       },
       {
         createdAt: raw.createdAt,

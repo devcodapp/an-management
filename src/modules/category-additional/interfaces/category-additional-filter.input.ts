@@ -1,5 +1,5 @@
 export interface CategoryAdditionalFilterInput {
   name?: string;
-  companyId?: string;
+  restaurantId?: string;
   deleted?: boolean;
 }
