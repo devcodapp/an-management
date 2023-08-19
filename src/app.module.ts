@@ -17,6 +17,7 @@ import { RestaurantModule } from './modules/restaurant/restaurant.module';
 import { SuboptionModule } from './modules/suboption/suboption.module';
 import { AuthModule } from './shared/modules/auth/auth.module';
 import { UserModule } from './shared/modules/user/user.module';
+import { StripeModule } from './modules/stripe/stripe.module';
 @Module({
   imports: [
     CategoryAdditionalModule,
@@ -40,6 +41,7 @@ import { UserModule } from './shared/modules/user/user.module';
     UserModule,
     AuthModule,
     RestaurantTypeModule,
+    StripeModule,
   ],
   // providers: [
   //   { provide: APP_FILTER, useClass: InternalServerErrorExceptionFilter },
