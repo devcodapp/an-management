@@ -1,12 +1,15 @@
 model User {
-  id       String @id @map("_id")
-  username String
+  id       String  @id @map("_id")
+  name     String?
+  username String?
   email    String
-  password String
+  password String?
 
   changePassword Boolean @default(true)
 
   deletedAt DateTime?
+
+  googleId String?
 
   restaurant   Restaurant? @relation("USERS", fields: [restaurantId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   restaurantId String?

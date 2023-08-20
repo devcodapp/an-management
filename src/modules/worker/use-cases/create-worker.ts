@@ -1,12 +1,14 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { CloudinaryService } from '@shared/modules/cloudinary/cloudinary.service';
-import { WorkerRepository } from '../repositories/worker-repository';
-import { Worker } from '../entities/worker';
 import { REQUEST } from '@nestjs/core';
-import { Request } from 'express';
-import { UsersRepository } from '@shared/modules/user/repositories/user-repository';
+import { CloudinaryService } from '@shared/modules/cloudinary/cloudinary.service';
 import { User } from '@shared/modules/user/entities/user';
+import { UsersRepository } from '@shared/modules/user/repositories/user-repository';
+import { encodePassword } from '@shared/services/encodePassword';
 import { generateSKU } from '@shared/services/generateSKU';
+import { Request } from 'express';
+
+import { Worker } from '../entities/worker';
+import { WorkerRepository } from '../repositories/worker-repository';
 
 interface CreateWorkerRequest {
   name: string;
@@ -35,8 +37,8 @@ export class CreateWorker {
     const user = new User({
       restaurantId,
       email,
-      username: name,
-      password,
+      name,
+      password: encodePassword(password),
       changePassword: true,
     });
 

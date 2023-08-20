@@ -2,11 +2,14 @@ import { randomUUID } from 'crypto';
 
 interface UserProps {
   id?: string;
-  username: string;
+  name?: string;
+  username?: string;
   email: string;
-  password: string;
+  password?: string;
   changePassword?: boolean;
   deletedAt?: Date;
+
+  googleId?: string;
 
   restaurantId?: string;
 }
@@ -24,12 +27,28 @@ export class User {
     return this._id;
   }
 
-  public get username(): string {
+  public get name(): string | undefined {
+    return this.props.name;
+  }
+
+  public set name(value: string | undefined) {
+    this.props.name = value;
+  }
+
+  public get username(): string | undefined {
     return this.props.username;
   }
 
-  public set username(value: string) {
+  public set username(value: string | undefined) {
     this.props.username = value;
+  }
+
+  public get googleId(): string | undefined {
+    return this.props.googleId;
+  }
+
+  public set googleId(value: string | undefined) {
+    this.props.googleId = value;
   }
 
   public get email(): string {
@@ -40,11 +59,11 @@ export class User {
     this.props.email = value;
   }
 
-  public get password(): string {
+  public get password(): string | undefined {
     return this.props.password;
   }
 
-  public set password(value: string) {
+  public set password(value: string | undefined) {
     this.props.password = value;
   }
 

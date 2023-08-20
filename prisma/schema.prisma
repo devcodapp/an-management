@@ -188,11 +188,13 @@ model Worker {
 model User {
   id             String       @id @map("_id")
   workers        Worker[]     @relation(name: "UserToWorker")
-  username       String
+  name           String?
+  username       String?
   email          String
-  password       String
+  password       String?
   changePassword Boolean      @default(true)
   deletedAt      DateTime?
+  googleId       String?
   restaurant     Restaurant?  @relation(name: "USERS", fields: [restaurantId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   restaurantId   String?
   Restaurant     Restaurant[] @relation(name: "OWNER")

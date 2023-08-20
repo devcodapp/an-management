@@ -1,13 +1,20 @@
-import { IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { IsNotEmpty } from 'class-validator';
 
 export class CreateUserBody {
   @ApiProperty({
     description: 'O nome do usuário',
     type: String,
+    required: false,
   })
-  @IsNotEmpty()
-  username: string;
+  name?: string;
+
+  @ApiProperty({
+    description: 'O nome do usuário',
+    type: String,
+    required: false,
+  })
+  username?: string;
 
   @ApiProperty({
     description: 'O email do usuário',
@@ -19,9 +26,9 @@ export class CreateUserBody {
   @ApiProperty({
     description: 'A senha do usuário',
     type: String,
+    required: false,
   })
-  @IsNotEmpty()
-  password: string;
+  password?: string;
 
   @ApiProperty({
     description: 'Id do restaurante',
@@ -30,4 +37,12 @@ export class CreateUserBody {
     required: false,
   })
   restaurantId?: string;
+
+  @ApiProperty({
+    description: 'Id do google do usuário',
+    type: String,
+    nullable: true,
+    required: false,
+  })
+  googleId?: string;
 }
