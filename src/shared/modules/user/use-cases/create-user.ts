@@ -29,7 +29,9 @@ export class CreateUser {
       email,
       restaurantId,
     );
+    console.log('passou aqui ');
 
+    await new Promise((resolve) => setTimeout(resolve, 5000));
     if (userExists) {
       throw new UserAlreadExists();
     }

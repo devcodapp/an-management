@@ -5,6 +5,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { CloudinaryModule } from '@shared/modules/cloudinary/cloudinary.module';
 import { DatabaseModule } from '@shared/modules/database/database.module';
+
 import { AdditionalModule } from './modules/additional/additional.module';
 import { CategoryAdditionalModule } from './modules/category-additional/category-additional.module';
 import { CategoryProductModule } from './modules/category-product/category-product.module';
@@ -16,30 +17,33 @@ import { RestaurantTypeModule } from './modules/restaurant-type/restaurant-type.
 import { RestaurantModule } from './modules/restaurant/restaurant.module';
 import { SuboptionModule } from './modules/suboption/suboption.module';
 import { AuthModule } from './shared/modules/auth/auth.module';
+import { KafkaModule } from './shared/modules/kafka/kafka.module';
 import { UserModule } from './shared/modules/user/user.module';
+
 @Module({
   imports: [
-    CategoryAdditionalModule,
+    // CategoryAdditionalModule,
     DatabaseModule,
-    AdditionalModule,
+    // AdditionalModule,
     CloudinaryModule,
     ConfigModule.forRoot({
       envFilePath: '.env',
     }),
-    OptionModule,
+    // OptionModule,
     RestaurantModule,
-    CategoryProductModule,
-    SuboptionModule,
+    // CategoryProductModule,
+    // SuboptionModule,
     AuthModule,
     WorkerModule,
-    ProductModule,
-    ProductVariantModule,
-    ProductVariantOptionModule,
+    // ProductModule,
+    // ProductVariantModule,
+    // ProductVariantOptionModule,
     TableModule,
     CouponModule,
     UserModule,
     AuthModule,
     RestaurantTypeModule,
+    KafkaModule,
   ],
   // providers: [
   //   { provide: APP_FILTER, useClass: InternalServerErrorExceptionFilter },

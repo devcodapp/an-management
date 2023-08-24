@@ -1,14 +1,16 @@
 import { Module } from '@nestjs/common';
-import { RestaurantController } from './restaurant.controller';
-import { DatabaseModule } from '@shared/modules/database/database.module';
-import { CreateRestaurant } from './use-cases/create-restaurant';
-import { SaveRestaurant } from './use-cases/save-restaurant';
-import { GetRestaurant } from './use-cases/get-restaurant';
-import { FilterRestaurant } from './use-cases/filter-restaurant';
-import { DisableRestaurant } from './use-cases/disable-restaurant';
 import { CloudinaryService } from '@shared/modules/cloudinary/cloudinary.service';
-import { OpenRestaurant } from './use-cases/open-restaurant';
+import { DatabaseModule } from '@shared/modules/database/database.module';
+import { KafkaService } from '@shared/modules/kafka/kafka.service';
+
+import { RestaurantController } from './restaurant.controller';
 import { CloseRestaurant } from './use-cases/close-restaurant';
+import { CreateRestaurant } from './use-cases/create-restaurant';
+import { DisableRestaurant } from './use-cases/disable-restaurant';
+import { FilterRestaurant } from './use-cases/filter-restaurant';
+import { GetRestaurant } from './use-cases/get-restaurant';
+import { OpenRestaurant } from './use-cases/open-restaurant';
+import { SaveRestaurant } from './use-cases/save-restaurant';
 
 @Module({
   controllers: [RestaurantController],
@@ -22,6 +24,7 @@ import { CloseRestaurant } from './use-cases/close-restaurant';
     OpenRestaurant,
     CloseRestaurant,
     CloudinaryService,
+    KafkaService,
   ],
 })
 export class RestaurantModule {}
