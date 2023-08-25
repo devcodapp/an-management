@@ -1,12 +1,15 @@
 import { Module } from '@nestjs/common';
-import { CouponController } from './coupon.controller';
 import { DatabaseModule } from '@shared/modules/database/database.module';
+import { KafkaService } from '@shared/modules/kafka/kafka.service';
+
+import { CouponController } from './coupon.controller';
 import { CreateCoupon } from './use-cases/create-coupon';
-import { SaveCoupon } from './use-cases/save-coupon';
+import { DeleteCoupon } from './use-cases/delete-coupon';
+import { FilterCoupon } from './use-cases/filter-coupon';
 import { GetCoupon } from './use-cases/get-coupon';
 import { GetCouponCode } from './use-cases/get-coupon-code';
-import { FilterCoupon } from './use-cases/filter-coupon';
-import { DeleteCoupon } from './use-cases/delete-coupon';
+import { RecoverCoupon } from './use-cases/recover-coupon';
+import { SaveCoupon } from './use-cases/save-coupon';
 
 @Module({
   controllers: [CouponController],
@@ -18,6 +21,8 @@ import { DeleteCoupon } from './use-cases/delete-coupon';
     GetCouponCode,
     FilterCoupon,
     DeleteCoupon,
+    RecoverCoupon,
+    KafkaService,
   ],
 })
 export class CouponModule {}

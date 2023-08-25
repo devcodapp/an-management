@@ -15,7 +15,7 @@ export class KafkaService {
         password: 'MjI3YjM2MWYtM2Y3MS00YmE1LTk3ZjctYjAzZWQ1YWNhYjJj',
       },
       ssl: true,
-      logLevel: logLevel.ERROR,
+      logLevel: logLevel.INFO,
     });
   }
 

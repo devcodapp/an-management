@@ -53,4 +53,8 @@ export class BaseEntity {
     this._deletedUser = userId;
     this._deleted = true;
   }
+
+  public recover(): void {
+    this._deleted = false;
+  }
 }
