@@ -35,7 +35,7 @@ export class RecoverCoupon {
 
     await this.couponsRepository.save(coupon);
 
-    await this.kafkaService.sendMessage('COUPON_CREATE', {
+    await this.kafkaService.sendMessage('COUPON_CREATED', {
       externalId: coupon.id,
       restaurantId: coupon.restaurantId,
     });
