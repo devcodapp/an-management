@@ -1,4 +1,5 @@
 import { CouponsRepository } from '@modules/coupon/repositories/coupon-repository';
+import { OwnersRepository } from '@modules/owner/repositories/owner-repository';
 import { RestaurantTypesRepository } from '@modules/restaurant-type/repositories/restaurant-type-repository';
 import { RestaurantsRepository } from '@modules/restaurant/repositories/restaurant-repository';
 import { TablesRepository } from '@modules/table/repositories/table-repository';
@@ -8,6 +9,7 @@ import { Module } from '@nestjs/common';
 
 import { PrismaService } from './prisma/prisma.service';
 import { PrismaCouponRepository } from './prisma/repositories/prisma-coupon-repository';
+import { PrismaOwnerRepository } from './prisma/repositories/prisma-owner-repository';
 import { PrismaRestaurantRepository } from './prisma/repositories/prisma-restaurant-repository';
 import { PrismaRestaurantTypeRepository } from './prisma/repositories/prisma-restaurant-type-repository';
 import { PrismaTableRepository } from './prisma/repositories/prisma-table-repository';
@@ -44,6 +46,10 @@ import { PrismaWorkerRepository } from './prisma/repositories/prisma-worker-repo
       provide: RestaurantTypesRepository,
       useClass: PrismaRestaurantTypeRepository,
     },
+    {
+      provide: OwnersRepository,
+      useClass: PrismaOwnerRepository,
+    },
   ],
   exports: [
     RestaurantsRepository,
@@ -52,6 +58,7 @@ import { PrismaWorkerRepository } from './prisma/repositories/prisma-worker-repo
     CouponsRepository,
     UsersRepository,
     RestaurantTypesRepository,
+    OwnersRepository
   ],
 })
 export class DatabaseModule {}

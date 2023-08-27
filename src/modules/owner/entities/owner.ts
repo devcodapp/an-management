@@ -43,6 +43,14 @@ export class Owner {
     return this.props.imageUrl
   }
 
+  public get deleted(): boolean | undefined {
+    return this.props.deleted
+  }
+
+  public get deletedAt(): Date | null | undefined {
+    return this.props.deletedAt
+  }
+
   public set name(name: string) {
     this.props.name = name
   }
