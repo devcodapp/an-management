@@ -11,6 +11,7 @@ import { RestaurantTypeModule } from './modules/restaurant-type/restaurant-type.
 import { RestaurantModule } from './modules/restaurant/restaurant.module';
 import { AuthModule } from './shared/modules/auth/auth.module';
 import { KafkaModule } from './shared/modules/kafka/kafka.module';
+import { AdminModule } from './modules/admin/admin.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { KafkaModule } from './shared/modules/kafka/kafka.module';
     AuthModule,
     RestaurantTypeModule,
     KafkaModule,
+    AdminModule,
   ],
 
 })

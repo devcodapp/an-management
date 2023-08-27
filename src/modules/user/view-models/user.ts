@@ -8,13 +8,11 @@ export class UserViewModel {
     name,
     restaurantId,
     username,
-    googleId,
   }: User): IUserView {
     return {
       id,
       name,
       email,
-      googleId,
       username,
       changePassword: changePassword || undefined,
       restaurantId: restaurantId || undefined,
@@ -24,9 +22,8 @@ export class UserViewModel {
 
 export interface IUserView {
   id: string;
-  name?: string;
-  username?: string;
-  googleId?: string;
+  name: string;
+  username: string;
   email: string;
   restaurantId?: string;
   changePassword?: boolean;

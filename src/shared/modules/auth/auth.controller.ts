@@ -1,18 +1,9 @@
-import {
-  Body,
-  Controller,
-  Get,
-  HttpCode,
-  HttpStatus,
-  Post,
-  Request,
-  UseGuards,
-} from '@nestjs/common';
-import { AuthService } from './auth.service';
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, Request, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
+
 import { AuthGuard } from './auth.guard';
+import { AuthService } from './auth.service';
 import { LoginAdminAuthBody } from './dtos/login-admin-auth-body';
-import { LoginGoogleBody } from './dtos/login-google-body';
 import { LoginAuthBody } from './dtos/login-auth-body copy';
 
 @Controller('auth')
@@ -44,16 +35,16 @@ export class AuthController {
     );
   }
 
-  @HttpCode(HttpStatus.OK)
-  @Post('login/google')
-  @ApiBody({ type: LoginAuthBody })
-  @ApiConsumes('application/x-www-form-urlencoded')
-  async signInGoogle(@Body() signInDto: LoginGoogleBody) {
-    return await this.authService.signInGoogle(
-      signInDto.email,
-      signInDto.googleId,
-    );
-  }
+  // @HttpCode(HttpStatus.OK)
+  // @Post('login/google')
+  // @ApiBody({ type: LoginAuthBody })
+  // @ApiConsumes('application/x-www-form-urlencoded')
+  // async signInGoogle(@Body() signInDto: LoginGoogleBody) {
+  //   return await this.authService.signInGoogle(
+  //     signInDto.email,
+  //     signInDto.googleId,
+  //   );
+  // }
 
   @UseGuards(AuthGuard)
   @Get('profile')

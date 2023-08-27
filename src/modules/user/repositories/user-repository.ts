@@ -10,5 +10,9 @@ export abstract class UsersRepository {
     restaurantId?: string,
   ): Promise<User | null>;
 
+  abstract userByUsername(
+    username: string,
+  ): Promise<User | null>;
+
   abstract save(user: User): Promise<void>;
 }

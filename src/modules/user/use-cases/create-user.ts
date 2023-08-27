@@ -7,10 +7,9 @@ import { UserAlreadExists } from './errors/user-alread-exists';
 
 interface CreateUserRequest {
   email: string;
-  password?: string;
-  name?: string;
+  password: string;
+  name: string;
   username?: string;
-  googleId?: string;
   restaurantId?: string;
 }
 
@@ -23,26 +22,36 @@ export class CreateUser {
   constructor(private userRepository: UsersRepository) {}
 
   async execute(request: CreateUserRequest): Promise<CreateUserResponse> {
-    const { email, password, name, username, restaurantId, googleId } = request;
+    const { email, password, name, username, restaurantId } = request;
 
     const userExists = await this.userRepository.userByEmail(
       email,
       restaurantId,
     );
-    console.log('passou aqui ');
 
-    await new Promise((resolve) => setTimeout(resolve, 5000));
     if (userExists) {
       throw new UserAlreadExists();
     }
 
+    let newUsername = name.toLowerCase()
+
+    if(!username) {
+      let user = await this.userRepository.userByUsername(newUsername)
+      let number = 0;
+
+      while (user){
+        number ++;
+        newUsername = `${name.toLowerCase()}${number}`
+        user = await this.userRepository.userByUsername(newUsername)
+      }
+    }
+
     const user = new User({
       email,
-      password: password && encodePassword(password),
+      password: encodePassword(password),
       name,
       restaurantId,
-      username,
-      googleId,
+      username: username || newUsername,
     });
 
     await this.userRepository.create(user);

@@ -12,18 +12,16 @@ export class PrismaUserMapper {
       changePassword: user.changePassword,
       deletedAt: user.deletedAt,
       name: user.name,
-      googleId: user.googleId,
     };
   }
 
   static toDomain(raw: RawUser) {
     return new User({
       email: raw.email,
-      password: raw.password ?? undefined,
+      password: raw.password,
       restaurantId: raw.restaurantId ?? undefined,
-      username: raw.username ?? undefined,
-      name: raw.name ?? undefined,
-      googleId: raw.googleId ?? undefined,
+      username: raw.username,
+      name: raw.name,
       changePassword: raw.changePassword,
       deletedAt: raw.deletedAt ?? undefined,
       id: raw.id,

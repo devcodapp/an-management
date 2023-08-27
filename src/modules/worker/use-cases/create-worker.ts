@@ -1,9 +1,7 @@
-import { User } from '@modules/user/entities/user';
-import { UsersRepository } from '@modules/user/repositories/user-repository';
+import { CreateUser } from '@modules/user/use-cases/create-user';
 import { Inject, Injectable } from '@nestjs/common';
 import { REQUEST } from '@nestjs/core';
 import { CloudinaryService } from '@shared/modules/cloudinary/cloudinary.service';
-import { encodePassword } from '@shared/services/encodePassword';
 import { generateSKU } from '@shared/services/generateSKU';
 import { Request } from 'express';
 
@@ -24,7 +22,7 @@ interface CreateWorkerResponse {
 export class CreateWorker {
   constructor(
     private workerRepository: WorkerRepository,
-    private userRepository: UsersRepository,
+    private createUser: CreateUser,
     private cloudinary: CloudinaryService,
     @Inject(REQUEST) private req: Request,
   ) {}
@@ -34,15 +32,7 @@ export class CreateWorker {
 
     const password = generateSKU(6).toLowerCase();
 
-    const user = new User({
-      restaurantId,
-      email,
-      name,
-      password: encodePassword(password),
-      changePassword: true,
-    });
-
-    await this.userRepository.create(user);
+    const {user} = await this.createUser.execute({email, name, password, restaurantId});
 
     const worker = new Worker(
       {
