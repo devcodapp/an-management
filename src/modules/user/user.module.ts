@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common';
-import { DatabaseModule } from '../database/database.module';
+import { JwtService } from '@nestjs/jwt';
+
 import { CreateUser } from './use-cases/create-user';
 import { GetUser } from './use-cases/get-user';
-import { SaveUser } from './use-cases/save-user';
 import { GetUserEmail } from './use-cases/get-user-email';
-import { JwtService } from '@nestjs/jwt';
+import { SaveUser } from './use-cases/save-user';
 import { UserController } from './user.controller';
+import { DatabaseModule } from '@shared/modules/database/database.module';
 
 @Module({
   providers: [CreateUser, GetUser, GetUserEmail, SaveUser, JwtService],

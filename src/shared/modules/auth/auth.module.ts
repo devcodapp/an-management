@@ -1,12 +1,12 @@
-import { AuthController } from './auth.controller';
-import { jwtConstants } from './constants';
+import { GetUserEmail } from '@modules/user/use-cases/get-user-email';
+import { UserModule } from '@modules/user/user.module';
 import { Module } from '@nestjs/common';
-import { AuthService } from './auth.service';
 import { JwtModule } from '@nestjs/jwt';
-import { WorkerModule } from '@modules/worker/worker.module';
-import { GetUserEmail } from '../user/use-cases/get-user-email';
+
 import { DatabaseModule } from '../database/database.module';
-import { UserModule } from '../user/user.module';
+import { AuthController } from './auth.controller';
+import { AuthService } from './auth.service';
+import { jwtConstants } from './constants';
 
 @Module({
   imports: [

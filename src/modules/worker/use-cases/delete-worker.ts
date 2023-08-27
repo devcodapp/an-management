@@ -1,10 +1,11 @@
+import { UsersRepository } from '@modules/user/repositories/user-repository';
 import { Inject, Injectable } from '@nestjs/common';
-import { WorkerNotFound } from './errors/worker-not-found';
-import { Worker } from '../entities/worker';
-import { WorkerRepository } from '../repositories/worker-repository';
 import { REQUEST } from '@nestjs/core';
 import { Request } from 'express';
-import { UsersRepository } from '@shared/modules/user/repositories/user-repository';
+
+import { Worker } from '../entities/worker';
+import { WorkerRepository } from '../repositories/worker-repository';
+import { WorkerNotFound } from './errors/worker-not-found';
 
 interface DeleteWorkerRequest {
   workerId: string;

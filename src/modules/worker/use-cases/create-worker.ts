@@ -1,8 +1,8 @@
+import { User } from '@modules/user/entities/user';
+import { UsersRepository } from '@modules/user/repositories/user-repository';
 import { Inject, Injectable } from '@nestjs/common';
 import { REQUEST } from '@nestjs/core';
 import { CloudinaryService } from '@shared/modules/cloudinary/cloudinary.service';
-import { User } from '@shared/modules/user/entities/user';
-import { UsersRepository } from '@shared/modules/user/repositories/user-repository';
 import { encodePassword } from '@shared/services/encodePassword';
 import { generateSKU } from '@shared/services/generateSKU';
 import { Request } from 'express';

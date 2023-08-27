@@ -1,8 +1,7 @@
+import { GetUserEmail } from '@modules/user/use-cases/get-user-email';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-
-import { GetUserEmail } from '../user/use-cases/get-user-email';
 
 @Injectable()
 export class AuthService {
