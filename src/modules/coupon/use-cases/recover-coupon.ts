@@ -7,22 +7,22 @@ import { Coupon } from '../entities/coupon';
 import { CouponsRepository } from '../repositories/coupon-repository';
 import { CouponNotFound } from './errors/coupon-not-found';
 
-interface DeleteCouponRequest {
+interface RecoverCouponRequest {
   couponId: string;
 }
 
-interface DeleteCouponResponse {
+interface RecoverCouponResponse {
   coupon: Coupon;
 }
 
 @Injectable()
-export class DeleteCoupon {
+export class RecoverCoupon {
   constructor(
     private couponsRepository: CouponsRepository,
     private kafkaService: KafkaService,
     @Inject(REQUEST) private req: Request,
   ) {}
-  async execute(request: DeleteCouponRequest): Promise<DeleteCouponResponse> {
+  async execute(request: RecoverCouponRequest): Promise<RecoverCouponResponse> {
     const { couponId } = request;
 
     const coupon = await this.couponsRepository.coupon(couponId);
@@ -31,11 +31,11 @@ export class DeleteCoupon {
       throw new CouponNotFound();
     }
 
-    coupon.delete(this.req['user'].sub);
+    coupon.recover();
 
     await this.couponsRepository.save(coupon);
 
-    await this.kafkaService.sendMessage('COUPON_DELETED', {
+    await this.kafkaService.sendMessage('COUPON_CREATED', {
       externalId: coupon.id,
       restaurantId: coupon.restaurantId,
     });
