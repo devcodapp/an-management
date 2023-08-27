@@ -6,6 +6,7 @@ import { PrismaUserMapper } from '../mappers/prisma-user-mapper';
 import { PrismaService } from '../prisma.service';
 
 @Injectable()
+// eslint-disable-next-line @darraghor/nestjs-typed/injectable-should-be-provided
 export class PrismaUserRepository implements UsersRepository {
   constructor(private prisma: PrismaService) { }
 

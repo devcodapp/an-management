@@ -1,48 +1,20 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsOptional, IsUUID } from 'class-validator';
 
 export class CreateUserBody {
-  @ApiProperty({
-    description: 'O nome do usuário',
-    type: String,
-    required: false,
-  })
+  @IsOptional()
   name?: string;
 
-  @ApiProperty({
-    description: 'O nome do usuário',
-    type: String,
-    required: false,
-  })
+  @IsOptional()
   username?: string;
 
-  @ApiProperty({
-    description: 'O email do usuário',
-    type: String,
-  })
-  @IsNotEmpty()
+  @IsEmail({}, { message: 'O email precisa ser válido' })
+  @IsNotEmpty({ message: 'O email não pode ser vazio' })
   email: string;
 
-  @ApiProperty({
-    description: 'A senha do usuário',
-    type: String,
-    required: false,
-  })
-  password?: string;
+  @IsNotEmpty({ message: 'A senha não pode ser vazio' })
+  password: string;
 
-  @ApiProperty({
-    description: 'Id do restaurante',
-    type: String,
-    nullable: true,
-    required: false,
-  })
+  @IsOptional()
+  @IsUUID()
   restaurantId?: string;
-
-  @ApiProperty({
-    description: 'Id do google do usuário',
-    type: String,
-    nullable: true,
-    required: false,
-  })
-  googleId?: string;
 }
