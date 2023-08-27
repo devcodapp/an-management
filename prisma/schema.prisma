@@ -8,37 +8,6 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Admin {
-  id          String    @id @map("_id")
-  name        String
-  role        String
-  imageId     String?
-  imageUrl    String?
-  createdUser String
-  createdAt   DateTime  @default(now())
-  deletedUser String?
-  deletedAt   DateTime?
-  deleted     Boolean   @default(false)
-  userId      String
-  user        User      @relation(name: "AdminToUser", fields: [userId], references: [id])
-
-  @@map("admins")
-}
-
-model User {
-  id             String       @id @map("_id")
-  Admin          Admin[]      @relation(name: "AdminToUser")
-  username       String       @unique
-  email          String
-  password       String
-  changePassword Boolean      @default(true)
-  deletedAt      DateTime?
-  restaurant     Restaurant?  @relation(name: "USERS", fields: [restaurantId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  restaurantId   String?
-  Restaurant     Restaurant[] @relation(name: "OWNER")
-  workers        Worker[]     @relation(name: "UserToWorker")
-}
-
 model Coupon {
   id                 String     @id @map("_id")
   title              String
@@ -77,6 +46,34 @@ model Restaurant {
   tables       Table[]   @relation(name: "RestaurantToTable")
   owner        User      @relation(name: "OWNER", fields: [ownerId], references: [id])
   users        User[]    @relation(name: "USERS")
+}
+
+model Owner {
+  id        String    @id @map("_id")
+  name      String
+  imageId   String?
+  imageUrl  String?
+  createdAt DateTime  @default(now())
+  deletedAt DateTime?
+  deleted   Boolean   @default(false)
+  userId    String
+  user      User      @relation(name: "OwnerToUser", fields: [userId], references: [id])
+
+  @@map("owners")
+}
+
+model User {
+  id             String       @id @map("_id")
+  Owner          Owner[]      @relation(name: "OwnerToUser")
+  username       String       @unique
+  email          String
+  password       String
+  changePassword Boolean      @default(true)
+  deletedAt      DateTime?
+  restaurant     Restaurant?  @relation(name: "USERS", fields: [restaurantId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  restaurantId   String?
+  Restaurant     Restaurant[] @relation(name: "OWNER")
+  workers        Worker[]     @relation(name: "UserToWorker")
 }
 
 model RestaurantType {

@@ -1,0 +1,21 @@
+model Owner {
+  id        String    @id @map("_id")
+  name      String
+  imageId   String?
+  imageUrl  String?
+  createdAt DateTime  @default(now())
+  deletedAt DateTime?
+  deleted   Boolean   @default(false)
+
+  userId String
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("owners")
+}
+
+model User {
+  id String @id @map("_id")
+
+  Owner Owner[]
+}

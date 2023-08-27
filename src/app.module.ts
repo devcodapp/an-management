@@ -6,12 +6,12 @@ import { ConfigModule } from '@nestjs/config';
 import { CloudinaryModule } from '@shared/modules/cloudinary/cloudinary.module';
 import { DatabaseModule } from '@shared/modules/database/database.module';
 
+import { OwnerModule } from '@modules/owner/owner.module';
 import { CouponModule } from './modules/coupon/coupon.module';
 import { RestaurantTypeModule } from './modules/restaurant-type/restaurant-type.module';
 import { RestaurantModule } from './modules/restaurant/restaurant.module';
 import { AuthModule } from './shared/modules/auth/auth.module';
 import { KafkaModule } from './shared/modules/kafka/kafka.module';
-import { AdminModule } from './modules/admin/admin.module';
 
 @Module({
   imports: [
@@ -29,7 +29,7 @@ import { AdminModule } from './modules/admin/admin.module';
     AuthModule,
     RestaurantTypeModule,
     KafkaModule,
-    AdminModule,
+    OwnerModule,
   ],
 
 })
