@@ -33,7 +33,7 @@ export class CreateUser {
       throw new UserAlreadExists();
     }
 
-    let newUsername = name.toLowerCase()
+    let newUsername = name.split(' ')[0].toLowerCase()
 
     if(!username) {
       let user = await this.userRepository.userByUsername(newUsername)
@@ -41,7 +41,7 @@ export class CreateUser {
 
       while (user){
         number ++;
-        newUsername = `${name.toLowerCase()}${number}`
+        newUsername = `${name.split(' ')[0].toLowerCase()}${number}`
         user = await this.userRepository.userByUsername(newUsername)
       }
     }
@@ -49,7 +49,6 @@ export class CreateUser {
     const user = new User({
       email,
       password: encodePassword(password),
-      name,
       restaurantId,
       username: username || newUsername,
     });

@@ -11,7 +11,6 @@ export class PrismaUserMapper {
       restaurantId: user.restaurantId,
       changePassword: user.changePassword,
       deletedAt: user.deletedAt,
-      name: user.name,
     };
   }
 
@@ -21,7 +20,6 @@ export class PrismaUserMapper {
       password: raw.password,
       restaurantId: raw.restaurantId ?? undefined,
       username: raw.username,
-      name: raw.name,
       changePassword: raw.changePassword,
       deletedAt: raw.deletedAt ?? undefined,
       id: raw.id,
