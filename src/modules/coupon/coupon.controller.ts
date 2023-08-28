@@ -1,12 +1,10 @@
 import { Body, Controller, Get, Param, Patch, Post, Put, Query, UseGuards, UseInterceptors } from '@nestjs/common'
-import { ApiBearerAuth, ApiBody, ApiConsumes, ApiOperation, ApiTags } from '@nestjs/swagger'
 import { AuthGuard } from '@shared/modules/auth/auth.guard'
 import { NumberInterceptor } from 'src/interceptors/number/number.interceptor'
 
-import { CreateCouponBody } from './dtos/create-coupon-body'
-import { FilterCouponBody } from './dtos/filter-coupon-body'
-import { SaveCouponBody } from './dtos/save-coupon-body'
-import { CreateCouponSwagger, DeleteCouponSwagger, FilterCouponSwagger, GetCouponSwagger, UpdateCouponSwagger } from './swagger/coupon.swagger'
+import { CreateCouponBody } from './dtos/create-coupon.body'
+import { FilterCouponBody } from './dtos/filter-coupon.body'
+import { SaveCouponBody } from './dtos/save-coupon.body'
 import { CreateCoupon } from './use-cases/create-coupon'
 import { DeleteCoupon } from './use-cases/delete-coupon'
 import { FilterCoupon } from './use-cases/filter-coupon'
@@ -18,8 +16,6 @@ import { CouponViewModel, ICouponView } from './view-models/coupon'
 
 @UseGuards(AuthGuard)
 @UseInterceptors(NumberInterceptor)
-@ApiBearerAuth()
-@ApiTags('Coupon')
 @Controller('coupon')
 export class CouponController {
   constructor(
@@ -33,7 +29,6 @@ export class CouponController {
   ) {}
 
   @Get()
-  @ApiOperation(FilterCouponSwagger)
   async coupons(
     @Query() query: FilterCouponBody,
   ): Promise<{ coupons: ICouponView[] } | null> {
@@ -49,7 +44,6 @@ export class CouponController {
   }
 
   @Get(':id')
-  @ApiOperation(GetCouponSwagger)
   async coupon(
     @Param('id') couponId: string,
   ): Promise<{ coupon: ICouponView } | null> {
@@ -67,7 +61,6 @@ export class CouponController {
   }
 
   @Get('restaurant/:restaurantId/code/:code')
-  @ApiOperation(GetCouponSwagger)
   async couponCode(
     @Param('code') code: string,
     @Param('restaurantId') restaurantId: string,
@@ -87,9 +80,6 @@ export class CouponController {
   }
 
   @Post()
-  @ApiConsumes('application/x-www-form-urlencoded')
-  @ApiOperation(CreateCouponSwagger)
-  @ApiBody({ type: CreateCouponBody })
   async create(
     @Body() body: CreateCouponBody,
   ): Promise<{ coupon: ICouponView }> {
@@ -100,9 +90,6 @@ export class CouponController {
   }
 
   @Put()
-  @ApiConsumes('application/x-www-form-urlencoded')
-  @ApiBody({ type: SaveCouponBody })
-  @ApiOperation(UpdateCouponSwagger)
   async update(@Body() body: SaveCouponBody): Promise<{ coupon: ICouponView }> {
     const { coupon } = await this.saveCoupon.execute(body)
 
@@ -112,7 +99,6 @@ export class CouponController {
   }
 
   @Patch('delete/:couponId')
-  @ApiOperation(DeleteCouponSwagger)
   async delete(
     @Param('couponId') couponId: string,
   ): Promise<{ coupon: ICouponView }> {
@@ -126,7 +112,6 @@ export class CouponController {
   }
 
   @Patch('recover/:couponId')
-  @ApiOperation(DeleteCouponSwagger)
   async recover(
     @Param('couponId') couponId: string,
   ): Promise<{ coupon: ICouponView }> {

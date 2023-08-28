@@ -24,6 +24,8 @@ model Coupon {
   deleted            Boolean    @default(false)
   restaurantId       String
   restaurant         Restaurant @relation(name: "CouponToRestaurant", fields: [restaurantId], references: [id])
+
+  @@map("coupons")
 }
 
 model Restaurant {
