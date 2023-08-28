@@ -1,12 +1,13 @@
+import { Injectable } from '@nestjs/common';
 import { encodePassword } from '@shared/services/encodePassword';
+
 import { User } from '../entities/user';
 import { UsersRepository } from '../repositories/user-repository';
 import { UserNotFound } from './errors/user-not-found';
-import { Injectable } from '@nestjs/common';
 
 interface SaveUserRequest {
   userId: string;
-  name?: string;
+  username?: string;
   email?: string;
   password?: string;
 }
