@@ -15,4 +15,6 @@ model RestaurantType {
   deleted     Boolean   @default(false)
   disabledAt  DateTime?
   disabled    Boolean   @default(false)
+
+  @@map("restaurant_types")
 }

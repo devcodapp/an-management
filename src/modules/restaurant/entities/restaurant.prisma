@@ -14,14 +14,22 @@ model Restaurant {
   phoneNumber String?
 
   isOpened     Boolean @default(false)
-  openingHours Json?
+  openingHours Json[]
 
   imageId  String?
   imageUrl String?
 
-  ownerId String
+  owner Owner @relation(fields: [ownerId], references: [id])
 
   createdAt  DateTime  @default(now())
   disabledAt DateTime?
   disabled   Boolean   @default(false)
+  ownerId    String
+
+  @@map("restaurants")
+}
+
+model Owner {
+  id         String       @id @map("_id")
+  Restaurant Restaurant[]
 }

@@ -1,14 +1,17 @@
 import { Address } from '@modules/restaurant/entities/address';
 import {
-  OpeningHours,
-  OpeningHoursProps,
+  OpeningHours
 } from '@modules/restaurant/entities/openingHours';
 import { Restaurant } from '@modules/restaurant/entities/restaurant';
 import { Restaurant as RawRestaurant } from '@prisma/client';
 
 export class PrismaRestaurantMapper {
   static toPrisma(restaurant: Restaurant) {
-    return restaurant;
+    const newRestaurant = {} as any
+    for(const field in restaurant['props']){
+      newRestaurant[field] = restaurant['props'][field]
+    }
+    return newRestaurant;
   }
 
   static toDomain(raw: RawRestaurant) {
@@ -22,7 +25,7 @@ export class PrismaRestaurantMapper {
       address: raw.address ? new Address(raw.address as any) : undefined,
       isOpened: raw.isOpened,
       openingHours: raw.openingHours
-        ? new OpeningHours(raw.openingHours as OpeningHoursProps)
+        ? raw.openingHours.map(openingHour => new OpeningHours(openingHour as any))
         : undefined,
       createdAt: raw.createdAt,
       disabledAt: raw.disabledAt ?? undefined,

@@ -27,7 +27,7 @@ export class DisableRestaurant {
       throw new RestaurantNotFound();
     }
 
-    restaurant.disabledAt = new Date();
+    restaurant.disable();
 
     await this.restaurantsRepository.save(restaurant);
 

@@ -10,28 +10,13 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import {
-  ApiBearerAuth,
-  ApiBody,
-  ApiConsumes,
-  ApiOperation,
-  ApiTags,
-} from '@nestjs/swagger';
 import { AuthGuard } from '@shared/modules/auth/auth.guard';
 import { ArrayInterceptor } from 'src/interceptors/array/array.interceptor';
 import { BooleanInterceptor } from 'src/interceptors/boolean/boolean.interceptor';
-import { CreateRestaurantBody } from './dtos/create-restaurant-body';
-import { FilterRestaurantBody } from './dtos/filter-restaurant-body';
-import { SaveRestaurantBody } from './dtos/save-restaurant-body';
-import {
-  CloseRestaurantSwagger,
-  CreateRestaurantSwagger,
-  DisableRestaurantSwagger,
-  FilterRestaurantSwagger,
-  GetRestaurantSwagger,
-  OpenRestaurantSwagger,
-  UpdateRestaurantSwagger,
-} from './swagger/restaurant.swagger';
+
+import { CreateRestaurantBody } from './dtos/create-restaurant.body';
+import { FilterRestaurantBody } from './dtos/filter-restaurant.body';
+import { SaveRestaurantBody } from './dtos/save-restaurant.body';
 import { CloseRestaurant } from './use-cases/close-restaurant';
 import { CreateRestaurant } from './use-cases/create-restaurant';
 import { DisableRestaurant } from './use-cases/disable-restaurant';
@@ -41,7 +26,6 @@ import { OpenRestaurant } from './use-cases/open-restaurant';
 import { SaveRestaurant } from './use-cases/save-restaurant';
 import { IRestaurantView, RestaurantViewModel } from './view-models/restaurant';
 
-@ApiTags('Restaurant')
 @Controller('restaurant')
 @UseInterceptors(BooleanInterceptor, ArrayInterceptor)
 export class RestaurantController {
@@ -56,9 +40,7 @@ export class RestaurantController {
   ) {}
 
   @UseGuards(AuthGuard)
-  @ApiBearerAuth()
   @Get()
-  @ApiOperation(FilterRestaurantSwagger)
   async restaurants(
     @Query() query: FilterRestaurantBody,
   ): Promise<{ restaurants: IRestaurantView[] } | null> {
@@ -72,9 +54,7 @@ export class RestaurantController {
   }
 
   @UseGuards(AuthGuard)
-  @ApiBearerAuth()
   @Get(':id')
-  @ApiOperation(GetRestaurantSwagger)
   async restaurant(
     @Param('id') id: string,
   ): Promise<{ restaurant: IRestaurantView } | null> {
@@ -90,9 +70,6 @@ export class RestaurantController {
   }
 
   @Post()
-  @ApiOperation(CreateRestaurantSwagger)
-  @ApiConsumes('application/x-www-form-urlencoded')
-  @ApiBody({ type: CreateRestaurantBody })
   async create(
     @Body() body: CreateRestaurantBody,
   ): Promise<{ restaurant: IRestaurantView }> {
@@ -104,11 +81,7 @@ export class RestaurantController {
   }
 
   @UseGuards(AuthGuard)
-  @ApiBearerAuth()
   @Put()
-  @ApiConsumes('application/x-www-form-urlencoded')
-  @ApiBody({ type: SaveRestaurantBody })
-  @ApiOperation(UpdateRestaurantSwagger)
   async update(
     @Body() body: SaveRestaurantBody,
   ): Promise<{ restaurant: IRestaurantView }> {
@@ -120,9 +93,7 @@ export class RestaurantController {
   }
 
   @UseGuards(AuthGuard)
-  @ApiBearerAuth()
   @Patch('open/:restaurantId')
-  @ApiOperation(OpenRestaurantSwagger)
   async open(@Param('restaurantId') restaurantId: string): Promise<void> {
     await this.openRestaurant.execute({
       restaurantId,
@@ -130,9 +101,7 @@ export class RestaurantController {
   }
 
   @UseGuards(AuthGuard)
-  @ApiBearerAuth()
   @Patch('close/:restaurantId')
-  @ApiOperation(CloseRestaurantSwagger)
   async close(@Param('restaurantId') restaurantId: string): Promise<void> {
     await this.closeRestaurant.execute({
       restaurantId,
@@ -140,9 +109,7 @@ export class RestaurantController {
   }
 
   @UseGuards(AuthGuard)
-  @ApiBearerAuth()
   @Patch('disable/:restaurantId')
-  @ApiOperation(DisableRestaurantSwagger)
   async disable(
     @Param('restaurantId') restaurantId: string,
   ): Promise<{ restaurant: IRestaurantView }> {

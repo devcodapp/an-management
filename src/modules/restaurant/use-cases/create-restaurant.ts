@@ -1,16 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { KafkaService } from '@shared/modules/kafka/kafka.service';
 
+import { CreateRestaurantBody } from '../dtos/create-restaurant.body';
 import { Restaurant } from '../entities/restaurant';
 import { RestaurantsRepository } from '../repositories/restaurant-repository';
-
-interface CreateRestaurantRequest {
-  name: string;
-  description: string;
-  tags?: string[];
-  type: string;
-  ownerId: string;
-}
 
 interface CreateRestaurantResponse {
   restaurant: Restaurant;
@@ -24,7 +17,7 @@ export class CreateRestaurant {
   ) {}
 
   async execute(
-    request: CreateRestaurantRequest,
+    request: CreateRestaurantBody,
   ): Promise<CreateRestaurantResponse> {
     const restaurant = new Restaurant(request);
 

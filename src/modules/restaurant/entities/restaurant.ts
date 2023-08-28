@@ -1,8 +1,9 @@
 import { randomUUID } from 'crypto';
+
 import { Address } from './address';
 import { OpeningHours } from './openingHours';
 
-interface RestaurantProps {
+export interface RestaurantProps {
   id?: string;
   name: string;
   description: string;
@@ -13,7 +14,7 @@ interface RestaurantProps {
   phoneNumber?: string;
 
   isOpened?: boolean;
-  openingHours?: OpeningHours;
+  openingHours?: OpeningHours[];
 
   imageId?: string;
   imageUrl?: string;
@@ -132,11 +133,11 @@ export class Restaurant {
     this.props.phoneNumber = phoneNumber;
   }
 
-  public get openingHours(): OpeningHours | undefined {
+  public get openingHours(): OpeningHours[] | undefined {
     return this.props.openingHours;
   }
 
-  public set openingHours(openingHours: OpeningHours | undefined) {
+  public set openingHours(openingHours: OpeningHours[] | undefined) {
     this.props.openingHours = openingHours;
   }
 
@@ -154,5 +155,10 @@ export class Restaurant {
 
   public set ownerId(ownerId: string) {
     this.props.ownerId = ownerId;
+  }
+
+  public disable(){
+    this.props.disabled = true;
+    this.props.disabledAt = new Date();
   }
 }
