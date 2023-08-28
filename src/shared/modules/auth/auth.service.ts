@@ -1,8 +1,7 @@
+import { GetUserEmail } from '@modules/user/use-cases/get-user-email';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-
-import { GetUserEmail } from '../user/use-cases/get-user-email';
 
 @Injectable()
 export class AuthService {
@@ -54,26 +53,4 @@ export class AuthService {
     };
   }
 
-  async signInGoogle(email: string, googleId: string) {
-    const { user } = await this.getUserEmail.execute({ email });
-    const isMatch =
-      user.googleId?.toLocaleLowerCase() === googleId.toLocaleLowerCase();
-
-    if (!isMatch) {
-      throw new UnauthorizedException();
-    }
-    const payload = { email: user.email, sub: user.id };
-    return {
-      access_token: await this.jwtService.signAsync(payload, {
-        expiresIn: '7d',
-      }),
-      user: {
-        username: user.username,
-        email: user.email,
-
-        restaurantId: user.restaurantId,
-        id: user.id,
-      },
-    };
-  }
 }

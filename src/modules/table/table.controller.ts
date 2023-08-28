@@ -1,42 +1,19 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Param,
-  Patch,
-  Post,
-  Put,
-  Query,
-  UseGuards,
-} from '@nestjs/common';
-import {
-  ApiBearerAuth,
-  ApiBody,
-  ApiConsumes,
-  ApiOperation,
-  ApiTags,
-} from '@nestjs/swagger';
-import { CreateTable } from './use-cases/create-table';
-import { SaveTable } from './use-cases/save-table';
-import { FilterTable } from './use-cases/filter-table';
-import { GetTable } from './use-cases/get-table';
-import { DeleteTable } from './use-cases/delete-table';
-import {
-  CreateTableSwagger,
-  DeleteTableSwagger,
-  DisableTableSwagger,
-  EnableTableSwagger,
-  FilterTableSwagger,
-  GetTableSwagger,
-} from './swagger/table.swagger';
-import { FilterTableBody } from './dtos/filter-table-body';
-import { ITableView, TableViewModel } from './view-models/table';
+import { Body, Controller, Get, Param, Patch, Post, Put, Query, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiBody, ApiConsumes, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@shared/modules/auth/auth.guard';
+
 import { CreateTableBody } from './dtos/create-table-body';
+import { FilterTableBody } from './dtos/filter-table-body';
 import { SaveTableBody } from './dtos/save-table-body';
-import { UpdateAdditionalSwagger } from '@modules/additional/swagger/additional.swagger';
+import { CreateTableSwagger, DeleteTableSwagger, DisableTableSwagger, EnableTableSwagger, FilterTableSwagger, GetTableSwagger } from './swagger/table.swagger';
+import { CreateTable } from './use-cases/create-table';
+import { DeleteTable } from './use-cases/delete-table';
 import { DisableTable } from './use-cases/disable-table';
 import { EnableTable } from './use-cases/enable-table';
-import { AuthGuard } from '@shared/modules/auth/auth.guard';
+import { FilterTable } from './use-cases/filter-table';
+import { GetTable } from './use-cases/get-table';
+import { SaveTable } from './use-cases/save-table';
+import { ITableView, TableViewModel } from './view-models/table';
 
 @UseGuards(AuthGuard)
 @ApiBearerAuth()
@@ -100,7 +77,6 @@ export class TableController {
   @Put()
   @ApiConsumes('multipart/form-data')
   @ApiBody({ type: SaveTableBody })
-  @ApiOperation(UpdateAdditionalSwagger)
   async update(@Body() body: SaveTableBody): Promise<{ table: ITableView }> {
     const { table } = await this.seveTable.execute({
       ...body,
