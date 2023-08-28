@@ -1,5 +1,6 @@
 import { Owner } from '@modules/owner/entities/owner';
-import { Owner as RawOwner } from '@prisma/client';
+import { User } from '@modules/user/entities/user';
+import { Owner as RawOwner, User as RawUser } from '@prisma/client';
 
 export class PrismaOwnerMapper {
   static toPrisma(owner: Owner) {
@@ -14,7 +15,8 @@ export class PrismaOwnerMapper {
     };
   }
 
-  static toDomain(raw: RawOwner) {
+  static toDomain(raw: RawOwner & { user: RawUser }) {
+    const user = new User({ ...raw.user, restaurantId: raw.user.restaurantId || undefined, deletedAt: raw.user.deletedAt || undefined })
     return new Owner({
       name: raw.name,
       userId: raw.userId,
@@ -24,6 +26,7 @@ export class PrismaOwnerMapper {
       imageUrl: raw.imageUrl || undefined,
       deletedAt: raw.deletedAt ?? undefined,
       id: raw.id,
+      user
     });
   }
 }

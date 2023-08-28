@@ -6,10 +6,11 @@ import { DatabaseModule } from '@shared/modules/database/database.module';
 
 import { OwnerController } from './owner.controller';
 import { CreateOwner } from './use-cases/create-owner';
+import { GetOwner } from './use-cases/get-owner';
 import { SaveOwner } from './use-cases/save-owner';
 
 @Module({
-  providers: [CreateOwner, CreateUser, JwtService, SaveOwner, SaveUser],
+  providers: [CreateOwner, CreateUser, JwtService, SaveOwner, SaveUser, GetOwner],
   imports: [DatabaseModule],
   controllers: [OwnerController]
 })

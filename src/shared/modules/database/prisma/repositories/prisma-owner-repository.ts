@@ -9,23 +9,23 @@ import { PrismaService } from '../prisma.service';
 // eslint-disable-next-line @darraghor/nestjs-typed/injectable-should-be-provided
 export class PrismaOwnerRepository implements OwnersRepository {
   constructor(private prisma: PrismaService) { }
-  
+
   async create(owner: Owner): Promise<void> {
     const raw = PrismaOwnerMapper.toPrisma(owner);
 
-    await this.prisma.owner.create({ data: {...raw, id: raw.id ?? ''} });
+    await this.prisma.owner.create({ data: { ...raw, id: raw.id ?? '' } });
   }
 
   async owner(ownerId: string): Promise<Owner | null> {
-    const owner = await this.prisma.owner.findUnique({ where: { id: ownerId } });
-    
+    const owner = await this.prisma.owner.findUnique({ where: { id: ownerId }, include: { user: true } });
+
     if (!owner) {
       return null;
     }
-    
+
     return PrismaOwnerMapper.toDomain(owner);
   }
-  
+
 
   async save(owner: Owner): Promise<void> {
     const { id, ...raw } = PrismaOwnerMapper.toPrisma(owner);

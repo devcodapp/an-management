@@ -1,3 +1,4 @@
+import { User } from "@modules/user/entities/user";
 import { randomUUID } from "crypto";
 
 interface OwnerProps {
@@ -9,6 +10,8 @@ interface OwnerProps {
   createdAt?: Date;
   deletedAt?: Date | null;
   deleted?: boolean;
+
+  user?: User
 }
 
 export class Owner {
@@ -41,6 +44,10 @@ export class Owner {
 
   public get imageUrl(): string | undefined {
     return this.props.imageUrl
+  }
+
+  public get user(): User | undefined {
+    return this.props.user
   }
 
   public get deleted(): boolean | undefined {
