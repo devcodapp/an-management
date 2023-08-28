@@ -8,79 +8,6 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Additional {
-  id          String                  @id @map("_id")
-  name        String
-  price       Float
-  imageUrl    String
-  imageId     String
-  categoryId  String
-  createdUser String
-  createdAt   DateTime                @default(now())
-  deletedUser String?
-  deletedAt   DateTime?
-  deleted     Boolean                 @default(false)
-  category    CategoryAdditional      @relation(name: "AdditionalToCategoryAdditional", fields: [categoryId], references: [id])
-  products    AdditionalsOnProducts[] @relation(name: "AdditionalToAdditionalsOnProducts")
-}
-
-model CategoryAdditional {
-  id           String       @id @map("_id")
-  additionals  Additional[] @relation(name: "AdditionalToCategoryAdditional")
-  name         String
-  order        Int
-  restaurantId String
-  createdUser  String
-  createdAt    DateTime     @default(now())
-  deletedUser  String?
-  deletedAt    DateTime?
-  deleted      Boolean      @default(false)
-  restaurant   Restaurant   @relation(name: "CategoryAdditionalToRestaurant", fields: [restaurantId], references: [id])
-}
-
-model Restaurant {
-  id                  String               @id @map("_id")
-  categoryAdditionals CategoryAdditional[] @relation(name: "CategoryAdditionalToRestaurant")
-  categoryProducts    CategoryProduct[]    @relation(name: "CategoryProductToRestaurant")
-  coupons             Coupon[]             @relation(name: "CouponToRestaurant")
-  options             Option[]             @relation(name: "OptionToRestaurant")
-  name                String
-  description         String
-  tags                String[]
-  type                String
-  address             Json?
-  phoneNumber         String?
-  isOpened            Boolean              @default(false)
-  openingHours        Json?
-  imageId             String?
-  imageUrl            String?
-  ownerId             String
-  createdAt           DateTime             @default(now())
-  disabledAt          DateTime?
-  disabled            Boolean              @default(false)
-  tables              Table[]              @relation(name: "RestaurantToTable")
-  owner               User                 @relation(name: "OWNER", fields: [ownerId], references: [id])
-  users               User[]               @relation(name: "USERS")
-}
-
-model CategoryProduct {
-  id           String     @id @map("_id")
-  name         String
-  description  String
-  order        Int
-  imageId      String
-  imageUrl     String
-  enabled      Boolean    @default(false)
-  createdUser  String
-  createdAt    DateTime   @default(now())
-  deletedUser  String?
-  deletedAt    DateTime?
-  deleted      Boolean    @default(false)
-  Restaurant   Restaurant @relation(name: "CategoryProductToRestaurant", fields: [restaurantId], references: [id])
-  restaurantId String
-  product      Product[]  @relation(name: "CategoryProductToProduct")
-}
-
 model Coupon {
   id                 String     @id @map("_id")
   title              String
@@ -99,49 +26,54 @@ model Coupon {
   restaurant         Restaurant @relation(name: "CouponToRestaurant", fields: [restaurantId], references: [id])
 }
 
-model Option {
-  id           String     @id @map("_id")
+model Restaurant {
+  id           String    @id @map("_id")
+  coupons      Coupon[]  @relation(name: "CouponToRestaurant")
   name         String
   description  String
-  defaultPrice Float?
-  suboptions   Json[]
-  restaurantId String
-  createdUser  String
-  createdAt    DateTime   @default(now())
-  deletedUser  String?
-  deletedAt    DateTime?
-  deleted      Boolean    @default(false)
+  tags         String[]
+  type         String
+  address      Json?
+  phoneNumber  String?
+  isOpened     Boolean   @default(false)
+  openingHours Json?
+  imageId      String?
+  imageUrl     String?
+  ownerId      String
+  createdAt    DateTime  @default(now())
   disabledAt   DateTime?
-  disabled     Boolean    @default(false)
-  restaurant   Restaurant @relation(name: "OptionToRestaurant", fields: [restaurantId], references: [id])
+  disabled     Boolean   @default(false)
+  tables       Table[]   @relation(name: "RestaurantToTable")
+  owner        User      @relation(name: "OWNER", fields: [ownerId], references: [id])
+  users        User[]    @relation(name: "USERS")
 }
 
-model Product {
-  id          String                  @id @map("_id")
-  name        String
-  description String
-  price       Float
-  sku         String
-  variants    Json[]
-  images      Json[]
-  createdUser String
-  createdAt   DateTime                @default(now())
-  deletedUser String?
-  deletedAt   DateTime?
-  deleted     Boolean                 @default(false)
-  disabledAt  DateTime?
-  disabled    Boolean                 @default(false)
-  categoryId  String
-  additionals AdditionalsOnProducts[] @relation(name: "AdditionalsOnProductsToProduct")
-  category    CategoryProduct?        @relation(name: "CategoryProductToProduct", fields: [categoryId], references: [id])
+model Owner {
+  id        String    @id @map("_id")
+  name      String
+  imageId   String?
+  imageUrl  String?
+  createdAt DateTime  @default(now())
+  deletedAt DateTime?
+  deleted   Boolean   @default(false)
+  userId    String
+  user      User      @relation(name: "OwnerToUser", fields: [userId], references: [id])
+
+  @@map("owners")
 }
 
-model AdditionalsOnProducts {
-  id           String      @id @map("_id")
-  additional   Additional? @relation(name: "AdditionalToAdditionalsOnProducts", fields: [additionalId], references: [id])
-  additionalId String?
-  product      Product?    @relation(name: "AdditionalsOnProductsToProduct", fields: [productId], references: [id])
-  productId    String?
+model User {
+  id             String       @id @map("_id")
+  Owner          Owner[]      @relation(name: "OwnerToUser")
+  username       String       @unique
+  email          String
+  password       String
+  changePassword Boolean      @default(true)
+  deletedAt      DateTime?
+  restaurant     Restaurant?  @relation(name: "USERS", fields: [restaurantId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  restaurantId   String?
+  Restaurant     Restaurant[] @relation(name: "OWNER")
+  workers        Worker[]     @relation(name: "UserToWorker")
 }
 
 model RestaurantType {
@@ -183,19 +115,4 @@ model Worker {
   deleted     Boolean   @default(false)
   userId      String
   user        User      @relation(name: "UserToWorker", fields: [userId], references: [id])
-}
-
-model User {
-  id             String       @id @map("_id")
-  workers        Worker[]     @relation(name: "UserToWorker")
-  name           String?
-  username       String?
-  email          String
-  password       String?
-  changePassword Boolean      @default(true)
-  deletedAt      DateTime?
-  googleId       String?
-  restaurant     Restaurant?  @relation(name: "USERS", fields: [restaurantId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  restaurantId   String?
-  Restaurant     Restaurant[] @relation(name: "OWNER")
 }

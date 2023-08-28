@@ -1,5 +1,5 @@
+import { User } from '@modules/user/entities/user';
 import { User as RawUser } from '@prisma/client';
-import { User } from '@shared/modules/user/entities/user';
 
 export class PrismaUserMapper {
   static toPrisma(user: User) {
@@ -11,19 +11,15 @@ export class PrismaUserMapper {
       restaurantId: user.restaurantId,
       changePassword: user.changePassword,
       deletedAt: user.deletedAt,
-      name: user.name,
-      googleId: user.googleId,
     };
   }
 
   static toDomain(raw: RawUser) {
     return new User({
       email: raw.email,
-      password: raw.password ?? undefined,
+      password: raw.password,
       restaurantId: raw.restaurantId ?? undefined,
-      username: raw.username ?? undefined,
-      name: raw.name ?? undefined,
-      googleId: raw.googleId ?? undefined,
+      username: raw.username,
       changePassword: raw.changePassword,
       deletedAt: raw.deletedAt ?? undefined,
       id: raw.id,
