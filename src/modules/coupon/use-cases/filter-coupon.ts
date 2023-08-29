@@ -1,15 +1,8 @@
 import { Injectable } from '@nestjs/common';
+
+import { FilterCouponBody } from '../dtos/filter-coupon.body';
 import { Coupon } from '../entities/coupon';
 import { CouponsRepository } from '../repositories/coupon-repository';
-
-interface FilterCouponRequest {
-  title?: string;
-  description?: string;
-  code?: string;
-  expired?: boolean;
-  restaurantId: string;
-  deleted?: boolean;
-}
 
 interface FilterCouponResponse {
   coupons: Coupon[] | null;
@@ -18,7 +11,7 @@ interface FilterCouponResponse {
 @Injectable()
 export class FilterCoupon {
   constructor(private couponsRepository: CouponsRepository) {}
-  async execute(request: FilterCouponRequest): Promise<FilterCouponResponse> {
+  async execute(request: FilterCouponBody): Promise<FilterCouponResponse> {
     const coupons = await this.couponsRepository.coupons(request);
 
     return { coupons };

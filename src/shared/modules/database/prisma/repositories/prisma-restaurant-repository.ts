@@ -1,13 +1,14 @@
+import { FilterRestaurantBody } from '@modules/restaurant/dtos/filter-restaurant.body';
 import { Restaurant } from '@modules/restaurant/entities/restaurant';
-import { RestaurantFilterInput } from '@modules/restaurant/interfaces/restaurant-filter.input';
 import { RestaurantsRepository } from '@modules/restaurant/repositories/restaurant-repository';
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../prisma.service';
 import { PrismaRestaurantMapper } from '../mappers/prisma-restaurant-mapper';
+import { PrismaService } from '../prisma.service';
 
 @Injectable()
+// eslint-disable-next-line @darraghor/nestjs-typed/injectable-should-be-provided
 export class PrismaRestaurantRepository implements RestaurantsRepository {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   async create(restaurant: Restaurant): Promise<void> {
     const raw = PrismaRestaurantMapper.toPrisma(restaurant);
@@ -35,29 +36,29 @@ export class PrismaRestaurantRepository implements RestaurantsRepository {
     return PrismaRestaurantMapper.toDomain(restaurant);
   }
   async restaurants(
-    filters: RestaurantFilterInput,
+    filters: FilterRestaurantBody,
   ): Promise<Restaurant[] | null> {
     const restaurants = await this.prisma.restaurant.findMany({
       where: {
         ...(filters.name
-          ? { name: { contains: filters.name, mode: 'insensitive' } }
-          : {}),
+          && { name: { contains: filters.name, mode: 'insensitive' } }
+        ),
         ...(filters.description
-          ? {
-              description: {
-                contains: filters.description,
-                mode: 'insensitive',
-              },
-            }
-          : {}),
-        ...(filters.tags ? { tags: { hasSome: filters.tags } } : {}),
-        ...(filters.type ? { type: filters.type } : {}),
+          && {
+          description: {
+            contains: filters.description,
+            mode: 'insensitive',
+          },
+        }
+        ),
+        ...(filters.tags && { tags: { hasSome: filters.tags } }),
+        ...(filters.type && { type: filters.type }),
         ...(filters.isOpened != undefined
-          ? { isOpened: filters.isOpened }
-          : {}),
-        ...(filters.disabledAt
-          ? { disabledAt: { not: null } }
-          : { disabledAt: undefined }),
+          && { isOpened: filters.isOpened }
+        ),
+        ...(filters.disabled
+          ? { disabled: true }
+          : { disabled: false }),
       },
       orderBy: { name: 'asc' },
     });

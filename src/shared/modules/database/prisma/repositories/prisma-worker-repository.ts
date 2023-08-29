@@ -1,13 +1,14 @@
-import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../prisma.service';
-import { PrismaWorkerMapper } from '../mappers/prisma-worker-mapper';
-import { WorkerFilterInput } from '@modules/worker/interfaces/worker-filter.input';
-import { WorkerRepository } from '@modules/worker/repositories/worker-repository';
+import { FilterWorkerBody } from '@modules/worker/dtos/filter-worker.body';
 import { Worker } from '@modules/worker/entities/worker';
+import { WorkerRepository } from '@modules/worker/repositories/worker-repository';
+import { Injectable } from '@nestjs/common';
+import { PrismaWorkerMapper } from '../mappers/prisma-worker-mapper';
+import { PrismaService } from '../prisma.service';
 
 @Injectable()
+// eslint-disable-next-line @darraghor/nestjs-typed/injectable-should-be-provided
 export class PrismaWorkerRepository implements WorkerRepository {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   async create(worker: Worker): Promise<void> {
     const raw = PrismaWorkerMapper.toPrisma(worker);
@@ -31,11 +32,14 @@ export class PrismaWorkerRepository implements WorkerRepository {
   async workers({
     deleted,
     ...filters
-  }: WorkerFilterInput): Promise<Worker[] | null> {
+  }: FilterWorkerBody): Promise<Worker[] | null> {
     const workers = await this.prisma.worker.findMany({
       where: {
-        ...(filters ? filters : {}),
-        ...(filters.name ? { name: { contains: filters.name } } : {}),
+        ...(filters.name && { name: { contains: filters.name, mode: 'insensitive' } }),
+        ...(filters.email && { user: {
+          email: {contains: filters.email, mode: 'insensitive'}
+        } }),
+        ...(filters.restaurantId && { user: { restaurantId: filters.restaurantId,} }),
         deleted: deleted || false,
       },
       orderBy: { name: 'asc' },

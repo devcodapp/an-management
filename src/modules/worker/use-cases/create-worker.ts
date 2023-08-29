@@ -5,15 +5,10 @@ import { CloudinaryService } from '@shared/modules/cloudinary/cloudinary.service
 import { generateSKU } from '@shared/services/generateSKU';
 import { Request } from 'express';
 
+import { CreateWorkerBody } from '../dtos/create-worker.body';
 import { Worker } from '../entities/worker';
 import { WorkerRepository } from '../repositories/worker-repository';
 
-interface CreateWorkerRequest {
-  name: string;
-  email: string;
-  role: 'admin' | 'colaborator';
-  restaurantId: string;
-}
 interface CreateWorkerResponse {
   worker: Worker & { password?: string };
 }
@@ -25,20 +20,19 @@ export class CreateWorker {
     private createUser: CreateUser,
     private cloudinary: CloudinaryService,
     @Inject(REQUEST) private req: Request,
-  ) {}
+  ) { }
 
-  async execute(request: CreateWorkerRequest): Promise<CreateWorkerResponse> {
-    const { email, name, restaurantId, role } = request;
+  async execute(request: CreateWorkerBody): Promise<CreateWorkerResponse> {
+    const { email, name, restaurantId, } = request;
 
     const password = generateSKU(6).toLowerCase();
 
-    const {user} = await this.createUser.execute({email, name, password, restaurantId});
+    const { user } = await this.createUser.execute({ email, name, password, restaurantId });
 
     const worker = new Worker(
       {
         name,
-        role,
-        userId: user.id,
+        userId: user.id
       },
       { createdUser: this.req['user'].sub },
     );

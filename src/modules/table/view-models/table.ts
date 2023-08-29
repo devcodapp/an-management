@@ -6,7 +6,9 @@ export class TableViewModel {
       id: table.id,
       name: table.name,
       amountOfChairs: table.amountOfChairs,
-      disabledAt: table.disabledAt,
+      disabled: table.disabled,
+      isOccupied: table.isOccupied,
+      isReserved: table.isReserved,
       restaurantId: table.restaurantId,
     };
   }
@@ -16,6 +18,8 @@ export interface ITableView {
   id: string;
   name: string;
   amountOfChairs: number;
-  disabledAt?: Date;
+  isOccupied: boolean;
+  isReserved: boolean;
+  disabled: Boolean;
   restaurantId: string;
 }

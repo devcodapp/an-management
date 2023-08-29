@@ -1,14 +1,11 @@
-import { Table } from '../entities/table';
 import { Inject, Injectable } from '@nestjs/common';
-import { TablesRepository } from '../repositories/table-repository';
 import { REQUEST } from '@nestjs/core';
 import { Request } from 'express';
 
-interface CreateTableRequest {
-  name: string;
-  restaurantId: string;
-  amountOfChairs: number;
-}
+import { CreateTableBody } from '../dtos/create-table.body';
+import { Table } from '../entities/table';
+import { TablesRepository } from '../repositories/table-repository';
+
 interface CreateTableResponse {
   table: Table;
 }
@@ -20,7 +17,7 @@ export class CreateTable {
     @Inject(REQUEST) private req: Request,
   ) {}
 
-  async execute(request: CreateTableRequest): Promise<CreateTableResponse> {
+  async execute(request: CreateTableBody): Promise<CreateTableResponse> {
     const { restaurantId, name, amountOfChairs } = request;
     const table = new Table(
       {

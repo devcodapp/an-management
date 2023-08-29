@@ -1,15 +1,11 @@
+import { SaveUser } from '@modules/user/use-cases/save-user';
 import { Injectable } from '@nestjs/common';
 import { CloudinaryService } from '@shared/modules/cloudinary/cloudinary.service';
-import { WorkerNotFound } from './errors/worker-not-found';
+import { SaveWorkerBody } from '../dtos/save-worker.body';
 import { Worker } from '../entities/worker';
 import { WorkerRepository } from '../repositories/worker-repository';
+import { WorkerNotFound } from './errors/worker-not-found';
 
-interface SaveWorkerRequest {
-  workerId: string;
-  name?: string;
-  role: 'admin' | 'colaborator';
-  image?: Express.Multer.File;
-}
 interface SaveWorkerResponse {
   worker: Worker;
 }
@@ -19,10 +15,11 @@ export class SaveWorker {
   constructor(
     private workerRepository: WorkerRepository,
     private cloudinary: CloudinaryService,
-  ) {}
+    private saveUser: SaveUser,
+  ) { }
 
-  async execute(request: SaveWorkerRequest): Promise<SaveWorkerResponse> {
-    const { workerId, image, ...updateFields } = request;
+  async execute(request: SaveWorkerBody): Promise<SaveWorkerResponse> {
+    const { workerId, image, email, name, password, username } = request;
 
     const worker = await this.workerRepository.worker(workerId);
 
@@ -39,7 +36,9 @@ export class SaveWorker {
       worker.imageUrl = uploadedImage.url;
     }
 
-    Object.assign(worker, updateFields);
+    await this.saveUser.execute({ userId: worker.userId, email, password, username })
+
+    name && (worker.name = name)
 
     await this.workerRepository.save(worker);
 

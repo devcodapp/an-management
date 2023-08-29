@@ -1,9 +1,7 @@
-import { BaseEntityProps } from '@shared/entities/base-entity';
-import { BaseEntity } from '@shared/entities/base-entity';
+import { BaseEntity, BaseEntityProps } from '@shared/entities/base-entity';
 
 export interface WorkerProps {
   name: string;
-  role: any;
   imageId?: string;
   imageUrl?: string;
   userId: string;
@@ -28,18 +26,6 @@ export class Worker extends BaseEntity {
     return this.props.name;
   }
 
-  public set role(role: 'admin' | 'colaborator') {
-    if (role === 'admin') {
-      this.props.role = 'admin';
-      return;
-    }
-    this.props.role = 'colaborator';
-  }
-
-  public get role(): 'admin' | 'colaborator' {
-    return this.props.role;
-  }
-
   public set imageId(imageId: string | undefined) {
     this.props.imageId = imageId;
   }
@@ -54,10 +40,6 @@ export class Worker extends BaseEntity {
 
   public get imageUrl(): string | undefined {
     return this.props.imageUrl;
-  }
-
-  public set userId(userId: string) {
-    this.props.userId = userId;
   }
 
   public get userId(): string {

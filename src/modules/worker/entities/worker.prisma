@@ -1,7 +1,6 @@
 model Worker {
   id          String    @id @map("_id")
   name        String
-  role        String
   imageId     String?
   imageUrl    String?
   createdUser String
@@ -13,6 +12,8 @@ model Worker {
   userId String
 
   user User @relation(fields: [userId], references: [id])
+
+  @@map("workers")
 }
 
 model User {

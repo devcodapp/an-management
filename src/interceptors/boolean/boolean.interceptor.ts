@@ -1,27 +1,17 @@
-import {
-  CallHandler,
-  ExecutionContext,
-  Injectable,
-  NestInterceptor,
-} from '@nestjs/common';
+import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from '@nestjs/common';
 import { Observable, map } from 'rxjs';
 
 @Injectable()
 export class BooleanInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const request = context.switchToHttp().getRequest();
-    const booleanFieldsReturningBody = Object.keys(request.body).filter(
-      (field) => field.endsWith('Return'),
-    );
-    const booleanFieldsReturningQuery = Object.keys(request.query).filter(
-      (field) => field.endsWith('Return'),
-    );
+
     const booleanFields = [
       'isOpened',
-      'disabledAt',
+      'disabled',
       'deleted',
-      ...booleanFieldsReturningBody,
-      ...booleanFieldsReturningQuery,
+      "isReserved",
+      "isOccupied"
     ];
     booleanFields.forEach((field) => {
       if (request.body[field] == 'true') {

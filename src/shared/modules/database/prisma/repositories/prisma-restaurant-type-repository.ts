@@ -1,14 +1,18 @@
-import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../prisma.service';
-import { RestaurantTypesRepository } from '@modules/restaurant-type/repositories/restaurant-type-repository';
-import { PrismaRestaurantTypeMapper } from '../mappers/prisma-restaurant-type-mapper';
 import { RestaurantType } from '@modules/restaurant-type/entities/restaurant-type';
+import { RestaurantTypesRepository } from '@modules/restaurant-type/repositories/restaurant-type-repository';
+import { Injectable } from '@nestjs/common';
+import { PrismaRestaurantTypeMapper } from '../mappers/prisma-restaurant-type-mapper';
+import { PrismaService } from '../prisma.service';
 
 @Injectable()
+// eslint-disable-next-line @darraghor/nestjs-typed/injectable-should-be-provided
 export class PrismaRestaurantTypeRepository
-  implements RestaurantTypesRepository
-{
-  constructor(private prisma: PrismaService) {}
+  implements RestaurantTypesRepository {
+  constructor(private prisma: PrismaService) { }
+
+  async delete(restaurantTypeId: string): Promise<void> {
+    await this.prisma.restaurantType.delete({ where: { id: restaurantTypeId } })
+  }
   async create(restaurantType: RestaurantType): Promise<void> {
     const raw = PrismaRestaurantTypeMapper.toPrisma(restaurantType);
 

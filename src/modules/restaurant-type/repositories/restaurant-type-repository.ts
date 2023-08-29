@@ -10,4 +10,6 @@ export abstract class RestaurantTypesRepository {
   abstract restaurantTypes(): Promise<RestaurantType[] | null>;
 
   abstract save(restaurantType: RestaurantType): Promise<void>;
+
+  abstract delete(restaurantTypeId: string): Promise<void>;
 }

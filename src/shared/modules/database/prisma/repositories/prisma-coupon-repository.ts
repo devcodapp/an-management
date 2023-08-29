@@ -1,13 +1,15 @@
+import { FilterCouponBody } from '@modules/coupon/dtos/filter-coupon.body';
+import { Coupon } from '@modules/coupon/entities/coupon';
 import { CouponsRepository } from '@modules/coupon/repositories/coupon-repository';
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../prisma.service';
-import { Coupon } from '@modules/coupon/entities/coupon';
-import { CouponFilterInput } from '@modules/coupon/interfaces/coupon-filter.input';
+
 import { PrismaCouponMapper } from '../mappers/prisma-coupon-mapper';
+import { PrismaService } from '../prisma.service';
 
 @Injectable()
+// eslint-disable-next-line @darraghor/nestjs-typed/injectable-should-be-provided
 export class PrismaCouponRepository implements CouponsRepository {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   async create(coupon: Coupon): Promise<void> {
     const raw = PrismaCouponMapper.toPrisma(coupon);
@@ -42,13 +44,25 @@ export class PrismaCouponRepository implements CouponsRepository {
   async coupons({
     deleted,
     ...filters
-  }: CouponFilterInput): Promise<Coupon[] | null> {
+  }: FilterCouponBody): Promise<Coupon[] | null> {
     const coupons = await this.prisma.coupon.findMany({
       where: {
-        ...(filters ? filters : {}),
-        ...(filters.title ? { title: filters.title } : {}),
-        ...(filters.description ? { description: filters.description } : {}),
-        ...(filters.code ? { code: filters.code } : {}),
+        ...(filters.title && { title: { contains: filters.title, mode: 'insensitive' } }),
+        ...(filters.description && { description: { contains: filters.description, mode: 'insensitive' } }),
+        ...(filters.code && { code: { contains: filters.code, mode: 'insensitive' } }),
+        ...(filters.restaurantId && { restaurantId: filters.restaurantId }),
+        ...(filters.discountLimit && { discountLimit: filters.discountLimit }),
+        ...(filters.discountPercentage && { discountPercentage: filters.discountPercentage }),
+        ...(filters.discountValue && { discountValue: filters.discountValue }),
+        ...(filters.expiresIn && {
+          expiresIn: {
+            lte: new Date(filters.expiresIn),
+            gte: new Date(
+              filters.expiresIn.getTime() +
+              (1000 * 3600 * 24 - 1)
+            )
+          }
+        }),
         deleted: deleted || false,
       },
     });

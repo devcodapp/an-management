@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
 import { Table } from '@modules/table/entities/table';
-import { TableNotFound } from './errors/table-not-found';
+import { Injectable } from '@nestjs/common';
+
 import { TablesRepository } from '../repositories/table-repository';
+import { TableNotFound } from './errors/table-not-found';
 
 interface DisableTableRequest {
   tableId: string;

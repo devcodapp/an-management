@@ -1,12 +1,7 @@
 import { Injectable } from '@nestjs/common';
+import { FilterRestaurantBody } from '../dtos/filter-restaurant.body';
 import { Restaurant } from '../entities/restaurant';
 import { RestaurantsRepository } from '../repositories/restaurant-repository';
-
-interface FilterRestaurantRequest {
-  name?: string;
-  tags?: string[];
-  type?: string;
-}
 
 interface FilterRestaurantResponse {
   restaurants: Restaurant[] | null;
@@ -17,7 +12,7 @@ export class FilterRestaurant {
   constructor(private restaurantsRepository: RestaurantsRepository) {}
 
   async execute(
-    request: FilterRestaurantRequest,
+    request: FilterRestaurantBody,
   ): Promise<FilterRestaurantResponse> {
     const restaurants = await this.restaurantsRepository.restaurants(request);
 

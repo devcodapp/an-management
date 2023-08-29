@@ -3,19 +3,10 @@ import { REQUEST } from '@nestjs/core';
 import { KafkaService } from '@shared/modules/kafka/kafka.service';
 import { Request } from 'express';
 
+import { CreateCouponBody } from '../dtos/create-coupon.body';
 import { Coupon } from '../entities/coupon';
 import { CouponsRepository } from '../repositories/coupon-repository';
-
-interface CreateCouponRequest {
-  title: string;
-  description: string;
-  code: string;
-  discountValue?: number;
-  discountPercentage?: number;
-  discountLimit?: number;
-  expiresIn: Date;
-  restaurantId: string;
-}
+import { CouponAlreadExists } from './errors/coupon-alread-exists';
 
 interface CreateCouponResponse {
   coupon: Coupon;
@@ -27,15 +18,16 @@ export class CreateCoupon {
     private couponsRepository: CouponsRepository,
     private kafkaService: KafkaService,
     @Inject(REQUEST) private req: Request,
-  ) {}
-  async execute(request: CreateCouponRequest): Promise<CreateCouponResponse> {
+  ) { }
+  async execute(request: CreateCouponBody): Promise<CreateCouponResponse> {
 
-    delete request.discountLimit
-    delete request.discountPercentage
-    delete request.discountValue
-    request.expiresIn = new Date()
+    const hasCoupon = await this.couponsRepository.couponCode(request.code, request.restaurantId)
+
+    if(hasCoupon){
+      throw new CouponAlreadExists()
+    }
+
     const coupon = new Coupon(request, { createdUser: this.req['user'].sub });
-
 
     await this.couponsRepository.create(coupon);
 

@@ -3,7 +3,10 @@ import { BaseEntity, BaseEntityProps } from '@shared/entities/base-entity';
 export interface TableProps {
   name: string;
   amountOfChairs: number;
+  isOccupied?: boolean;
+  isReserved?: boolean;
   disabledAt?: Date;
+  disabled?: boolean;
   restaurantId: string;
 }
 
@@ -17,9 +20,11 @@ export class Table extends BaseEntity {
 
   public disable() {
     this.props.disabledAt = new Date();
+    this.props.disabled = true;
   }
   public enable() {
     this.props.disabledAt = undefined;
+    this.props.disabled = false;
   }
 
   public set name(name: string) {
@@ -28,6 +33,26 @@ export class Table extends BaseEntity {
 
   public get name(): string {
     return this.props.name;
+  }
+
+  public get disabled(): boolean  {
+    return this.props.disabled || false;
+  }
+
+  public set isOccupied(isOccupied: boolean ) {
+    this.props.isOccupied = isOccupied;
+  }
+
+  public get isOccupied(): boolean  {
+    return this.props.isOccupied || false;
+  }
+
+  public set isReserved(isReserved: boolean ) {
+    this.props.isReserved = isReserved;
+  }
+
+  public get isReserved(): boolean  {
+    return this.props.isReserved || false;
   }
 
   public set amountOfChairs(amountOfChairs: number) {
@@ -53,4 +78,5 @@ export class Table extends BaseEntity {
   public get disabledAt(): Date | undefined {
     return this.props.disabledAt;
   }
+
 }

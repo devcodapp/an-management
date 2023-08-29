@@ -4,6 +4,7 @@ import { encodePassword } from '@shared/services/encodePassword';
 import { User } from '../entities/user';
 import { UsersRepository } from '../repositories/user-repository';
 import { UserNotFound } from './errors/user-not-found';
+import { UsernameAlreadExists } from './errors/username-alread-exists';
 
 interface SaveUserRequest {
   userId: string;
@@ -27,6 +28,14 @@ export class SaveUser {
 
     if (!user) {
       throw new UserNotFound();
+    }
+
+    if(updateFields.username){
+      const hasUserWithUsername = await this.userRepository.userByUsername(updateFields.username);
+
+      if(hasUserWithUsername?.id != userId) {
+        throw new UsernameAlreadExists()
+      }
     }
 
     Object.assign(user, updateFields);

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { TablesRepository } from '../repositories/table-repository';
+
 import { Table } from '../entities/table';
+import { TablesRepository } from '../repositories/table-repository';
 
 interface GetTableRequest {
   id: string;

@@ -1,11 +1,7 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { IsBoolean, IsOptional } from 'class-validator';
 
 export class FilterBaseBody {
-  @ApiProperty({
-    description: 'Buscar excluidos',
-    type: Boolean,
-    required: false,
-    default: false,
-  })
-  deleted: boolean;
+  @IsBoolean()
+  @IsOptional()
+  deleted?: boolean = false;
 }

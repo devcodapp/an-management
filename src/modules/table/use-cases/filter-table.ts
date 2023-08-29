@@ -1,13 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { TablesRepository } from '../repositories/table-repository';
-import { Table } from '../entities/table';
 
-interface FilterTableRequest {
-  name?: string;
-  categoryId?: string;
-  price?: number;
-  deleted?: boolean;
-}
+import { FilterTableBody } from '../dtos/filter-table.body';
+import { Table } from '../entities/table';
+import { TablesRepository } from '../repositories/table-repository';
 
 interface FilterTableResponse {
   tables: Table[] | null;
@@ -17,7 +12,8 @@ interface FilterTableResponse {
 export class FilterTable {
   constructor(private tableRepository: TablesRepository) {}
 
-  async execute(request: FilterTableRequest): Promise<FilterTableResponse> {
+  async execute(request: FilterTableBody): Promise<FilterTableResponse> {
+
     const tables = await this.tableRepository.tables(request);
 
     return { tables };
