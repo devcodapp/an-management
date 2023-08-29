@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 
-import { Owner } from "../entities/Owner";
+import { Owner } from "../entities/owner";
 import { OwnersRepository } from "../repositories/owner-repository";
 
 interface GetOwnerRequest {

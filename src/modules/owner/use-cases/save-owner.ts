@@ -2,7 +2,7 @@ import { SaveUser } from "@modules/user/use-cases/save-user";
 import { Injectable } from "@nestjs/common";
 
 import { SaveOwnerBody } from "../dtos/save-owner.body";
-import { Owner } from "../entities/Owner";
+import { Owner } from "../entities/owner";
 import { OwnersRepository } from "../repositories/owner-repository";
 import { OwnerNotFound } from "./errors/owner-not-found";
 

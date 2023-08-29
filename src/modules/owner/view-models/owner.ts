@@ -1,6 +1,6 @@
 import { UserViewModel } from "@modules/user/view-models/user";
 
-import { Owner } from "../entities/Owner";
+import { Owner } from "../entities/owner";
 
 export class OwnerViewModel {
   static toHTTP({
