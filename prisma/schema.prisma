@@ -118,7 +118,6 @@ model Table {
 model Worker {
   id          String    @id @map("_id")
   name        String
-  role        String
   imageId     String?
   imageUrl    String?
   createdUser String
@@ -128,4 +127,6 @@ model Worker {
   deleted     Boolean   @default(false)
   userId      String
   user        User      @relation(name: "UserToWorker", fields: [userId], references: [id])
+
+  @@map("workers")
 }

@@ -6,7 +6,6 @@ export class PrismaWorkerMapper {
     return {
       id: worker.id,
       name: worker.name,
-      role: worker.role,
       imageId: worker.imageId,
       imageUrl: worker.imageUrl,
       createdUser: worker.createdUser,
@@ -25,7 +24,6 @@ export class PrismaWorkerMapper {
         imageId: raw.imageId || undefined,
         imageUrl: raw.imageUrl || undefined,
         name: raw.name,
-        role: raw.role,
       },
       {
         createdAt: raw.createdAt,
