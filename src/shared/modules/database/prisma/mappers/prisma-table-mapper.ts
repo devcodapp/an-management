@@ -3,18 +3,17 @@ import { Table as RawTable } from '@prisma/client';
 
 export class PrismaTableMapper {
   static toPrisma(table: Table) {
-    return {
-      id: table.id,
-      name: table.name,
-      disabledAt: table.disabledAt,
-      amountOfChairs: table.amountOfChairs,
-      restaurantId: table.restaurantId,
-      createdAt: table.createdAt,
-      createdUser: table.createdUser,
-      deletedAt: table.deletedAt,
-      deletedUser: table.deletedUser,
-      deleted: table.deleted,
-    };
+    const newTable = {} as any
+    for(const field in table['props']){
+      newTable[field] = table['props'][field]
+    }
+    for(const field in table) {
+      if(field.startsWith('_')){
+        const newField = field.split('_')[1]
+        newTable[newField] = table[field]
+      }
+    }
+    return newTable
   }
 
   static toDomain(raw: RawTable) {
@@ -24,6 +23,9 @@ export class PrismaTableMapper {
         name: raw.name,
         disabledAt: raw.disabledAt || undefined,
         restaurantId: raw.restaurantId,
+        disabled: raw.disabled,
+        isOccupied: raw.isOccupied,
+        isReserved: raw.isReserved
       },
       {
         createdAt: raw.createdAt,

@@ -1,13 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { TablesRepository } from '../repositories/table-repository';
+
+import { SaveTableBody } from '../dtos/save-table.body';
 import { Table } from '../entities/table';
+import { TablesRepository } from '../repositories/table-repository';
 import { TableNotFound } from './errors/table-not-found';
 
-interface SaveTableRequest {
-  tableId: string;
-  name: string;
-  amountOfChairs: number;
-}
 interface SaveTableResponse {
   table: Table;
 }
@@ -16,8 +13,8 @@ interface SaveTableResponse {
 export class SaveTable {
   constructor(private tableRepository: TablesRepository) {}
 
-  async execute(request: SaveTableRequest): Promise<SaveTableResponse> {
-    const { name, amountOfChairs, tableId } = request;
+  async execute(request: SaveTableBody): Promise<SaveTableResponse> {
+    const { tableId, ...updatedFields } = request;
 
     const table = await this.tableRepository.table(tableId);
 
@@ -25,8 +22,7 @@ export class SaveTable {
       throw new TableNotFound();
     }
 
-    name ? (table.name = name) : null;
-    amountOfChairs ? (table.amountOfChairs = amountOfChairs) : null;
+    Object.assign(table, updatedFields);
 
     await this.tableRepository.save(table);
 

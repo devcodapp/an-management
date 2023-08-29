@@ -1,15 +1,22 @@
 model Table {
-  id             String    @id @map("_id")
+  id             String  @id @map("_id")
   name           String
   amountOfChairs Float
-  disabledAt     DateTime?
-  createdUser    String
-  createdAt      DateTime  @default(now())
-  deletedUser    String?
-  deletedAt      DateTime?
-  deleted        Boolean   @default(false)
-  restaurant        Restaurant   @relation(fields: [restaurantId], references: [id])
-  restaurantId      String
+  isOccupied     Boolean @default(false)
+  isReserved     Boolean @default(false)
+
+  disabled   Boolean   @default(false)
+  disabledAt DateTime?
+
+  createdUser  String
+  createdAt    DateTime   @default(now())
+  deletedUser  String?
+  deletedAt    DateTime?
+  deleted      Boolean    @default(false)
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+  restaurantId String
+
+  @@map("tables")
 }
 
 model Restaurant {

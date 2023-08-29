@@ -1,11 +1,13 @@
-import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../prisma.service';
-import { PrismaTableMapper } from '../mappers/prisma-table-mapper';
-import { TablesRepository } from '@modules/table/repositories/table-repository';
+import { FilterTableBody } from '@modules/table/dtos/filter-table.body';
 import { Table } from '@modules/table/entities/table';
-import { TableFilterInput } from '@modules/table/interfaces/table-filter.input';
+import { TablesRepository } from '@modules/table/repositories/table-repository';
+import { Injectable } from '@nestjs/common';
+
+import { PrismaTableMapper } from '../mappers/prisma-table-mapper';
+import { PrismaService } from '../prisma.service';
 
 @Injectable()
+// eslint-disable-next-line @darraghor/nestjs-typed/injectable-should-be-provided
 export class PrismaTableRepository implements TablesRepository {
   constructor(private prisma: PrismaService) {}
 
@@ -31,12 +33,16 @@ export class PrismaTableRepository implements TablesRepository {
   async tables({
     deleted,
     ...filters
-  }: TableFilterInput): Promise<Table[] | null> {
+  }: FilterTableBody): Promise<Table[] | null> {
     const tables = await this.prisma.table.findMany({
       where: {
-        ...(filters ? filters : {}),
-        ...(filters.name ? { name: { contains: filters.name } } : {}),
-        deleted: deleted || false,
+        ...(filters.name && { name: { contains: filters.name, mode: 'insensitive' } }),
+        ...(filters.amountOfChairs && {amountOfChairs: filters.amountOfChairs}),
+        ...(filters.restaurantId && {restaurantId: filters.restaurantId}),
+        ...(filters.isOccupied != undefined && {isOccupied: filters.isOccupied}),
+        ...(filters.isReserved != undefined && {isReserved: filters.isReserved}),
+        ...(filters.disabled != undefined && {disabled: filters.disabled}),
+        deleted: deleted,
       },
 
       orderBy: { name: 'asc' },
