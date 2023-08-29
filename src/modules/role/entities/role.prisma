@@ -1,0 +1,38 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Role {
+  id          String @id @map("_id")
+  name        String
+  description String
+  permissions Json[]
+
+  createdAt   DateTime  @default(now())
+  createdUser String
+  deletedAt   DateTime?
+  deletedUser String?
+  deleted     Boolean   @default(false)
+
+  restaurantId String
+
+  role_users Role_User[]
+
+  @@map("roles")
+}
+
+model Role_User {
+  id     String  @id @map("_id")
+  roles  Role?   @relation(fields: [roleId], references: [id])
+  roleId String?
+  users  User?   @relation(fields: [userId], references: [id])
+  userId String?
+
+  @@map("role_users")
+}
+
+model User {
+  id         String      @id @map("_id")
+  role_users Role_User[]
+}
