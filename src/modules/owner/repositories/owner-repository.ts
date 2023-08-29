@@ -1,4 +1,4 @@
-import { Owner } from '../entities/Owner';
+import { Owner } from '../entities/owner';
 
 export abstract class OwnersRepository {
   abstract create(owner: Owner): Promise<void>;
