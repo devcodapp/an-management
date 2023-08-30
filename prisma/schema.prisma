@@ -115,9 +115,9 @@ model Role {
 
 model Role_User {
   id     String  @id @map("_id")
-  roles  Role?   @relation(name: "RoleToRole_User", fields: [roleId], references: [id])
+  role   Role?   @relation(name: "RoleToRole_User", fields: [roleId], references: [id])
   roleId String?
-  users  User?   @relation(name: "Role_UserToUser", fields: [userId], references: [id])
+  user   User?   @relation(name: "Role_UserToUser", fields: [userId], references: [id])
   userId String?
 
   @@map("role_users")

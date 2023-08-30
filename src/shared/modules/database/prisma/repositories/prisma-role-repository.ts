@@ -2,6 +2,7 @@ import { FilterRoleBody } from '@modules/role/dto/filter-role.body';
 import { Role } from '@modules/role/entities/role';
 import { RoleRepository } from '@modules/role/repositories/role-repository';
 import { Injectable } from '@nestjs/common';
+
 import { PrismaRoleMapper } from '../mappers/prisma-role-mapper';
 import { PrismaService } from '../prisma.service';
 
@@ -20,6 +21,7 @@ export class PrismaRoleRepository implements RoleRepository {
   async role(roleId: string): Promise<Role | null> {
     const role = await this.prisma.role.findUnique({
       where: { id: roleId },
+      include: { role_users: { include: { user: true }, }, _count: true }
     });
 
     if (!role) {
@@ -36,10 +38,10 @@ export class PrismaRoleRepository implements RoleRepository {
     const roles = await this.prisma.role.findMany({
       where: {
         ...(filters.name && { name: { contains: filters.name, mode: 'insensitive' } }),
-        ...(filters.restaurantId && { user: { restaurantId: filters.restaurantId, } }),
+        ...(filters.restaurantId && { restaurantId: filters.restaurantId, }),
         deleted: deleted || false,
       },
-      include: { role_users: { include: { users: true } } },
+      include: { _count: true },
       orderBy: { name: 'asc' },
     });
     return roles.map(PrismaRoleMapper.toDomain);

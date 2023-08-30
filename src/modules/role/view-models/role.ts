@@ -1,14 +1,19 @@
-import { User } from '@modules/user/entities/user';
 import { Permission, Role } from '../entities/role';
 
 export class RoleViewModel {
-  static toHTTP(role: Role & { role_users?: { users: User[] } }): IRoleView {
+  static toHTTP(role: Role, fields?: string[]): IRoleView {
+    // const roleToReturn = {}
+    // for(const field of fields) {
+    //   role
+    // }
+
     return {
       id: role.id,
       name: role.name,
       permissions: role.permissions,
       restaurantId: role.restaurantId,
-      numberOfUsers: role.role_users?.users.length || 0
+      numberOfUsers: role.numberOfUsers,
+      users: role.users
     };
   }
 }
@@ -19,4 +24,11 @@ export interface IRoleView {
   permissions: Permission[]
   restaurantId: string
   numberOfUsers: number
+  users: IUserView[]
+}
+
+interface IUserView {
+  id: string;
+  username: string;
+  email: string
 }

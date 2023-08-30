@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Param, Patch, Post, Put, Query, UseGuards, UseInterceptors } from '@nestjs/common';
 import { AuthGuard } from '@shared/modules/auth/auth.guard';
 import { BooleanInterceptor } from 'src/interceptors/boolean/boolean.interceptor';
+
 import { CreateRoleBody } from './dto/create-role.body';
 import { FilterRoleBody } from './dto/filter-role.body';
 import { SaveRoleBody } from './dto/save-role.body';
@@ -33,7 +34,7 @@ export class RoleController {
       }
   
       return {
-        role: roles?.map(RoleViewModel.toHTTP),
+        role: roles?.map((role) => RoleViewModel.toHTTP(role, query.fields.split(','))),
       };
     }
   

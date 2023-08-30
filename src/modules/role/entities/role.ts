@@ -5,6 +5,12 @@ export interface Permission {
   values: string[];
 }
 
+interface UserRole {
+  id: string;
+  username: string;
+  email: string
+}
+
 interface RoleProps {
   name: string;
   description: string;
@@ -13,6 +19,8 @@ interface RoleProps {
 
   permissions: Permission[]
   restaurantId: string
+
+  users?: UserRole[]
 }
 
 export class Role extends BaseEntity {
@@ -45,6 +53,10 @@ export class Role extends BaseEntity {
 
   public get numberOfUsers(): number {
     return this.props.numberOfUsers || 0
+  }
+
+  public get users(): UserRole[]{
+    return this.props.users || []
   }
 
   public set name(name: string){

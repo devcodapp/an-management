@@ -13,17 +13,27 @@ export class PrismaRoleMapper {
         newRole[newField] = role[field]
       }
     }
+    delete newRole.numberOfUsers
     return newRole
   }
 
-  static toDomain(raw: RawRole & { role_users?: any}) {
+  static toDomain(raw: RawRole & { role_users?: any, _count?: any}) {
+    const users = raw.role_users?.map(role => role.user);
+    console.log(raw._count?.role_users)
     return new Role(
       {
         restaurantId: raw.restaurantId,
         name: raw.name,
         description: raw.description ,
         permissions: raw.permissions as [],
-        numberOfUsers: raw.role_users.users.length || 0
+        numberOfUsers: raw._count?.role_users || 0,
+        users: users?.map(user => {
+          return {
+            id: user.id,
+            username: user.username,
+            email: user.email
+          }
+        }) 
       },
       {
         createdAt: raw.createdAt,
