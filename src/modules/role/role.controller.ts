@@ -7,11 +7,16 @@ import { FilterBaseBody } from '@shared/dtos/filter-base-body';
 import { CreateRoleBody } from './dto/create-role.body';
 import { FilterRoleBody } from './dto/filter-role.body';
 import { SaveRoleBody } from './dto/save-role.body';
+import { UserRoleBody } from './dto/user-role.body';
 import { Role } from './entities/role';
+import { AddUserRole } from './use-cases/add-user-role';
+import { AddUsersRole } from './use-cases/add-users-role';
 import { CreateRole } from './use-cases/create-role';
 import { DeleteRole } from './use-cases/delete-role';
 import { FilterRole } from './use-cases/filter-role';
 import { GetRole } from './use-cases/get-role';
+import { RemoveUserRole } from './use-cases/remove-user-role';
+import { RemoveUsersRole } from './use-cases/remove-users-role';
 import { SaveRole } from './use-cases/save-role';
 import { IRoleView } from './view-models/role';
 
@@ -25,7 +30,12 @@ export class RoleController {
     private saveRole: SaveRole,
     private getRole: GetRole,
     private filterRole: FilterRole,
-    private deleteRole: DeleteRole) { }
+    private deleteRole: DeleteRole,
+    private addUserRole: AddUserRole,
+    private removeUserRole: RemoveUserRole,
+    private addUsersRole: AddUsersRole,
+    private removeUsersRole: RemoveUsersRole
+    ) { }
 
   @Get()
   async roles(
@@ -95,5 +105,25 @@ export class RoleController {
     return {
       role: FieldViewModel.toHTTP(role, fields.split(',')),
     };
+  }
+
+  @Post('user')
+  async addUser(@Body() body: UserRoleBody){
+    await this.addUserRole.execute(body)
+  }
+
+  @Post('users')
+  async addUsers(@Body() body: UserRoleBody[]){
+    await this.addUsersRole.execute(body)
+  }
+
+  @Post('user/remove')
+  async removeUser(@Body() body: UserRoleBody){
+    await this.removeUserRole.execute(body)
+  }
+
+  @Post('users/remove')
+  async removeUsers(@Body() body: UserRoleBody[]){
+    await this.removeUsersRole.execute(body)
   }
 }

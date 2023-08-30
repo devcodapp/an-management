@@ -1,4 +1,5 @@
 import { FilterRoleBody } from "../dto/filter-role.body";
+import { UserRoleBody } from "../dto/user-role.body";
 import { Role } from "../entities/role";
 
 export abstract class RoleRepository {
@@ -11,4 +12,10 @@ export abstract class RoleRepository {
   ): Promise<Role[]>;
 
   abstract save(role: Role): Promise<void>;
+
+  abstract addUser(data: UserRoleBody): Promise<void>;
+
+  abstract removeUser(data: UserRoleBody): Promise<void>;
+
+
 }

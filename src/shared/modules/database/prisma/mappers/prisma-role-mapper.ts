@@ -19,7 +19,6 @@ export class PrismaRoleMapper {
 
   static toDomain(raw: RawRole & { role_users?: any, _count?: any}) {
     const users = raw.role_users?.map(role => role.user);
-    console.log(raw._count?.role_users)
     return new Role(
       {
         restaurantId: raw.restaurantId,
