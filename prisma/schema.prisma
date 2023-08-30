@@ -70,6 +70,7 @@ model Owner {
 model User {
   id             String      @id @map("_id")
   Owner          Owner[]     @relation(name: "OwnerToUser")
+  role_users     Role_User[] @relation(name: "Role_UserToUser")
   username       String      @unique
   email          String
   password       String
@@ -94,6 +95,32 @@ model RestaurantType {
   disabled    Boolean   @default(false)
 
   @@map("restaurant_types")
+}
+
+model Role {
+  id           String      @id @map("_id")
+  name         String
+  description  String
+  permissions  Json[]
+  createdAt    DateTime    @default(now())
+  createdUser  String
+  deletedAt    DateTime?
+  deletedUser  String?
+  deleted      Boolean     @default(false)
+  restaurantId String
+  role_users   Role_User[] @relation(name: "RoleToRole_User")
+
+  @@map("roles")
+}
+
+model Role_User {
+  id     String  @id @map("_id")
+  role   Role?   @relation(name: "RoleToRole_User", fields: [roleId], references: [id])
+  roleId String?
+  user   User?   @relation(name: "Role_UserToUser", fields: [userId], references: [id])
+  userId String?
+
+  @@map("role_users")
 }
 
 model Table {

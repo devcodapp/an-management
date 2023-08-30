@@ -7,11 +7,13 @@ import { UsersRepository } from '@modules/user/repositories/user-repository';
 import { WorkerRepository } from '@modules/worker/repositories/worker-repository';
 import { Module } from '@nestjs/common';
 
+import { RoleRepository } from '@modules/role/repositories/role-repository';
 import { PrismaService } from './prisma/prisma.service';
 import { PrismaCouponRepository } from './prisma/repositories/prisma-coupon-repository';
 import { PrismaOwnerRepository } from './prisma/repositories/prisma-owner-repository';
 import { PrismaRestaurantRepository } from './prisma/repositories/prisma-restaurant-repository';
 import { PrismaRestaurantTypeRepository } from './prisma/repositories/prisma-restaurant-type-repository';
+import { PrismaRoleRepository } from './prisma/repositories/prisma-role-repository';
 import { PrismaTableRepository } from './prisma/repositories/prisma-table-repository';
 import { PrismaUserRepository } from './prisma/repositories/prisma-user-repository';
 import { PrismaWorkerRepository } from './prisma/repositories/prisma-worker-repository';
@@ -50,6 +52,10 @@ import { PrismaWorkerRepository } from './prisma/repositories/prisma-worker-repo
       provide: OwnersRepository,
       useClass: PrismaOwnerRepository,
     },
+    {
+      provide: RoleRepository,
+      useClass: PrismaRoleRepository,
+    },
   ],
   exports: [
     RestaurantsRepository,
@@ -58,7 +64,8 @@ import { PrismaWorkerRepository } from './prisma/repositories/prisma-worker-repo
     CouponsRepository,
     UsersRepository,
     RestaurantTypesRepository,
-    OwnersRepository
+    OwnersRepository,
+    RoleRepository
   ],
 })
 export class DatabaseModule {}
