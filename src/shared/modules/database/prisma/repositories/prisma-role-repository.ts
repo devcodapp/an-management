@@ -1,10 +1,10 @@
 import { FilterRoleBody } from '@modules/role/dto/filter-role.body';
+import { UserRoleBody } from '@modules/role/dto/user-role.body';
 import { Role } from '@modules/role/entities/role';
 import { RoleRepository } from '@modules/role/repositories/role-repository';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-
-import { UserRoleBody } from '@modules/role/dto/user-role.body';
 import { randomUUID } from 'crypto';
+
 import { PrismaRoleMapper } from '../mappers/prisma-role-mapper';
 import { PrismaService } from '../prisma.service';
 
@@ -71,6 +71,14 @@ export class PrismaRoleRepository implements RoleRepository {
     }
 
     return PrismaRoleMapper.toDomain(role);
+  }
+
+  async rolesByIds(roleIds: string[]): Promise<Role[]> {
+    const roles = await this.prisma.role.findMany({
+      where: { id: { in: roleIds } }
+    })
+
+    return roles.map(PrismaRoleMapper.toDomain);
   }
 
   async roles({
