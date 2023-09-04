@@ -9,6 +9,8 @@ interface UserProps {
   
   restaurantId?: string;
   deletedAt?: Date;
+
+  roleIds?: string[]
 }
 
 export class User {
@@ -22,6 +24,10 @@ export class User {
 
   public get id(): string {
     return this._id;
+  }
+
+  public get roleIds(): string[] | undefined {
+    return this.props.roleIds;
   }
 
   public get username(): string {
