@@ -1,6 +1,7 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import * as bodyParser from 'body-parser';
+
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -14,6 +15,8 @@ async function bootstrap() {
   app.use(bodyParser.urlencoded({ extended: true }));
 
   await app.listen(process.env.PORT || 3333);
+
+  console.clear()
 
   console.log(
     `\x1b[33m 🚀 💻 ::: Server running on port ${process.env.PORT || 3333

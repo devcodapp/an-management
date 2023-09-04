@@ -1,4 +1,5 @@
 import { GetUserEmail } from '@modules/user/use-cases/get-user-email';
+import { GetUserUsername } from '@modules/user/use-cases/get-user-username';
 import { UserModule } from '@modules/user/user.module';
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
@@ -13,12 +14,12 @@ import { jwtConstants } from './constants';
     JwtModule.register({
       global: true,
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: '1d' },
+      signOptions: { expiresIn: '7d' },
     }),
     DatabaseModule,
     UserModule,
   ],
-  providers: [AuthService, GetUserEmail],
+  providers: [AuthService, GetUserEmail, GetUserUsername],
   controllers: [AuthController],
   exports: [AuthService],
 })

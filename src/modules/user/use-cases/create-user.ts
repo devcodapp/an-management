@@ -19,14 +19,13 @@ interface CreateUserResponse {
 
 @Injectable()
 export class CreateUser {
-  constructor(private userRepository: UsersRepository) {}
+  constructor(private userRepository: UsersRepository) { }
 
   async execute(request: CreateUserRequest): Promise<CreateUserResponse> {
     const { email, password, name, username, restaurantId } = request;
 
     const userExists = await this.userRepository.userByEmail(
-      email,
-      restaurantId,
+      email
     );
 
     if (userExists) {
@@ -35,12 +34,12 @@ export class CreateUser {
 
     let newUsername = name.split(' ')[0].toLowerCase()
 
-    if(!username) {
+    if (!username) {
       let user = await this.userRepository.userByUsername(newUsername)
       let number = 0;
 
-      while (user){
-        number ++;
+      while (user) {
+        number++;
         newUsername = `${name.split(' ')[0].toLowerCase()}${number}`
         user = await this.userRepository.userByUsername(newUsername)
       }

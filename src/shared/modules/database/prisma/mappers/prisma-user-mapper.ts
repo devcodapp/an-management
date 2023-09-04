@@ -14,7 +14,8 @@ export class PrismaUserMapper {
     };
   }
 
-  static toDomain(raw: RawUser) {
+  static toDomain(raw: RawUser & { role_users?: any}) {
+    const roles = raw.role_users?.map(role => role.roleId);
     return new User({
       email: raw.email,
       password: raw.password,
@@ -23,6 +24,7 @@ export class PrismaUserMapper {
       changePassword: raw.changePassword,
       deletedAt: raw.deletedAt ?? undefined,
       id: raw.id,
+      roleIds: roles || undefined
     });
   }
 }

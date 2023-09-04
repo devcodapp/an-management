@@ -11,6 +11,10 @@ export abstract class RoleRepository {
     filter: FilterRoleBody,
   ): Promise<Role[]>;
 
+  abstract rolesByIds(
+    roleIds: string[],
+  ): Promise<Role[]>;
+
   abstract save(role: Role): Promise<void>;
 
   abstract addUser(data: UserRoleBody): Promise<void>;
