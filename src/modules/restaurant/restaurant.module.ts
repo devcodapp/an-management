@@ -9,6 +9,7 @@ import { CreateRestaurant } from './use-cases/create-restaurant';
 import { DisableRestaurant } from './use-cases/disable-restaurant';
 import { FilterRestaurant } from './use-cases/filter-restaurant';
 import { GetRestaurant } from './use-cases/get-restaurant';
+import { GetSlugRestaurant } from './use-cases/get-slug-restaurant';
 import { OpenRestaurant } from './use-cases/open-restaurant';
 import { SaveRestaurant } from './use-cases/save-restaurant';
 
@@ -23,6 +24,7 @@ import { SaveRestaurant } from './use-cases/save-restaurant';
     DisableRestaurant,
     OpenRestaurant,
     CloseRestaurant,
+    GetSlugRestaurant,
     CloudinaryService,
     KafkaService,
   ],

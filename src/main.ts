@@ -1,6 +1,4 @@
-import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import * as bodyParser from 'body-parser';
 
 import { AppModule } from './app.module';
 
@@ -11,8 +9,8 @@ async function bootstrap() {
 
   app.enableCors();
 
-  app.useGlobalPipes(new ValidationPipe());
-  app.use(bodyParser.urlencoded({ extended: true }));
+  // app.useGlobalPipes(new ValidationPipe());
+  // app.use(bodyParser.urlencoded({ extended: true }));
 
   await app.listen(process.env.PORT || 3333);
 

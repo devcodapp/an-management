@@ -12,7 +12,12 @@ export class RestaurantViewModel {
     isOpened,
     openingHours,
     imageUrl,
+    bannerUrl,
     disabledAt,
+    slug,
+    phoneNumber,
+    ownerId,
+    disabled
   }: Restaurant): IRestaurantView {
     return {
       id,
@@ -20,17 +25,23 @@ export class RestaurantViewModel {
       description,
       tags: tags || [],
       type,
+      slug: slug!,
       address: {
         street: address?.street,
+        number: address?.number,
         city: address?.city,
         state: address?.state,
         zip: address?.zip,
         district: address?.district,
+        complement: address?.complement
       },
       isOpened,
       openingHours,
-      imageUrl,
-      disabledAt,
+      image: imageUrl,
+      banner: bannerUrl,
+      phoneNumber,
+      ownerId,
+      disabled: disabled || false
     };
   }
 }
@@ -44,14 +55,20 @@ export interface IRestaurantView {
   address: IAddress;
   isOpened?: boolean;
   openingHours?: OpeningHours[];
-  imageUrl?: string;
-  disabledAt?: Date;
+  image?: string;
+  banner?: string;
+  disabled: boolean;
+  ownerId: string;
+  phoneNumber?: string;
+  slug: string
 }
 
 interface IAddress {
   street?: string;
+  number?: string;
   city?: string;
   state?: string;
   zip?: string;
   district?: string;
+  complement?: string
 }

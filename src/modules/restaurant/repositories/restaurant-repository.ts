@@ -6,6 +6,8 @@ export abstract class RestaurantsRepository {
 
   abstract restaurant(restaurantId: string): Promise<Restaurant | null>;
 
+  abstract restaurantBySlug(slug: string): Promise<Restaurant | null>;
+
   abstract restaurants(
     filters: FilterRestaurantBody,
   ): Promise<Restaurant[] | null>;

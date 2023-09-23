@@ -2,6 +2,7 @@ import { FilterRestaurantBody } from '@modules/restaurant/dtos/filter-restaurant
 import { Restaurant } from '@modules/restaurant/entities/restaurant';
 import { RestaurantsRepository } from '@modules/restaurant/repositories/restaurant-repository';
 import { Injectable } from '@nestjs/common';
+
 import { PrismaRestaurantMapper } from '../mappers/prisma-restaurant-mapper';
 import { PrismaService } from '../prisma.service';
 
@@ -9,6 +10,7 @@ import { PrismaService } from '../prisma.service';
 // eslint-disable-next-line @darraghor/nestjs-typed/injectable-should-be-provided
 export class PrismaRestaurantRepository implements RestaurantsRepository {
   constructor(private prisma: PrismaService) { }
+
 
   async create(restaurant: Restaurant): Promise<void> {
     const raw = PrismaRestaurantMapper.toPrisma(restaurant);
@@ -21,6 +23,7 @@ export class PrismaRestaurantRepository implements RestaurantsRepository {
         tags: raw.tags,
         id: raw.id,
         ownerId: raw.ownerId,
+        slug: raw.slug
       },
     });
   }
@@ -35,6 +38,19 @@ export class PrismaRestaurantRepository implements RestaurantsRepository {
 
     return PrismaRestaurantMapper.toDomain(restaurant);
   }
+
+  async restaurantBySlug(slug: string): Promise<Restaurant | null> {
+    const restaurant = await this.prisma.restaurant.findUnique({
+      where: { slug },
+    });
+
+    if (!restaurant) {
+      return null;
+    }
+
+    return PrismaRestaurantMapper.toDomain(restaurant);
+  }
+
   async restaurants(
     filters: FilterRestaurantBody,
   ): Promise<Restaurant[] | null> {

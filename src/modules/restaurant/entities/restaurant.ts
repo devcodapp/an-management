@@ -1,10 +1,12 @@
 import { randomUUID } from 'crypto';
 
+import slugify from '@shared/services/slugify';
 import { Address } from './address';
 import { OpeningHours } from './openingHours';
 
 export interface RestaurantProps {
   id?: string;
+  slug?: string
   name: string;
   description: string;
   tags?: string[];
@@ -39,6 +41,7 @@ export class Restaurant {
       isOpened: props.isOpened ?? false,
       disabled: props.disabled ?? false,
       name: props.name.toUpperCase(),
+      slug: props.slug ? props.slug : slugify(props.name)
     };
   }
 
@@ -117,6 +120,22 @@ export class Restaurant {
     this.props.imageId = imageId;
   }
 
+  public get bannerUrl(): string | undefined {
+    return this.props.bannerUrl;
+  }
+
+  public set bannerUrl(bannerUrl: string | undefined) {
+    this.props.bannerUrl = bannerUrl;
+  }
+
+  public get bannerId(): string | undefined {
+    return this.props.bannerId;
+  }
+
+  public set bannerId(bannerId: string | undefined) {
+    this.props.bannerId = bannerId;
+  }
+
   public get address(): Address | undefined {
     return this.props.address;
   }
@@ -155,6 +174,14 @@ export class Restaurant {
 
   public set ownerId(ownerId: string) {
     this.props.ownerId = ownerId;
+  }
+
+  public get slug(): string | undefined {
+    return this.props.slug;
+  }
+
+  public set slug(slug: string | undefined ) {
+    this.props.slug = slug;
   }
 
   public disable(){
