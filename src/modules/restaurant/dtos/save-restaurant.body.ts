@@ -1,3 +1,4 @@
+/* eslint-disable @darraghor/nestjs-typed/validated-non-primitive-property-needs-type-decorator */
 import { Type } from 'class-transformer';
 import { IsArray, IsNotEmpty, IsObject, IsOptional, IsString, IsUUID } from 'class-validator';
 
@@ -12,6 +13,12 @@ export class SaveRestaurantBody {
   @IsOptional()
   @IsString()
   name?: string;
+
+  @IsOptional()
+  image?: Express.Multer.File;
+
+  @IsOptional()
+  banner?: Express.Multer.File;
 
   @IsOptional()
   @IsString()

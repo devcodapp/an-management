@@ -31,6 +31,7 @@ model Coupon {
 model Restaurant {
   id           String    @id @map("_id")
   coupons      Coupon[]  @relation(name: "CouponToRestaurant")
+  slug         String    @unique
   name         String
   description  String
   tags         String[]
@@ -41,6 +42,8 @@ model Restaurant {
   openingHours Json[]
   imageId      String?
   imageUrl     String?
+  bannerId     String?
+  bannerUrl    String?
   owner        Owner     @relation(name: "OwnerToRestaurant", fields: [ownerId], references: [id])
   createdAt    DateTime  @default(now())
   disabledAt   DateTime?
