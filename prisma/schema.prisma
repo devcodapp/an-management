@@ -38,6 +38,7 @@ model Restaurant {
   type         String
   address      Json?
   phoneNumber  String?
+  deliveryFees Json[]
   isOpened     Boolean   @default(false)
   openingHours Json[]
   imageId      String?

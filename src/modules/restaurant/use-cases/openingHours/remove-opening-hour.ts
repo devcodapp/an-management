@@ -1,8 +1,8 @@
+import { Restaurant } from "@modules/restaurant/entities/restaurant";
+import { RestaurantsRepository } from "@modules/restaurant/repositories/restaurant-repository";
 import { Injectable } from "@nestjs/common";
 
-import { Restaurant } from "../entities/restaurant";
-import { RestaurantsRepository } from "../repositories/restaurant-repository";
-import { RestaurantNotFound } from "./errors/restaurant-not-found";
+import { RestaurantNotFound } from "../errors/restaurant-not-found";
 
 interface RemoveOpeningHourRequest {
   restaurantId: string;

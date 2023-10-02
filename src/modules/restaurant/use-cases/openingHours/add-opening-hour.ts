@@ -1,10 +1,10 @@
+import { AddOpeningHourBody } from "@modules/restaurant/dtos/add-opening-hour.body";
+import { OpeningHours } from "@modules/restaurant/entities/openingHours";
+import { Restaurant } from "@modules/restaurant/entities/restaurant";
+import { RestaurantsRepository } from "@modules/restaurant/repositories/restaurant-repository";
 import { Injectable } from "@nestjs/common";
 
-import { AddOpeningHourBody } from "../dtos/add-opening-hour.body";
-import { OpeningHours } from "../entities/openingHours";
-import { Restaurant } from "../entities/restaurant";
-import { RestaurantsRepository } from "../repositories/restaurant-repository";
-import { RestaurantNotFound } from "./errors/restaurant-not-found";
+import { RestaurantNotFound } from "../errors/restaurant-not-found";
 
 interface AddOpeningHourResponse {
   restaurant: Restaurant

@@ -1,10 +1,10 @@
-import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { SaveOpeningHourBody } from "@modules/restaurant/dtos/save-opening-hour.body"
+import { OpeningHours } from "@modules/restaurant/entities/openingHours"
+import { Restaurant } from "@modules/restaurant/entities/restaurant"
+import { RestaurantsRepository } from "@modules/restaurant/repositories/restaurant-repository"
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common"
 
-import { SaveOpeningHourBody } from "../dtos/save-opening-hour.body";
-import { OpeningHours } from "../entities/openingHours";
-import { Restaurant } from "../entities/restaurant";
-import { RestaurantsRepository } from "../repositories/restaurant-repository";
-import { RestaurantNotFound } from "./errors/restaurant-not-found";
+import { RestaurantNotFound } from "../errors/restaurant-not-found"
 
 interface SaveOpeningHourResponse {
   restaurant: Restaurant

@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsOptional, IsUUID } from "class-validator";
+import { IsNotEmpty, IsString, IsUUID } from "class-validator";
 
 export class SaveOpeningHourBody {
   @IsUUID()
@@ -9,20 +9,20 @@ export class SaveOpeningHourBody {
   @IsNotEmpty()
   openingHourId: string;
 
-  @IsOptional()
   @IsNotEmpty()
+  @IsString()
   openHour: string;
 
-  @IsOptional()
   @IsNotEmpty()
+  @IsString()
   openDay: string;
 
-  @IsOptional()
   @IsNotEmpty()
+  @IsString()
   closeHour: string;
 
-  @IsOptional()
   @IsNotEmpty()
+  @IsString()
   closeDay: string;
 
 
