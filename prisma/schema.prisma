@@ -156,6 +156,7 @@ model Worker {
   deletedUser String?
   deletedAt   DateTime?
   deleted     Boolean   @default(false)
+  disabled    Boolean   @default(false)
   userId      String
   user        User      @relation(name: "UserToWorker", fields: [userId], references: [id])
 
