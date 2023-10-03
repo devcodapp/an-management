@@ -14,6 +14,7 @@ export class PrismaWorkerMapper {
       deletedAt: worker.deletedAt,
       userId: worker.userId,
       deleted: worker.deleted,
+      disabled: worker.disabled
     };
   }
 
