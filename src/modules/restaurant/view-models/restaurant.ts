@@ -1,3 +1,4 @@
+import { DeliveryFee } from '../entities/deliveryFee';
 import { OpeningHours } from '../entities/openingHours';
 import { Restaurant } from '../entities/restaurant';
 
@@ -11,6 +12,7 @@ export class RestaurantViewModel {
     address,
     isOpened,
     openingHours,
+    deliveryFees,
     imageUrl,
     bannerUrl,
     disabledAt,
@@ -37,6 +39,7 @@ export class RestaurantViewModel {
       },
       isOpened,
       openingHours,
+      deliveryFees,
       image: imageUrl,
       banner: bannerUrl,
       phoneNumber,
@@ -55,6 +58,7 @@ export interface IRestaurantView {
   address: IAddress;
   isOpened?: boolean;
   openingHours?: OpeningHours[];
+  deliveryFees?: DeliveryFee[];
   image?: string;
   banner?: string;
   disabled: boolean;

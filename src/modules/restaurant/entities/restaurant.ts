@@ -1,7 +1,8 @@
+import slugify from '@shared/services/slugify';
 import { randomUUID } from 'crypto';
 
-import slugify from '@shared/services/slugify';
 import { Address } from './address';
+import { DeliveryFee } from './deliveryFee';
 import { OpeningHours } from './openingHours';
 
 export interface RestaurantProps {
@@ -14,6 +15,8 @@ export interface RestaurantProps {
 
   address?: Address;
   phoneNumber?: string;
+
+  deliveryFees?: DeliveryFee[]
 
   isOpened?: boolean;
   openingHours?: OpeningHours[];
@@ -158,6 +161,14 @@ export class Restaurant {
 
   public set openingHours(openingHours: OpeningHours[] | undefined) {
     this.props.openingHours = openingHours;
+  }
+
+  public get deliveryFees(): DeliveryFee[] | undefined {
+    return this.props.deliveryFees;
+  }
+
+  public set deliveryFees(deliveryFees: DeliveryFee[] | undefined) {
+    this.props.deliveryFees = deliveryFees;
   }
 
   public get isOpened(): boolean | undefined {

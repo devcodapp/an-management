@@ -2,6 +2,7 @@ import { FilterWorkerBody } from '@modules/worker/dtos/filter-worker.body';
 import { Worker } from '@modules/worker/entities/worker';
 import { WorkerRepository } from '@modules/worker/repositories/worker-repository';
 import { Injectable } from '@nestjs/common';
+
 import { PrismaWorkerMapper } from '../mappers/prisma-worker-mapper';
 import { PrismaService } from '../prisma.service';
 
@@ -20,13 +21,14 @@ export class PrismaWorkerRepository implements WorkerRepository {
   async worker(workerId: string): Promise<Worker | null> {
     const worker = await this.prisma.worker.findUnique({
       where: { id: workerId },
+      include: { user: { include: { role_users: { include: { role: true } } } } }
     });
 
     if (!worker) {
       return null;
     }
 
-    return PrismaWorkerMapper.toDomain(worker);
+    return PrismaWorkerMapper.toDomain(worker as any);
   }
 
   async workers({
@@ -36,15 +38,18 @@ export class PrismaWorkerRepository implements WorkerRepository {
     const workers = await this.prisma.worker.findMany({
       where: {
         ...(filters.name && { name: { contains: filters.name, mode: 'insensitive' } }),
-        ...(filters.email && { user: {
-          email: {contains: filters.email, mode: 'insensitive'}
-        } }),
-        ...(filters.restaurantId && { user: { restaurantId: filters.restaurantId,} }),
+        ...(filters.email && {
+          user: {
+            email: { contains: filters.email, mode: 'insensitive' }
+          }
+        }),
+        ...(filters.restaurantId && { user: { restaurantId: filters.restaurantId, } }),
         deleted: deleted || false,
       },
       orderBy: { name: 'asc' },
+      include: { user: { include: { role_users: { include: { role: true } } } } }
     });
-    return workers.map(PrismaWorkerMapper.toDomain);
+    return workers.map(PrismaWorkerMapper.toDomain as any);
   }
 
   async save(worker: Worker): Promise<void> {

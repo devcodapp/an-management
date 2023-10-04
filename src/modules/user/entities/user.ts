@@ -1,3 +1,4 @@
+import { Role } from '@modules/role/entities/role';
 import { randomUUID } from 'crypto';
 
 interface UserProps {
@@ -11,7 +12,10 @@ interface UserProps {
   deletedAt?: Date;
 
   roleIds?: string[]
+
+  roles?: Role[]
 }
+
 
 export class User {
   private _id: string;

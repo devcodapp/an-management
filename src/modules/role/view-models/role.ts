@@ -1,7 +1,7 @@
 import { Permission, Role } from '../entities/role';
 
 export class RoleViewModel {
-  static toHTTP(role: Role, fields?: string[]): IRoleView {
+  static toHTTP(role: Role): IRoleView {
     // const roleToReturn = {}
     // for(const field of fields) {
     //   role

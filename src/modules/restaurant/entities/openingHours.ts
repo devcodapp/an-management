@@ -1,48 +1,25 @@
+import { randomUUID } from "crypto";
+
 export interface OpeningHoursProps {
   openDay: string;
   openHour: string;
   closeDay: string;
   closeHour: string;
+  id?: string;
 }
+
 export class OpeningHours {
-  private props: OpeningHoursProps;
+  public openDay: string;
+  public openHour: string;
+  public closeDay: string;
+  public closeHour: string;
+  public id: string;
 
   constructor(props: OpeningHoursProps) {
-    this.props = {
-      ...props,
-    };
+    this.openDay = props.openDay;
+    this.openHour = props.openHour;
+    this.closeDay = props.closeDay;
+    this.closeHour = props.closeHour;
+    this.id = props.id || randomUUID()
   }
-
-  public get openDay(): string {
-    return this.props.openDay;
-  }
-
-  public set openDay(openDay: string) {
-    this.props.openDay = openDay;
-  }
-
-  public get closeDay(): string {
-    return this.props.closeDay;
-  }
-
-  public set closeDay(closeDay: string) {
-    this.props.closeDay = closeDay;
-  }
-
-  public get openHour(): string {
-    return this.props.openHour;
-  }
-
-  public set openHour(openHour: string) {
-    this.props.openHour = openHour;
-  }
-
-  public get closeHour(): string {
-    return this.props.closeHour;
-  }
-
-  public set closeHour(closeHour: string) {
-    this.props.closeHour = closeHour;
-  }
-
 }
