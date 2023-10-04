@@ -1,25 +1,15 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Param,
-  Patch,
-  Post,
-  Put,
-  Query,
-  UploadedFile,
-  UseGuards,
-  UseInterceptors
-} from '@nestjs/common';
-
+import { Body, Controller, Get, Param, Patch, Post, Put, Query, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { AuthGuard } from '@shared/modules/auth/auth.guard';
 import { BooleanInterceptor } from 'src/interceptors/boolean/boolean.interceptor';
+
 import { CreateWorkerBody } from './dtos/create-worker.body';
 import { FilterWorkerBody } from './dtos/filter-worker.body';
 import { SaveWorkerBody } from './dtos/save-worker.body';
 import { CreateWorker } from './use-cases/create-worker';
 import { DeleteWorker } from './use-cases/delete-worker';
+import { DisableWorker } from './use-cases/disable-worker';
+import { EnableWorker } from './use-cases/enable-worker';
 import { FilterWorker } from './use-cases/filter-worker';
 import { GetWorker } from './use-cases/get-worker';
 import { SaveWorker } from './use-cases/save-worker';
@@ -35,7 +25,9 @@ export class WorkerController {
     private filterWorker: FilterWorker,
     private saveWorker: SaveWorker,
     private deleteWorker: DeleteWorker,
-  ) {}
+    private disableWorker: DisableWorker,
+    private enableWorker: EnableWorker
+  ) { }
 
   @Get()
   async workers(
@@ -92,6 +84,30 @@ export class WorkerController {
 
     return {
       worker: WorkerViewModel.toHTTP(worker),
+    };
+  }
+
+  @Patch('disable')
+  async disable(
+    @Body() { workerIds }: { workerIds: string[] },
+  ): Promise<{ workers: IWorkerView[] }> {
+    const { workers } = await this.disableWorker.execute({ workerIds });
+
+    return {
+      workers: workers?.map(WorkerViewModel.toHTTP),
+    };
+  }
+
+  @Patch('enable')
+  async enable(
+    @Body() { workerIds }: { workerIds: string[] },
+  ): Promise<{ workers: IWorkerView[] }> {
+    const { workers } = await this.enableWorker.execute({
+      workerIds,
+    });
+
+    return {
+      workers: workers?.map(WorkerViewModel.toHTTP),
     };
   }
 

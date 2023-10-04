@@ -1,14 +1,11 @@
 import { Body, Controller, Get, Param, Patch, Post, Put, Query, UseGuards, UseInterceptors } from '@nestjs/common';
 import { AuthGuard } from '@shared/modules/auth/auth.guard';
-import { FieldViewModel } from '@shared/view-models/select-fields';
 import { BooleanInterceptor } from 'src/interceptors/boolean/boolean.interceptor';
 
-import { FilterBaseBody } from '@shared/dtos/filter-base-body';
 import { CreateRoleBody } from './dto/create-role.body';
 import { FilterRoleBody } from './dto/filter-role.body';
 import { SaveRoleBody } from './dto/save-role.body';
 import { UserRoleBody } from './dto/user-role.body';
-import { Role } from './entities/role';
 import { AddUserRole } from './use-cases/add-user-role';
 import { AddUsersRole } from './use-cases/add-users-role';
 import { CreateRole } from './use-cases/create-role';
@@ -18,7 +15,7 @@ import { GetRole } from './use-cases/get-role';
 import { RemoveUserRole } from './use-cases/remove-user-role';
 import { RemoveUsersRole } from './use-cases/remove-users-role';
 import { SaveRole } from './use-cases/save-role';
-import { IRoleView } from './view-models/role';
+import { IRoleView, RoleViewModel } from './view-models/role';
 
 @UseGuards(AuthGuard)
 @UseInterceptors(BooleanInterceptor)
@@ -40,7 +37,7 @@ export class RoleController {
   @Get()
   async roles(
     @Query() query: FilterRoleBody,
-  ): Promise<{ roles: Role[] } | null> {
+  ): Promise<{ roles: IRoleView[] } | null> {
     const { roles } = await this.filterRole.execute(query);
 
     if (!roles) {
@@ -48,14 +45,13 @@ export class RoleController {
     }
 
     return {
-      roles: roles?.map((role) => FieldViewModel.toHTTP(role, query.fields.split(','))),
+      roles: roles?.map(RoleViewModel.toHTTP),
     };
   }
 
   @Get(':id')
   async role(
     @Param('id') roleId: string,
-    @Query() { fields }: FilterBaseBody,
   ): Promise<{ role: IRoleView } | null> {
     const { role } = await this.getRole.execute({
       roleId,
@@ -66,44 +62,41 @@ export class RoleController {
     }
 
     return {
-      role: FieldViewModel.toHTTP(role, fields.split(',')),
+      role: RoleViewModel.toHTTP(role),
     };
   }
 
   @Post()
   async create(
     @Body() body: CreateRoleBody,
-    @Query() { fields }: FilterBaseBody,
   ): Promise<{ role: IRoleView }> {
     const { role } = await this.createRole.execute(body);
     return {
-      role: FieldViewModel.toHTTP(role, fields.split(',')),
+      role: RoleViewModel.toHTTP(role,),
     };
   }
 
   @Put()
   async update(
     @Body() body: SaveRoleBody,
-    @Query() { fields }: FilterBaseBody,
   ): Promise<{ role: IRoleView }> {
     const { role } = await this.saveRole.execute(body);
 
     return {
-      role: FieldViewModel.toHTTP(role, fields.split(',')),
+      role: RoleViewModel.toHTTP(role),
     };
   }
 
   @Patch('delete/:roleId')
   async delete(
     @Param('roleId') roleId: string,
-    @Query() { fields }: FilterBaseBody,
   ): Promise<{ role: IRoleView }> {
     const { role } = await this.deleteRole.execute({
       roleId,
     });
 
     return {
-      role: FieldViewModel.toHTTP(role, fields.split(',')),
+      role: RoleViewModel.toHTTP(role),
     };
   }
 

@@ -14,6 +14,7 @@ export class PrismaRoleMapper {
       }
     }
     delete newRole.numberOfUsers
+    delete newRole.users
     return newRole
   }
 

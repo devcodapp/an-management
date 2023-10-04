@@ -1,4 +1,5 @@
 import { Address } from '@modules/restaurant/entities/address';
+import { DeliveryFee } from '@modules/restaurant/entities/deliveryFee';
 import { OpeningHours } from '@modules/restaurant/entities/openingHours';
 import { Restaurant } from '@modules/restaurant/entities/restaurant';
 import { Restaurant as RawRestaurant } from '@prisma/client';
@@ -26,6 +27,9 @@ export class PrismaRestaurantMapper {
       isOpened: raw.isOpened,
       openingHours: raw.openingHours
         ? raw.openingHours.map(openingHour => new OpeningHours(openingHour as any))
+        : undefined,
+      deliveryFees: raw.deliveryFees
+        ? raw.deliveryFees.map(deliveryFee => new DeliveryFee(deliveryFee as any))
         : undefined,
       createdAt: raw.createdAt,
       disabledAt: raw.disabledAt ?? undefined,

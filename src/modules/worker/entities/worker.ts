@@ -4,7 +4,22 @@ export interface WorkerProps {
   name: string;
   imageId?: string;
   imageUrl?: string;
+  disabled?: boolean
   userId: string;
+  user?: User
+}
+
+interface User {
+  username: string;
+  email?: string;
+  restaurantId?: string;
+  roles?: Role[]
+}
+
+interface Role {
+  id: string;
+  name: string;
+  description: string;
 }
 
 export class Worker extends BaseEntity {
@@ -26,6 +41,10 @@ export class Worker extends BaseEntity {
     return this.props.name;
   }
 
+  public get user(): User | undefined {
+    return this.props.user;
+  }
+
   public set imageId(imageId: string | undefined) {
     this.props.imageId = imageId;
   }
@@ -44,5 +63,17 @@ export class Worker extends BaseEntity {
 
   public get userId(): string {
     return this.props.userId;
+  }
+
+  public get disabled(): boolean | undefined {
+    return this.props.disabled;
+  }
+
+  public disable(){
+    this.props.disabled = true
+  }
+
+  public enable(){
+    this.props.disabled = false
   }
 }
