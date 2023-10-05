@@ -6,7 +6,7 @@ export class NumberInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const request = context.switchToHttp().getRequest();
 
-    const numberFields = ['order', 'amountOfChairs'];
+    const numberFields = ['order', 'amountOfChairs', 'currentPage', 'perPage'];
     
     numberFields.forEach((field) => {
       if (request.body[field])
