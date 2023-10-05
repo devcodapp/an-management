@@ -1,9 +1,12 @@
 import { FilterRoleBody } from '@modules/role/dto/filter-role.body';
 import { UserRoleBody } from '@modules/role/dto/user-role.body';
-import { Role } from '@modules/role/entities/role';
+import { Role, RolePaginated } from '@modules/role/entities/role';
 import { RoleRepository } from '@modules/role/repositories/role-repository';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
+import { PaginationProps } from '@shared/dtos/pagination-body';
 import { randomUUID } from 'crypto';
+import { Paginate } from 'src/utils/pagination';
 
 import { PrismaRoleMapper } from '../mappers/prisma-role-mapper';
 import { PrismaService } from '../prisma.service';
@@ -81,20 +84,43 @@ export class PrismaRoleRepository implements RoleRepository {
     return roles.map(PrismaRoleMapper.toDomain);
   }
 
-  async roles({
-    deleted,
-    ...filters
-  }: FilterRoleBody): Promise<Role[]> {
+  async roles(filters: FilterRoleBody): Promise<Role[]> {
     const roles = await this.prisma.role.findMany({
       where: {
         ...(filters.name && { name: { contains: filters.name, mode: 'insensitive' } }),
         ...(filters.restaurantId && { restaurantId: filters.restaurantId, }),
-        deleted: deleted || false,
+        deleted: filters.deleted || false,
       },
       include: { _count: true },
       orderBy: { name: 'asc' },
     });
     return roles.map(PrismaRoleMapper.toDomain);
+  }
+
+  async rolesPagination(filters: FilterRoleBody, { currentPage, perPage }: PaginationProps): Promise<RolePaginated> {
+    const query: Prisma.RoleFindManyArgs = {
+      where: {
+        ...(filters.name && { name: { contains: filters.name, mode: 'insensitive' } }),
+        ...(filters.restaurantId && { restaurantId: filters.restaurantId, }),
+        deleted: filters.deleted || false,
+      },
+    }
+    const [roles, count] = await this.prisma.$transaction([
+      this.prisma.role.findMany({
+        where: query.where,
+        include: { _count: true },
+        orderBy: { name: 'asc' },
+        skip: perPage * (currentPage - 1),
+        take: perPage
+      }),
+      this.prisma.role.count({where: query.where})
+    ])
+    const pagination = await Paginate(count, perPage, currentPage)
+
+    return {
+      items: roles.map(PrismaRoleMapper.toDomain),
+      pagination
+    }
   }
 
   async save(role: Role): Promise<void> {
