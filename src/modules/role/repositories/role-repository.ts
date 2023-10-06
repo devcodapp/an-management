@@ -1,6 +1,8 @@
+import { PaginationProps } from "@shared/dtos/pagination-body";
+
 import { FilterRoleBody } from "../dto/filter-role.body";
 import { UserRoleBody } from "../dto/user-role.body";
-import { Role } from "../entities/role";
+import { Role, RolePaginated } from "../entities/role";
 
 export abstract class RoleRepository {
   abstract create(role: Role): Promise<void>;
@@ -10,6 +12,11 @@ export abstract class RoleRepository {
   abstract roles(
     filter: FilterRoleBody,
   ): Promise<Role[]>;
+
+  abstract rolesPagination(
+    filter: FilterRoleBody,
+    pagination: PaginationProps
+  ): Promise<RolePaginated>;
 
   abstract rolesByIds(
     roleIds: string[],

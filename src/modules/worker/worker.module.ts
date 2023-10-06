@@ -10,6 +10,7 @@ import { DisableWorker } from './use-cases/disable-worker';
 import { EnableWorker } from './use-cases/enable-worker';
 import { FilterWorker } from './use-cases/filter-worker';
 import { GetWorker } from './use-cases/get-worker';
+import { PaginationWorker } from './use-cases/pagination-worker';
 import { SaveWorker } from './use-cases/save-worker';
 import { WorkerController } from './worker.controller';
 import { WorkerService } from './worker.service';
@@ -27,7 +28,8 @@ import { WorkerService } from './worker.service';
     CreateUser,
     SaveUser,
     DisableWorker,
-    EnableWorker
+    EnableWorker,
+    PaginationWorker
   ],
   exports: [WorkerService],
   imports: [DatabaseModule],

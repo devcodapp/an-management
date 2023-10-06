@@ -1,9 +1,9 @@
 import { FilterBaseBody } from '@shared/dtos/filter-base-body';
-import { IsEmail, IsOptional, IsString, IsUUID } from 'class-validator';
+import { IsOptional, IsString, IsUUID } from 'class-validator';
 
 export class FilterWorkerBody extends FilterBaseBody {
-  @IsEmail()
   @IsOptional()
+  @IsString()
   email?: string;
 
   @IsOptional()

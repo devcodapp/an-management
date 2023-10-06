@@ -1,4 +1,5 @@
 import { BaseEntity, BaseEntityProps } from '@shared/entities/base-entity';
+import { Paginated } from 'src/utils/pagination';
 
 export interface WorkerProps {
   name: string;
@@ -77,3 +78,5 @@ export class Worker extends BaseEntity {
     this.props.disabled = false
   }
 }
+
+export class WorkerPaginated extends Paginated<Worker>(){}

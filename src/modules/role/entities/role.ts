@@ -1,4 +1,5 @@
 import { BaseEntity, BaseEntityProps } from "@shared/entities/base-entity";
+import { Paginated } from "src/utils/pagination";
 
 export interface Permission {
   name: string;
@@ -71,3 +72,5 @@ export class Role extends BaseEntity {
     this.props.permissions = permissions
   }
 }
+
+export class RolePaginated extends Paginated<Role>(){}

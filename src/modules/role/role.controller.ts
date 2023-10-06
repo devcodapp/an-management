@@ -1,4 +1,5 @@
 import { Body, Controller, Get, Param, Patch, Post, Put, Query, UseGuards, UseInterceptors } from '@nestjs/common';
+import { PaginationProps } from '@shared/dtos/pagination-body';
 import { AuthGuard } from '@shared/modules/auth/auth.guard';
 import { BooleanInterceptor } from 'src/interceptors/boolean/boolean.interceptor';
 
@@ -6,12 +7,14 @@ import { CreateRoleBody } from './dto/create-role.body';
 import { FilterRoleBody } from './dto/filter-role.body';
 import { SaveRoleBody } from './dto/save-role.body';
 import { UserRoleBody } from './dto/user-role.body';
+import { RolePaginated } from './entities/role';
 import { AddUserRole } from './use-cases/add-user-role';
 import { AddUsersRole } from './use-cases/add-users-role';
 import { CreateRole } from './use-cases/create-role';
 import { DeleteRole } from './use-cases/delete-role';
 import { FilterRole } from './use-cases/filter-role';
 import { GetRole } from './use-cases/get-role';
+import { PaginationRole } from './use-cases/pagination-role';
 import { RemoveUserRole } from './use-cases/remove-user-role';
 import { RemoveUsersRole } from './use-cases/remove-users-role';
 import { SaveRole } from './use-cases/save-role';
@@ -31,7 +34,8 @@ export class RoleController {
     private addUserRole: AddUserRole,
     private removeUserRole: RemoveUserRole,
     private addUsersRole: AddUsersRole,
-    private removeUsersRole: RemoveUsersRole
+    private removeUsersRole: RemoveUsersRole,
+    private paginationRole: PaginationRole
     ) { }
 
   @Get()
@@ -46,6 +50,20 @@ export class RoleController {
 
     return {
       roles: roles?.map(RoleViewModel.toHTTP),
+    };
+  }
+
+  @Get('pagination')
+  async rolesPagination(
+    @Query() query: FilterRoleBody,
+    @Query() pagination: PaginationProps,
+  ): Promise<RolePaginated> {
+    const roles = await this.paginationRole.execute(query, pagination);
+
+
+    return {
+      items: roles.items?.map(RoleViewModel.toHTTP),
+      pagination: roles.pagination
     };
   }
 

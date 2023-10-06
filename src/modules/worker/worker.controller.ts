@@ -1,22 +1,26 @@
-import { Body, Controller, Get, Param, Patch, Post, Put, Query, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, ClassSerializerInterceptor, Controller, Get, Param, Patch, Post, Put, Query, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { PaginationProps } from '@shared/dtos/pagination-body';
 import { AuthGuard } from '@shared/modules/auth/auth.guard';
 import { BooleanInterceptor } from 'src/interceptors/boolean/boolean.interceptor';
+import { NumberInterceptor } from 'src/interceptors/number/number.interceptor';
 
 import { CreateWorkerBody } from './dtos/create-worker.body';
 import { FilterWorkerBody } from './dtos/filter-worker.body';
 import { SaveWorkerBody } from './dtos/save-worker.body';
+import { WorkerPaginated } from './entities/worker';
 import { CreateWorker } from './use-cases/create-worker';
 import { DeleteWorker } from './use-cases/delete-worker';
 import { DisableWorker } from './use-cases/disable-worker';
 import { EnableWorker } from './use-cases/enable-worker';
 import { FilterWorker } from './use-cases/filter-worker';
 import { GetWorker } from './use-cases/get-worker';
+import { PaginationWorker } from './use-cases/pagination-worker';
 import { SaveWorker } from './use-cases/save-worker';
 import { IWorkerView, WorkerViewModel } from './view-models/worker';
 
 @UseGuards(AuthGuard)
-@UseInterceptors(BooleanInterceptor)
+@UseInterceptors(BooleanInterceptor, NumberInterceptor, ClassSerializerInterceptor)
 @Controller('worker')
 export class WorkerController {
   constructor(
@@ -26,7 +30,8 @@ export class WorkerController {
     private saveWorker: SaveWorker,
     private deleteWorker: DeleteWorker,
     private disableWorker: DisableWorker,
-    private enableWorker: EnableWorker
+    private enableWorker: EnableWorker,
+    private paginationWorker: PaginationWorker
   ) { }
 
   @Get()
@@ -41,6 +46,19 @@ export class WorkerController {
 
     return {
       worker: workers?.map(WorkerViewModel.toHTTP),
+    };
+  }
+
+  @Get('pagination')
+  async workersPagination(
+    @Query() query: FilterWorkerBody,
+    @Query() pagination: PaginationProps
+  ): Promise<WorkerPaginated> {
+    const workers = await this.paginationWorker.execute(query, pagination);
+
+    return {
+      items: workers?.items?.map(WorkerViewModel.toHTTP),
+      pagination: workers.pagination
     };
   }
 
