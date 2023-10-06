@@ -1,11 +1,11 @@
 import { IsNumber, IsOptional } from "class-validator";
 
 export class PaginationProps {
-  @IsNumber()
   @IsOptional()
+  @IsNumber()
   currentPage: number = 1;
 
-  @IsNumber()
   @IsOptional()
+  @IsNumber()
   perPage: number = 10;
 }
