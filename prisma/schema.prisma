@@ -102,17 +102,18 @@ model RestaurantType {
 }
 
 model Role {
-  id           String      @id @map("_id")
-  name         String
-  description  String
-  permissions  Json[]
-  createdAt    DateTime    @default(now())
-  createdUser  String
-  deletedAt    DateTime?
-  deletedUser  String?
-  deleted      Boolean     @default(false)
-  restaurantId String
-  role_users   Role_User[] @relation(name: "RoleToRole_User")
+  id            String      @id @map("_id")
+  name          String
+  description   String
+  permissions   Json[]
+  numberOfUsers Int         @default(0)
+  createdAt     DateTime    @default(now())
+  createdUser   String
+  deletedAt     DateTime?
+  deletedUser   String?
+  deleted       Boolean     @default(false)
+  restaurantId  String
+  role_users    Role_User[] @relation(name: "RoleToRole_User")
 
   @@map("roles")
 }

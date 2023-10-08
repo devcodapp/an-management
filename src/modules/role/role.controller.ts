@@ -1,4 +1,4 @@
-import { Body, Controller, ClassSerializerInterceptor, Get, Param, Patch, Post, Put, Query, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, ClassSerializerInterceptor, Controller, Get, Param, Patch, Post, Put, Query, UseGuards, UseInterceptors } from '@nestjs/common';
 import { PaginationProps } from '@shared/dtos/pagination-body';
 import { AuthGuard } from '@shared/modules/auth/auth.guard';
 import { BooleanInterceptor } from 'src/interceptors/boolean/boolean.interceptor';
@@ -60,7 +60,6 @@ export class RoleController {
     @Query() pagination: PaginationProps,
   ): Promise<RolePaginated> {
     const roles = await this.paginationRole.execute(query, pagination);
-
 
     return {
       items: roles.items?.map(RoleViewModel.toHTTP),

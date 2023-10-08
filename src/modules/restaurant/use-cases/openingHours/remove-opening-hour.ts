@@ -26,8 +26,6 @@ export class RemoveOpeningHour {
       throw new RestaurantNotFound()
     }
 
-    console.log(restaurant.openingHours, openingHourId)
-
     const openingHoursLeft = restaurant.openingHours?.filter(open => open.id !== openingHourId)
     
 
