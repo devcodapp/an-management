@@ -1,5 +1,5 @@
-import { Type } from "class-transformer";
-import { IsNotEmpty, IsOptional, IsString, IsUUID } from "class-validator";
+import { Allow, IsNotEmpty, IsOptional, IsString, IsUUID } from "class-validator";
+
 import { Permission } from "../entities/role";
 
 export class SaveRoleBody {
@@ -16,6 +16,6 @@ export class SaveRoleBody {
   description?: string
 
   @IsOptional()
-  @Type(() => Array)
+  @Allow()
   permissions?: Permission[]
 }

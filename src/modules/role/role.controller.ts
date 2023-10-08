@@ -60,7 +60,6 @@ export class RoleController {
     @Query() pagination: PaginationProps,
   ): Promise<RolePaginated> {
     const roles = await this.paginationRole.execute(query, pagination);
-    console.log(pagination)
 
     return {
       items: roles.items?.map(RoleViewModel.toHTTP),

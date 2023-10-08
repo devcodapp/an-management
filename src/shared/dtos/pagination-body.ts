@@ -1,4 +1,4 @@
-import { IsNumber, IsOptional } from "class-validator";
+import { IsNumber, IsOptional, IsString } from "class-validator";
 
 export class PaginationProps {
   @IsOptional()
@@ -8,4 +8,12 @@ export class PaginationProps {
   @IsOptional()
   @IsNumber()
   perPage: number = 10;
+
+  @IsOptional()
+  @IsString()
+  orderKey: string = 'id';
+
+  @IsOptional()
+  @IsString()
+  orderValue: string = 'asc';
 }

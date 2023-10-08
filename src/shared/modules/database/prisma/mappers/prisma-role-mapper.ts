@@ -26,7 +26,7 @@ export class PrismaRoleMapper {
         name: raw.name,
         description: raw.description ,
         permissions: raw.permissions as [],
-        numberOfUsers: raw._count?.role_users || 0,
+        numberOfUsers: raw.numberOfUsers || 0,
         users: users?.map(user => {
           return {
             id: user.id,

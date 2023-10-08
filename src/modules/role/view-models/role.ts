@@ -10,6 +10,7 @@ export class RoleViewModel {
     return {
       id: role.id,
       name: role.name,
+      description: role.description,
       permissions: role.permissions,
       restaurantId: role.restaurantId,
       numberOfUsers: role.numberOfUsers,
@@ -21,6 +22,7 @@ export class RoleViewModel {
 export interface IRoleView {
   id: string;
   name: string;
+  description: string;
   permissions: Permission[]
   restaurantId: string
   numberOfUsers: number

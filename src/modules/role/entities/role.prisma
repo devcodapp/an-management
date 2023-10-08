@@ -9,6 +9,8 @@ model Role {
   description String
   permissions Json[]
 
+  numberOfUsers Int @default(0)
+
   createdAt   DateTime  @default(now())
   createdUser String
   deletedAt   DateTime?

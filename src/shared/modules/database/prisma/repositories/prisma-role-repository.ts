@@ -17,14 +17,12 @@ export class PrismaRoleRepository implements RoleRepository {
   constructor(private prisma: PrismaService) { }
 
   async addUser(data: UserRoleBody): Promise<void> {
-    const role_user = await this.prisma.role_User.findFirst({
-      where: {
-        roleId: data.roleId,
-        userId: data.userId
-      }
-    })
+    const roleUsers = await this.prisma.role_User.findMany({ where: { roleId: data.roleId } })
 
-    if (role_user) {
+    const hasThisUser = roleUsers.find(ru => ru.userId === data.userId)
+
+
+    if (hasThisUser) {
       throw new HttpException(`Este usuário já pertence a este cargo. Usuário:${data.userId} Cargo:${data.roleId}`, HttpStatus.CONFLICT)
     }
 
@@ -35,25 +33,26 @@ export class PrismaRoleRepository implements RoleRepository {
         roleId: data.roleId
       }
     })
+
+    await this.prisma.role.update({ where: { id: data.roleId }, data: { numberOfUsers: roleUsers.length } })
   }
 
   async removeUser(data: UserRoleBody): Promise<void> {
-    const role_user = await this.prisma.role_User.findFirst({
-      where: {
-        roleId: data.roleId,
-        userId: data.userId
-      }
-    })
+    const roleUsers = await this.prisma.role_User.findMany({ where: { roleId: data.roleId } })
 
-    if (!role_user) {
+    const hasThisUser = roleUsers.find(ru => ru.userId === data.userId)
+
+    if (!hasThisUser) {
       throw new HttpException(`Relacionamento entre este usuário e este cargo não encontrado. `, HttpStatus.BAD_REQUEST)
     }
 
     await this.prisma.role_User.delete({
       where: {
-        id: role_user?.id
+        id: hasThisUser.id
       }
     })
+
+    await this.prisma.role.update({ where: { id: data.roleId }, data: { numberOfUsers: roleUsers.length } })
   }
 
   async create(role: Role): Promise<void> {
@@ -97,7 +96,7 @@ export class PrismaRoleRepository implements RoleRepository {
     return roles.map(PrismaRoleMapper.toDomain);
   }
 
-  async rolesPagination(filters: FilterRoleBody, { currentPage, perPage }: PaginationProps): Promise<RolePaginated> {
+  async rolesPagination(filters: FilterRoleBody, { currentPage, perPage, orderKey, orderValue }: PaginationProps): Promise<RolePaginated> {
     const query: Prisma.RoleFindManyArgs = {
       where: {
         ...(filters.name && { name: { contains: filters.name, mode: 'insensitive' } }),
@@ -109,11 +108,11 @@ export class PrismaRoleRepository implements RoleRepository {
       this.prisma.role.findMany({
         where: query.where,
         include: { _count: true },
-        orderBy: { name: 'asc' },
+        orderBy: { [orderKey]: orderValue },
         skip: perPage * (currentPage - 1),
         take: perPage
       }),
-      this.prisma.role.count({where: query.where})
+      this.prisma.role.count({ where: query.where })
     ])
     const pagination = await Paginate(count, perPage, currentPage)
 

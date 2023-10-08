@@ -78,7 +78,6 @@ export class PrismaWorkerRepository implements WorkerRepository {
     ])
 
     const pagination = await Paginate(count, perPage, currentPage)
-    console.log(items)
     return {
       items: items.map(PrismaWorkerMapper.toDomain as any),
       pagination
