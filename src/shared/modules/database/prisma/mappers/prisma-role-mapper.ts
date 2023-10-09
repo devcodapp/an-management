@@ -18,7 +18,7 @@ export class PrismaRoleMapper {
     return newRole
   }
 
-  static toDomain(raw: RawRole & { role_users?: any, _count?: any}) {
+  static toDomain(raw: RawRole & { role_users?: any,}) {
     const users = raw.role_users?.map(role => role.user);
     return new Role(
       {
