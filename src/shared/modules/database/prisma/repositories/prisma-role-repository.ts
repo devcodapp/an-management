@@ -34,7 +34,7 @@ export class PrismaRoleRepository implements RoleRepository {
       }
     })
 
-    await this.prisma.role.update({ where: { id: data.roleId }, data: { numberOfUsers: roleUsers.length } })
+    await this.prisma.role.update({ where: { id: data.roleId }, data: { numberOfUsers: roleUsers.length + 1 } })
   }
 
   async removeUser(data: UserRoleBody): Promise<void> {
@@ -52,7 +52,7 @@ export class PrismaRoleRepository implements RoleRepository {
       }
     })
 
-    await this.prisma.role.update({ where: { id: data.roleId }, data: { numberOfUsers: roleUsers.length } })
+    await this.prisma.role.update({ where: { id: data.roleId }, data: { numberOfUsers: roleUsers.length - 1 } })
   }
 
   async create(role: Role): Promise<void> {
@@ -90,7 +90,7 @@ export class PrismaRoleRepository implements RoleRepository {
         ...(filters.restaurantId && { restaurantId: filters.restaurantId, }),
         deleted: filters.deleted || false,
       },
-      include: { _count: true },
+      include: { role_users: { include: { user : true} } },
       orderBy: { name: 'asc' },
     });
     return roles.map(PrismaRoleMapper.toDomain);
@@ -107,7 +107,7 @@ export class PrismaRoleRepository implements RoleRepository {
     const [roles, count] = await this.prisma.$transaction([
       this.prisma.role.findMany({
         where: query.where,
-        include: { _count: true },
+        include: { role_users: { include: { user : true} } },
         orderBy: { [orderKey]: orderValue },
         skip: perPage * (currentPage - 1),
         take: perPage
