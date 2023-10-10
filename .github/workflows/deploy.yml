@@ -23,4 +23,4 @@ jobs:
       run: |
         ssh codapp_dev@34.125.19.247 'cd /home/apps/back/an-management-dev && git pull && npm install && npm run build && pm2 restart your-app'
       env:
-        SSH_PRIVATE_KEY: AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBDlcz4zRHl2J1/vE1vP1m6nnqbzZeHoLFYq5IYUY2EhC7cV3ENcfQ/5L2DkrIUdOeuB7XI8DD45PHOQmTgmYtF8  # substitua pelo nome correto da variável secreta
+        SSH_PRIVATE_KEY: ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBDlcz4zRHl2J1/vE1vP1m6nnqbzZeHoLFYq5IYUY2EhC7cV3ENcfQ/5L2DkrIUdOeuB7XI8DD45PHOQmTgmYtF8= google-ssh {"userName":"codapp.dev@gmail.com","expireOn":"2023-10-10T17:14:27+0000"}  # substitua pelo nome correto da variável secreta
