@@ -17,7 +17,7 @@ jobs:
       run: npm install  # ou yarn install, dependendo do gerenciador de pacotes
 
     - name: Build
-      run: npm run build  # ajuste para o comando de build da sua aplicação
+      run: npm run build  # ajuste para o comando de build da sua aplicaçãod
 
     - name: Deploy to VM
       run: |
