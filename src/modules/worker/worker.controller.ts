@@ -1,4 +1,4 @@
-import { Body, ClassSerializerInterceptor, Controller, Get, Param, Patch, Post, Put, Query, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, Put, Query, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { PaginationProps } from '@shared/dtos/pagination-body';
 import { AuthGuard } from '@shared/modules/auth/auth.guard';
@@ -20,7 +20,7 @@ import { SaveWorker } from './use-cases/save-worker';
 import { IWorkerView, WorkerViewModel } from './view-models/worker';
 
 @UseGuards(AuthGuard)
-@UseInterceptors(BooleanInterceptor, NumberInterceptor, ClassSerializerInterceptor)
+@UseInterceptors(BooleanInterceptor, NumberInterceptor)
 @Controller('worker')
 export class WorkerController {
   constructor(
@@ -80,10 +80,12 @@ export class WorkerController {
   }
 
   @Post()
+  @UseInterceptors(FileInterceptor('image'))
   async create(
     @Body() body: CreateWorkerBody,
+    @UploadedFile() image: Express.Multer.File,
   ): Promise<{ worker: IWorkerView }> {
-    const { worker } = await this.createWorker.execute(body);
+    const { worker } = await this.createWorker.execute({ ...body, image });
     return {
       worker: WorkerViewModel.toHTTP(worker),
     };
