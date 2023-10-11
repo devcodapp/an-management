@@ -1,5 +1,5 @@
 import { Type } from 'class-transformer';
-import { IsDate, IsNotEmpty, IsNumber, IsOptional, IsString, IsUUID } from 'class-validator';
+import { IsBoolean, IsDate, IsNotEmpty, IsNumber, IsOptional, IsString, IsUUID } from 'class-validator';
 
 export class SaveCouponBody {
   @IsNotEmpty()
@@ -9,6 +9,10 @@ export class SaveCouponBody {
   @IsOptional()
   @IsString()
   title?: string;
+
+  @IsOptional()
+  @IsBoolean()
+  singleUse?: boolean;
 
   @IsOptional()
   @IsString()

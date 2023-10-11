@@ -11,6 +11,10 @@ export class FilterCouponBody extends FilterBaseBody {
   @IsString()
   description?: string;
 
+  // @IsOptional()
+  // @IsBoolean()
+  // singleUse?: boolean;
+
   @IsOptional()
   @IsString()
   code?: string;

@@ -1,5 +1,7 @@
+import { PaginationProps } from '@shared/dtos/pagination-body';
+
 import { FilterCouponBody } from '../dtos/filter-coupon.body';
-import { Coupon } from '../entities/coupon';
+import { Coupon, CouponPaginated } from '../entities/coupon';
 
 export abstract class CouponsRepository {
   abstract create(coupon: Coupon): Promise<void>;
@@ -12,6 +14,11 @@ export abstract class CouponsRepository {
   ): Promise<Coupon | null>;
 
   abstract coupons(filters: FilterCouponBody): Promise<Coupon[] | null>;
+
+  abstract couponsPagination(
+    filters: FilterCouponBody,
+    pagination: PaginationProps
+  ): Promise<CouponPaginated>;
 
   abstract save(coupon: Coupon): Promise<void>;
 }

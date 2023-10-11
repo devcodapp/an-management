@@ -2,22 +2,23 @@ import { Coupon } from '@modules/coupon/entities/coupon';
 import { Coupon as RawCoupon } from '@prisma/client';
 
 export class PrismaCouponMapper {
-  static toPrisma(categoryProduct: Coupon) {
+  static toPrisma(coupon: Coupon) {
     return {
-      id: categoryProduct.id,
-      title: categoryProduct.title,
-      description: categoryProduct.description,
-      code: categoryProduct.code,
-      discountValue: categoryProduct.discountValue,
-      discountPercentage: categoryProduct.discountPercentage,
-      discountLimit: categoryProduct.discountLimit,
-      expiresIn: categoryProduct.expiresIn,
-      createdUser: categoryProduct.createdUser,
-      createdAt: categoryProduct.createdAt,
-      deletedUser: categoryProduct.deletedUser,
-      deletedAt: categoryProduct.deletedAt,
-      restaurantId: categoryProduct.restaurantId,
-      deleted: categoryProduct.deleted,
+      id: coupon.id,
+      title: coupon.title,
+      description: coupon.description,
+      code: coupon.code,
+      discountValue: coupon.discountValue,
+      discountPercentage: coupon.discountPercentage,
+      singleUse: coupon.singleUse,
+      discountLimit: coupon.discountLimit,
+      expiresIn: coupon.expiresIn,
+      createdUser: coupon.createdUser,
+      createdAt: coupon.createdAt,
+      deletedUser: coupon.deletedUser,
+      deletedAt: coupon.deletedAt,
+      restaurantId: coupon.restaurantId,
+      deleted: coupon.deleted,
     };
   }
 
@@ -31,6 +32,7 @@ export class PrismaCouponMapper {
         discountLimit: raw.discountLimit ?? undefined,
         discountPercentage: raw.discountPercentage ?? undefined,
         expiresIn: raw.expiresIn,
+        singleUse: raw.singleUse,
         title: raw.title,
       },
       {

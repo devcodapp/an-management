@@ -1,5 +1,5 @@
 import { Type } from 'class-transformer';
-import { IsDate, IsNotEmpty, IsNumber, IsOptional, IsString, IsUUID } from 'class-validator';
+import { IsBoolean, IsDate, IsNotEmpty, IsNumber, IsOptional, IsString, IsUUID } from 'class-validator';
 
 export class CreateCouponBody {
   @IsNotEmpty()
@@ -25,6 +25,10 @@ export class CreateCouponBody {
   @IsOptional()
   @IsNumber({}, {message: 'Limite de desconto deve ser um número'})
   discountLimit?: number;
+
+  @IsNotEmpty()
+  @IsBoolean()
+  singleUse: boolean;
 
   @IsNotEmpty()
   @IsDate()

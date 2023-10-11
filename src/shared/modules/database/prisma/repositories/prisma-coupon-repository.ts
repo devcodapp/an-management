@@ -1,7 +1,10 @@
 import { FilterCouponBody } from '@modules/coupon/dtos/filter-coupon.body';
-import { Coupon } from '@modules/coupon/entities/coupon';
+import { Coupon, CouponPaginated } from '@modules/coupon/entities/coupon';
 import { CouponsRepository } from '@modules/coupon/repositories/coupon-repository';
 import { Injectable } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
+import { PaginationProps } from '@shared/dtos/pagination-body';
+import { Paginate } from 'src/utils/pagination';
 
 import { PrismaCouponMapper } from '../mappers/prisma-coupon-mapper';
 import { PrismaService } from '../prisma.service';
@@ -41,10 +44,7 @@ export class PrismaCouponRepository implements CouponsRepository {
     return PrismaCouponMapper.toDomain(coupon);
   }
 
-  async coupons({
-    deleted,
-    ...filters
-  }: FilterCouponBody): Promise<Coupon[] | null> {
+  async coupons(filters: FilterCouponBody): Promise<Coupon[] | null> {
     const coupons = await this.prisma.coupon.findMany({
       where: {
         ...(filters.title && { title: { contains: filters.title, mode: 'insensitive' } }),
@@ -63,11 +63,55 @@ export class PrismaCouponRepository implements CouponsRepository {
             )
           }
         }),
-        deleted: deleted || false,
+        deleted: filters.deleted || false,
       },
     });
 
     return coupons.map(PrismaCouponMapper.toDomain);
+  }
+
+  async couponsPagination(
+    filters: FilterCouponBody,
+    { currentPage, orderKey, orderValue, perPage }: PaginationProps
+  ): Promise<CouponPaginated> {
+    const query: Prisma.CouponFindManyArgs = {
+      where: {
+        ...(filters.title && { title: { contains: filters.title, mode: 'insensitive' } }),
+        ...(filters.description && { description: { contains: filters.description, mode: 'insensitive' } }),
+        ...(filters.code && { code: { contains: filters.code, mode: 'insensitive' } }),
+        ...(filters.restaurantId && { restaurantId: filters.restaurantId }),
+        ...(filters.discountLimit && { discountLimit: filters.discountLimit }),
+        ...(filters.discountPercentage && { discountPercentage: filters.discountPercentage }),
+        ...(filters.discountValue && { discountValue: filters.discountValue }),
+        ...(filters.expiresIn && {
+          expiresIn: {
+            lte: new Date(filters.expiresIn),
+            gte: new Date(
+              filters.expiresIn.getTime() +
+              (1000 * 3600 * 24 - 1)
+            )
+          }
+        }),
+        deleted: filters.deleted || false,
+      },
+    }
+
+    const [items, count] = await this.prisma.$transaction([
+      this.prisma.coupon.findMany({
+        where: query.where,
+        orderBy: { [orderKey]: orderValue },
+        skip: perPage * (currentPage - 1),
+        take: perPage
+      }),
+      this.prisma.coupon.count({ where: query.where })
+    ])
+
+    const pagination = await Paginate(count, perPage, currentPage)
+
+    return {
+      items: items.map(PrismaCouponMapper.toDomain),
+      pagination
+    }
   }
 
   async save(coupon: Coupon): Promise<void> {

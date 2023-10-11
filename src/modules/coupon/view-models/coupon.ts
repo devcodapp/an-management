@@ -11,6 +11,7 @@ export class CouponViewModel {
     discountValue,
     expiresIn,
     restaurantId,
+    singleUse
   }: Coupon): ICouponView {
     return {
       id,
@@ -20,6 +21,7 @@ export class CouponViewModel {
       discountLimit,
       discountPercentage,
       discountValue,
+      singleUse,
       expiresIn,
       restaurantId,
     };
@@ -34,6 +36,7 @@ export interface ICouponView {
   discountValue?: number;
   discountPercentage?: number;
   discountLimit?: number;
+  singleUse: boolean;
   expiresIn: Date;
   restaurantId: string;
 }

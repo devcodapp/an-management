@@ -13,6 +13,7 @@ model Coupon {
   title              String
   description        String
   code               String
+  singleUse          Boolean
   discountValue      Float?
   discountPercentage Float?
   discountLimit      Float?
