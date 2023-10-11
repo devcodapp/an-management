@@ -52,16 +52,14 @@ export class PrismaWorkerRepository implements WorkerRepository {
     return workers.map(PrismaWorkerMapper.toDomain as any);
   }
 
-  async workersPagination(filters: FilterWorkerBody, { currentPage, perPage, orderKey, orderValue}: PaginationProps): Promise<WorkerPaginated> {
+  async workersPagination(filters: FilterWorkerBody, { currentPage, perPage, orderKey, orderValue }: PaginationProps): Promise<WorkerPaginated> {
     const query: Prisma.WorkerFindManyArgs = {
       where: {
         ...(filters.name && { name: { contains: filters.name, mode: 'insensitive' } }),
-        ...(filters.email && {
-          user: {
-            email: { contains: filters.email, mode: 'insensitive' }
-          }
-        }),
-        ...(filters.restaurantId && { user: { restaurantId: filters.restaurantId, } }),
+        user: {
+          restaurantId: filters.restaurantId,
+          ...(filters.email && { email: { contains: filters.email, mode: 'insensitive' } })
+        },
         deleted: filters.deleted || false,
       },
     }
@@ -75,7 +73,9 @@ export class PrismaWorkerRepository implements WorkerRepository {
         take: perPage
       }),
       this.prisma.worker.count({ where: query.where })
-    ])
+    ],
+
+    )
 
     const pagination = await Paginate(count, perPage, currentPage)
     return {
