@@ -8,6 +8,7 @@ import { DeleteCoupon } from './use-cases/delete-coupon';
 import { FilterCoupon } from './use-cases/filter-coupon';
 import { GetCoupon } from './use-cases/get-coupon';
 import { GetCouponCode } from './use-cases/get-coupon-code';
+import { PaginationCoupon } from './use-cases/pagination-coupon';
 import { RecoverCoupon } from './use-cases/recover-coupon';
 import { SaveCoupon } from './use-cases/save-coupon';
 
@@ -22,6 +23,7 @@ import { SaveCoupon } from './use-cases/save-coupon';
     FilterCoupon,
     DeleteCoupon,
     RecoverCoupon,
+    PaginationCoupon,
     KafkaService,
   ],
 })

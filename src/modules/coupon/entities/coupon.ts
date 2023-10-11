@@ -1,4 +1,5 @@
 import { BaseEntity, BaseEntityProps } from '@shared/entities/base-entity';
+import { Paginated } from 'src/utils/pagination';
 
 interface CouponProps {
   title: string;
@@ -8,6 +9,7 @@ interface CouponProps {
   discountPercentage?: number;
   discountLimit?: number;
   expiresIn: Date;
+  singleUse: boolean;
 
   restaurantId: string;
 }
@@ -42,6 +44,14 @@ export class Coupon extends BaseEntity {
 
   public set code(value: string) {
     this.props.code = value;
+  }
+
+  public get singleUse(): boolean {
+    return this.props.singleUse;
+  }
+
+  public set singleUse(value: boolean) {
+    this.props.singleUse = value;
   }
 
   public get discountPercentage(): number | undefined {
@@ -83,3 +93,5 @@ export class Coupon extends BaseEntity {
     this.props.restaurantId = value;
   }
 }
+
+export class CouponPaginated extends Paginated<Coupon>(){}

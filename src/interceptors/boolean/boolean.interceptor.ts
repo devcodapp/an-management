@@ -11,7 +11,8 @@ export class BooleanInterceptor implements NestInterceptor {
       'disabled',
       'deleted',
       "isReserved",
-      "isOccupied"
+      "isOccupied",
+      "singleUse"
     ];
     booleanFields.forEach((field) => {
       if (request.body[field] == 'true') {
