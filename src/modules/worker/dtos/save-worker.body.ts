@@ -1,4 +1,3 @@
-import { Type } from 'class-transformer';
 import { IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator';
 
 export class SaveWorkerBody {
@@ -23,6 +22,5 @@ export class SaveWorkerBody {
   username?: string;
 
   @IsOptional()
-  @Type(() => Image)
   image?: Express.Multer.File;
 }

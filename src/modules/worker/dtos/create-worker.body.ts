@@ -1,4 +1,5 @@
-import { IsEmail, IsNotEmpty, IsString, IsUUID } from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsEmail, IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator';
 
 export class CreateWorkerBody {
   @IsString()
@@ -12,6 +13,10 @@ export class CreateWorkerBody {
   @IsString()
   @IsNotEmpty()
   password: string;
+
+  @IsOptional()
+  @Type(() => Image)
+  image?: Express.Multer.File;
 
   @IsNotEmpty()
   @IsUUID()

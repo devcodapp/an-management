@@ -23,7 +23,7 @@ export class CreateWorker {
   ) { }
 
   async execute(request: CreateWorkerBody): Promise<CreateWorkerResponse> {
-    const { email, name, restaurantId, } = request;
+    const { email, name, restaurantId, image } = request;
 
     const password = generateSKU(6).toLowerCase();
 
@@ -36,6 +36,15 @@ export class CreateWorker {
       },
       { createdUser: this.req['user'].sub },
     );
+
+    if (image) {
+      if (worker.imageId) await this.cloudinary.deleteImage(worker.imageId);
+
+      const uploadedImage = await this.cloudinary.uploadImage(image);
+
+      worker.imageId = uploadedImage.public_id;
+      worker.imageUrl = uploadedImage.url;
+    }
 
     await this.workerRepository.create(worker);
 
