@@ -1,7 +1,6 @@
 import { Body, ClassSerializerInterceptor, Controller, Get, Param, Patch, Post, Put, Query, UseGuards, UseInterceptors } from '@nestjs/common'
 import { PaginationProps } from '@shared/dtos/pagination-body'
 import { AuthGuard } from '@shared/modules/auth/auth.guard'
-import { BooleanInterceptor } from 'src/interceptors/boolean/boolean.interceptor'
 import { NumberInterceptor } from 'src/interceptors/number/number.interceptor'
 
 import { CreateCouponBody } from './dtos/create-coupon.body'
@@ -10,6 +9,8 @@ import { SaveCouponBody } from './dtos/save-coupon.body'
 import { CouponPaginated } from './entities/coupon'
 import { CreateCoupon } from './use-cases/create-coupon'
 import { DeleteCoupon } from './use-cases/delete-coupon'
+import { DisableCoupon } from './use-cases/disable-coupon'
+import { EnableCoupon } from './use-cases/enable-coupon'
 import { FilterCoupon } from './use-cases/filter-coupon'
 import { GetCoupon } from './use-cases/get-coupon'
 import { GetCouponCode } from './use-cases/get-coupon-code'
@@ -19,7 +20,7 @@ import { SaveCoupon } from './use-cases/save-coupon'
 import { CouponViewModel, ICouponView } from './view-models/coupon'
 
 @UseGuards(AuthGuard)
-@UseInterceptors(NumberInterceptor, BooleanInterceptor, ClassSerializerInterceptor)
+@UseInterceptors(NumberInterceptor, ClassSerializerInterceptor)
 @Controller('coupon')
 export class CouponController {
   constructor(
@@ -30,8 +31,10 @@ export class CouponController {
     private filterCoupon: FilterCoupon,
     private deleteCoupon: DeleteCoupon,
     private recoverCoupon: RecoverCoupon,
-    private paginationCoupon: PaginationCoupon
-  ) {}
+    private paginationCoupon: PaginationCoupon,
+    private disableCoupon: DisableCoupon,
+    private enableCoupon: EnableCoupon
+  ) { }
 
   @Get()
   async coupons(
@@ -53,7 +56,7 @@ export class CouponController {
     @Query() query: FilterCouponBody,
     @Query() pagination: PaginationProps,
   ): Promise<CouponPaginated> {
-    const  coupons = await this.paginationCoupon.execute(query, pagination)
+    const coupons = await this.paginationCoupon.execute(query, pagination)
 
     return {
       items: coupons.items.map(CouponViewModel.toHTTP),
@@ -140,5 +143,29 @@ export class CouponController {
     return {
       coupon: CouponViewModel.toHTTP(coupon),
     }
+  }
+
+  @Patch('disable')
+  async disable(
+    @Body() { couponIds }: { couponIds: string[] },
+  ): Promise<{ coupons: ICouponView[] }> {
+    const { coupons } = await this.disableCoupon.execute({ couponIds });
+
+    return {
+      coupons: coupons?.map(CouponViewModel.toHTTP),
+    };
+  }
+
+  @Patch('enable')
+  async enable(
+    @Body() { couponIds }: { couponIds: string[] },
+  ): Promise<{ coupons: ICouponView[] }> {
+    const { coupons } = await this.enableCoupon.execute({
+      couponIds,
+    });
+
+    return {
+      coupons: coupons?.map(CouponViewModel.toHTTP),
+    };
   }
 }

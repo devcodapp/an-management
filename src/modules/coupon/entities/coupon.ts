@@ -1,4 +1,4 @@
-import { BaseEntity, BaseEntityProps } from '@shared/entities/base-entity';
+import { BaseDisableEntity, BaseDisableEntityProps } from '@shared/entities/base-disable-entity';
 import { Paginated } from 'src/utils/pagination';
 
 interface CouponProps {
@@ -8,16 +8,18 @@ interface CouponProps {
   discountValue?: number;
   discountPercentage?: number;
   discountLimit?: number;
-  expiresIn: Date;
+
+  initiateIn?: Date
+  expiresIn?: Date;
   singleUse: boolean;
 
   restaurantId: string;
 }
 
-export class Coupon extends BaseEntity {
+export class Coupon extends BaseDisableEntity {
   private props: CouponProps;
 
-  constructor(props: CouponProps, baseProps: BaseEntityProps) {
+  constructor(props: CouponProps, baseProps: BaseDisableEntityProps) {
     super(baseProps);
     this.props = props;
   }
@@ -77,12 +79,20 @@ export class Coupon extends BaseEntity {
     this.props.discountLimit = value;
   }
 
-  public get expiresIn(): Date {
+  public get expiresIn(): Date | undefined {
     return this.props.expiresIn;
   }
 
-  public set expiresIn(value: Date) {
+  public get initiateIn(): Date | undefined {
+    return this.props.initiateIn;
+  }
+
+  public set expiresIn(value: Date | undefined) {
     this.props.expiresIn = value;
+  }
+
+  public set initiateIn(value: Date | undefined) {
+    this.props.initiateIn = value;
   }
 
   public get restaurantId(): string {
