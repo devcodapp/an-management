@@ -45,7 +45,6 @@ export class PrismaCouponRepository implements CouponsRepository {
   }
 
   async coupons(filters: FilterCouponBody): Promise<Coupon[] | null> {
-    console.log(filters.expired)
     const coupons = await this.prisma.coupon.findMany({
       where: {
         ...(filters.title && { title: { contains: filters.title, mode: 'insensitive' } }),
