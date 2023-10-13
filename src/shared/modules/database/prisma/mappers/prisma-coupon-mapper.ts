@@ -13,6 +13,8 @@ export class PrismaCouponMapper {
       singleUse: coupon.singleUse,
       discountLimit: coupon.discountLimit,
       expiresIn: coupon.expiresIn,
+      initiateIn: coupon.initiateIn,
+      disabled: coupon.disabled,
       createdUser: coupon.createdUser,
       createdAt: coupon.createdAt,
       deletedUser: coupon.deletedUser,
@@ -34,6 +36,7 @@ export class PrismaCouponMapper {
         expiresIn: raw.expiresIn,
         singleUse: raw.singleUse,
         title: raw.title,
+        initiateIn: raw.initiateIn
       },
       {
         createdAt: raw.createdAt,
@@ -42,6 +45,7 @@ export class PrismaCouponMapper {
         deletedUser: raw.deletedUser,
         id: raw.id,
         deleted: raw.deleted,
+        disabled: raw.disabled
       },
     );
   }

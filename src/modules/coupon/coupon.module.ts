@@ -5,6 +5,8 @@ import { KafkaService } from '@shared/modules/kafka/kafka.service';
 import { CouponController } from './coupon.controller';
 import { CreateCoupon } from './use-cases/create-coupon';
 import { DeleteCoupon } from './use-cases/delete-coupon';
+import { DisableCoupon } from './use-cases/disable-coupon';
+import { EnableCoupon } from './use-cases/enable-coupon';
 import { FilterCoupon } from './use-cases/filter-coupon';
 import { GetCoupon } from './use-cases/get-coupon';
 import { GetCouponCode } from './use-cases/get-coupon-code';
@@ -24,6 +26,8 @@ import { SaveCoupon } from './use-cases/save-coupon';
     DeleteCoupon,
     RecoverCoupon,
     PaginationCoupon,
+    DisableCoupon,
+    EnableCoupon,
     KafkaService,
   ],
 })

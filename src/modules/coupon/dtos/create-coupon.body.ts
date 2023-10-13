@@ -33,6 +33,11 @@ export class CreateCouponBody {
   @IsNotEmpty()
   @IsDate()
   @Type(() => Date)
+  initiateIn: Date;
+
+  @IsNotEmpty()
+  @IsDate()
+  @Type(() => Date)
   expiresIn: Date;
 
   @IsNotEmpty()

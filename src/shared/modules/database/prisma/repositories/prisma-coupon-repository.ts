@@ -63,6 +63,16 @@ export class PrismaCouponRepository implements CouponsRepository {
             )
           }
         }),
+        ...(filters.initiateIn && {
+          initiateIn: {
+            lte: new Date(filters.initiateIn),
+            gte: new Date(
+              filters.initiateIn.getTime() +
+              (1000 * 3600 * 24 - 1)
+            )
+          }
+        }),
+        ...(filters.disabled !== undefined && { disabled: filters.disabled }),
         deleted: filters.deleted || false,
       },
     });
@@ -92,6 +102,16 @@ export class PrismaCouponRepository implements CouponsRepository {
             )
           }
         }),
+        ...(filters.initiateIn && {
+          initiateIn: {
+            lte: new Date(filters.initiateIn),
+            gte: new Date(
+              filters.initiateIn.getTime() +
+              (1000 * 3600 * 24 - 1)
+            )
+          }
+        }),
+        ...(filters.disabled !== undefined && { disabled: filters.disabled }),
         deleted: filters.deleted || false,
       },
     }

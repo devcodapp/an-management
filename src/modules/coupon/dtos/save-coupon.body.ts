@@ -37,6 +37,11 @@ export class SaveCouponBody {
   @IsOptional()
   @IsDate()
   @Type(() => Date)
+  initiateIn?: Date;
+
+  @IsOptional()
+  @IsDate()
+  @Type(() => Date)
   expiresIn?: Date;
 
   @IsOptional()

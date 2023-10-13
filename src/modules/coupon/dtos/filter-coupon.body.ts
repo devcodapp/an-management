@@ -1,6 +1,6 @@
 import { FilterBaseBody } from '@shared/dtos/filter-base-body';
 import { Type } from 'class-transformer';
-import { IsDate, IsNumber, IsOptional, IsString, IsUUID } from 'class-validator';
+import { IsBoolean, IsDate, IsNumber, IsOptional, IsString, IsUUID } from 'class-validator';
 
 export class FilterCouponBody extends FilterBaseBody {
   @IsOptional()
@@ -11,9 +11,9 @@ export class FilterCouponBody extends FilterBaseBody {
   @IsString()
   description?: string;
 
-  // @IsOptional()
-  // @IsBoolean()
-  // singleUse?: boolean;
+  @IsOptional()
+  @IsBoolean()
+  singleUse?: boolean;
 
   @IsOptional()
   @IsString()
@@ -35,6 +35,15 @@ export class FilterCouponBody extends FilterBaseBody {
   @IsDate()
   @Type(() => Date)
   expiresIn?: Date;
+
+  @IsOptional()
+  @IsDate()
+  @Type(() => Date)
+  initiateIn?: Date;
+
+  @IsOptional()
+  @IsBoolean()
+  disabled?: boolean;
 
   @IsOptional()
   @IsUUID()

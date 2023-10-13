@@ -15,13 +15,16 @@ model Coupon {
   discountPercentage Float?
   discountLimit      Float?
 
-  expiresIn DateTime
+  initiateIn DateTime
+  expiresIn  DateTime
 
   createdUser String
   createdAt   DateTime  @default(now())
   deletedUser String?
   deletedAt   DateTime?
   deleted     Boolean   @default(false)
+
+  disabled Boolean @default(false)
 
   restaurantId String
   restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
