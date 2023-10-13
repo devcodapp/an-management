@@ -30,12 +30,12 @@ export class CreateCouponBody {
   @IsBoolean()
   singleUse: boolean;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsDate()
   @Type(() => Date)
   initiateIn: Date;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsDate()
   @Type(() => Date)
   expiresIn: Date;

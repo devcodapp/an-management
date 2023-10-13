@@ -45,6 +45,7 @@ export class PrismaCouponRepository implements CouponsRepository {
   }
 
   async coupons(filters: FilterCouponBody): Promise<Coupon[] | null> {
+    console.log(filters.expired)
     const coupons = await this.prisma.coupon.findMany({
       where: {
         ...(filters.title && { title: { contains: filters.title, mode: 'insensitive' } }),
@@ -54,6 +55,17 @@ export class PrismaCouponRepository implements CouponsRepository {
         ...(filters.discountLimit && { discountLimit: filters.discountLimit }),
         ...(filters.discountPercentage && { discountPercentage: filters.discountPercentage }),
         ...(filters.discountValue && { discountValue: filters.discountValue }),
+        ...(filters.singleUse !== undefined && { singleUse: filters.singleUse }),
+        ...(filters.expired && { 
+          expiresIn: {
+            lt: new Date(),
+          }
+         }),
+        ...(filters.expired == false && { 
+          expiresIn: {
+            gt: new Date(),
+          }
+         }),
         ...(filters.expiresIn && {
           expiresIn: {
             lte: new Date(filters.expiresIn),
@@ -93,6 +105,16 @@ export class PrismaCouponRepository implements CouponsRepository {
         ...(filters.discountLimit && { discountLimit: filters.discountLimit }),
         ...(filters.discountPercentage && { discountPercentage: filters.discountPercentage }),
         ...(filters.discountValue && { discountValue: filters.discountValue }),
+        ...(filters.expired && { 
+          expiresIn: {
+            lt: new Date(),
+          }
+         }),
+        ...(filters.expired == false && { 
+          expiresIn: {
+            gt: new Date(),
+          }
+         }),
         ...(filters.expiresIn && {
           expiresIn: {
             lte: new Date(filters.expiresIn),

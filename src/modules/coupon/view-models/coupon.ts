@@ -41,8 +41,8 @@ export interface ICouponView {
   discountPercentage?: number;
   discountLimit?: number;
   singleUse: boolean;
-  initiateIn: Date;
-  expiresIn: Date;
+  initiateIn?: Date;
+  expiresIn?: Date;
   disabled: boolean;
   restaurantId: string;
 }

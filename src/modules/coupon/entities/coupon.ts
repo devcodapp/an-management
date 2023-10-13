@@ -9,8 +9,8 @@ interface CouponProps {
   discountPercentage?: number;
   discountLimit?: number;
 
-  initiateIn: Date
-  expiresIn: Date;
+  initiateIn?: Date
+  expiresIn?: Date;
   singleUse: boolean;
 
   restaurantId: string;
@@ -79,19 +79,19 @@ export class Coupon extends BaseDisableEntity {
     this.props.discountLimit = value;
   }
 
-  public get expiresIn(): Date {
+  public get expiresIn(): Date | undefined {
     return this.props.expiresIn;
   }
 
-  public get initiateIn(): Date {
+  public get initiateIn(): Date | undefined {
     return this.props.initiateIn;
   }
 
-  public set expiresIn(value: Date) {
+  public set expiresIn(value: Date | undefined) {
     this.props.expiresIn = value;
   }
 
-  public set initiateIn(value: Date) {
+  public set initiateIn(value: Date | undefined) {
     this.props.initiateIn = value;
   }
 

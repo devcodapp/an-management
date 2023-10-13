@@ -1,7 +1,6 @@
 import { Body, ClassSerializerInterceptor, Controller, Get, Param, Patch, Post, Put, Query, UseGuards, UseInterceptors } from '@nestjs/common'
 import { PaginationProps } from '@shared/dtos/pagination-body'
 import { AuthGuard } from '@shared/modules/auth/auth.guard'
-import { BooleanInterceptor } from 'src/interceptors/boolean/boolean.interceptor'
 import { NumberInterceptor } from 'src/interceptors/number/number.interceptor'
 
 import { CreateCouponBody } from './dtos/create-coupon.body'
@@ -21,7 +20,7 @@ import { SaveCoupon } from './use-cases/save-coupon'
 import { CouponViewModel, ICouponView } from './view-models/coupon'
 
 @UseGuards(AuthGuard)
-@UseInterceptors(NumberInterceptor, BooleanInterceptor, ClassSerializerInterceptor)
+@UseInterceptors(NumberInterceptor, ClassSerializerInterceptor)
 @Controller('coupon')
 export class CouponController {
   constructor(

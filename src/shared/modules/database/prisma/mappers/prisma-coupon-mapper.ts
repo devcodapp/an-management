@@ -33,10 +33,10 @@ export class PrismaCouponMapper {
         discountValue: raw.discountValue ?? undefined,
         discountLimit: raw.discountLimit ?? undefined,
         discountPercentage: raw.discountPercentage ?? undefined,
-        expiresIn: raw.expiresIn,
+        expiresIn: raw.expiresIn || undefined,
         singleUse: raw.singleUse,
         title: raw.title,
-        initiateIn: raw.initiateIn
+        initiateIn: raw.initiateIn ||undefined
       },
       {
         createdAt: raw.createdAt,

@@ -15,8 +15,8 @@ model Coupon {
   discountPercentage Float?
   discountLimit      Float?
 
-  initiateIn DateTime
-  expiresIn  DateTime
+  initiateIn DateTime?
+  expiresIn  DateTime?
 
   createdUser String
   createdAt   DateTime  @default(now())
