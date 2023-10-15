@@ -8,7 +8,6 @@ interface UserProps {
   password: string;
   changePassword?: boolean;
   
-  restaurantId?: string;
   deletedAt?: Date;
 
   roleIds?: string[]
@@ -74,11 +73,4 @@ export class User {
     this.props.deletedAt = value;
   }
 
-  public get restaurantId(): string | undefined {
-    return this.props.restaurantId;
-  }
-
-  public set restaurantId(value: string | undefined) {
-    this.props.restaurantId = value;
-  }
 }

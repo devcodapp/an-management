@@ -49,7 +49,6 @@ export class AuthService {
         username: user.username,
         email: user.email,
 
-        restaurantId: user.restaurantId,
         id: user.id,
       },
     };

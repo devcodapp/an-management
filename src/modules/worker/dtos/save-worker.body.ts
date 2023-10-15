@@ -11,10 +11,6 @@ export class SaveWorkerBody {
 
   @IsString()
   @IsOptional()
-  email?: string;
-
-  @IsString()
-  @IsOptional()
   password?: string;
 
   @IsString()

@@ -14,7 +14,8 @@ export class PrismaWorkerMapper {
       deletedAt: worker.deletedAt,
       userId: worker.userId,
       deleted: worker.deleted,
-      disabled: worker.disabled
+      disabled: worker.disabled,
+      restaurantId: worker.restaurantId
     };
   }
 
@@ -31,6 +32,7 @@ export class PrismaWorkerMapper {
         imageId: raw.imageId || undefined,
         imageUrl: raw.imageUrl || undefined,
         name: raw.name,
+        restaurantId: raw.restaurantId,
         user,
         disabled: raw.disabled
       },
