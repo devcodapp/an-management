@@ -54,7 +54,9 @@ export class PrismaRestaurantRepository implements RestaurantsRepository {
   async restaurantsByOwner(ownerId: string): Promise<Restaurant[]> {
     const restaurants = await this.prisma.restaurant.findMany({
       where: {
-        ownerId
+        owner: {
+          userId: ownerId
+        }
       }
     })
 

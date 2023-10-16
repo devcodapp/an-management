@@ -1,3 +1,4 @@
+import { GetUserOwner } from '@modules/owner/use-cases/get-user-owner';
 import { Module } from '@nestjs/common';
 import { CloudinaryService } from '@shared/modules/cloudinary/cloudinary.service';
 import { DatabaseModule } from '@shared/modules/database/database.module';
@@ -48,6 +49,7 @@ import { SaveRestaurant } from './use-cases/save-restaurant';
     GetOwnerRestaurant,
     GetUserRestaurant,
     CloudinaryService,
+    GetUserOwner,
     KafkaService,
   ],
 })

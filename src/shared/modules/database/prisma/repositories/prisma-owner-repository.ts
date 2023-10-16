@@ -26,7 +26,15 @@ export class PrismaOwnerRepository implements OwnersRepository {
     return PrismaOwnerMapper.toDomain(owner);
   }
 
+  async ownerByUser(userId: string): Promise<Owner | null> {
+    const owner = await this.prisma.owner.findFirst({ where: { userId: userId }, include: { user: true } });
 
+    if (!owner) {
+      return null;
+    }
+
+    return PrismaOwnerMapper.toDomain(owner);
+  }
   async save(owner: Owner): Promise<void> {
     const { id, ...raw } = PrismaOwnerMapper.toPrisma(owner);
 

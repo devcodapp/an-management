@@ -19,5 +19,5 @@ export class CreateRestaurantBody {
 
   @IsUUID()
   @IsNotEmpty()
-  ownerId: string;
+  userId: string;
 }
