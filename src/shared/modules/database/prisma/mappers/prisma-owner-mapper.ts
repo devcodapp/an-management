@@ -16,7 +16,7 @@ export class PrismaOwnerMapper {
   }
 
   static toDomain(raw: RawOwner & { user: RawUser }) {
-    const user = new User({ ...raw.user, restaurantId: raw.user.restaurantId || undefined, deletedAt: raw.user.deletedAt || undefined })
+    const user = new User({ ...raw.user, deletedAt: raw.user.deletedAt || undefined })
     return new Owner({
       name: raw.name,
       userId: raw.userId,

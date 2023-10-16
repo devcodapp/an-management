@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch, Post, Put, Query, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, ClassSerializerInterceptor, Controller, Get, Param, Patch, Post, Put, Query, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { PaginationProps } from '@shared/dtos/pagination-body';
 import { AuthGuard } from '@shared/modules/auth/auth.guard';
@@ -20,7 +20,7 @@ import { SaveWorker } from './use-cases/save-worker';
 import { IWorkerView, WorkerViewModel } from './view-models/worker';
 
 @UseGuards(AuthGuard)
-@UseInterceptors(BooleanInterceptor, NumberInterceptor)
+@UseInterceptors(BooleanInterceptor, NumberInterceptor, ClassSerializerInterceptor)
 @Controller('worker')
 export class WorkerController {
   constructor(

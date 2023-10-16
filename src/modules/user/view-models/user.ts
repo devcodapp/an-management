@@ -5,7 +5,6 @@ export class UserViewModel {
     id,
     changePassword,
     email,
-    restaurantId,
     username,
   }: User): IUserView {
     return {
@@ -13,7 +12,6 @@ export class UserViewModel {
       email,
       username,
       changePassword: changePassword || undefined,
-      restaurantId: restaurantId || undefined,
     };
   }
 }
@@ -22,6 +20,5 @@ export interface IUserView {
   id: string;
   username: string;
   email: string;
-  restaurantId?: string;
   changePassword?: boolean;
 }

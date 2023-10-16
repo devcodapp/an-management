@@ -8,6 +8,7 @@ export interface WorkerProps {
   disabled?: boolean
   userId: string;
   user?: User
+  restaurantId: string
 }
 
 interface User {
@@ -68,6 +69,10 @@ export class Worker extends BaseEntity {
 
   public get disabled(): boolean | undefined {
     return this.props.disabled;
+  }
+
+  public get restaurantId(): string {
+    return this.props.restaurantId;
   }
 
   public disable(){

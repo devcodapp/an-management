@@ -5,6 +5,7 @@ import { CloudinaryService } from '@shared/modules/cloudinary/cloudinary.service
 import { generateSKU } from '@shared/services/generateSKU';
 import { Request } from 'express';
 
+import { UsersRepository } from '@modules/user/repositories/user-repository';
 import { CreateWorkerBody } from '../dtos/create-worker.body';
 import { Worker } from '../entities/worker';
 import { WorkerRepository } from '../repositories/worker-repository';
@@ -17,6 +18,7 @@ interface CreateWorkerResponse {
 export class CreateWorker {
   constructor(
     private workerRepository: WorkerRepository,
+    private userRepository: UsersRepository,
     private createUser: CreateUser,
     private cloudinary: CloudinaryService,
     @Inject(REQUEST) private req: Request,
@@ -27,12 +29,18 @@ export class CreateWorker {
 
     const password = generateSKU(6).toLowerCase();
 
-    const { user } = await this.createUser.execute({ email, name, password, restaurantId });
+    let user = await this.userRepository.userByEmail(email)
+
+    if(!user){
+      user = (await this.createUser.execute({ email, name, password })).user;
+    }
+
 
     const worker = new Worker(
       {
         name,
-        userId: user.id
+        userId: user.id,
+        restaurantId
       },
       { createdUser: this.req['user'].sub },
     );
