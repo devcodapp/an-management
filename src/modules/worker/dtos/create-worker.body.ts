@@ -20,5 +20,9 @@ export class CreateWorkerBody {
 
   @IsNotEmpty()
   @IsUUID()
+  roleId: string;
+
+  @IsNotEmpty()
+  @IsUUID()
   restaurantId: string;
 }

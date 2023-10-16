@@ -1,3 +1,4 @@
+import { AddUserRole } from '@modules/role/use-cases/add-user-role';
 import { CreateUser } from '@modules/user/use-cases/create-user';
 import { SaveUser } from '@modules/user/use-cases/save-user';
 import { Module } from '@nestjs/common';
@@ -29,6 +30,7 @@ import { WorkerService } from './worker.service';
     SaveUser,
     DisableWorker,
     EnableWorker,
+    AddUserRole,
     PaginationWorker
   ],
   exports: [WorkerService],
