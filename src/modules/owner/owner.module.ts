@@ -7,10 +7,11 @@ import { DatabaseModule } from '@shared/modules/database/database.module';
 import { OwnerController } from './owner.controller';
 import { CreateOwner } from './use-cases/create-owner';
 import { GetOwner } from './use-cases/get-owner';
+import { GetUserOwner } from './use-cases/get-user-owner';
 import { SaveOwner } from './use-cases/save-owner';
 
 @Module({
-  providers: [CreateOwner, CreateUser, JwtService, SaveOwner, SaveUser, GetOwner],
+  providers: [CreateOwner, CreateUser, JwtService, SaveOwner, SaveUser, GetOwner, GetUserOwner],
   imports: [DatabaseModule],
   controllers: [OwnerController]
 })
