@@ -18,9 +18,9 @@ export class CreateWorkerBody {
   @Type(() => Image)
   image?: Express.Multer.File;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsUUID()
-  roleId: string;
+  roleId?: string;
 
   @IsNotEmpty()
   @IsUUID()
