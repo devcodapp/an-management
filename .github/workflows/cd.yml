@@ -26,9 +26,9 @@ jobs:
         port: 22
         script: |
           cd /home/apps/back/an-management
-          sudo git checkout develop
-          sudo git pull origin develop
-          sudo git status
-          sudo pnpm install
-          sudo pnpm run build
-          sudo pm2 restart node1
+          git checkout develop
+          git pull origin develop
+          git status
+          pnpm install
+          pnpm run build
+          pm2 restart node1
