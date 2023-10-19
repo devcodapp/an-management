@@ -31,4 +31,4 @@ jobs:
           sudo git status
           sudo pnpm i
           sudo pnpm build
-          pm2 restart node1
+          sudo pm2 restart dev-management
