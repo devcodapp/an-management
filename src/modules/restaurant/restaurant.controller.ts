@@ -13,8 +13,10 @@ import { CloseRestaurant } from './use-cases/close-restaurant';
 import { CreateRestaurant } from './use-cases/create-restaurant';
 import { DisableRestaurant } from './use-cases/disable-restaurant';
 import { FilterRestaurant } from './use-cases/filter-restaurant';
+import { GetOwnerRestaurant } from './use-cases/get-owner-restaurant';
 import { GetRestaurant } from './use-cases/get-restaurant';
 import { GetSlugRestaurant } from './use-cases/get-slug-restaurant';
+import { GetUserRestaurant } from './use-cases/get-user-restaurant';
 import { OpenRestaurant } from './use-cases/open-restaurant';
 import { AddOpeningHour } from './use-cases/openingHours/add-opening-hour';
 import { RemoveOpeningHour } from './use-cases/openingHours/remove-opening-hour';
@@ -36,7 +38,9 @@ export class RestaurantController {
     private getSlugRestaurant: GetSlugRestaurant,
     private addOpeningHour: AddOpeningHour,
     private removeOpeningHour: RemoveOpeningHour,
-    private saveOpeningHour: SaveOpeningHour
+    private saveOpeningHour: SaveOpeningHour,
+    private getUserRestaurant: GetUserRestaurant,
+    private getOwnerRestaurant: GetOwnerRestaurant
   ) { }
 
   @UseGuards(AuthGuard)
@@ -85,6 +89,30 @@ export class RestaurantController {
     };
   }
 
+  @UseGuards(AuthGuard)
+  @Get('/owner/:ownerId')
+  async restaurantOwner(
+    @Param('ownerId') ownerId: string,
+  ): Promise<{ restaurants: IRestaurantView[] } | null> {
+    const { restaurants } = await this.getOwnerRestaurant.execute({ ownerId });
+
+    return {
+      restaurants: restaurants.map(RestaurantViewModel.toHTTP),
+    };
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('/user/:userId')
+  async restaurantUser(
+    @Param('userId') userId: string,
+  ): Promise<{ restaurants: IRestaurantView[] } | null> {
+    const { restaurants } = await this.getUserRestaurant.execute({ userId });
+
+    return {
+      restaurants: restaurants.map(RestaurantViewModel.toHTTP),
+    };
+  }
+
   @Post()
   async create(
     @Body() body: CreateRestaurantBody,
@@ -101,7 +129,7 @@ export class RestaurantController {
   @UseInterceptors(FileFieldsInterceptor([{ name: 'image', maxCount: 1 }, { name: 'banner', maxCount: 1 }]))
   async update(
     @Body() body: SaveRestaurantBody,
-    @UploadedFiles() files: { image?: Express.Multer.File[], banner?: Express.Multer.File[] },
+    @UploadedFiles() files: SaveRestaurantBody,
   ): Promise<{ restaurant: IRestaurantView }> {
     const image = files?.image ? files.image[0] : undefined
     const banner = files?.banner ? files.banner[0] : undefined

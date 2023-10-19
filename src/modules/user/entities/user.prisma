@@ -8,14 +8,5 @@ model User {
 
   deletedAt DateTime?
 
-  restaurant   Restaurant? @relation("USERS", fields: [restaurantId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  restaurantId String?
-
   @@map("users")
-}
-
-model Restaurant {
-  id String @id @map("_id")
-
-  users User[] @relation("USERS")
 }

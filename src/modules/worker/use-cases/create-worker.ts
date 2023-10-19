@@ -1,3 +1,5 @@
+import { AddUserRole } from '@modules/role/use-cases/add-user-role';
+import { UsersRepository } from '@modules/user/repositories/user-repository';
 import { CreateUser } from '@modules/user/use-cases/create-user';
 import { Inject, Injectable } from '@nestjs/common';
 import { REQUEST } from '@nestjs/core';
@@ -17,22 +19,33 @@ interface CreateWorkerResponse {
 export class CreateWorker {
   constructor(
     private workerRepository: WorkerRepository,
+    private userRepository: UsersRepository,
     private createUser: CreateUser,
+    private addUserRole: AddUserRole,
     private cloudinary: CloudinaryService,
     @Inject(REQUEST) private req: Request,
   ) { }
 
   async execute(request: CreateWorkerBody): Promise<CreateWorkerResponse> {
-    const { email, name, restaurantId, image } = request;
+    const { email, name, restaurantId, image, roleId } = request;
 
     const password = generateSKU(6).toLowerCase();
 
-    const { user } = await this.createUser.execute({ email, name, password, restaurantId });
+    let user = await this.userRepository.userByEmail(email)
+
+    if (!user) {
+      user = (await this.createUser.execute({ email, name, password })).user;
+    }
+
+    if (roleId) {
+      await this.addUserRole.execute({ roleId, userId: user.id })
+    }
 
     const worker = new Worker(
       {
         name,
-        userId: user.id
+        userId: user.id,
+        restaurantId
       },
       { createdUser: this.req['user'].sub },
     );

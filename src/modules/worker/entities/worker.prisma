@@ -13,12 +13,22 @@ model Worker {
 
   userId String
 
+  restaurantId String
+
   user User @relation(fields: [userId], references: [id])
+
+  restaurant Restaurant @relation(fields: [restaurantId], references: [id])
 
   @@map("workers")
 }
 
 model User {
+  id String @id @map("_id")
+
+  workers Worker[]
+}
+
+model Restaurant {
   id String @id @map("_id")
 
   workers Worker[]

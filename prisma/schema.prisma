@@ -17,12 +17,14 @@ model Coupon {
   discountValue      Float?
   discountPercentage Float?
   discountLimit      Float?
-  expiresIn          DateTime
+  initiateIn         DateTime?
+  expiresIn          DateTime?
   createdUser        String
   createdAt          DateTime   @default(now())
   deletedUser        String?
   deletedAt          DateTime?
   deleted            Boolean    @default(false)
+  disabled           Boolean    @default(false)
   restaurantId       String
   restaurant         Restaurant @relation(name: "CouponToRestaurant", fields: [restaurantId], references: [id])
 
@@ -53,7 +55,7 @@ model Restaurant {
   disabled           Boolean             @default(false)
   ownerId            String
   tables             Table[]             @relation(name: "RestaurantToTable")
-  users              User[]              @relation(name: "USERS")
+  workers            Worker[]            @relation(name: "RestaurantToWorker")
 
   @@map("restaurants")
 }
@@ -82,8 +84,6 @@ model User {
   password       String
   changePassword Boolean     @default(true)
   deletedAt      DateTime?
-  restaurant     Restaurant? @relation(name: "USERS", fields: [restaurantId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  restaurantId   String?
   workers        Worker[]    @relation(name: "UserToWorker")
 
   @@map("users")
@@ -166,18 +166,20 @@ model Table {
 }
 
 model Worker {
-  id          String    @id @map("_id")
-  name        String
-  imageId     String?
-  imageUrl    String?
-  createdUser String
-  createdAt   DateTime  @default(now())
-  deletedUser String?
-  deletedAt   DateTime?
-  deleted     Boolean   @default(false)
-  disabled    Boolean   @default(false)
-  userId      String
-  user        User      @relation(name: "UserToWorker", fields: [userId], references: [id])
+  id           String     @id @map("_id")
+  name         String
+  imageId      String?
+  imageUrl     String?
+  createdUser  String
+  createdAt    DateTime   @default(now())
+  deletedUser  String?
+  deletedAt    DateTime?
+  deleted      Boolean    @default(false)
+  disabled     Boolean    @default(false)
+  userId       String
+  restaurantId String
+  user         User       @relation(name: "UserToWorker", fields: [userId], references: [id])
+  restaurant   Restaurant @relation(name: "RestaurantToWorker", fields: [restaurantId], references: [id])
 
   @@map("workers")
 }

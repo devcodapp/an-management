@@ -19,7 +19,7 @@ export class SaveWorker {
   ) { }
 
   async execute(request: SaveWorkerBody): Promise<SaveWorkerResponse> {
-    const { workerId, image, email, name, password, username } = request;
+    const { workerId, image, name, password, username } = request;
 
     const worker = await this.workerRepository.worker(workerId);
 
@@ -36,7 +36,7 @@ export class SaveWorker {
       worker.imageUrl = uploadedImage.url;
     }
 
-    await this.saveUser.execute({ userId: worker.userId, email, password, username })
+    await this.saveUser.execute({ userId: worker.userId, password, username })
 
     name && (worker.name = name)
 

@@ -10,7 +10,6 @@ interface CreateUserRequest {
   password: string;
   name: string;
   username?: string;
-  restaurantId?: string;
 }
 
 interface CreateUserResponse {
@@ -22,7 +21,7 @@ export class CreateUser {
   constructor(private userRepository: UsersRepository) { }
 
   async execute(request: CreateUserRequest): Promise<CreateUserResponse> {
-    const { email, password, name, username, restaurantId } = request;
+    const { email, password, name, username } = request;
 
     const userExists = await this.userRepository.userByEmail(
       email
@@ -48,7 +47,6 @@ export class CreateUser {
     const user = new User({
       email,
       password: encodePassword(password),
-      restaurantId,
       username: username || newUsername,
     });
 

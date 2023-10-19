@@ -1,3 +1,4 @@
+import { GetUserOwner } from '@modules/owner/use-cases/get-user-owner';
 import { Injectable } from '@nestjs/common';
 import { KafkaService } from '@shared/modules/kafka/kafka.service';
 
@@ -13,13 +14,22 @@ interface CreateRestaurantResponse {
 export class CreateRestaurant {
   constructor(
     private restaurantsRepository: RestaurantsRepository,
+    private getUserOwner: GetUserOwner,
     private readonly kafkaService: KafkaService,
-  ) {}
+  ) { }
 
   async execute(
     request: CreateRestaurantBody,
   ): Promise<CreateRestaurantResponse> {
-    const restaurant = new Restaurant(request);
+    const { userId, ...createFields } = request
+
+    const { owner } = await this.getUserOwner.execute({ userId })
+
+    if (!owner) {
+      throw new Error('Usuário não encontrado')
+    }
+
+    const restaurant = new Restaurant({ ...createFields, ownerId: owner.id! });
 
     await this.restaurantsRepository.create(restaurant);
 

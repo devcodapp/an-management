@@ -51,6 +51,29 @@ export class PrismaRestaurantRepository implements RestaurantsRepository {
     return PrismaRestaurantMapper.toDomain(restaurant);
   }
 
+  async restaurantsByOwner(ownerId: string): Promise<Restaurant[]> {
+    const restaurants = await this.prisma.restaurant.findMany({
+      where: {
+        owner: {
+          userId: ownerId
+        }
+      }
+    })
+
+    return restaurants.map(PrismaRestaurantMapper.toDomain)
+  }
+
+  async restaurantsByUser(userId: string): Promise<Restaurant[]> {
+    const restaurants = await this.prisma.restaurant.findMany({
+      where: {
+        workers: {
+          some: { user: { id: userId } }
+        }
+      }
+    })
+    return restaurants.map(PrismaRestaurantMapper.toDomain)
+  }
+
   async restaurants(
     filters: FilterRestaurantBody,
   ): Promise<Restaurant[] | null> {

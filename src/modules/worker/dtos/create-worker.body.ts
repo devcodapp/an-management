@@ -18,6 +18,10 @@ export class CreateWorkerBody {
   @Type(() => Image)
   image?: Express.Multer.File;
 
+  @IsOptional()
+  @IsUUID()
+  roleId?: string;
+
   @IsNotEmpty()
   @IsUUID()
   restaurantId: string;

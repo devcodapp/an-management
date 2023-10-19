@@ -1,3 +1,4 @@
+import { GetUserOwner } from '@modules/owner/use-cases/get-user-owner';
 import { Module } from '@nestjs/common';
 import { CloudinaryService } from '@shared/modules/cloudinary/cloudinary.service';
 import { DatabaseModule } from '@shared/modules/database/database.module';
@@ -15,8 +16,10 @@ import { RemoveDeliveryFee } from './use-cases/deliveryFees/remove-delivery-fee'
 import { SaveDeliveryFee } from './use-cases/deliveryFees/save-delivery-fee';
 import { DisableRestaurant } from './use-cases/disable-restaurant';
 import { FilterRestaurant } from './use-cases/filter-restaurant';
+import { GetOwnerRestaurant } from './use-cases/get-owner-restaurant';
 import { GetRestaurant } from './use-cases/get-restaurant';
 import { GetSlugRestaurant } from './use-cases/get-slug-restaurant';
+import { GetUserRestaurant } from './use-cases/get-user-restaurant';
 import { OpenRestaurant } from './use-cases/open-restaurant';
 import { AddOpeningHour } from './use-cases/openingHours/add-opening-hour';
 import { RemoveOpeningHour } from './use-cases/openingHours/remove-opening-hour';
@@ -43,7 +46,10 @@ import { SaveRestaurant } from './use-cases/save-restaurant';
     DisableDeliveryFee,
     EnableDeliveryFee,
     GetSlugRestaurant,
+    GetOwnerRestaurant,
+    GetUserRestaurant,
     CloudinaryService,
+    GetUserOwner,
     KafkaService,
   ],
 })

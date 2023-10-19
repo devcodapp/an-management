@@ -43,7 +43,7 @@ export class PrismaWorkerRepository implements WorkerRepository {
             email: { contains: filters.email, mode: 'insensitive' }
           }
         }),
-        ...(filters.restaurantId && { user: { restaurantId: filters.restaurantId, } }),
+        ...(filters.restaurantId && { restaurantId: filters.restaurantId, }),
         deleted: filters.deleted || false,
       },
       orderBy: { name: 'asc' },
@@ -56,8 +56,8 @@ export class PrismaWorkerRepository implements WorkerRepository {
     const query: Prisma.WorkerFindManyArgs = {
       where: {
         ...(filters.name && { name: { contains: filters.name, mode: 'insensitive' } }),
+        restaurantId: filters.restaurantId,
         user: {
-          restaurantId: filters.restaurantId,
           ...(filters.email && { email: { contains: filters.email, mode: 'insensitive' } })
         },
         deleted: filters.deleted || false,
