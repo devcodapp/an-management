@@ -15,9 +15,7 @@ export class CreateRestaurantPayment {
         private repository: RestaurantPaymentRepository, @Inject(REQUEST) private req: Request) {}
     
     async execute(request: RestaurantPaymentCreateBody) : Promise<CreateRestaurantPaymentResponse> {
-
-        // const hasRestaurantPayment = await this.repository.restaurantId(request.name, request.restaurantId)
-
+        
         const { description, name, restaurantId } = request;
 
         const restaurantPayment = new RestaurantPayment({description, name, restaurantId}, { createdUser: this.req["user"].sub }) 

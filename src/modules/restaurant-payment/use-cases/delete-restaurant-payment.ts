@@ -19,7 +19,6 @@ interface DeleteRestaurantPaymentReponse {
 export class DeleteRestaurantPayment {
     constructor(
         private restaurantPaymentRepository: RestaurantPaymentRepository,
-        // private kafkaService: KafkaService,
         @Inject(REQUEST) private req: Request,
     ) {}
     async execute(request: DeleteRestaurantPaymentRequest): Promise<DeleteRestaurantPaymentReponse> {
@@ -34,11 +33,6 @@ export class DeleteRestaurantPayment {
         restaurantPayment.delete(this.req['user'].sub);
 
         await this.restaurantPaymentRepository.save(restaurantPayment)
-
-        // await this.kafkaService.sendMessage('RESTAURANTPAYMENT_DELETED', {
-        //     externalId: restaurantPayment.id,
-        //     restaurantId: restaurantPayment.restaurantId,
-        // });
 
         return { restaurantPayment }
     }
