@@ -17,6 +17,8 @@ import { PrismaRoleRepository } from './prisma/repositories/prisma-role-reposito
 import { PrismaTableRepository } from './prisma/repositories/prisma-table-repository';
 import { PrismaUserRepository } from './prisma/repositories/prisma-user-repository';
 import { PrismaWorkerRepository } from './prisma/repositories/prisma-worker-repository';
+import { RestaurantPaymentRepository } from '@modules/restaurant-payment/repositories/restaurant-payment-repository';
+import { PrismaRestaurantPaymentRepository } from './prisma/repositories/prisma-restaurant-payment-repository';
 
 @Module({
   providers: [
@@ -56,6 +58,10 @@ import { PrismaWorkerRepository } from './prisma/repositories/prisma-worker-repo
       provide: RoleRepository,
       useClass: PrismaRoleRepository,
     },
+    {
+      provide: RestaurantPaymentRepository,
+      useClass: PrismaRestaurantPaymentRepository
+    }
   ],
   exports: [
     RestaurantsRepository,
@@ -65,7 +71,8 @@ import { PrismaWorkerRepository } from './prisma/repositories/prisma-worker-repo
     UsersRepository,
     RestaurantTypesRepository,
     OwnersRepository,
-    RoleRepository
+    RoleRepository,
+    RestaurantPaymentRepository
   ],
 })
 export class DatabaseModule {}
