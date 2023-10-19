@@ -113,7 +113,7 @@ export class CouponController {
   @Put()
   async update(@Body() body: SaveCouponBody): Promise<{ coupon: ICouponView }> {
     const { coupon } = await this.saveCoupon.execute(body)
-
+    
     return {
       coupon: CouponViewModel.toHTTP(coupon),
     }

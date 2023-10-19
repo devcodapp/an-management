@@ -16,6 +16,7 @@ import { RestaurantModule } from './modules/restaurant/restaurant.module';
 import { RoleModule } from './modules/role/role.module';
 import { AuthModule } from './shared/modules/auth/auth.module';
 import { KafkaModule } from './shared/modules/kafka/kafka.module';
+import { RestaurantPaymentModule } from './modules/restaurant-payment/restaurant-payment.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { KafkaModule } from './shared/modules/kafka/kafka.module';
     KafkaModule,
     OwnerModule,
     RoleModule,
+    RestaurantPaymentModule,
     
   ],
   providers: [{
