@@ -29,6 +29,6 @@ jobs:
           sudo git checkout develop
           sudo git pull origin develop
           sudo git status
-          sudo npm install
-          sudo npm run build
+          sudo pnpm install
+          sudo pnpm run build
           pm2 restart node1
