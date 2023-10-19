@@ -29,6 +29,6 @@ jobs:
           git checkout develop
           git pull origin develop
           git status
-          pnpm install
-          pnpm run build
+          npm install
+          npm run build
           pm2 restart node1
