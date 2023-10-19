@@ -13,7 +13,6 @@ import { BooleanInterceptor } from 'src/interceptors/boolean/boolean.interceptor
 
 @UseGuards(AuthGuard)
 @Controller('restaurant-payment')
-// @UseInterceptors(BooleanInterceptor)
 export class RestaurantPaymentController {
 
     constructor(
