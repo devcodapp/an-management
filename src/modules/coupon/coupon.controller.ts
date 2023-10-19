@@ -111,6 +111,9 @@ export class CouponController {
   async update(@Body() body: SaveCouponBody): Promise<{ coupon: ICouponView }> {
     const { coupon } = await this.saveCoupon.execute(body)
 
+    console.log(coupon);
+    
+
     return {
       coupon: CouponViewModel.toHTTP(coupon),
     }

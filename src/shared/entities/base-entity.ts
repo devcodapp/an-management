@@ -29,9 +29,11 @@ export class BaseEntity {
   public get id(): string {
     return this._id;
   }
+  
   public get createdAt(): Date {
     return this._createdAt;
   }
+
   public get createdUser(): string {
     return this._createdUser;
   }
