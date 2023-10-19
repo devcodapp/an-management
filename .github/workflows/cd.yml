@@ -25,11 +25,10 @@ jobs:
         key: ${{ secrets.PRIVATE_KEY }}
         port: 22
         script: |
-          sudo -s
           cd /home/apps/back/an-management
-          git checkout develop
-          git pull origin develop
-          git status
-          yarn
-          yarn build
+          sudo git checkout develop
+          sudo git pull origin develop
+          sudo git status
+          sudo pnpm i
+          sudo pnpm build
           pm2 restart node1
