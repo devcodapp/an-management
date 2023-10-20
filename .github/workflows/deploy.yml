@@ -44,8 +44,8 @@ jobs:
     
     - name: Install dependencies for run
       run: |
-      cd /home/apps/back/an-management/dist 
-      sudo pnpm install
+        cd /home/apps/back/an-management/dist 
+        sudo pnpm install
     
     - name: Execute prisma
       run: |
