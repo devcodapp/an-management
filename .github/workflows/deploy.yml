@@ -31,13 +31,18 @@ jobs:
     - name: Build
       run: sudo npm run build
 
+    - name: Set up SSH
+      run: echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
     - name: Copy build to VPS
       run: |
-        scp -i ${{ secrets.PRIVATE_KEY }} -r ./dist/* ${{ secrets.USERNAME }}@${{ secrets.HOST }}:/home/apps/back/an-management
+        scp -i ~/.ssh/id_rsa -r ./dist/* ${{ secrets.USERNAME }}@${{ secrets.HOST }}:/home/apps/back/an-management
 
     - name: SSH into VPS and Deploy
       run: |
-        ssh -i ${{ secrets.PRIVATE_KEY }} ${{ secrets.USERNAME }}@${{ secrets.HOST }} "cd /home/apps/back/an-management && sudo pm2 restart dev-management"
+        ssh -i ~/.ssh/id_rsa ${{ secrets.USERNAME }}@${{ secrets.HOST }} "cd /home/apps/back/an-management && sudo pm2 restart dev-management"
     # - name: Deploy using ssh
     #   uses: appleboy/ssh-action@master
       # with:
