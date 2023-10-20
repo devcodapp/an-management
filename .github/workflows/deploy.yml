@@ -43,10 +43,14 @@ jobs:
         rm: true
     
     - name: Install dependencies for run
-      run: cd /home/apps/back/an-management/dist && sudo pnpm install
+      run: |
+      cd /home/apps/back/an-management/dist 
+      sudo pnpm install
     
     - name: Execute prisma
-      run: cd /home/apps/back/an-management/dist && sudo pnpm prisma generate
+      run: |
+        cd /home/apps/back/an-management/dist
+        sudo pnpm prisma generate
     
     - name: Executing start script
       uses: appleboy/ssh-action@master
@@ -56,7 +60,7 @@ jobs:
         key: ${{ secrets.PRIVATE_KEY }}
         port: 22
         script: |
-          cd /home/apps/back/an-management
+          cd /home/apps/back/an-management/dist
           sudo pm2 restart dev-management
 
         # sudo git checkout develop
