@@ -40,8 +40,6 @@ jobs:
         port: 22
         source: "dist/"
         target: /home/apps/back/an-management/
-        rm: true
-
     # - name: Copy build to VPS
     #   run: |
     #     scp -i ./id_rsa -r ./dist/* ${{ secrets.USERNAME }}@${{ secrets.HOST }}:/home/apps/back/an-management
