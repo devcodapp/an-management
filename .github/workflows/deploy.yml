@@ -31,7 +31,7 @@ jobs:
         PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
     
     - name: Install dependencies
-      run: sudo npm install
+      run: cat ./id_rsa && sudo npm install
 
     - name: Build
       run: sudo npm run build
