@@ -26,10 +26,10 @@ jobs:
         node-version: 18
     
     - name: Install dependencies
-      run: sudo pnpm install
+      run: sudo npm install
 
     - name: Build
-      run: sudo pnpm build
+      run: sudo npm run build
 
     - name: Copy build to VPS
       run: |
