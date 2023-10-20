@@ -37,9 +37,9 @@ jobs:
 
     - name: SSH into VPS and Deploy
       run: |
-        ssh -i ${{ secrets.SSH_PRIVATE_KEY }} ${{ secrets.USERNAME }}@${{ secrets.HOST }} "cd /home/apps/back/an-management && sudo pm2 restart dev-management"
-    - name: Deploy using ssh
-      uses: appleboy/ssh-action@master
+        ssh -i ${{ secrets.PRIVATE_KEY }} ${{ secrets.USERNAME }}@${{ secrets.HOST }} "cd /home/apps/back/an-management && sudo pm2 restart dev-management"
+    # - name: Deploy using ssh
+    #   uses: appleboy/ssh-action@master
       # with:
       #   host: ${{ secrets.HOST }}
       #   username: ${{ secrets.USERNAME }}
