@@ -51,7 +51,7 @@ jobs:
         port: 22
         script: |
           cd /home/apps/back/an-management/dist 
-          sudo pnpm install
+          sudo pnpm install --ignore-scripts
 
     - name: Execute prisma
       uses: appleboy/ssh-action@master
