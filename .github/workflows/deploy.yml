@@ -25,7 +25,7 @@ jobs:
       with:
         node-version: 18
     
-    - name: Install dependencies
+    - name: Install dependencies for build
       run: sudo npm install
 
     - name: Build
@@ -41,13 +41,13 @@ jobs:
         source: "./dist/*"
         target: /home/apps/back/an-management
         rm: true
-    # - name: Copy build to VPS
-    #   run: |
-    #     scp -i ./id_rsa -r ./dist/* ${{ secrets.USERNAME }}@${{ secrets.HOST }}:/home/apps/back/an-management
-
-    # - name: SSH into VPS and Deploy
-    #   run: |
-    #     ssh -i ./id_rsa ${{ secrets.USERNAME }}@${{ secrets.HOST }} "cd /home/apps/back/an-management && sudo pm2 restart dev-management"
+    
+    - name: Install dependencies for run
+      run: cd /home/apps/back/an-management/dist && sudo pnpm install
+    
+    - name: Execute prisma
+      run: cd /home/apps/back/an-management/dist && sudo pnpm prisma generate
+    
     - name: Executing start script
       uses: appleboy/ssh-action@master
       with:
