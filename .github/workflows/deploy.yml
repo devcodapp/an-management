@@ -50,7 +50,6 @@ jobs:
         port: 22
         source: "./dist/*"
         target: /home/apps/back/an-management
-        rm: true
     
     - name: Install dependencies for run
       uses: appleboy/ssh-action@master
