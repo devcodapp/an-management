@@ -26,7 +26,7 @@ jobs:
         node-version: 18
     
     - name: Install dependencies
-      run: cat ./id_rsa && sudo npm install
+      run: sudo npm install
 
     - name: Build
       run: sudo npm run build
