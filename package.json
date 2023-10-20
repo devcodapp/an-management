@@ -8,7 +8,7 @@
   "scripts": {
     "prismix": "npx prismix && prisma format && npx prisma generate",
     "build": "npm run prismix && nest build && npm run copy",
-    "copy": "cp package.json dist && cp .env dist",
+    "copy": "cp package.json dist && cp .env dist && cp -r prisma dist",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
