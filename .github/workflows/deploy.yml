@@ -43,16 +43,28 @@ jobs:
         rm: true
     
     - name: Install dependencies for run
-      run: |
-        cd /home/apps/back/an-management/dist 
-        sudo pnpm install
-    
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.PRIVATE_KEY }}
+        port: 22
+        script: |
+          cd /home/apps/back/an-management/dist 
+          sudo pnpm install
+
     - name: Execute prisma
-      run: |
-        cd /home/apps/back/an-management/dist
-        sudo pnpm prisma generate
-    
-    - name: Executing start script
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.PRIVATE_KEY }}
+        port: 22
+        script: |
+          cd /home/apps/back/an-management/dist
+          sudo pnpm prisma generate
+
+    - name: Execute start script
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.HOST }}
