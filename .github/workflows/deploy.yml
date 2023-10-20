@@ -17,18 +17,39 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: 18
+    
+    - name: Install dependencies
+      run: sudo pnpm install
+
+    - name: Build
+      run: sudo pnpm build
+
+    - name: Copy build to VPS
+      run: |
+        scp -i ${{ secrets.PRIVATE_KEY }} -r ./dist/* ${{ secrets.USERNAME }}@${{ secrets.HOST }}:/home/apps/back/an-management
+
+    - name: SSH into VPS and Deploy
+      run: |
+        ssh -i ${{ secrets.SSH_PRIVATE_KEY }} ${{ secrets.USERNAME }}@${{ secrets.HOST }} "cd /home/apps/back/an-management && sudo pm2 restart dev-management"
     - name: Deploy using ssh
       uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.PRIVATE_KEY }}
-        port: 22
-        script: |
-          cd /home/apps/back/an-management
-          sudo git checkout develop
-          sudo git pull origin develop
-          sudo git status
-          sudo pnpm i
-          sudo pnpm build
-          sudo pm2 restart dev-management
+      # with:
+      #   host: ${{ secrets.HOST }}
+      #   username: ${{ secrets.USERNAME }}
+      #   key: ${{ secrets.PRIVATE_KEY }}
+      #   port: 22
+      #   script: |
+      #     cd /home/apps/back/an-management
+      #     sudo git checkout develop
+      #     sudo git pull origin develop
+      #     sudo git status
+      #     sudo pnpm i
+      #     sudo pnpm build
+      #     sudo pm2 restart dev-management
