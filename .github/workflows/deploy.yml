@@ -30,6 +30,16 @@ jobs:
 
     - name: Build
       run: sudo npm run build
+      
+    - name: Stop pm2
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.PRIVATE_KEY }}
+        port: 22
+        script: |
+          sudo pm2 stop dev-management
 
     - name: Copy build to VPS
       uses: appleboy/scp-action@v0.1.4
@@ -51,7 +61,7 @@ jobs:
         port: 22
         script: |
           cd /home/apps/back/an-management/dist 
-          sudo pnpm install --ignore-scripts
+          sudo pnpm install
 
     - name: Execute prisma
       uses: appleboy/ssh-action@master
