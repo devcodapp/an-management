@@ -89,10 +89,4 @@ jobs:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_DEPLOYS }}
       uses: Ilshidur/action-discord@master
       with:
-        args: 'O projeto {{ EVENT_PAYLOAD.repository.full_name }} - DEV foi implementado com sucesso na VPS.'
-
-        # sudo git checkout develop
-        # sudo git pull origin develop
-        # sudo git status
-        # sudo pnpm i
-        # sudo pnpm build
+        args: 'O projeto {{ EVENT_PAYLOAD.repository.full_name }} foi implementado com sucesso na VPS.'
