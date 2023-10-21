@@ -84,6 +84,13 @@ jobs:
           cd /home/apps/back/an-management/dist
           sudo pm2 restart dev-management
 
+    - name: Discord notification
+      env:
+        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_DEPLOYS }}
+      uses: Ilshidur/action-discord@master
+      with:
+        args: 'O projeto {{ EVENT_PAYLOAD.repository.full_name }} - DEV foi implementado com sucesso na VPS.'
+
         # sudo git checkout develop
         # sudo git pull origin develop
         # sudo git status
